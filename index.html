@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Geek Informatic</title>
-<meta name="description" content="Geek Informatic — вебквести з інформатики для учнів: кібербезпека, алгоритми та програмування у форматі місій.">
+<meta name="description" content="Geek Informatic — вебквести та ребуси з інформатики для учнів: кібербезпека, алгоритми та програмування у форматі місій і ігор.">
 <meta property="og:title" content="Geek Informatic — вебквести з інформатики">
 <meta property="og:description" content="Проходь місії, збирай ключі й отримуй посвідчення агента.">
 <meta name="theme-color" content="#EEF3FA">
@@ -17,7 +17,7 @@
   --paper:#EEF3FA; --surface:#FFFFFF; --ink:#14213A; --muted:#56668A; --line:#CCD7E8; --grid:rgba(45,85,224,.10);
   --accent:#2D55E0; --accent-deep:#1B3AA8; --accent-ink:#FFFFFF; --accent-soft:#E1E8FD;
   --margin:#E3655B; --hl:#FFE45C; --ok:#17905A;
-  --cover-1:#2D55E0; --cover-1b:#1B3AA8; --cover-2:#251B5C; --cover-2b:#150F38;
+  --cover-1:#2D55E0; --cover-1b:#1B3AA8; --cover-2:#251B5C; --cover-2b:#150F38; --cover-3:#E8505B; --cover-3b:#B02A47;
   --f-display:"Unbounded","Arial Black",system-ui,sans-serif;
   --f-body:"Nunito","Segoe UI",system-ui,-apple-system,sans-serif;
   --f-hand:"Caveat","Segoe Print","Comic Sans MS",cursive;
@@ -89,6 +89,7 @@ h1 .hl{background:linear-gradient(transparent 60%,var(--hl) 60%,var(--hl) 92%,tr
 .book:hover{transform:translateY(-4px) rotate(-.4deg)}
 .book.b1{--c1:var(--cover-1);--c2:var(--cover-1b)}
 .book.b2{--c1:var(--cover-2);--c2:var(--cover-2b)}
+.book.b3{--c1:var(--cover-3);--c2:var(--cover-3b)}
 .cover{padding:24px 24px 0 40px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;min-height:150px}
 .cover svg{width:112px;height:112px;flex:none}
 .grade{font:800 13px var(--f-body);background:rgba(255,255,255,.16);border:1.5px solid rgba(255,255,255,.35);padding:5px 12px;border-radius:999px;white-space:nowrap}
@@ -105,6 +106,10 @@ h1 .hl{background:linear-gradient(transparent 60%,var(--hl) 60%,var(--hl) 92%,tr
 .go{margin-top:auto;padding-top:8px;display:flex;align-items:center;justify-content:space-between;gap:10px}
 .btn{font:800 16px/1 var(--f-body);background:#2D55E0;color:#FFFFFF;padding:13px 20px;border-radius:12px;box-shadow:0 3px 0 #1B3AA8;display:inline-flex;align-items:center;gap:8px}
 .b2 .btn{background:#251B5C;box-shadow:0 3px 0 #0B0720}
+.b3 .btn{background:#B02A47;box-shadow:0 3px 0 #6E1328}
+.b3 .label .subj{color:#B02A47}
+.b3 .facts svg{color:#B02A47}
+.quests + .quests{padding-top:0}
 .btn svg{width:18px;height:18px;transition:transform .2s}
 .book:hover .btn svg{transform:translateX(3px)}
 .go small{font:700 19px/1 var(--f-hand);color:#56668A}
@@ -139,7 +144,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
       <span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="#FFE45C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 7l-5 5 5 5M15 7l5 5-5 5"/></svg></span>
       <span>Geek Informatic<small>уроки інформатики</small></span>
     </a>
-    <nav><a href="#quests">Вебквести</a></nav>
+    <nav><a href="#quests">Вебквести</a> <a href="#rebuses" style="margin-left:14px">Ребуси</a></nav>
   </div>
 </header>
 
@@ -226,6 +231,44 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
             <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/></svg>1 місія</span>
           </div>
           <div class="go"><span class="btn">Почати місію<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><small>тестовий рівень</small></div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <section class="wrap quests" id="rebuses" aria-labelledby="rh">
+    <div class="sec-head"><h2 id="rh">Ребуси</h2><p>розгадай слово</p></div>
+    <div class="grid">
+
+      <a class="book b3" href="rebusy/">
+        <div class="cover">
+          <span class="grade">1–11 клас</span>
+          <svg viewBox="0 0 120 120" aria-hidden="true">
+            <g transform="rotate(-8 40 66)">
+              <rect x="10" y="38" width="62" height="62" rx="12" fill="#FFE45C" stroke="#14213A" stroke-width="4"/>
+              <path d="M41 50a14 14 0 0 0-8 25c2 2 3 4 3 7h10c0-3 1-5 3-7a14 14 0 0 0-8-25z" fill="#FFFFFF" stroke="#14213A" stroke-width="3.5" stroke-linejoin="round"/>
+              <path d="M36 88h10" stroke="#14213A" stroke-width="3.5" stroke-linecap="round"/>
+            </g>
+            <g transform="rotate(9 84 52)">
+              <rect x="58" y="14" width="56" height="56" rx="12" fill="#C6F0D8" stroke="#14213A" stroke-width="4"/>
+              <path d="M76 36a9 9 0 1 1 13 8c-3 2-4 4-4 7" stroke="#14213A" stroke-width="5" fill="none" stroke-linecap="round"/>
+              <circle cx="85" cy="59" r="3.2" fill="#14213A"/>
+            </g>
+            <path d="M82 96c0 8-4 13-10 15" stroke="#FFE45C" stroke-width="8" fill="none" stroke-linecap="round"/>
+            <circle cx="84" cy="90" r="6" fill="#FFE45C"/>
+          </svg>
+        </div>
+        <div class="label">
+          <span class="subj">Ребуси</span>
+          <h3>100 ребусів з інформатики</h3>
+          <p>Картинки, коми й заміни літер ховають комп’ютерні слова. Склади їх разом і впиши відповідь.</p>
+          <div class="facts">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6M9 13h4"/></svg>100 ребусів</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.7.6 1.1 1.3 1.1 2.2h5c0-.9.4-1.6 1.1-2.2A6 6 0 0 0 12 3z"/></svg>підказки</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg>4 рівні складності</span>
+          </div>
+          <div class="go"><span class="btn">Розгадувати<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><small>випадковий порядок</small></div>
         </div>
       </a>
 
