@@ -17,7 +17,7 @@
   --paper:#EEF3FA; --surface:#FFFFFF; --ink:#14213A; --muted:#56668A; --line:#CCD7E8; --grid:rgba(45,85,224,.10);
   --accent:#2D55E0; --accent-deep:#1B3AA8; --accent-ink:#FFFFFF; --accent-soft:#E1E8FD;
   --margin:#E3655B; --hl:#FFE45C; --ok:#17905A;
-  --cover-1:#2D55E0; --cover-1b:#1B3AA8; --cover-2:#251B5C; --cover-2b:#150F38; --cover-3:#E8505B; --cover-3b:#B02A47; --cover-4:#12A38A; --cover-4b:#0B6B6E;
+  --cover-1:#2D55E0; --cover-1b:#1B3AA8; --cover-2:#251B5C; --cover-2b:#150F38; --cover-3:#E8505B; --cover-3b:#B02A47; --cover-4:#12A38A; --cover-4b:#0B6B6E; --cover-5:#C4572B; --cover-5b:#7A2E17;
   --f-display:"Unbounded","Arial Black",system-ui,sans-serif;
   --f-body:"Nunito","Segoe UI",system-ui,-apple-system,sans-serif;
   --f-hand:"Caveat","Segoe Print","Comic Sans MS",cursive;
@@ -91,6 +91,7 @@ h1 .hl{background:linear-gradient(transparent 60%,var(--hl) 60%,var(--hl) 92%,tr
 .book.b2{--c1:var(--cover-2);--c2:var(--cover-2b)}
 .book.b3{--c1:var(--cover-3);--c2:var(--cover-3b)}
 .book.b4{--c1:var(--cover-4);--c2:var(--cover-4b)}
+.book.b5{--c1:var(--cover-5);--c2:var(--cover-5b)}
 .cover{padding:24px 24px 0 40px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;min-height:150px}
 .cover svg{width:112px;height:112px;flex:none}
 .grade{font:800 13px var(--f-body);background:rgba(255,255,255,.16);border:1.5px solid rgba(255,255,255,.35);padding:5px 12px;border-radius:999px;white-space:nowrap}
@@ -113,6 +114,9 @@ h1 .hl{background:linear-gradient(transparent 60%,var(--hl) 60%,var(--hl) 92%,tr
 .b4 .btn{background:#0B7A6C;box-shadow:0 3px 0 #054A42}
 .b4 .label .subj{color:#0B7A6C}
 .b4 .facts svg{color:#0B7A6C}
+.b5 .btn{background:#A8441F;box-shadow:0 3px 0 #5E2410}
+.b5 .label .subj{color:#A8441F}
+.b5 .facts svg{color:#A8441F}
 .quests + .quests{padding-top:0}
 .btn svg{width:18px;height:18px;transition:transform .2s}
 .book:hover .btn svg{transform:translateX(3px)}
@@ -279,6 +283,39 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
             <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6M9 13h4"/></svg>10 рівнів</span>
             <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/></svg>цикли</span>
             <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg>зірки за найкоротший шлях</span>
+          </div>
+          <div class="go"><span class="btn">Грати<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+        </div>
+      </a>
+
+      <a class="book b5" href="mars/">
+        <div class="cover">
+          <svg viewBox="0 0 120 120" aria-hidden="true">
+            <ellipse cx="60" cy="104" rx="42" ry="6" fill="#000" opacity=".2"/>
+            <circle cx="96" cy="26" r="9" fill="none" stroke="#FFD9A8" stroke-width="2.5" stroke-dasharray="3 4" opacity=".8"/>
+            <g stroke="#2A1208" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+              <path d="M30 86L22 100M60 86V101M90 86L98 100" fill="none" stroke="#6b6b78" stroke-width="3.5"/>
+              <rect x="14" y="94" width="20" height="14" rx="6" fill="#22222b"/><rect x="50" y="94" width="20" height="14" rx="6" fill="#22222b"/><rect x="86" y="94" width="20" height="14" rx="6" fill="#22222b"/>
+              <rect x="22" y="56" width="76" height="38" rx="10" fill="#EAE3D8"/>
+              <rect x="14" y="28" width="52" height="30" rx="4" fill="#27468A" transform="rotate(-8 40 43)"/>
+              <path d="M26 31V57M40 29V55M54 27V53M16 42H64" stroke="#7DA0EA" stroke-width="1.6" fill="none" transform="rotate(-8 40 43)"/>
+              <path d="M82 56V38" fill="none"/>
+              <rect x="72" y="14" width="26" height="24" rx="8" fill="#F4EFE6"/>
+              <circle cx="80" cy="26" r="5.5" fill="#FFFFFF" stroke-width="2.4"/><circle cx="91" cy="26" r="5.5" fill="#FFFFFF" stroke-width="2.4"/>
+              <circle cx="81" cy="27" r="2.2" fill="#0B1B2A" stroke="none"/><circle cx="92" cy="27" r="2.2" fill="#0B1B2A" stroke="none"/>
+              <path d="M30 70h22M30 78h14" fill="none" stroke-width="2.6" opacity=".35"/>
+              <circle cx="84" cy="74" r="6" fill="#FF5A4A" stroke-width="2.6"/>
+            </g>
+          </svg>
+        </div>
+        <div class="label">
+          <span class="subj">Алгоритми</span>
+          <h3>Марсохід у лабіринті</h3>
+          <p>Склади алгоритм правої руки, і марсохід вибереться з будь-якого лабіринту.</p>
+          <div class="facts">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/></svg>цикли «поки»</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v6M12 9l-6 6M12 9l6 6M6 15v6M18 15v6"/></svg>умови</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h9v6h9M9 3v6"/></svg>новий лабіринт щоразу</span>
           </div>
           <div class="go"><span class="btn">Грати<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
         </div>

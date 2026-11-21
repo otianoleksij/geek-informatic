@@ -2,7 +2,7 @@
 (function () {
   "use strict";
   var Core = window.GalaxyCore, LEVELS = window.GALAXY_LEVELS;
-  var KEY = "geek-galaxy-v1";
+  var KEY = "geek-galaxy-v2";
   var $ = function (id) { return document.getElementById(id); };
   var reduced = function () { return !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches); };
   var rnd = function (a, b) { return a + Math.random() * (b - a); };

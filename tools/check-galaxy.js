@@ -126,9 +126,9 @@ levels.forEach(function (lv, idx) {
   if (blocks > lv.maxBlocks) err(n, "блоків " + blocks + " > maxBlocks " + lv.maxBlocks);
   if (lv.par !== blocks) err(n, "par " + lv.par + " ≠ блоків у розв'язку " + blocks);
   if (lv.par > lv.maxBlocks) err(n, "par > maxBlocks");
-  if (n <= 5 && Core.countByType(sol).rep) err(n, "на рівнях 1–5 повторів бути не повинно");
-  if (n <= 5 && lv.allowed.indexOf("rep") >= 0) err(n, "на рівнях 1–5 «повторити» не має бути в allowed");
-  if (n >= 6 && lv.allowed.indexOf("rep") < 0) err(n, "на рівнях 6+ має бути rep в allowed");
+  if (n <= 3 && Core.countByType(sol).rep) err(n, "на рівнях 1–3 повторів бути не повинно");
+  if (n <= 3 && lv.allowed.indexOf("rep") >= 0) err(n, "на рівнях 1–3 «повторити» не має бути в allowed");
+  if (n >= 4 && lv.allowed.indexOf("rep") < 0) err(n, "на рівнях 4+ має бути rep в allowed");
   /* досяжність кристалів */
   var pm = Core.parseMap(lv), seen = {}, st = [pm.start];
   seen[pm.start.x + "," + pm.start.y] = 1;
@@ -144,12 +144,16 @@ levels.forEach(function (lv, idx) {
 
   minInfo = Core.minMovesNoRepeat(lv);
   var minStr = (minInfo.exact ? "" : "≥") + minInfo.value;
-  if (n >= 6) {
+  if (n <= 3) {
+    if (minInfo.value < 0 || minInfo.value > lv.maxBlocks) err(n, "BFS-мінімум " + minInfo.value + " > maxBlocks " + lv.maxBlocks);
+    else if (lv.maxBlocks - minInfo.value > 3) err(n, "запас maxBlocks − мін = " + (lv.maxBlocks - minInfo.value) + " > 3");
+  }
+  if (n >= 4) {
     if (minInfo.value >= 0 && !(minInfo.value > lv.maxBlocks)) err(n, "без повторів можна пройти за " + minInfo.value + " ходів ≤ maxBlocks " + lv.maxBlocks);
-    if (Core.countByType(sol).rep === 0) err(n, "на рівнях 6+ розв'язок має містити повтор");
+    if (Core.countByType(sol).rep === 0) err(n, "на рівнях 4+ розв'язок має містити повтор");
   }
   var nested = Core.hasNested(sol);
-  if (n >= 12) {
+  if (n >= 10) {
     if (!nested) err(n, "у розв'язку немає вкладеного повтору");
     var f = minFlatCost(lv, lv.maxBlocks);
     flat = f === Infinity ? ">" + lv.maxBlocks : String(f);
@@ -157,7 +161,7 @@ levels.forEach(function (lv, idx) {
   }
   if (n === 15 && Core.maxDepth(sol) < 3) err(n, "у фіналі очікується глибина вкладення 3");
   var lim = Object.keys(lv.limits).map(function (k) { return k + ":" + lv.limits[k]; }).join(" ") || "—";
-  rows.push([n, w + "×" + h, gems, lv.maxBlocks, blocks, lim, minStr, n >= 12 ? flat : "—", nested ? "так" : "—", lv.allowed.indexOf("rep") >= 0 ? "так" : "—"]);
+  rows.push([n, w + "×" + h, gems, lv.maxBlocks, blocks, lim, minStr, n >= 10 ? flat : "—", nested ? "так" : "—", lv.allowed.indexOf("rep") >= 0 ? "так" : "—"]);
   if (errors.length === before) okCount++;
 });
 
