@@ -351,9 +351,10 @@ h1 .hl{background:linear-gradient(transparent 58%,var(--hl) 58%,var(--hl) 90%,tr
 
 /* Шапка — як наліпка на обкладинці */
 .bar{box-shadow:0 1px 0 var(--line),0 8px 20px -18px rgba(20,33,58,.5);border-bottom:0}
-.home{display:inline-flex;align-items:center;gap:4px;font:800 14px var(--f-body);color:var(--muted);text-decoration:none;padding:6px 10px 6px 6px;border-radius:999px;border:1.5px solid var(--line);white-space:nowrap}
-.home svg{width:16px;height:16px}
-.home:hover{color:var(--accent);border-color:var(--accent)}
+.restart{display:inline-flex;align-items:center;gap:6px;font:800 14px var(--f-body);color:var(--muted);background:transparent;padding:6px 12px 6px 9px;border-radius:999px;border:1.5px solid var(--line);white-space:nowrap;cursor:pointer}
+.restart svg{width:16px;height:16px;flex:none}
+.restart:hover{color:var(--accent);border-color:var(--accent)}
+.restart.armed{color:var(--bad);border-color:var(--bad);background:var(--bad-bg)}
 .brand{font-size:15px}
 .key{border-radius:6px 6px 9px 9px}
 .key.got{transform:rotate(-3deg)}
@@ -395,8 +396,10 @@ button.mrow:hover{transform:translateX(3px)}
   .hero{grid-template-columns:1fr}
   .villain{flex-direction:row;align-items:center;gap:12px}
   .villain svg{width:84px;height:84px}
-  .home span{display:none}
-  .home{padding:6px}
+  .restart span{display:none}
+  .restart.armed span{display:inline}
+  .restart{padding:6px}
+  .restart.armed{padding:6px 10px}
   .bar .wrap{gap:8px 10px}
   .meta{margin-left:auto}
   .keys{order:3;width:100%;margin-left:0;justify-content:space-between;max-width:320px}
@@ -408,13 +411,13 @@ button.mrow:hover{transform:translateX(3px)}
 
 <header class="bar">
   <div class="wrap">
-    <a class="home" href="../../" aria-label="Усі вебквести"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span>Квести</span></a>
     <div class="brand">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.5l8 3v6.2c0 4.9-3.4 8.3-8 9.8-4.6-1.5-8-4.9-8-9.8V5.5z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>
       КіберЩит
     </div>
     <div class="keys" id="keys" aria-label="Зібрані ключі"></div>
     <div class="meta"><span>Час <b id="timer">00:00</b></span><span>Бали <b id="pts">0</b></span></div>
+    <button type="button" class="restart" id="restart" hidden title="Почати квест спочатку"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4.5h4.5"/></svg><span>Почати спочатку</span></button>
   </div>
 </header>
 <main class="wrap"><div id="view" class="stack lg"></div></main>
@@ -826,8 +829,11 @@ var TOTAL = M.reduce(function(s,m){ return s + m.tasks.reduce(function(a,t){retu
 
 /* ---------- State ---------- */
 function fresh(){ return {name:"",cls:"",started:0,finished:0,done:[],scores:{},screen:"start",cur:0,task:0}; }
-function load(){ try{ var r=localStorage.getItem(LS); return r?JSON.parse(r):null; }catch(e){ return null; } }
-function save(){ try{ localStorage.setItem(LS, JSON.stringify(S)); }catch(e){} }
+/* Прогрес зберігається 5 хв від останньої дії учня; після цього квест починається з нуля. */
+var TTL = 5*60*1000;
+function expired(st){ return !st || !st.savedAt || Date.now()-st.savedAt > TTL; }
+function load(){ try{ var r=localStorage.getItem(LS); if(!r) return null; var st=JSON.parse(r); if(expired(st)){ localStorage.removeItem(LS); return null; } return st; }catch(e){ return null; } }
+function save(){ S.savedAt=Date.now(); try{ localStorage.setItem(LS, JSON.stringify(S)); }catch(e){} }
 var S = load() || fresh();
 if(S.started && S.screen==="start") S.screen = S.finished ? "cert" : "map";
 
@@ -853,6 +859,7 @@ setInterval(function(){ document.getElementById("timer").textContent = fmt(elaps
 
 function render(){
   header();
+  document.getElementById("restart").hidden = !S.started;
   var f = {start:startScreen, map:mapScreen, brief:briefScreen, task:taskScreen, done:doneScreen, final:finalScreen, cert:certScreen}[S.screen] || startScreen;
   f();
 }
@@ -1378,6 +1385,24 @@ function certScreen(){
     var keep={name:S.name, cls:S.cls}; S=fresh(); S.name=keep.name; S.cls=keep.cls; go("start");
   });
 }
+
+function resetAll(){ timers.forEach(clearTimeout); timers=[]; try{ localStorage.removeItem(LS); }catch(e){} S=fresh(); go("start"); }
+
+/* Будь-яка дія учня продовжує 5 хвилин */
+var lastTouch=0;
+function touch(){ var n=Date.now(); if(n-lastTouch<15000) return; lastTouch=n; if(S.started) save(); }
+document.addEventListener("pointerdown",touch,true);
+document.addEventListener("keydown",touch,true);
+function checkExpired(){ if(S.started && expired(S)) resetAll(); }
+document.addEventListener("visibilitychange",function(){ if(!document.hidden) checkExpired(); });
+setInterval(checkExpired, 30000);
+
+var rb=document.getElementById("restart"), rbArmed=null;
+function disarm(){ clearTimeout(rbArmed); rbArmed=null; rb.classList.remove("armed"); rb.querySelector("span").textContent="Почати спочатку"; }
+rb.addEventListener("click",function(){
+  if(!rbArmed){ rb.classList.add("armed"); rb.querySelector("span").textContent="Стерти прогрес? Ще раз"; rbArmed=setTimeout(disarm,4000); return; }
+  disarm(); resetAll();
+});
 
 render();
 })();
