@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Код Галактики</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Nunito:wght@400;600;700;800&family=Unbounded:wght@600;800&display=swap">
+<script src="https://unpkg.com/blockly@10.4.3/blockly_compressed.js"></script>
+<script src="https://unpkg.com/blockly@10.4.3/msg/uk.js"></script>
+<style>
+:root{
+  --space:#070B1E; --panel:#111833; --panel-2:#18214A; --ink:#E8ECFF; --muted:#9AA5D1; --line:#2A3566;
+  --accent:#5EE6FF; --accent-ink:#04121A; --signal:#FFC94A; --ok:#4BE39A; --bad:#FF6B6B;
+  --c-move:#3B82F6; --c-turn:#A855F7; --c-start:#F59E0B;
+  --f-display:"Unbounded","Arial Black",system-ui,sans-serif;
+  --f-body:"Nunito","Segoe UI",system-ui,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --r:16px;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  background:var(--space);
+  background-image:
+    radial-gradient(1px 1px at 12% 18%,#fff8 50%,transparent 51%),
+    radial-gradient(1px 1px at 78% 12%,#fff9 50%,transparent 51%),
+    radial-gradient(1.5px 1.5px at 40% 70%,#fff6 50%,transparent 51%),
+    radial-gradient(1px 1px at 90% 60%,#fff7 50%,transparent 51%),
+    radial-gradient(1px 1px at 25% 90%,#fff5 50%,transparent 51%),
+    radial-gradient(1.5px 1.5px at 60% 35%,#fff6 50%,transparent 51%),
+    radial-gradient(600px 400px at 85% -10%,#3b2a8a55,transparent 70%),
+    radial-gradient(500px 400px at -10% 100%,#0e5a7a44,transparent 70%);
+  color:var(--ink); font-family:var(--f-body); font-size:16px; line-height:1.5;
+  min-height:100vh;
+}
+.wrap{max-width:1100px;margin:0 auto;padding:20px 16px 32px}
+
+/* header */
+.home{font:700 14px var(--f-body);color:var(--muted);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:6px 12px;background:#0d1430;white-space:nowrap}
+.home:hover{color:var(--accent);border-color:var(--accent)}
+.home:focus-visible{outline:3px solid var(--signal);outline-offset:2px}
+.top{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+.logo{font-family:var(--f-display);font-weight:800;font-size:clamp(20px,3.4vw,28px);letter-spacing:.02em;margin:0;
+  background:linear-gradient(90deg,var(--accent),#B08CFF);-webkit-background-clip:text;background-clip:text;color:transparent}
+.tag{font-family:var(--f-mono);font-size:12px;color:var(--accent);border:1px solid var(--line);border-radius:999px;padding:4px 10px;background:#0d1430}
+.keys{margin-left:auto;display:flex;gap:6px}
+.key{width:30px;height:34px;border-radius:8px;border:1px dashed var(--line);display:grid;place-items:center;font-family:var(--f-display);font-size:14px;color:var(--muted)}
+.key.got{border:1px solid var(--signal);background:#2a2208;color:var(--signal);box-shadow:0 0 12px #ffc94a55}
+
+/* briefing */
+.brief{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;margin-bottom:16px;display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start}
+.brief .num{font-family:var(--f-display);font-size:13px;color:var(--accent-ink);background:var(--accent);border-radius:10px;padding:8px 10px;white-space:nowrap}
+.brief h2{font-family:var(--f-display);font-size:18px;margin:0 0 4px}
+.brief p{margin:0 0 6px;color:var(--muted)}
+.brief p b{color:var(--ink)}
+.goal{display:inline-flex;gap:8px;align-items:center;background:#0b2a33;border:1px solid #1d5866;color:var(--accent);border-radius:10px;padding:6px 10px;font-weight:700;font-size:14px;margin-top:4px}
+
+/* main layout */
+.main{display:grid;grid-template-columns:minmax(280px,420px) 1fr;gap:16px}
+@media (max-width:820px){.main{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:14px}
+.card h3{font-family:var(--f-display);font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 10px;display:flex;justify-content:space-between;align-items:center}
+.card h3 span{font-family:var(--f-mono);text-transform:none;letter-spacing:0;color:var(--accent);font-size:12px}
+
+/* stage */
+.stage{position:relative;aspect-ratio:1/1;width:100%;border-radius:12px;overflow:hidden;
+  background:#060a1c;border:1px solid var(--line);
+  display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(6,1fr)}
+.cell{border-right:1px solid #1a2350;border-bottom:1px solid #1a2350;position:relative}
+.cell.path{background:#0f1a3d}
+.obj{position:absolute;display:grid;place-items:center;transition:left .38s ease,top .38s ease,transform .38s ease;pointer-events:none}
+.obj svg{width:72%;height:72%}
+.drone{z-index:3}
+.drone.crash{animation:shake .4s}
+@keyframes shake{25%{translate:-4px 0}75%{translate:4px 0}}
+.crystal svg{animation:pulse 1.6s ease-in-out infinite;filter:drop-shadow(0 0 8px #5ee6ffaa)}
+.crystal.taken{opacity:0;transform:scale(1.8);transition:opacity .4s,transform .4s}
+@keyframes pulse{50%{transform:scale(1.1)}}
+.start-pad{position:absolute;border:2px dashed #f59e0b88;border-radius:10px;inset:auto}
+
+.controls{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.btn{font:800 15px var(--f-body);border:0;border-radius:12px;padding:11px 16px;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn-run{background:var(--ok);color:#03200f;flex:1;justify-content:center}
+.btn-run:hover:not(:disabled){filter:brightness(1.08)}
+.btn-ghost{background:var(--panel-2);color:var(--ink);border:1px solid var(--line)}
+.btn-ghost:hover{border-color:var(--accent)}
+.status{margin-top:10px;min-height:44px;border-radius:10px;padding:10px 12px;font-weight:700;font-size:14px;background:#0b1129;border:1px solid var(--line);color:var(--muted)}
+.status.ok{border-color:#1f7a50;background:#0b2a1c;color:var(--ok)}
+.status.bad{border-color:#7a2a2a;background:#2a0f12;color:var(--bad)}
+
+/* blockly */
+#blockly{height:460px;width:100%;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+@media (max-width:820px){#blockly{height:380px}}
+.blocklyMainBackground{stroke:none!important}
+.blocklyFlyoutBackground{fill:#141c40!important;fill-opacity:1!important}
+.blocklyText{font-family:var(--f-body)!important;font-weight:700!important}
+.hint{margin-top:10px;font-size:14px;color:var(--muted)}
+.hint summary{cursor:pointer;color:var(--accent);font-weight:700}
+.hint ul{margin:8px 0 0;padding-left:20px}
+
+/* modal */
+.modal{position:fixed;inset:0;background:#02040dcc;display:none;place-items:center;padding:16px;z-index:50}
+.modal.show{display:grid}
+.modal-box{background:var(--panel);border:1px solid var(--signal);border-radius:20px;max-width:420px;width:100%;padding:26px 22px;text-align:center;box-shadow:0 0 60px #ffc94a33}
+.big-key{width:86px;height:96px;margin:6px auto 14px;border-radius:16px;background:#2a2208;border:2px solid var(--signal);display:grid;place-items:center;font:800 44px var(--f-display);color:var(--signal);box-shadow:0 0 30px #ffc94a66;animation:pop .5s ease}
+@keyframes pop{0%{transform:scale(.3) rotate(-20deg)}70%{transform:scale(1.1)}100%{transform:scale(1)}}
+.modal-box h2{font-family:var(--f-display);font-size:20px;margin:0 0 8px}
+.modal-box p{color:var(--muted);margin:0 0 16px}
+.stars{font-size:26px;letter-spacing:4px;margin-bottom:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <a class="home" href="../../" aria-label="Усі вебквести">&#8592; Квести</a>
+    <h1 class="logo">Код Галактики</h1>
+    <span class="tag">ТЕСТОВА МІСІЯ · 7 КЛАС</span>
+    <div class="keys" aria-label="Зібрані ключі">
+      <div class="key" id="key1">?</div><div class="key">?</div><div class="key">?</div>
+    </div>
+  </header>
+
+  <section class="brief">
+    <div class="num">Місія 1</div>
+    <div>
+      <h2>Перший запуск</h2>
+      <p>Зореліт «Аврора» втратив енергію після метеоритного дощу. Ремонтний дроїд <b>Біп</b> стоїть у доку, але виконує тільки команди з програми. Склади для нього <b>лінійний алгоритм</b>: команди виконуються одна за одною, згори донизу.</p>
+      <div class="goal">🎯 Доведи дроїда до кристала енергії й не врізайся в астероїди</div>
+    </div>
+  </section>
+
+  <div class="main">
+    <section class="card">
+      <h3>Сектор 7-G <span id="pos">дроїд: ➜ схід</span></h3>
+      <div class="stage" id="stage"></div>
+      <div class="controls">
+        <button class="btn btn-run" id="run">▶ Запустити програму</button>
+        <button class="btn btn-ghost" id="reset">↺ Скинути</button>
+      </div>
+      <div class="status" id="status">Перетягни блоки праворуч під блок «коли запущено», а потім натисни «Запустити».</div>
+    </section>
+
+    <section class="card">
+      <h3>Програма дроїда <span id="count">блоків: 0</span></h3>
+      <div id="blockly"></div>
+      <details class="hint">
+        <summary>💡 Підказка</summary>
+        <ul>
+          <li>Блоки треба <b>приєднати</b> до «коли запущено», щоб вони «клацнули» один під одного.</li>
+          <li>Поворот не рухає дроїда, він тільки розвертається на місці.</li>
+          <li>Порахуй клітинки до кристала: скільки праворуч і скільки вгору?</li>
+          <li>Зайвий блок можна перетягнути назад у ліву панель, і він видалиться.</li>
+        </ul>
+      </details>
+    </section>
+  </div>
+</div>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mtitle">
+  <div class="modal-box">
+    <div class="stars" id="stars">⭐⭐⭐</div>
+    <div class="big-key">К</div>
+    <h2 id="mtitle">Ключ «К» — твій!</h2>
+    <p id="mtext">Дроїд Біп дістався до кристала. Енергію відновлено на 11%.</p>
+    <button class="btn btn-run" id="close" style="width:100%">Далі ➜</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  // ---------- level ----------
+  var N = 6;
+  var LEVEL = {
+    start:{x:0,y:5,dir:0},          // dir: 0 схід, 1 північ, 2 захід, 3 південь
+    crystal:{x:4,y:2},
+    rocks:[{x:2,y:3},{x:1,y:1},{x:5,y:4},{x:3,y:0},{x:0,y:2}],
+    best:8
+  };
+  var DIRS=[[1,0],[0,-1],[-1,0],[0,1]];
+  var DIR_NAMES=['➜ схід','⬆ північ','⬅ захід','⬇ південь'];
+
+  // ---------- svg art ----------
+  var DRONE='<svg viewBox="0 0 64 64"><defs><linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="#9fb4ff"/><stop offset="1" stop-color="#e8ecff"/></linearGradient></defs>'+
+    '<path d="M10 20 L26 26 L26 38 L10 44 Z" fill="#5b6bd6"/>'+
+    '<path d="M4 28 h8 v8 h-8z" fill="#ff8a3d"/><path d="M0 30 h5 v4 h-5z" fill="#ffd15c"/>'+
+    '<rect x="18" y="18" width="30" height="28" rx="10" fill="url(#g1)"/>'+
+    '<path d="M46 24 L60 32 L46 40 Z" fill="#5ee6ff"/>'+
+    '<circle cx="36" cy="32" r="6" fill="#0b1129"/><circle cx="37.5" cy="30.5" r="2" fill="#5ee6ff"/></svg>';
+  var CRYSTAL='<svg viewBox="0 0 64 64"><path d="M32 4 L50 24 L32 60 L14 24 Z" fill="#5ee6ff"/><path d="M32 4 L50 24 L32 30 L14 24 Z" fill="#b8f6ff"/><path d="M32 30 L50 24 L32 60 Z" fill="#2bb8d6"/></svg>';
+  var ROCK='<svg viewBox="0 0 64 64"><path d="M14 22 L28 8 L48 12 L58 30 L50 52 L26 58 L8 42 Z" fill="#6b5a4e"/><path d="M14 22 L28 8 L48 12 L40 22 L22 26 Z" fill="#8a7564"/><circle cx="24" cy="38" r="6" fill="#4d4038"/><circle cx="42" cy="30" r="4" fill="#4d4038"/><circle cx="40" cy="46" r="3" fill="#4d4038"/></svg>';
+
+  var stage=document.getElementById('stage');
+  for(var i=0;i<N*N;i++){var c=document.createElement('div');c.className='cell';stage.appendChild(c);}
+  function place(el,x,y){el.style.left=(x*100/N)+'%';el.style.top=(y*100/N)+'%';el.style.width=(100/N)+'%';el.style.height=(100/N)+'%';}
+  function mk(cls,html,x,y){var d=document.createElement('div');d.className='obj '+cls;d.innerHTML=html;place(d,x,y);stage.appendChild(d);return d;}
+
+  var pad=document.createElement('div');pad.className='start-pad';place(pad,LEVEL.start.x,LEVEL.start.y);stage.appendChild(pad);
+  LEVEL.rocks.forEach(function(r){mk('rock',ROCK,r.x,r.y);});
+  var crystalEl=mk('crystal',CRYSTAL,LEVEL.crystal.x,LEVEL.crystal.y);
+  var droneEl=mk('drone',DRONE,LEVEL.start.x,LEVEL.start.y);
+
+  var st;
+  function resetState(){
+    st={x:LEVEL.start.x,y:LEVEL.start.y,dir:LEVEL.start.dir,rot:0};
+    droneEl.style.transition='none';
+    place(droneEl,st.x,st.y);droneEl.style.transform='rotate(0deg)';
+    droneEl.offsetWidth; droneEl.style.transition='';
+    crystalEl.classList.remove('taken');
+    document.getElementById('pos').textContent='дроїд: '+DIR_NAMES[st.dir];
+  }
+  resetState();
+
+  // ---------- blocks ----------
+  Blockly.defineBlocksWithJsonArray([
+    {type:'g_start',message0:'▶ коли запущено',nextStatement:null,colour:'#F59E0B',tooltip:'Початок програми'},
+    {type:'g_forward',message0:'🚀 вперед на 1 клітинку',previousStatement:null,nextStatement:null,colour:'#3B82F6',tooltip:'Дроїд пролітає одну клітинку туди, куди дивиться'},
+    {type:'g_left',message0:'↺ поворот ліворуч',previousStatement:null,nextStatement:null,colour:'#A855F7',tooltip:'Розвернутися на 90° проти годинникової стрілки'},
+    {type:'g_right',message0:'↻ поворот праворуч',previousStatement:null,nextStatement:null,colour:'#A855F7',tooltip:'Розвернутися на 90° за годинниковою стрілкою'}
+  ]);
+
+  var theme=Blockly.Theme.defineTheme('galaxy',{
+    base:Blockly.Themes.Classic,
+    startHats:true,
+    componentStyles:{
+      workspaceBackgroundColour:'#0b1129',toolboxBackgroundColour:'#141c40',toolboxForegroundColour:'#e8ecff',
+      flyoutBackgroundColour:'#141c40',flyoutForegroundColour:'#e8ecff',flyoutOpacity:1,
+      scrollbarColour:'#3a4785',insertionMarkerColour:'#ffffff',insertionMarkerOpacity:.35,cursorColour:'#5ee6ff'
+    },
+    fontStyle:{family:'Nunito, sans-serif',weight:'700',size:13}
+  });
+
+  var ws=Blockly.inject('blockly',{
+    toolbox:{kind:'flyoutToolbox',contents:[
+      {kind:'block',type:'g_forward'},{kind:'block',type:'g_left'},{kind:'block',type:'g_right'}
+    ]},
+    theme:theme,renderer:'zelos',trashcan:true,
+    grid:{spacing:24,length:2,colour:'#1c2654',snap:true},
+    zoom:{controls:true,startScale:.85,maxScale:1.6,minScale:.5},
+    move:{scrollbars:true,drag:true,wheel:false},
+    sounds:false,
+    media:'https://unpkg.com/blockly@10.4.3/media/'
+  });
+
+  function addStart(){
+    var b=ws.newBlock('g_start');b.initSvg();b.render();
+    var v=ws.getMetricsManager().getViewMetrics(true);
+    b.moveBy(v.left+20,v.top+20);b.setDeletable(false);return b;
+  }
+  var startBlock=addStart();
+
+  function program(){
+    var list=[],b=startBlock.getNextBlock();
+    while(b){list.push(b);b=b.getNextBlock();}
+    return list;
+  }
+  function updateCount(){document.getElementById('count').textContent='блоків: '+program().length;}
+  ws.addChangeListener(function(e){if(!e.isUiEvent)updateCount();});
+
+  // ---------- run ----------
+  var statusEl=document.getElementById('status'),runBtn=document.getElementById('run'),resetBtn=document.getElementById('reset');
+  function say(msg,cls){statusEl.className='status'+(cls?' '+cls:'');statusEl.textContent=msg;}
+  function sleep(ms){return new Promise(function(r){setTimeout(r,ms);});}
+  function isRock(x,y){return LEVEL.rocks.some(function(r){return r.x===x&&r.y===y;});}
+  var running=false;
+
+  runBtn.onclick=async function(){
+    if(running)return;
+    var prog=program();
+    var loose=ws.getTopBlocks(false).filter(function(b){return b!==startBlock;}).length;
+    if(!prog.length){say(loose?'Блоки не приєднані! Підтягни їх під «коли запущено», щоб вони клацнули.':'Програма порожня. Перетягни блоки з лівої панелі під «коли запущено».','bad');return;}
+    running=true;runBtn.disabled=true;ws.options.readOnly=false;
+    resetState();await sleep(250);
+    say('Виконую програму…');
+    for(var i=0;i<prog.length;i++){
+      var b=prog[i];ws.highlightBlock(b.id);
+      if(b.type==='g_forward'){
+        var nx=st.x+DIRS[st.dir][0],ny=st.y+DIRS[st.dir][1];
+        if(nx<0||ny<0||nx>=N||ny>=N){ fail('💥 Дроїд вилетів за межі сектора! Перевір крок №'+(i+1)+'.'); return; }
+        st.x=nx;st.y=ny;place(droneEl,nx,ny);
+        if(isRock(nx,ny)){ await sleep(380); fail('💥 Бум! Дроїд врізався в астероїд на кроці №'+(i+1)+'.'); return; }
+      } else if(b.type==='g_left'){ st.dir=(st.dir+1)%4; st.rot-=90; droneEl.style.transform='rotate('+st.rot+'deg)'; }
+      else if(b.type==='g_right'){ st.dir=(st.dir+3)%4; st.rot+=90; droneEl.style.transform='rotate('+st.rot+'deg)'; }
+      document.getElementById('pos').textContent='дроїд: '+DIR_NAMES[st.dir];
+      await sleep(480);
+    }
+    ws.highlightBlock(null);
+    if(st.x===LEVEL.crystal.x&&st.y===LEVEL.crystal.y){ win(prog.length); }
+    else { fail('Програма закінчилась, але дроїд не дістався до кристала. Додай або зміни команди.'); }
+  };
+  function done(){running=false;runBtn.disabled=false;}
+  function fail(msg){droneEl.classList.remove('crash');void droneEl.offsetWidth;droneEl.classList.add('crash');ws.highlightBlock(null);say(msg,'bad');done();}
+  function win(n){
+    crystalEl.classList.add('taken');
+    var stars=n<=LEVEL.best?'⭐⭐⭐':n<=LEVEL.best+2?'⭐⭐':'⭐';
+    say('✅ Місію виконано! Програма з '+n+' блоків.','ok');
+    document.getElementById('stars').textContent=stars;
+    document.getElementById('mtext').textContent=n<=LEVEL.best
+      ? 'Ідеально! Дроїд Біп дістався до кристала найкоротшим шляхом: '+n+' блоків.'
+      : 'Дроїд Біп дістався до кристала! Твоя програма має '+n+' блоків, а найкоротша '+LEVEL.best+'. Спробуєш скоротити?';
+    var k=document.getElementById('key1');k.textContent='К';k.classList.add('got');
+    setTimeout(function(){document.getElementById('modal').classList.add('show');},500);
+    done();
+  }
+  resetBtn.onclick=function(){if(running)return;resetState();say('Дроїд повернувся в док. Можна змінити програму і спробувати ще раз.');};
+  document.getElementById('close').onclick=function(){document.getElementById('modal').classList.remove('show');};
+
+  window.addEventListener('resize',function(){Blockly.svgResize(ws);});
+})();
+</script>
+</body>
+</html>

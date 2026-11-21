@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Geek Informatic</title>
+<meta name="description" content="Geek Informatic — вебквести з інформатики для учнів: кібербезпека, алгоритми та програмування у форматі місій.">
+<meta property="og:title" content="Geek Informatic — вебквести з інформатики">
+<meta property="og:description" content="Проходь місії, збирай ключі й отримуй посвідчення агента.">
+<meta name="theme-color" content="#EEF3FA">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232D55E0'/%3E%3Cpath d='M12 10l-5 6 5 6M20 10l5 6-5 6' stroke='%23FFE45C' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Nunito:wght@400;600;700;800&family=Unbounded:wght@600;800&display=swap">
+<style>
+:root{
+  --paper:#EEF3FA; --surface:#FFFFFF; --ink:#14213A; --muted:#56668A; --line:#CCD7E8; --grid:rgba(45,85,224,.10);
+  --accent:#2D55E0; --accent-deep:#1B3AA8; --accent-ink:#FFFFFF; --accent-soft:#E1E8FD;
+  --margin:#E3655B; --hl:#FFE45C; --ok:#17905A;
+  --cover-1:#2D55E0; --cover-1b:#1B3AA8; --cover-2:#251B5C; --cover-2b:#150F38;
+  --f-display:"Unbounded","Arial Black",system-ui,sans-serif;
+  --f-body:"Nunito","Segoe UI",system-ui,-apple-system,sans-serif;
+  --f-hand:"Caveat","Segoe Print","Comic Sans MS",cursive;
+  --lift:0 1px 0 rgba(20,33,58,.04),0 14px 30px -18px rgba(20,33,58,.45);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0D1423; --surface:#162036; --ink:#E6ECF8; --muted:#98A7C4; --line:#2A3854; --grid:rgba(125,155,255,.07);
+    --accent:#7D9BFF; --accent-deep:#4C69D6; --accent-ink:#0D1423; --accent-soft:#1E2B4C;
+    --margin:#B4544D; --hl:#8A6F00; --ok:#4CC98E;
+    --lift:0 14px 30px -18px rgba(0,0,0,.7);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0D1423; --surface:#162036; --ink:#E6ECF8; --muted:#98A7C4; --line:#2A3854; --grid:rgba(125,155,255,.07);
+  --accent:#7D9BFF; --accent-deep:#4C69D6; --accent-ink:#0D1423; --accent-soft:#1E2B4C;
+  --margin:#B4544D; --hl:#8A6F00; --ok:#4CC98E;
+  --lift:0 14px 30px -18px rgba(0,0,0,.7);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  background-color:var(--paper); color:var(--ink);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:24px 24px;
+  font:400 17px/1.55 var(--f-body);
+  min-height:100vh; display:flex; flex-direction:column;
+}
+body::after{content:"";position:fixed;top:0;bottom:0;left:max(8px,calc(50% - 560px));border-left:2px solid var(--margin);opacity:.55;pointer-events:none}
+.wrap{width:100%;max-width:1060px;margin:0 auto;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--hl);outline-offset:3px;border-radius:6px}
+h1,h2,h3{font-family:var(--f-display);margin:0;line-height:1.12;letter-spacing:-.015em;text-wrap:balance}
+p{margin:0}
+
+/* Шапка */
+.top{padding-block:18px}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font:800 18px var(--f-display);letter-spacing:-.02em}
+.logo .mk{width:36px;height:36px;flex:none;border-radius:10px;background:var(--accent);display:grid;place-items:center;box-shadow:0 3px 0 var(--accent-deep)}
+.logo .mk svg{width:22px;height:22px}
+.logo small{display:block;font:600 13px/1 var(--f-body);color:var(--muted);letter-spacing:0}
+.top nav a{font-weight:800;font-size:15px;text-decoration:none;color:var(--muted)}
+.top nav a:hover{color:var(--accent)}
+
+/* Заголовок сторінки як у зошиті */
+.hero{padding-block:clamp(28px,6vw,64px) clamp(32px,6vw,56px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.8fr);gap:32px;align-items:center}
+.notebook-head{font:700 clamp(24px,3.6vw,30px)/1.15 var(--f-hand);color:var(--accent);margin-bottom:18px}
+.notebook-head span{display:block}
+h1{font-size:clamp(34px,6.4vw,64px);font-weight:800;max-width:14ch}
+h1 .hl{background:linear-gradient(transparent 60%,var(--hl) 60%,var(--hl) 92%,transparent 92%);-webkit-box-decoration-break:clone;box-decoration-break:clone;padding:0 .06em}
+.lead{margin-top:18px;font-size:clamp(17px,2vw,19px);color:var(--muted);max-width:44ch}
+.hero-art{justify-self:end;width:100%;max-width:380px}
+.hero-art svg{width:100%;height:auto;display:block}
+
+/* Квести */
+.quests{padding-bottom:64px}
+.sec-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:22px}
+.sec-head h2{font-size:clamp(22px,3.4vw,30px)}
+.sec-head p{font:700 22px/1 var(--f-hand);color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(18px,3vw,32px)}
+
+.book{position:relative;display:flex;flex-direction:column;text-decoration:none;color:#FFFFFF;border-radius:6px 18px 18px 6px;overflow:hidden;box-shadow:var(--lift);background:var(--c1);
+  background-image:radial-gradient(120% 90% at 100% 0%,rgba(255,255,255,.14),transparent 60%),linear-gradient(160deg,var(--c1),var(--c2));
+  transition:transform .2s ease,box-shadow .2s ease;min-height:100%}
+.book::before{content:"";position:absolute;inset:0 auto 0 0;width:16px;background:repeating-linear-gradient(180deg,rgba(0,0,0,.28) 0 10px,rgba(255,255,255,.12) 10px 12px);opacity:.6}
+.book:hover{transform:translateY(-4px) rotate(-.4deg)}
+.book.b1{--c1:var(--cover-1);--c2:var(--cover-1b)}
+.book.b2{--c1:var(--cover-2);--c2:var(--cover-2b)}
+.cover{padding:24px 24px 0 40px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;min-height:150px}
+.cover svg{width:112px;height:112px;flex:none}
+.grade{font:800 13px var(--f-body);background:rgba(255,255,255,.16);border:1.5px solid rgba(255,255,255,.35);padding:5px 12px;border-radius:999px;white-space:nowrap}
+.grade.test{background:#FFE45C;color:#3A3110;border-color:#FFE45C}
+/* Наліпка-етикетка зошита */
+.label{margin:18px 22px 22px 38px;background:#FFFFFF;color:#14213A;border-radius:10px;padding:18px 20px 16px;display:flex;flex-direction:column;gap:10px;flex:1;
+  background-image:repeating-linear-gradient(transparent 0 31px,#D7E0EE 31px 32px);background-position:0 12px;box-shadow:0 2px 0 rgba(0,0,0,.12)}
+.label h3{font-size:clamp(20px,2.4vw,24px);color:#14213A}
+.label .subj{font:700 22px/1 var(--f-hand);color:#2D55E0}
+.label p{font-size:16px;color:#3E4C6B}
+.facts{display:flex;flex-wrap:wrap;gap:6px 18px;font-weight:800;font-size:14px;color:#14213A;margin-top:2px}
+.facts span{display:inline-flex;align-items:center;gap:6px}
+.facts svg{width:16px;height:16px;color:#2D55E0}
+.go{margin-top:auto;padding-top:8px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.btn{font:800 16px/1 var(--f-body);background:#2D55E0;color:#FFFFFF;padding:13px 20px;border-radius:12px;box-shadow:0 3px 0 #1B3AA8;display:inline-flex;align-items:center;gap:8px}
+.b2 .btn{background:#251B5C;box-shadow:0 3px 0 #0B0720}
+.btn svg{width:18px;height:18px;transition:transform .2s}
+.book:hover .btn svg{transform:translateX(3px)}
+.go small{font:700 19px/1 var(--f-hand);color:#56668A}
+
+footer{margin-top:auto;padding-block:22px 28px;border-top:1.5px dashed var(--line);color:var(--muted);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+@media (max-width:860px){
+  .hero{grid-template-columns:1fr}
+  .hero-art{justify-self:start;max-width:300px;order:-1;display:none}
+}
+@media (max-width:700px){
+  .grid{grid-template-columns:1fr}
+  .cover{min-height:0}
+  .cover svg{width:88px;height:88px}
+}
+@media (max-width:420px){
+  .label{margin:14px 14px 16px 30px;padding:16px}
+  .cover{padding:18px 16px 0 32px}
+  .go{flex-direction:column;align-items:stretch}
+  .btn{justify-content:center}
+  .logo small{display:none}
+}
+@media (prefers-reduced-motion:reduce){.book,.btn svg{transition:none}.book:hover{transform:none}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="./" aria-label="Geek Informatic — на головну">
+      <span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="#FFE45C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 7l-5 5 5 5M15 7l5 5-5 5"/></svg></span>
+      <span>Geek Informatic<small>уроки інформатики</small></span>
+    </a>
+    <nav><a href="#quests">Вебквести</a></nav>
+  </div>
+</header>
+
+<main>
+  <section class="wrap hero">
+    <div>
+      <p class="notebook-head"><span id="today">Сьогодні</span><span>Класна робота</span></p>
+      <h1><span class="hl">Інформатика, в яку грають</span></h1>
+      <p class="lead">Вебквести для уроків: проходь місії, розв’язуй задачі, збирай ключі-літери й відкривай секретне слово.</p>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <svg viewBox="0 0 380 300">
+        <g transform="rotate(-6 190 150)">
+          <rect x="40" y="40" width="280" height="200" rx="16" fill="#14213A"/>
+          <rect x="56" y="56" width="248" height="160" rx="6" fill="#F5F8FF"/>
+          <rect x="56" y="56" width="248" height="24" rx="6" fill="#2D55E0"/>
+          <circle cx="72" cy="68" r="4" fill="#FFE45C"/><circle cx="86" cy="68" r="4" fill="#FFFFFF" opacity=".6"/><circle cx="100" cy="68" r="4" fill="#FFFFFF" opacity=".6"/>
+          <g font-family="Nunito, sans-serif" font-weight="800" font-size="15">
+            <text x="74" y="110" fill="#A855F7">коли</text><text x="114" y="110" fill="#14213A">запущено</text>
+            <text x="90" y="138" fill="#3B82F6">вперед</text><text x="146" y="138" fill="#17905A">3</text>
+            <text x="90" y="166" fill="#A855F7">поворот</text><text x="158" y="166" fill="#14213A">ліворуч</text>
+            <text x="90" y="194" fill="#3B82F6">вперед</text><text x="146" y="194" fill="#17905A">2</text>
+          </g>
+          <rect x="140" y="240" width="80" height="12" rx="4" fill="#14213A"/>
+        </g>
+        <g transform="rotate(10 300 90)">
+          <path d="M300 30l44 16v32c0 26-18 44-44 52-26-8-44-26-44-52V46z" fill="#FFE45C" stroke="#14213A" stroke-width="4" stroke-linejoin="round"/>
+          <path d="M282 80l13 13 24-26" stroke="#14213A" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+        <g transform="rotate(-14 70 250)">
+          <rect x="14" y="236" width="130" height="18" rx="4" fill="#E3655B"/>
+          <rect x="144" y="236" width="22" height="18" fill="#F2C9A0"/>
+          <path d="M166 236l18 9-18 9z" fill="#14213A"/>
+          <rect x="6" y="236" width="12" height="18" rx="3" fill="#FFB3C1"/>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <section class="wrap quests" id="quests" aria-labelledby="qh">
+    <div class="sec-head"><h2 id="qh">Вебквести</h2><p>обери свій зошит</p></div>
+    <div class="grid">
+
+      <a class="book b1" href="web-quests/agenty-kibershchytu/">
+        <div class="cover">
+          <span class="grade">6 клас</span>
+          <svg viewBox="0 0 120 120" aria-hidden="true">
+            <path d="M60 10l40 15v31c0 25-17 43-40 52-23-9-40-27-40-52V25z" fill="#FFE45C" stroke="#14213A" stroke-width="4" stroke-linejoin="round"/>
+            <rect x="44" y="52" width="32" height="26" rx="5" fill="#14213A"/>
+            <path d="M50 52v-7a10 10 0 0 1 20 0v7" stroke="#14213A" stroke-width="5" fill="none"/>
+            <circle cx="60" cy="63" r="4" fill="#FFE45C"/><path d="M60 66v6" stroke="#FFE45C" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="label">
+          <span class="subj">Кібербезпека</span>
+          <h3>Агенти КіберЩиту</h3>
+          <p>Хакер Фантом рветься в шкільну мережу. Захисти паролі, розпізнай фішинг і фейки, збери 8 ключів.</p>
+          <div class="facts">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg>8 місій</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/></svg>секундомір і бали</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg>посвідчення агента</span>
+          </div>
+          <div class="go"><span class="btn">Почати квест<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+        </div>
+      </a>
+
+      <a class="book b2" href="web-quests/kod-galaktyky/">
+        <div class="cover">
+          <span class="grade">7 клас</span>
+          <svg viewBox="0 0 120 120" aria-hidden="true">
+            <circle cx="22" cy="24" r="2" fill="#FFFFFF"/><circle cx="100" cy="16" r="1.6" fill="#FFFFFF"/><circle cx="106" cy="94" r="2" fill="#FFFFFF"/><circle cx="14" cy="88" r="1.4" fill="#FFFFFF"/>
+            <ellipse cx="60" cy="64" rx="50" ry="14" fill="none" stroke="#5EE6FF" stroke-width="3" transform="rotate(-18 60 64)"/>
+            <circle cx="60" cy="60" r="26" fill="#FFC94A" stroke="#14213A" stroke-width="4"/>
+            <path d="M46 52h8M66 52h8M50 68q10 6 20 0" stroke="#14213A" stroke-width="4" stroke-linecap="round" fill="none"/>
+            <path d="M60 34V22" stroke="#14213A" stroke-width="4" stroke-linecap="round"/><circle cx="60" cy="19" r="5" fill="#FF6B6B" stroke="#14213A" stroke-width="3"/>
+          </svg>
+        </div>
+        <div class="label">
+          <span class="subj">Алгоритми</span>
+          <h3>Код Галактики</h3>
+          <p>Збери з блоків лінійний алгоритм і проведи ремонтного дроїда Біпа до кристала енергії.</p>
+          <div class="facts">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="10" height="6" rx="1.5"/><rect x="7" y="14" width="14" height="6" rx="1.5"/></svg>блоки Blockly</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/></svg>1 місія</span>
+          </div>
+          <div class="go"><span class="btn">Почати місію<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><small>тестовий рівень</small></div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Geek Informatic · вебквести з інформатики</span>
+    <span id="yr">2026</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  try{
+    var d=new Date();
+    var t=d.toLocaleDateString("uk-UA",{day:"numeric",month:"long"});
+    if(t) document.getElementById("today").textContent=t.charAt(0).toUpperCase()+t.slice(1);
+    document.getElementById("yr").textContent=d.getFullYear();
+  }catch(e){}
+})();
+</script>
+</body>
+</html>
