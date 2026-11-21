@@ -166,8 +166,9 @@ h1 .hl{background:linear-gradient(transparent 60%,var(--hl) 60%,var(--hl) 92%,tr
 @keyframes roll{0%,100%{transform:rotate(0)}25%{transform:rotate(-4deg) translateY(-3%)}75%{transform:rotate(4deg) translateY(-3%)}}
 .robot.bump .rb{animation:bump .6s ease-out}
 @keyframes bump{0%{transform:translate(0,0)}35%{transform:translate(var(--bx),var(--by)) scale(1.06)}60%{transform:translate(calc(var(--bx)*-.35),calc(var(--by)*-.35)) rotate(-9deg)}80%{transform:rotate(5deg)}100%{transform:none}}
-.robot.cheer .rb{animation:cheer .8s ease-in-out 3}
-@keyframes cheer{0%,100%{transform:translateY(0) rotate(0) scale(1)}30%{transform:translateY(-32%) rotate(180deg) scale(1.08)}60%{transform:translateY(-32%) rotate(360deg) scale(1.08)}85%{transform:translateY(0) scale(.94,1.06)}}
+.robot.cheer{perspective:600px}
+.robot.cheer .rb{transform-origin:50% 50%;animation:cheer 1.1s ease-in-out 3}
+@keyframes cheer{0%{transform:translateY(0) rotateY(0) scale(1)}25%{transform:translateY(-8%) rotateY(180deg) scale(1.06)}50%{transform:translateY(0) rotateY(360deg) scale(1)}75%{transform:translateY(-8%) rotateY(540deg) scale(1.06)}100%{transform:translateY(0) rotateY(720deg) scale(1)}}
 .look{transition:transform .15s}
 .robot[data-look="U"] .look{transform:translate(0,-2.5px)}
 .robot[data-look="D"] .look{transform:translate(0,2.5px)}
