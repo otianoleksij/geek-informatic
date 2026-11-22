@@ -12,7 +12,7 @@ var errors = [], rows = [], seenIds = {};
 function err(n, msg) { errors.push("рівень " + n + ": " + msg); }
 
 if (doc.format !== 1) { console.error("format має бути 1"); process.exit(1); }
-if (!Array.isArray(levels) || levels.length !== 10) { console.error("потрібно рівно 10 рівнів"); process.exit(1); }
+if (!Array.isArray(levels) || !levels.length) { console.error("levels має бути непорожнім масивом"); process.exit(1); }
 var okCount = 0;
 levels.forEach(function (lv, idx) {
   var n = (lv.id || "#" + (idx + 1)) + " (" + (idx + 1) + ")", before = errors.length;
@@ -56,7 +56,8 @@ levels.forEach(function (lv, idx) {
     });
     if (hasRep && !lv.loops) err(n, "розв'язок має повтор, а loops:false");
     var res = Core.run(lv, sol);
-    if (!res.win) err(n, "розв'язок не виграє (зібрано " + res.gemsCollected + "/" + res.total + ", crashedAt " + res.crashedAt + ")");
+    if (!res.win) err(n, "розв'язок не виграє: зібрано " + res.gemsCollected + " з " + res.total + " кристалів, " +
+      (res.crashedAt !== null ? "робот врізався в камінь або в край поля на кроці " + res.crashedAt : "програма закінчилась раніше, ніж зібрано всі кристали"));
     if (blocks > lv.maxBlocks) err(n, "блоків у розв'язку " + blocks + " > maxBlocks " + lv.maxBlocks);
     if (lv.par !== blocks) err(n, "par " + lv.par + " ≠ блоків у розв'язку " + blocks);
     if (res.win && minMoves >= 0 && res.moves < minMoves) err(n, "розв'язок коротший за мінімум (?)");

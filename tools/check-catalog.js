@@ -216,5 +216,32 @@ walkHtml("", []).forEach(function (file) {
   }
 });
 
+/* ---------- ключі словників сайтових сторінок, потрібні кожній активності ----------
+   Збірка повідомляє лише про перший відсутній ключ, тут одразу всі. */
+function dictOf(lang, ns) { try { return JSON.parse(read("i18n/" + lang + "/" + ns + ".json")); } catch (e) { return null; } }
+var warnings = [];
+acts.forEach(function (x) {
+  var home = homePage ? homePage.locales : ["uk"];
+  var teachersPage = pages.filter(function (p) { return p.id === "teachers"; })[0];
+  home.forEach(function (l) {
+    var hd = dictOf(l, "home"), td = teachersPage && teachersPage.locales.indexOf(l) >= 0 ? dictOf(l, "teachers") : null;
+    var need = ["subject", "blurb", "cta"];
+    for (var i = 1; i <= ((x.card && x.card.facts) || []).length; i++) need.push("f" + i);
+    if (x.card && x.card.note) need.push("note");
+    if (hd) need.forEach(function (k) { if (!has(hd, "card." + x.id + "." + k)) err(x.id + " [" + l + "]", "немає ключа card." + x.id + "." + k + " в i18n/" + l + "/home.json (картка на головній)"); });
+    if (td && !has(td, "do." + x.id)) err(x.id + " [" + l + "]", "немає ключа do." + x.id + " в i18n/" + l + "/teachers.json (таблиця «Для вчителів»)");
+  });
+  /* Сторінки «Приватність» і «Для вчителів» перелічують активності вручну (pages/<id>/page.html), автоматично їх не звірити.
+     Евристика: якщо активність зберігає прогрес, її назва або {count.<id>} має згадуватися в i18n/uk/privacy.json. */
+  var app = read("activities/" + x.id + "/app.js") || "";
+  if (/GIStorage\.save/.test(app)) {
+    var pv = read("i18n/uk/privacy.json") || "";
+    var short = (x.title.uk || "").replace(/\{count\.[^}]*\}/g, "").trim();
+    if (pv.indexOf("{count." + x.id) < 0 && pv.indexOf(short) < 0 && pv.indexOf(x.title.uk) < 0)
+      warnings.push("УВАГА " + x.id + ": активність зберігає прогрес (GIStorage.save), але в i18n/uk/privacy.json не знайдено її назви. Додайте рядок progress.N у privacy.json (uk, en) і <li> у pages/privacy/page.html; також перевірте links." + x.id + " (або схожий ключ) у teachers.json і pages/teachers/page.html.");
+  }
+});
+warnings.forEach(function (w) { console.warn(w); });
+
 if (errors.length) { console.error(errors.join("\n")); console.error("\nПомилок: " + errors.length); process.exit(1); }
 console.log("OK: " + acts.length + " активностей, " + pages.length + " сайтових сторінок");

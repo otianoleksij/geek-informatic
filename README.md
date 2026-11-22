@@ -4,7 +4,7 @@
 
 Живий сайт: https://otianoleksij.github.io/geek-informatic/
 
-Правила побудови (шари, словники, шаблони, hreflang, sitemap): [`docs/architecture.md`](docs/architecture.md). Читай перед новою активністю чи мовою.
+Правила побудови (шари, словники, шаблони, hreflang, sitemap): [`docs/architecture.md`](docs/architecture.md). Читай перед новою активністю чи мовою. Як додати завдання: [`docs/how-to-add-content.md`](docs/how-to-add-content.md); як додати активність: [`docs/how-to-add-activity.md`](docs/how-to-add-activity.md).
 
 ## Активності
 
@@ -72,25 +72,19 @@ CI (`.github/workflows/check.yml`) на кожен push і pull request запу
 | `node tools/check-i18n.js` | однакові ключі, плейсхолдери й форми множини в `i18n/uk` і `i18n/en`; немає кириличних рядків у `activities/**/*.js`, `pages/**/*.js`, `catalog-filter.js`; кожен `t("…")` і `{{…}}` існує у словнику |
 | `node tools/check-schemas.js` | `content/**/*.json`, `catalog.json` і `i18n/**/*.json` відповідають схемам; унікальні `id` |
 | `node tools/check-catalog.js` | каталог (типи, теми, класи, `locales`, `scripts`, `card`), помилки збірки, картки на головній обох мов (`data-*`, `href`, `hreflang="uk"` для сторінок без перекладу), кожна сторінка кожної мови (`lang`, `canonical`, `hreflang`, `og:locale`, один `h1`, `main`, перемикач мови), sitemap, наявність `og`-файлів, відсутність битих внутрішніх посилань |
-| `node tools/check-robot.js` | 10 рівнів робота: унікальні `id`, тексти uk і en, один старт, є кристали, розв'язок виграє, `par` і `maxBlocks` |
-| `node tools/check-galaxy.js` | 15 рівнів «Коду Галактики»: карта, `allowed`/`limits`, розв'язок виграє, `par`, `maxBlocks`, мінімальна вартість програми |
-| `node tools/check-rebuses.js` | 100 ребусів (по 25 у групах): унікальні `id` і відповіді, відповідь збігається з `parts`, підказка не містить кореня відповіді |
+| `node tools/check-robot.js` | усі рівні робота: унікальні `id`, тексти uk і en, один старт, є кристали, розв'язок виграє, `par` і `maxBlocks` |
+| `node tools/check-galaxy.js` | усі рівні «Коду Галактики» (повільно, близько 2 хв; вимоги залежать від номера рівня): карта, `allowed`/`limits`, розв'язок виграє, `par`, `maxBlocks`, мінімальна вартість програми |
+| `node tools/check-rebuses.js` | усі ребуси (кожна група непорожня; емодзі зі списку для старих Windows і Android): унікальні `id` і відповіді, відповідь збігається з `parts`, підказка не містить кореня відповіді |
 | `node tools/check-mars.js` | генератор лабіринтів (500 зерен): симетрія, досяжність, детермінованість, правило правої й лівої руки проходить усі, наївна програма ні |
-| `node tools/check-kiber.js` | 8 місій «КіберЩиту» (`content/agenty-kibershchytu/`): структура, завдання, бали, секретне слово |
+| `node tools/check-kiber.js` | рівно 8 місій «КіберЩиту» (`content/agenty-kibershchytu/`): структура, завдання, бали, секретне слово, однакові `id` місій і завдань в усіх мовах |
 
 Кожна команда завершується кодом 0 і рядком `OK`, або виводить помилки й завершується з кодом 1.
 
 ## Як додати рівень, ребус, місію
 
-Це лише правка JSON: `$schema` першим полем, `"format": 1` другим, стабільний `id` (за ним зберігається прогрес і будується `#id`), тексти `{"uk": "…", "en": "…"}`. Порядок задає позиція в масиві. Після правки: `node tools/check-schemas.js` і `node tools/check-<id>.js`.
+Покроковий посібник для вчителя (без програмування, лише JSON, з прикладами, повідомленнями валідаторів і правкою через github.com): [`docs/how-to-add-content.md`](docs/how-to-add-content.md).
 
-- **Робот** (`content/robot/levels.json`): `id`, `title`, `tip`, `map` (`S` старт, `G` кристал, `#` камінь, `.` порожньо), `maxBlocks`, `par`, `loops`, `solution` (`"R"`, `"L"`, `"U"`, `"D"` і повтори `{rep:N, body:[…]}`, N від 2 до 5).
-- **Код Галактики** (`content/kod-galaktyky/levels.json`): `id`, `title`, `story`, `tip`, `size` (6..9), `map` (`S`, `*` кристал, `#` астероїд, `.`), `start.dir`, `maxBlocks`, `par`, `allowed`, `limits`, `solution`.
-- **Ребуси** (`content/rebusy/uk.json`): `id` (`r001`…), група `"1-4"`…`"10-11"`, `answer`, `hint`, `parts` (2–4 частини: `{t}`, `{pic, w}` або `{num, w}` з операціями `rev`, `keep`, `rep`, `l`, `r`). Відповіді не повторюються.
-- **Місії КіберЩиту** (`content/agenty-kibershchytu/<мова>.json` і `scenes/<мова>/`; секретне слово й приклади адаптовано окремо для кожної мови): структура описана в `schemas/quest.schema.json`; `node tools/check-kiber.js`.
-- **Марсохід**: рівнів немає, лабіринт щоразу генерується із зерна (`MarsCore.generate`).
-
-Кількість рівнів і ребусів жорстко задана валідаторами (10, 15, 100): змінюєш кількість, то онови перевірку й тексти (`card.<id>.f*` у `i18n/*/home.json`, `description` у `catalog.json`).
+Коротко: це лише правка `content/<id>/*.json` зі стабільним `id` (за ним зберігається прогрес і будується `#id`). Після правки `node tools/check-schemas.js`, `node tools/check-<id>.js` і `node tools/build-pages.js`: кількості («10 рівнів», «100 ребусів», «8 місій») беруться з контенту (поле `count` у `catalog.json`), тож згенеровані сторінки мають оновитися, інакше CI впаде на `build-pages --check`. Марсохід контенту не має: лабіринт генерується із зерна.
 
 ## Як додати переклад
 
@@ -104,14 +98,9 @@ CI (`.github/workflows/check.yml`) на кожен push і pull request запу
 
 ## Як додати нову активність
 
-1. `catalog.json`: запис в `activities` (`id`, `type`, `path`, `title`, `description` для кожної мови з `locales`, `locales`, `grades`, `topics`, `difficulty`, `duration`, `og`, `scripts`, `card`; необов'язково `skin`, `themeColor`, `vendorScripts`, `favicon`, `namespace`). Поля описані в `schemas/catalog.schema.json`.
-2. `activities/<id>/`: `page.html`, `<id>.css`, код, `card.svg` (малюнок картки 120x120), за потреби `favicon.svg`.
-3. Словники: `i18n/<мова>/<id>.json` для кожної мови зі `locales` і ключі картки в `i18n/<мова>/home.json`: `card.<id>.subject`, `blurb`, `f1`…`fN` (за числом `card.facts`), `cta`, `note` (якщо `card.note`), а також `do.<id>` в `i18n/<мова>/teachers.json`.
-4. Контент у `content/<id>/` і схема в `schemas/`, валідатор `tools/check-<id>.js` (додається до CI автоматично за маскою `check-*.js`).
-5. Картинка для соцмереж: рядок у `PAGES` у `tools/og/make.py`, `python3 tools/og/make.py <id>`.
-6. `node tools/build-pages.js` і усі перевірки. Головна, `404.html`, `sitemap.xml` і таблиця на сторінці вчителів оновляться самі.
+Посібник для розробника (порядок кроків, усі поля `catalog.json`, словники, `GIStorage`, hash, чек-лист): [`docs/how-to-add-activity.md`](docs/how-to-add-activity.md). Правила, за якими це влаштовано: [`docs/architecture.md`](docs/architecture.md).
 
-Прогрес зберігай через `GIStorage` (`GIStorage.load(id)` / `save(id, дані)` / `remove(id)`), а після змін викликай `GIStorage.setSummary(id, пройдено, усього)`, щоб на картці з'явилася смужка прогресу.
+Коротко: запис у `catalog.json`, `activities/<id>/`, словники `i18n/<мова>/<id>.json` (+ ключі картки в `home.json` і `do.<id>` у `teachers.json`), контент і схема, `tools/check-<id>.js` (CI підхоплює за маскою `check-*.js`), картинка `tools/og/make.py`, потім `node tools/build-pages.js` і всі перевірки.
 
 ## Приватність
 

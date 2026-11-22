@@ -28,7 +28,11 @@ function walk(dir, ext, acc) {
 }
 function placeholders(v) {
   var set = {}, forms = typeof v === "string" ? [v] : Object.keys(v).map(function (k) { return v[k]; });
-  forms.forEach(function (s) { (String(s).match(/\{\w+\}/g) || []).forEach(function (m) { set[m] = true; }); });
+  /* {name} і токени кількості з контенту {count.<id>} / {count.<id>|форма|…} (форми різні за мовою, тож порівнюємо лише {count.<id>}) */
+  forms.forEach(function (s) {
+    (String(s).match(/\{\w+\}/g) || []).forEach(function (m) { set[m] = true; });
+    (String(s).match(/\{count\.[a-z0-9-]+(?=[|}])/g) || []).forEach(function (m) { set[m + "}"] = true; });
+  });
   return Object.keys(set).sort().join(" ");
 }
 

@@ -85,10 +85,10 @@ function minFlatCost(level, budget) {
 }
 
 if (doc.format !== 1) { console.error("format має бути 1"); process.exit(1); }
-if (!Array.isArray(levels) || levels.length !== 15) { console.error("потрібно рівно 15 рівнів"); process.exit(1); }
-var okCount = 0;
+if (!Array.isArray(levels) || !levels.length) { console.error("levels має бути непорожнім масивом"); process.exit(1); }
+var okCount = 0, maxDepthSeen = 0;
 levels.forEach(function (lv, idx) {
-  var n = idx + 1, before = errors.length, label = (lv.id || "#" + n) + " (" + n + ")";
+  var n = idx + 1, before = errors.length, label = (lv.id || "#" + n) + " (№" + n + ")";
   var err = function (_n, msg) { errors.push("рівень " + label + ": " + msg); };
   if (lv.n !== undefined) err(n, "поле n більше не використовується (порядок задає позиція в масиві)");
   if (typeof lv.id !== "string" || !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(lv.id)) err(n, "id має бути kebab-case латиницею");
@@ -137,9 +137,9 @@ levels.forEach(function (lv, idx) {
   if (blocks > lv.maxBlocks) err(n, "блоків " + blocks + " > maxBlocks " + lv.maxBlocks);
   if (lv.par !== blocks) err(n, "par " + lv.par + " ≠ блоків у розв'язку " + blocks);
   if (lv.par > lv.maxBlocks) err(n, "par > maxBlocks");
-  if (n <= 3 && Core.countByType(sol).rep) err(n, "на рівнях 1–3 повторів бути не повинно");
-  if (n <= 3 && lv.allowed.indexOf("rep") >= 0) err(n, "на рівнях 1–3 «повторити» не має бути в allowed");
-  if (n >= 4 && lv.allowed.indexOf("rep") < 0) err(n, "на рівнях 4+ має бути rep в allowed");
+  if (n <= 3 && Core.countByType(sol).rep) err(n, "рівні 1–3 навчають без повторів, тож у розв'язку не має бути повторів (повтори з 4-го рівня)");
+  if (n <= 3 && lv.allowed.indexOf("rep") >= 0) err(n, "рівні 1–3 навчають без повторів, тож «rep» не має бути в allowed (він з'являється з 4-го рівня)");
+  if (n >= 4 && lv.allowed.indexOf("rep") < 0) err(n, "з 4-го рівня потрібен повтор, тож «rep» має бути в allowed");
   /* досяжність кристалів */
   var pm = Core.parseMap(lv), seen = {}, st = [pm.start];
   seen[pm.start.x + "," + pm.start.y] = 1;
@@ -156,21 +156,21 @@ levels.forEach(function (lv, idx) {
   minInfo = Core.minMovesNoRepeat(lv);
   var minStr = (minInfo.exact ? "" : "≥") + minInfo.value;
   if (n <= 3) {
-    if (minInfo.value < 0 || minInfo.value > lv.maxBlocks) err(n, "BFS-мінімум " + minInfo.value + " > maxBlocks " + lv.maxBlocks);
-    else if (lv.maxBlocks - minInfo.value > 3) err(n, "запас maxBlocks − мін = " + (lv.maxBlocks - minInfo.value) + " > 3");
+    if (minInfo.value < 0 || minInfo.value > lv.maxBlocks) err(n, "рівні 1–3 мають проходитися без повторів, а мінімум програми без повторів (BFS) " + minInfo.value + " > maxBlocks " + lv.maxBlocks);
+    else if (lv.maxBlocks - minInfo.value > 3) err(n, "рівні 1–3: запас maxBlocks над мінімумом програми має бути не більший за 3, а є " + (lv.maxBlocks - minInfo.value));
   }
   if (n >= 4) {
-    if (minInfo.value >= 0 && !(minInfo.value > lv.maxBlocks)) err(n, "без повторів можна пройти за " + minInfo.value + " ходів ≤ maxBlocks " + lv.maxBlocks);
-    if (Core.countByType(sol).rep === 0) err(n, "на рівнях 4+ розв'язок має містити повтор");
+    if (minInfo.value >= 0 && !(minInfo.value > lv.maxBlocks)) err(n, "з 4-го рівня потрібен повтор: без повторів рівень проходиться за " + minInfo.value + " блоків, а maxBlocks " + lv.maxBlocks + " (зменште maxBlocks або ускладніть карту)");
+    if (Core.countByType(sol).rep === 0) err(n, "з 4-го рівня розв'язок має містити повтор");
   }
   var nested = Core.hasNested(sol);
   if (n >= 10) {
-    if (!nested) err(n, "у розв'язку немає вкладеного повтору");
+    if (!nested) err(n, "з 10-го рівня потрібен вкладений повтор (повтор у повторі), а в розв'язку його немає");
     var f = minFlatCost(lv, lv.maxBlocks);
     flat = f === Infinity ? ">" + lv.maxBlocks : String(f);
-    if (f !== Infinity) err(n, "є розв'язок без вкладених повторів на " + f + " блоків ≤ maxBlocks " + lv.maxBlocks);
+    if (f !== Infinity) err(n, "з 10-го рівня вкладений повтор має бути потрібним: є розв'язок без вкладених повторів на " + f + " блоків, а maxBlocks " + lv.maxBlocks + " (зменште maxBlocks або ускладніть карту)");
   }
-  if (n === 15 && Core.maxDepth(sol) < 3) err(n, "у фіналі очікується глибина вкладення 3");
+  if (Core.maxDepth(sol) > maxDepthSeen) maxDepthSeen = Core.maxDepth(sol);
   var lim = Object.keys(lv.limits).map(function (k) { return k + ":" + lv.limits[k]; }).join(" ") || "—";
   rows.push([lv.id, w + "×" + h, gems, lv.maxBlocks, blocks, lim, minStr, n >= 10 ? flat : "—", nested ? "так" : "—", lv.allowed.indexOf("rep") >= 0 ? "так" : "—"]);
   if (errors.length === before) okCount++;
@@ -181,5 +181,6 @@ var widths = [18, 8, 10, 11, 6, 14, 11, 13, 10, 8];
 function pad(s, k) { s = String(s); while (s.length < k) s += " "; return s; }
 console.log(head.map(function (h, i) { return pad(h, widths[i]); }).join(""));
 rows.forEach(function (r) { console.log(r.map(function (c, i) { return pad(c, widths[i]); }).join("")); });
+if (levels.length >= 10 && maxDepthSeen < 3) errors.push("жоден розв'язок не має глибини вкладення 3: потрібен хоча б один «фінальний» рівень із трьома рівнями повторів");
 if (errors.length) { console.error("\nПОМИЛКИ:\n" + errors.join("\n")); process.exit(1); }
 console.log("\nOK: " + okCount + "/" + levels.length);

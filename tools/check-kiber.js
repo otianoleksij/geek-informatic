@@ -314,7 +314,7 @@ function playQuest(doc, label) {
 }
 
 /* ---------- основний прохід ---------- */
-var summary = [];
+var summary = [], structure = {};
 langs.forEach(function (file) {
   var label = "content/agenty-kibershchytu/" + file, lang = file.slice(0, 2);
   var doc;
@@ -341,12 +341,30 @@ langs.forEach(function (file) {
       checkTask(t, tw, lang, m);
     });
   });
+  structure[lang] = doc.missions.map(function (m) { return { id: m.id, tasks: (m.tasks || []).map(function (t) { return { id: t.id, type: t.type }; }) }; });
   var letters = doc.missions.map(function (m) { return m.letter; }).join("");
   if (doc.word !== letters) err(label, "word «" + doc.word + "» ≠ літери місій «" + letters + "»");
   if (doc.word.length !== doc.missions.length) err(label, "довжина слова ≠ кількості місій");
   if (!errors.length) playQuest(doc, label);
   summary.push(lang + ": " + doc.missions.length + " місій, " + nTasks + " завдань, " + Core.totalPoints(doc.missions) + " балів, слово «" + doc.word + "»");
 });
+/* Усі мови мають однакову структуру: ті самі місії й завдання в тому самому порядку, з тими самими типами
+   (прогрес зберігається за id, тож розбіжність зламала б перенесення між мовами). */
+(function () {
+  var ls = Object.keys(structure), ref = ls.indexOf("uk") >= 0 ? "uk" : ls[0];
+  ls.filter(function (x) { return x !== ref; }).forEach(function (l) {
+    var a = structure[ref], b = structure[l], w = "content/agenty-kibershchytu/" + l + ".json";
+    a.forEach(function (m, i) {
+      var n = b[i];
+      if (!n) { err(w, "немає місії №" + (i + 1) + " «" + m.id + "» (є в " + ref + ".json)"); return; }
+      if (n.id !== m.id) err(w, "місія №" + (i + 1) + ": id «" + n.id + "», а в " + ref + ".json «" + m.id + "»");
+      var ids1 = m.tasks.map(function (t) { return t.id; }).join(", "), ids2 = n.tasks.map(function (t) { return t.id; }).join(", ");
+      if (ids1 !== ids2) err(w, "місія «" + m.id + "»: завдання [" + ids2 + "] ≠ [" + ids1 + "] у " + ref + ".json (однакові id в тому самому порядку в усіх мовах)");
+      else m.tasks.forEach(function (t, j) { if (n.tasks[j].type !== t.type) err(w, "місія «" + m.id + "», завдання «" + t.id + "»: type «" + n.tasks[j].type + "», а в " + ref + ".json «" + t.type + "»"); });
+    });
+    if (b.length > a.length) err(w, "зайві місії: " + b.slice(a.length).map(function (m) { return m.id; }).join(", "));
+  });
+})();
 if (!errors.length) checkDictionary(); else try { checkDictionary(); } catch (e) { err("словник", e.message); }
 
 if (errors.length) { console.error(errors.join("\n")); console.error("\nПомилок: " + errors.length); process.exit(1); }

@@ -47,11 +47,51 @@ function safeJSON(v) {
 }
 function fmt(s, params) { return s.replace(/\{(\w+)\}/g, function (m, k) { return params && params[k] !== undefined ? params[k] : m; }); }
 
+/* ---------- кількості з контенту ----------
+   Запис в catalog.json: "count": {"file": "content/robot/levels.json", "path": "levels"} (у file можна {lang}).
+   У рядках словників і в title/description каталогу:
+     {count.<id>}                          число (кількість елементів масиву path у file активності <id>)
+     {count.<id>|форма1|форма2|…}          слово в потрібній формі множини; форми йдуть у порядку PLURAL_CATS мови
+   Рядки з такими токенами розгортаються під час збирання, тож «10 рівнів» ніколи не пишуть руками. */
+var PLURAL_CATS = { uk: ["one", "few", "many", "other"], en: ["one", "other"] };
+var RE_COUNT = /\{count\.([a-z0-9-]+)((?:\|[^|{}]*)*)\}/g;
+var catalogCache = null, dictCache = {}, countCache = {};
+function catalogRaw() { if (!catalogCache) catalogCache = readJSON("catalog.json"); return catalogCache; }
+function countOf(id, lang, label) {
+  var act = (catalogRaw().activities || []).filter(function (a) { return a.id === id; })[0];
+  if (!act) fail(label + ": {count." + id + "}: в catalog.json немає активності «" + id + "»");
+  if (!act.count) fail(label + ": {count." + id + "}: в activities[" + id + "] немає поля count");
+  var file = act.count.file.replace(/\{lang\}/g, lang);
+  if (!exists(file)) file = act.count.file.replace(/\{lang\}/g, "uk");   // немає набору цієї мови: беремо український
+  var v = readJSON(file);
+  act.count.path.split(".").forEach(function (k) { v = v && v[k]; });
+  if (!Array.isArray(v)) fail(label + ": count.path «" + act.count.path + "» у " + file + " не веде до масиву (активність " + id + ")");
+  return v.length;
+}
+function resolveCounts(str, lang, label) {
+  if (str.indexOf("{count.") < 0) return str;
+  return str.replace(RE_COUNT, function (m, id, forms) {
+    var n = countOf(id, lang, label);
+    if (!forms) return String(n);
+    var list = forms.slice(1).split("|"), cats = PLURAL_CATS[lang];
+    if (!cats) fail(label + ": немає правил множини для мови " + lang);
+    if (list.length !== cats.length) fail(label + ": " + m + ": для мови " + lang + " потрібно " + cats.length + " форм (" + cats.join("|") + "), а є " + list.length);
+    return list[cats.indexOf(new Intl.PluralRules(lang).select(n))];
+  });
+}
+function resolveDeep(v, lang, label) {
+  if (typeof v === "string") return resolveCounts(v, lang, label);
+  if (v && typeof v === "object") { var o = {}; Object.keys(v).forEach(function (k) { o[k] = resolveDeep(v[k], lang, label); }); return o; }
+  return v;
+}
+
 /* ---------- словники ---------- */
-var dictCache = {};
 function loadDict(lang, ns) {
   var k = lang + "/" + ns;
-  if (!dictCache[k]) dictCache[k] = readJSON("i18n/" + lang + "/" + ns + ".json");
+  if (!dictCache[k]) {
+    var rel = "i18n/" + lang + "/" + ns + ".json";
+    dictCache[k] = resolveDeep(readJSON(rel), lang, rel);
+  }
   return dictCache[k];
 }
 function dictString(dicts, ns, key, label) {
@@ -428,7 +468,14 @@ function buildAll() {
   function guard(out, fn) {
     try { files[out] = fn(); } catch (e) { if (e instanceof BuildError) errors.push(e.message); else throw e; }
   }
-  iconsCache = null;
+  iconsCache = null; dictCache = {}; catalogCache = cat;
+  try {
+    (cat.activities || []).forEach(function (a) {
+      ["title", "description"].forEach(function (f) {
+        Object.keys(a[f] || {}).forEach(function (l) { a[f][l] = resolveCounts(a[f][l], l, "catalog.json " + a.id + "." + f + "." + l); });
+      });
+    });
+  } catch (e) { if (e instanceof BuildError) return { files: files, errors: [e.message] }; throw e; }
   (cat.pages || []).forEach(function (page) {
     page.locales.forEach(function (lang) {
       guard(prefix(lang) + page.path + "index.html", function () { return buildSitePage(cat, page, lang, tplPage, page.id + "/" + lang); });

@@ -210,6 +210,25 @@
                 "description": "Є дрібна підказка поруч із кнопкою (ключ card.<id>.note)"
               }
             }
+          },
+          "count": {
+            "type": "object",
+            "required": [
+              "file",
+              "path"
+            ],
+            "additionalProperties": false,
+            "description": "Звідки брати кількість елементів для токенів {count.<id>} у рядках: файл контенту (можна {lang}) і шлях до масиву через крапку",
+            "properties": {
+              "file": {
+                "type": "string",
+                "pattern": "^content/[A-Za-z0-9._{}/-]+\\.json$"
+              },
+              "path": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9_]+(\\.[A-Za-z0-9_]+)*$"
+              }
+            }
           }
         }
       }

@@ -86,8 +86,8 @@
         "en": "Cyber Shield Agents"
       },
       "description": {
-        "uk": "Вебквест з кібербезпеки для 6 класу: 8 інтерактивних місій про паролі, фішинг, фейки та приватність в інтернеті, наприкінці — посвідчення агента.",
-        "en": "A cyber-safety web quest for grade 6: 8 interactive missions about passwords, phishing, fake news and online privacy, ending with an agent ID card."
+        "uk": "Вебквест з кібербезпеки для 6 класу: {count.agenty-kibershchytu} {count.agenty-kibershchytu|інтерактивна місія|інтерактивні місії|інтерактивних місій|інтерактивної місії} про паролі, фішинг, фейки та приватність в інтернеті, наприкінці — посвідчення агента.",
+        "en": "A cyber-safety web quest for grade 6: {count.agenty-kibershchytu} interactive {count.agenty-kibershchytu|mission|missions} about passwords, phishing, fake news and online privacy, ending with an agent ID card."
       },
       "locales": [
         "uk",
@@ -101,6 +101,7 @@
       ],
       "difficulty": 2,
       "duration": 40,
+      "count": {"file": "content/agenty-kibershchytu/{lang}.json", "path": "missions"},
       "og": "assets/og/agenty-kibershchytu.png",
       "skin": "own",
       "scripts": [
@@ -125,8 +126,8 @@
         "en": "Galaxy Code"
       },
       "description": {
-        "uk": "Гра з програмування блоками для 7 класу: 15 рівнів, повтори й вкладені цикли. Склади програму для дроїда Біпа та збери всі кристали на станції.",
-        "en": "A block-coding game for grade 7: 15 levels with repeats and nested loops. Build a program for the droid Bip and collect every crystal on the space station."
+        "uk": "Гра з програмування блоками для 7 класу: {count.kod-galaktyky} {count.kod-galaktyky|рівень|рівні|рівнів|рівня}, повтори й вкладені цикли. Склади програму для дроїда Біпа та збери всі кристали на станції.",
+        "en": "A block-coding game for grade 7: {count.kod-galaktyky} {count.kod-galaktyky|level|levels} with repeats and nested loops. Build a program for the droid Bip and collect every crystal on the space station."
       },
       "locales": [
         "uk",
@@ -153,6 +154,7 @@
       ],
       "difficulty": 3,
       "duration": 35,
+      "count": {"file": "content/kod-galaktyky/levels.json", "path": "levels"},
       "og": "assets/og/kod-galaktyky.png",
       "card": {
         "cover": 2,
@@ -172,8 +174,8 @@
         "en": "Drive the Robot!"
       },
       "description": {
-        "uk": "Гра для 3–4 класу: склади програму зі стрілок і блоків «Повтори», щоб робот зібрав усі кристали. 10 рівнів.",
-        "en": "A game for grades 3–4: build a program from arrows and “Repeat” blocks to help the robot collect every crystal. 10 levels."
+        "uk": "Гра для 3–4 класу: склади програму зі стрілок і блоків «Повтори», щоб робот зібрав усі кристали. {count.robot} {count.robot|рівень|рівні|рівнів|рівня}.",
+        "en": "A game for grades 3–4: build a program from arrows and “Repeat” blocks to help the robot collect every crystal. {count.robot} {count.robot|level|levels}."
       },
       "locales": [
         "uk",
@@ -193,6 +195,7 @@
       ],
       "difficulty": 1,
       "duration": 20,
+      "count": {"file": "content/robot/levels.json", "path": "levels"},
       "og": "assets/og/robot.png",
       "card": {
         "cover": 4,
@@ -257,10 +260,10 @@
       "type": "puzzle",
       "path": "puzzles/rebusy/",
       "title": {
-        "uk": "100 ребусів з інформатики"
+        "uk": "{count.rebusy} {count.rebusy|ребус|ребуси|ребусів|ребуса} з інформатики"
       },
       "description": {
-        "uk": "100 ребусів з інформатики для учнів 1–11 класів: розгадуй картинки, коми й заміни літер та знаходи комп’ютерні терміни."
+        "uk": "{count.rebusy} {count.rebusy|ребус|ребуси|ребусів|ребуса} з інформатики для учнів 1–11 класів: розгадуй картинки, коми й заміни літер та знаходи комп’ютерні терміни."
       },
       "locales": [
         "uk"
@@ -283,6 +286,7 @@
       ],
       "difficulty": 2,
       "duration": 25,
+      "count": {"file": "content/rebusy/{lang}.json", "path": "rebuses"},
       "og": "assets/og/rebusy.png",
       "scripts": [
         "rebus-core.js",
