@@ -1,0 +1,22 @@
+name: check
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Validators
+        run: |
+          for f in tools/check-*.js; do
+            echo "== $f"
+            node "$f"
+          done
+      - name: Generated pages are up to date
+        run: node tools/build-pages.js --check

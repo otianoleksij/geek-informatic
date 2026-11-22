@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="uk" data-root="../../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>100 ребусів з інформатики — Geek Informatic</title>
+<meta name="description" content="100 ребусів з інформатики для учнів 1–11 класів: розгадуй картинки, коми й заміни літер та знаходи комп’ютерні терміни.">
+<link rel="canonical" href="https://otianoleksij.github.io/geek-informatic/puzzles/rebusy/">
+<link rel="alternate" hreflang="uk" href="https://otianoleksij.github.io/geek-informatic/puzzles/rebusy/">
+<link rel="alternate" hreflang="x-default" href="https://otianoleksij.github.io/geek-informatic/puzzles/rebusy/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Geek Informatic">
+<meta property="og:locale" content="uk_UA">
+<meta property="og:title" content="100 ребусів з інформатики">
+<meta property="og:description" content="100 ребусів з інформатики для учнів 1–11 класів: розгадуй картинки, коми й заміни літер та знаходи комп’ютерні терміни.">
+<meta property="og:url" content="https://otianoleksij.github.io/geek-informatic/puzzles/rebusy/">
+<meta property="og:image" content="https://otianoleksij.github.io/geek-informatic/assets/og/rebusy.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="100 ребусів з інформатики — Geek Informatic">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"100 ребусів з інформатики","description":"100 ребусів з інформатики для учнів 1–11 класів: розгадуй картинки, коми й заміни літер та знаходи комп’ютерні терміни.","url":"https://otianoleksij.github.io/geek-informatic/puzzles/rebusy/","inLanguage":"uk","isAccessibleForFree":true,"learningResourceType":"puzzle","educationalLevel":"1–11 клас","teaches":["поняття інформатики"],"provider":{"@type":"Organization","name":"Geek Informatic","url":"https://otianoleksij.github.io/geek-informatic/"},"publisher":{"@type":"Organization","name":"Geek Informatic","url":"https://otianoleksij.github.io/geek-informatic/"}}</script>
+<meta name="theme-color" content="#EEF3FA">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232D55E0'/%3E%3Cpath d='M12 10l-5 6 5 6M20 10l5 6-5 6' stroke='%23FFE45C' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preload" href="../../assets/fonts/nunito-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../assets/fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/css/tokens.css">
+<link rel="stylesheet" href="../../assets/css/base.css">
+<link rel="stylesheet" href="../../activities/rebusy/rebusy.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="../../" aria-label="Geek Informatic — на головну">
+      <span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="#FFE45C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 7l-5 5 5 5M15 7l5 5-5 5"/></svg></span>
+      <span>Geek Informatic<small>уроки інформатики</small></span>
+    </a>
+    <nav><a href="../../">На головну</a><a class="lang-switch" href="../../en/" hreflang="en" lang="en" title="Перемкнути мову">English</a></nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div id="loadError" class="noscript load-error" role="alert" hidden>Не вдалося завантажити завдання. Онови сторінку.</div>
+  <noscript><p class="noscript">Для цієї сторінки потрібен JavaScript. Увімкни його в браузері.</p></noscript>
+
+  <section class="intro">
+    <p class="notebook-head">Розумна перерва</p>
+    <h1><span class="hl">Ребуси з інформатики</span></h1>
+    <p class="lead">Дивись на картинки, коми й заміни літер, склади слово та впиши відповідь. Усі слова — з комп’ютерного світу.</p>
+  </section>
+
+  <div class="filters" id="filters" role="group" aria-label="Клас"></div>
+
+  <details class="legend">
+    <summary>Як розгадувати ребус</summary>
+    <ul>
+      <li><b>,🐱</b><span>Кома перед картинкою: прибери стільки перших літер.</span></li>
+      <li><b>🐱,,</b><span>Коми після картинки: прибери стільки останніх літер.</span></li>
+      <li><b>1 3</b><span>Цифри над картинкою: візьми літери з цими номерами в такому порядку.</span></li>
+      <li><b>К = Т</b><span>Заміни першу літеру К у слові на Т.</span></li>
+      <li><b>↻</b><span>Перевернута картинка: читай слово навпаки.</span></li>
+      <li><b><s>А</s></b><span>Закреслена літера: її не читаємо.</span></li>
+    </ul>
+  </details>
+
+  <section class="stage" aria-label="Ребус">
+    <article class="card" id="card">
+      <div class="confetti" id="confetti" aria-hidden="true"></div>
+      <div class="card-head">
+        <span class="counter" id="counter"></span>
+        <span class="badges">
+          <span class="badge done" id="seen" hidden>✓ вже розгадано</span>
+          <span class="badge" id="grade"></span>
+        </span>
+      </div>
+      <div class="pieces" id="pieces" role="group" aria-label="Ребус: частини зліва направо"></div>
+      <div class="answer">
+        <form id="form" autocomplete="off" novalidate>
+          <label for="ans">Твоя відповідь</label>
+          <div class="row" id="row">
+            <input class="field" id="ans" name="ans" type="text" inputmode="text" autocomplete="off" autocapitalize="characters" autocorrect="off" spellcheck="false" enterkeyhint="done" aria-describedby="boxes">
+            <button class="btn" id="check" type="submit">Перевірити</button>
+          </div>
+          <div class="boxes" id="boxes" aria-hidden="true"></div>
+          <span class="sr" id="lettersSr"></span>
+        </form>
+        <div class="tools">
+          <button class="btn ghost" id="bulb" type="button" aria-label="Підказка">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.7.6 1.1 1.3 1.1 2.2h5c0-.9.4-1.6 1.1-2.2A6 6 0 0 0 12 3z" fill="#FFE45C"/></svg>
+            <span id="bulbTxt">Підказка</span>
+          </button>
+          <button class="linkbtn" id="reveal" type="button" hidden>Показати відповідь</button>
+          <button class="btn ghost" id="next" type="button">Далі
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="feedback" id="feedback" role="status" aria-live="polite"></div>
+    </article>
+    <p class="counter" id="solved" style="margin-top:14px"></p>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Geek Informatic · ребуси з інформатики · <a href="../../teachers/">Для вчителів</a> · <a href="../../privacy/">Приватність</a></span>
+    <span id="yr">2026</span>
+  </div>
+</footer>
+
+<script type="application/json" id="i18n-data">{"common":{"siteName":"Geek Informatic","tagline":"уроки інформатики","logoLabel":"Geek Informatic — на головну","home":"На головну","teachers":"Для вчителів","privacy":"Приватність","noscript":"Для цієї сторінки потрібен JavaScript. Увімкни його в браузері.","loadError":"Не вдалося завантажити завдання. Онови сторінку.","lang.uk":"Українська","lang.en":"English","langSwitch":"Перемкнути мову","topic.safety":"кібербезпека","topic.algorithms":"алгоритми","topic.loops":"цикли","topic.conditions":"умови","topic.blocks":"блокове програмування","topic.vocabulary":"поняття інформатики","grade.single":"{range} клас","grade.range":"{range} клас","navLabel":"Розділи","footer":"ігри, квести й ребуси з інформатики","ukOnly":"Лише українською","ogAlt":"Geek Informatic — інформатика, в яку грають","kbdSummary":"Керування з клавіатури","kbdStepsHead":"Як додати блок без миші:","kbdStep1":"Клавішею [[Tab]] перейди в поле програми й натисни [[Ctrl]]+[[Shift]]+[[K]].","kbdStep2":"[[D]] і [[S]] — підведи курсор під останній блок програми (там з’явиться лінія).","kbdStep3":"[[Enter]] — позначити це місце.","kbdStep4":"[[T]] — перейти до панелі, [[S]] — вибрати потрібний блок.","kbdStep5":"[[Enter]] — блок стане на позначене місце.","kbdAllHead":"Усі клавіші:","kbdAll1":"[[Ctrl]]+[[Shift]]+[[K]] — увімкнути або вимкнути клавіатурний режим (фокус має бути на робочій області).","kbdAll2":"[[W]] [[A]] [[S]] [[D]] — рухатися по блоках: вгору, назовні, вниз, всередину.","kbdAll3":"[[T]] — перейти до панелі блоків; [[W]]/[[S]] — вибрати розділ, [[D]] — відкрити блоки розділу.","kbdAll4":"[[Enter]] — у панелі блоків: узяти блок у програму; у програмі: позначити місце, куди вставити.","kbdAll5":"[[I]] — вставити (приєднати) блок до позначеного місця. [[Shift]]+[[W]]/[[A]]/[[S]]/[[D]] — рухати курсор по порожньому полю.","kbdAll6":"[[X]] — від’єднати блок. [[Delete]] або [[Backspace]] — видалити вибраний блок.","kbdAll7":"[[Esc]] або [[E]] — повернутися з панелі блоків до програми."},"rebusy":{"eyebrow":"Розумна перерва","title":"Ребуси з інформатики","lead":"Дивись на картинки, коми й заміни літер, склади слово та впиши відповідь. Усі слова — з комп’ютерного світу.","footer":"ребуси з інформатики","gradeGroup":"Клас","filterAll":"Усі","legendTitle":"Як розгадувати ребус","legendLeft":"Кома перед картинкою: прибери стільки перших літер.","legendRight":"Коми після картинки: прибери стільки останніх літер.","legendKeep":"Цифри над картинкою: візьми літери з цими номерами в такому порядку.","legendReplaceSample":"К = Т","legendReplace":"Заміни першу літеру К у слові на Т.","legendRevSample":"↻","legendRev":"Перевернута картинка: читай слово навпаки.","legendStrikeSample":"А","legendStrike":"Закреслена літера: її не читаємо.","stageAria":"Ребус","counter":"Ребус {n} з {total}","seen":"✓ вже розгадано","piecesAria":"Ребус: частини зліва направо","answerLabel":"Твоя відповідь","check":"Перевірити","hint":"Підказка","hintMore":"Ще підказка","reveal":"Показати відповідь","next":"Далі","solved":"Розгадано: {count}","letters":{"one":"{count} літера","few":"{count} літери","many":"{count} літер","other":"{count} літери"},"lettersSr":{"one":"У відповіді {count} літера","few":"У відповіді {count} літери","many":"У відповіді {count} літер","other":"У відповіді {count} літери"},"correct":"Правильно! Це **{answer}**. {hint}","wrong":"Ще не те. Спробуй ще раз","empty":"Спочатку впиши слово.","hintMsg":"💡 {hint}","meaningsTitle":"Що означають картинки:","meaning":"{symbol} — {word}","revealed":"Відповідь: **{answer}**. {hint}","revTitle":"Перевернута картинка: читай навпаки","pieceNum":"число {num}","piecePic":"картинка","pieceRev":"догори дриґом, читати навпаки","pieceKeep":"взяти літери за номерами {list}","pieceLeft":{"one":"{count} кома зліва: прибрати стільки літер на початку","few":"{count} коми зліва: прибрати стільки літер на початку","many":"{count} ком зліва: прибрати стільки літер на початку","other":"{count} коми зліва: прибрати стільки літер на початку"},"pieceRight":{"one":"{count} кома справа: прибрати стільки літер у кінці","few":"{count} коми справа: прибрати стільки літер у кінці","many":"{count} ком справа: прибрати стільки літер у кінці","other":"{count} коми справа: прибрати стільки літер у кінці"},"pieceReplace":"заміна: літеру {from} на {to}","pieceLetters":"літери {letters}","pieceLettersStruck":"літери {letters}, закреслені літери: {positions}","ord.1":"перша","ord.2":"друга","ord.3":"третя","ord.4":"четверта","ord.5":"п’ята","ord.6":"шоста","ord.7":"сьома","ord.8":"восьма"}}</script>
+<script src="../../assets/js/storage.js"></script>
+<script src="../../assets/js/i18n.js"></script>
+<script src="../../assets/js/data.js"></script>
+<script src="../../activities/rebusy/rebus-core.js"></script>
+<script src="../../activities/rebusy/app.js"></script>
+</body>
+</html>

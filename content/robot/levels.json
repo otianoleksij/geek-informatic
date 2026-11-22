@@ -1,0 +1,96 @@
+{
+  "$schema": "../../schemas/robot-levels.schema.json",
+  "format": 1,
+  "levels": [
+    {
+      "id": "first-step",
+      "title": {"uk": "Перший крок", "en": "First step"},
+      "tip": {"uk": "Натисни стрілку «вправо» кілька разів, а потім «Запустити». Робот піде до кристала!",
+              "en": "Press the right arrow a few times, then press “Run”. The robot will walk to the crystal!"},
+      "map": ["S...G"],
+      "maxBlocks": 6, "par": 4, "loops": false,
+      "solution": ["R", "R", "R", "R"]
+    },
+    {
+      "id": "turn",
+      "title": {"uk": "Поворот", "en": "Turn"},
+      "tip": {"uk": "Робот не ходить по діагоналі. Спершу йди в один бік, а потім — в інший.",
+              "en": "The robot can’t move diagonally. First go one way, then the other."},
+      "map": ["S...", "....", "...G", "...."],
+      "maxBlocks": 7, "par": 5, "loops": false,
+      "solution": ["R", "R", "R", "D", "D"]
+    },
+    {
+      "id": "around-rocks",
+      "title": {"uk": "Обхід каміння", "en": "Around the rocks"},
+      "tip": {"uk": "Камінь — перешкода. Обійди його й забери обидва кристали.",
+              "en": "A rock is an obstacle. Go around it and collect both crystals."},
+      "map": ["S.#..", ".....", ".#G..", "...#.", "G...."],
+      "maxBlocks": 10, "par": 8, "loops": false,
+      "solution": ["R", "D", "R", "D", "D", "D", "L", "L"]
+    },
+    {
+      "id": "tricky-path",
+      "title": {"uk": "Хитра стежка", "en": "Tricky path"},
+      "tip": {"uk": "Три кристали! Подумай, у якому порядку їх збирати, щоб шлях був коротшим.",
+              "en": "Three crystals! Think about the order to collect them in, so the path is shorter."},
+      "map": ["S.#..", ".##..", "..G#.", ".#..G", "G...."],
+      "maxBlocks": 13, "par": 11, "loops": false,
+      "solution": ["D", "D", "D", "D", "R", "R", "U", "U", "D", "R", "R"]
+    },
+    {
+      "id": "stone-corridor",
+      "title": {"uk": "Кам’яний коридор", "en": "Stone corridor"},
+      "tip": {"uk": "Йди вузьким коридором, не врізайся в стіни з каміння.",
+              "en": "Follow the narrow corridor without bumping into the stone walls."},
+      "map": ["S.G...", "####.#", "G.....", ".#####", "...G..", "######"],
+      "maxBlocks": 17, "par": 15, "loops": false,
+      "solution": ["R", "R", "R", "R", "D", "D", "L", "L", "L", "L", "D", "D", "R", "R", "R"]
+    },
+    {
+      "id": "loop-magic",
+      "title": {"uk": "Магія повторів", "en": "Loop magic"},
+      "tip": {"uk": "Блок «Повтори» робить команду багато разів. Натисни «Повтори», обери число і додай стрілку всередину. Так дорога коротша!",
+              "en": "The “Repeat” block does a command many times. Press “Repeat”, pick a number and add an arrow inside it. That makes the path shorter!"},
+      "map": ["S....G", ".#....", "....#.", ".#....", "......", ".....G"],
+      "maxBlocks": 5, "par": 4, "loops": true,
+      "solution": [{"rep": 5, "body": ["R"]}, {"rep": 5, "body": ["D"]}]
+    },
+    {
+      "id": "staircase",
+      "title": {"uk": "Драбинка", "en": "Staircase"},
+      "tip": {"uk": "Сходинки: вправо, вниз, вправо, вниз… Поклади в «Повтори» дві стрілки одразу!",
+              "en": "Stairs: right, down, right, down… Put two arrows inside “Repeat” at once!"},
+      "map": ["S..#..", ".....#", "......", "#..G..", "..#...", "....#G"],
+      "maxBlocks": 4, "par": 3, "loops": true,
+      "solution": [{"rep": 5, "body": ["R", "D"]}]
+    },
+    {
+      "id": "loop-combo",
+      "title": {"uk": "Повтори-комбо", "en": "Loop combo"},
+      "tip": {"uk": "Скористайся кількома блоками «Повтори»: драбинка, а потім дві прямі дороги.",
+              "en": "Use several “Repeat” blocks: a staircase first, then two straight roads."},
+      "map": ["S.#...#", "...#.#.", ".#...#.", "...G..G", "##.#...", "..#.#..", "#...#.G"],
+      "maxBlocks": 8, "par": 7, "loops": true,
+      "solution": [{"rep": 3, "body": ["R", "D"]}, {"rep": 3, "body": ["R"]}, {"rep": 3, "body": ["D"]}]
+    },
+    {
+      "id": "maze",
+      "title": {"uk": "Лабіринт", "en": "Maze"},
+      "tip": {"uk": "Чотири кристали й звивиста дорога. Повтори допоможуть вкластися в ліміт блоків.",
+              "en": "Four crystals and a winding path. “Repeat” blocks will help you stay within the block limit."},
+      "map": ["S.#.#.#", "#..#.#.", ".#....G", "G..G##.", "#.#..#.", ".#.#...", "#.#.#.G"],
+      "maxBlocks": 13, "par": 12, "loops": true,
+      "solution": [{"rep": 2, "body": ["R", "D"]}, {"rep": 4, "body": ["R"]}, {"rep": 4, "body": ["D"]}, {"rep": 3, "body": ["L", "U"]}, {"rep": 3, "body": ["L"]}]
+    },
+    {
+      "id": "crystal-mountain",
+      "title": {"uk": "Кристальна гора", "en": "Crystal mountain"},
+      "tip": {"uk": "Фінал! П’ять кристалів, великий лабіринт і дуже тісний ліміт блоків. Ти зможеш!",
+              "en": "The final level! Five crystals, a big maze and a very tight block limit. You can do it!"},
+      "map": ["S.#.#..#", "#..#.#..", ".#..#.#.", "#.GG...G", ".#.#.#..", "#...#.#.", ".#.#.#..", "#.G....G"],
+      "maxBlocks": 11, "par": 11, "loops": true,
+      "solution": [{"rep": 3, "body": ["R", "D"]}, {"rep": 4, "body": ["R"]}, {"rep": 4, "body": ["D"]}, {"rep": 5, "body": ["L"]}, {"rep": 4, "body": ["U"]}]
+    }
+  ]
+}

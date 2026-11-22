@@ -1,0 +1,6 @@
+<svg viewBox="0 0 120 120" aria-hidden="true">
+    <path d="M60 10l40 15v31c0 25-17 43-40 52-23-9-40-27-40-52V25z" fill="#FFE45C" stroke="#14213A" stroke-width="4" stroke-linejoin="round"/>
+    <rect x="44" y="52" width="32" height="26" rx="5" fill="#14213A"/>
+    <path d="M50 52v-7a10 10 0 0 1 20 0v7" stroke="#14213A" stroke-width="5" fill="none"/>
+    <circle cx="60" cy="63" r="4" fill="#FFE45C"/><path d="M60 66v6" stroke="#FFE45C" stroke-width="3" stroke-linecap="round"/>
+</svg>

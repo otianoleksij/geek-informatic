@@ -2,7 +2,7 @@
 /* Перевірка гри «Марсохід у лабіринті»: node tools/check-mars.js */
 "use strict";
 var path = require("path");
-var Core = require(path.join(__dirname, "..", "mars", "mars-core.js"));
+var Core = require(path.join(__dirname, "..", "activities", "mars", "mars-core.js"));
 var errors = [];
 function err(m) { if (errors.length < 30) errors.push(m); else if (errors.length === 30) errors.push("..."); }
 var N = 500, MAX = 1500;

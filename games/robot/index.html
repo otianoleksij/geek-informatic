@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="uk" data-root="../../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Я керую роботом! — Geek Informatic</title>
+<meta name="description" content="Гра для 3–4 класу: склади програму зі стрілок і блоків «Повтори», щоб робот зібрав усі кристали. 10 рівнів.">
+<link rel="canonical" href="https://otianoleksij.github.io/geek-informatic/games/robot/">
+<link rel="alternate" hreflang="uk" href="https://otianoleksij.github.io/geek-informatic/games/robot/">
+<link rel="alternate" hreflang="en" href="https://otianoleksij.github.io/geek-informatic/en/games/robot/">
+<link rel="alternate" hreflang="x-default" href="https://otianoleksij.github.io/geek-informatic/games/robot/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Geek Informatic">
+<meta property="og:locale" content="uk_UA">
+<meta property="og:title" content="Я керую роботом!">
+<meta property="og:description" content="Гра для 3–4 класу: склади програму зі стрілок і блоків «Повтори», щоб робот зібрав усі кристали. 10 рівнів.">
+<meta property="og:url" content="https://otianoleksij.github.io/geek-informatic/games/robot/">
+<meta property="og:image" content="https://otianoleksij.github.io/geek-informatic/assets/og/robot.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Я керую роботом! — Geek Informatic">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Я керую роботом!","description":"Гра для 3–4 класу: склади програму зі стрілок і блоків «Повтори», щоб робот зібрав усі кристали. 10 рівнів.","url":"https://otianoleksij.github.io/geek-informatic/games/robot/","inLanguage":"uk","isAccessibleForFree":true,"learningResourceType":"game","educationalLevel":"3–4 клас","teaches":["алгоритми","цикли"],"provider":{"@type":"Organization","name":"Geek Informatic","url":"https://otianoleksij.github.io/geek-informatic/"},"publisher":{"@type":"Organization","name":"Geek Informatic","url":"https://otianoleksij.github.io/geek-informatic/"}}</script>
+<meta name="theme-color" content="#EEF3FA">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232D55E0'/%3E%3Cpath d='M12 10l-5 6 5 6M20 10l5 6-5 6' stroke='%23FFE45C' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preload" href="../../assets/fonts/nunito-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../assets/fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/css/tokens.css">
+<link rel="stylesheet" href="../../assets/css/base.css">
+<link rel="stylesheet" href="../../activities/robot/robot.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="../../" aria-label="Geek Informatic — на головну">
+      <span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="#FFE45C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 7l-5 5 5 5M15 7l5 5-5 5"/></svg></span>
+      <span>Geek Informatic<small>уроки інформатики</small></span>
+    </a>
+    <nav><a href="../../">На головну</a><a class="lang-switch" href="../../en/games/robot/" hreflang="en" lang="en" title="Перемкнути мову">English</a></nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div id="loadError" class="noscript load-error" role="alert" hidden>Не вдалося завантажити завдання. Онови сторінку.</div>
+  <noscript><p class="noscript">Для цієї сторінки потрібен JavaScript. Увімкни його в браузері.</p></noscript>
+
+  <!-- Вибір рівнів -->
+  <section id="screenSelect" aria-labelledby="selTitle">
+    <div class="intro">
+      <p class="notebook-head">3–4 клас · алгоритми</p>
+      <h1 id="selTitle"><span class="hl">Я керую роботом!</span></h1>
+      <p class="lead">Склади програму зі стрілок, натисни «Запустити» і допоможи роботу зібрати всі кристали. З 6 рівня з’являються блоки «Повтори».</p>
+    </div>
+    <div class="levels" id="levels"></div>
+    <div class="sel-tools">
+      <span id="progressTxt"></span>
+      <button class="linkbtn" id="resetProgress" type="button">Скинути прогрес</button>
+    </div>
+  </section>
+
+  <!-- Гра -->
+  <section id="screenPlay" hidden aria-labelledby="lvTitle">
+    <div class="pagehead">
+      <button class="btn ghost back" id="back" type="button" aria-label="Повернутися до вибору рівнів">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Рівні
+      </button>
+      <h2 id="lvTitle"></h2>
+    </div>
+    <p class="sticky" id="tip"></p>
+
+    <div class="game">
+      <div class="board-col">
+        <div class="hud">
+          <div class="gemcount" id="gemcount" role="img"><span id="gemIcon"></span><span id="gemTxt">0 / 0</span></div>
+          <div class="speed" role="group" aria-label="Швидкість робота">
+            <button type="button" id="spSlow" aria-pressed="true" aria-label="Повільно" title="Повільно">🐢</button>
+            <button type="button" id="spFast" aria-pressed="false" aria-label="Швидко" title="Швидко">🐇</button>
+          </div>
+        </div>
+        <div class="boardwrap"><span class="tape" aria-hidden="true"></span><div class="board" id="board" role="img" aria-label="Ігрове поле"></div></div>
+        <div class="msg info" id="msg" role="status" aria-live="polite"></div>
+      </div>
+
+      <div class="panel">
+        <div class="card">
+          <h3>Команди</h3>
+          <div class="palette" id="palette" role="group" aria-label="Команди">
+            <button class="cmd" data-d="U" type="button" aria-label="Вгору"></button>
+            <button class="cmd" data-d="D" type="button" aria-label="Вниз"></button>
+            <button class="cmd" data-d="L" type="button" aria-label="Вліво"></button>
+            <button class="cmd" data-d="R" type="button" aria-label="Вправо"></button>
+            <button class="cmd rep" id="addRep" type="button" aria-label="Додати блок «Повтори»" hidden>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/></svg>Повтори
+            </button>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Моя програма</h3>
+          <div class="limit"><b id="limit" aria-live="polite"></b><button class="btn ghost" id="clear" type="button" style="min-height:44px;padding:6px 14px">Очистити</button></div>
+          <div class="program" id="program" role="group" aria-label="Програма"></div>
+          <div class="actions">
+            <button class="btn go" id="run" type="button"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg><span id="runTxt">Запустити</span></button>
+            <button class="btn ghost" id="step" type="button" aria-label="Виконати один крок">Крок</button>
+            <button class="btn stop" id="stop" type="button" hidden>Стоп</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="flash" id="flash" aria-hidden="true"></div>
+  <canvas id="confetti" aria-hidden="true"></canvas>
+  <div id="modalHost"></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Geek Informatic · я керую роботом · <a href="../../teachers/">Для вчителів</a> · <a href="../../privacy/">Приватність</a></span>
+    <span id="yr">2026</span>
+  </div>
+</footer>
+
+<script type="application/json" id="i18n-data">{"common":{"siteName":"Geek Informatic","tagline":"уроки інформатики","logoLabel":"Geek Informatic — на головну","home":"На головну","teachers":"Для вчителів","privacy":"Приватність","noscript":"Для цієї сторінки потрібен JavaScript. Увімкни його в браузері.","loadError":"Не вдалося завантажити завдання. Онови сторінку.","lang.uk":"Українська","lang.en":"English","langSwitch":"Перемкнути мову","topic.safety":"кібербезпека","topic.algorithms":"алгоритми","topic.loops":"цикли","topic.conditions":"умови","topic.blocks":"блокове програмування","topic.vocabulary":"поняття інформатики","grade.single":"{range} клас","grade.range":"{range} клас","navLabel":"Розділи","footer":"ігри, квести й ребуси з інформатики","ukOnly":"Лише українською","ogAlt":"Geek Informatic — інформатика, в яку грають","kbdSummary":"Керування з клавіатури","kbdStepsHead":"Як додати блок без миші:","kbdStep1":"Клавішею [[Tab]] перейди в поле програми й натисни [[Ctrl]]+[[Shift]]+[[K]].","kbdStep2":"[[D]] і [[S]] — підведи курсор під останній блок програми (там з’явиться лінія).","kbdStep3":"[[Enter]] — позначити це місце.","kbdStep4":"[[T]] — перейти до панелі, [[S]] — вибрати потрібний блок.","kbdStep5":"[[Enter]] — блок стане на позначене місце.","kbdAllHead":"Усі клавіші:","kbdAll1":"[[Ctrl]]+[[Shift]]+[[K]] — увімкнути або вимкнути клавіатурний режим (фокус має бути на робочій області).","kbdAll2":"[[W]] [[A]] [[S]] [[D]] — рухатися по блоках: вгору, назовні, вниз, всередину.","kbdAll3":"[[T]] — перейти до панелі блоків; [[W]]/[[S]] — вибрати розділ, [[D]] — відкрити блоки розділу.","kbdAll4":"[[Enter]] — у панелі блоків: узяти блок у програму; у програмі: позначити місце, куди вставити.","kbdAll5":"[[I]] — вставити (приєднати) блок до позначеного місця. [[Shift]]+[[W]]/[[A]]/[[S]]/[[D]] — рухати курсор по порожньому полю.","kbdAll6":"[[X]] — від’єднати блок. [[Delete]] або [[Backspace]] — видалити вибраний блок.","kbdAll7":"[[Esc]] або [[E]] — повернутися з панелі блоків до програми."},"robot":{"eyebrow":"3–4 клас · алгоритми","title":"Я керую роботом!","lead":"Склади програму зі стрілок, натисни «Запустити» і допоможи роботу зібрати всі кристали. З 6 рівня з’являються блоки «Повтори».","footer":"я керую роботом","progress":"Зірок: {count} з {total}","resetProgress":"Скинути прогрес","resetConfirm":"Стерти прогрес? Ще раз","backAria":"Повернутися до вибору рівнів","back":"Рівні","levelHeading":"Рівень {n} · {title}","levelAria":{"one":"Рівень {n}: {title}. {count} зірка з 3","few":"Рівень {n}: {title}. {count} зірки з 3","many":"Рівень {n}: {title}. {count} зірок з 3","other":"Рівень {n}: {title}. {count} зірки з 3"},"levelLocked":"Рівень {n} закрито","boardAria":"Ігрове поле {w} на {h}, кристалів: {gems}","board":"Ігрове поле","start":"старт","gemsAria":"Кристали: {n} з {total}","speedGroup":"Швидкість робота","speedSlow":"Повільно","speedFast":"Швидко","commands":"Команди","dirUp":"Вгору","dirDown":"Вниз","dirLeft":"Вліво","dirRight":"Вправо","chipAria":"{dir}. Прибрати","addRepeatAria":"Додати блок «Повтори»","repeat":"Повтори","repeatTimes":"разів","repeatLess":"Менше повторів","repeatMore":"Більше повторів","repeatCountAria":"Повторів: {n}. Натисни, щоб збільшити","repeatDone":"Готово","repeatDoneAria":"Готово: закрити блок «Повтори»","repeatRemoveAria":"Прибрати весь блок «Повтори»","repeatHintOpen":"↑ натискай стрілки — вони потраплять сюди","repeatHintEmpty":"порожньо","myProgram":"Моя програма","programAria":"Програма","programEmpty":"Тут буде твоя програма. Натискай стрілки!","limit":"Блоків: {n} / {max}","clear":"Очистити","run":"Запустити","continue":"Далі","step":"Крок","stepAria":"Виконати один крок","stop":"Стоп","stopped":"Зупинено. Можна змінити програму.","needArrow":"Додай хоча б одну стрілку до програми.","emptyRepeat":"У блоці «Повтори» ще порожньо. Додай у нього стрілки.","tooMany":{"one":"Забагато блоків! Максимум — {count} блок. Прибери зайві або скористайся «Повтори».","few":"Забагато блоків! Максимум — {count} блоки. Прибери зайві або скористайся «Повтори».","many":"Забагато блоків! Максимум — {count} блоків. Прибери зайві або скористайся «Повтори».","other":"Забагато блоків! Максимум — {count} блоки. Прибери зайві або скористайся «Повтори»."},"ended":{"one":"Команди скінчилися. Зібрано {got} з {count} кристала. Додай ще команди або спробуй інакше.","few":"Команди скінчилися. Зібрано {got} з {count} кристалів. Додай ще команди або спробуй інакше.","many":"Команди скінчилися. Зібрано {got} з {count} кристалів. Додай ще команди або спробуй інакше.","other":"Команди скінчилися. Зібрано {got} з {count} кристалів. Додай ще команди або спробуй інакше."},"crashRock":"Ой! Камінь на кроці {step}.","crashEdge":"Ой! Це край поля на кроці {step}: далі за поле йти не можна.","tryAgain":"Спробувати ще","tryAgainMsg":"Спробуй ще раз: зміни програму й натисни «Запустити».","winMsg":"Супер! Усі кристали зібрано!","levelDone":"Рівень пройдено!","starsAria":{"one":"{count} зірка з 3","few":"{count} зірки з 3","many":"{count} зірок з 3","other":"{count} зірки з 3"},"perfect":"Ідеально! Це найкоротша програма.","notPerfect":"Блоків: {blocks}. Для трьох зірок потрібно {par} або менше.","nextLevel":"Наступний рівень","toLevels":"До рівнів","improve":"Покращити","tryShorter":"Спробуй скласти коротшу програму!"}}</script>
+<script src="../../assets/js/storage.js"></script>
+<script src="../../assets/js/i18n.js"></script>
+<script src="../../assets/js/data.js"></script>
+<script src="../../activities/robot/robot-core.js"></script>
+<script src="../../activities/robot/app.js"></script>
+</body>
+</html>

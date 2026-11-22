@@ -1,11 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://otianoleksij.github.io/geek-informatic/</loc><lastmod>2026-11-22</lastmod></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://otianoleksij.github.io/geek-informatic/</loc>
+    <lastmod>2026-11-22</lastmod>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://otianoleksij.github.io/geek-informatic/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://otianoleksij.github.io/geek-informatic/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://otianoleksij.github.io/geek-informatic/"/>
+  </url>
+  <url>
+    <loc>https://otianoleksij.github.io/geek-informatic/en/</loc>
+    <lastmod>2026-11-22</lastmod>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://otianoleksij.github.io/geek-informatic/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://otianoleksij.github.io/geek-informatic/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://otianoleksij.github.io/geek-informatic/"/>
+  </url>
   <url><loc>https://otianoleksij.github.io/geek-informatic/web-quests/agenty-kibershchytu/</loc><lastmod>2026-11-22</lastmod></url>
-  <url><loc>https://otianoleksij.github.io/geek-informatic/web-quests/kod-galaktyky/</loc><lastmod>2026-11-22</lastmod></url>
-  <url><loc>https://otianoleksij.github.io/geek-informatic/robot/</loc><lastmod>2026-11-22</lastmod></url>
-  <url><loc>https://otianoleksij.github.io/geek-informatic/mars/</loc><lastmod>2026-11-22</lastmod></url>
-  <url><loc>https://otianoleksij.github.io/geek-informatic/rebusy/</loc><lastmod>2026-11-22</lastmod></url>
-  <url><loc>https://otianoleksij.github.io/geek-informatic/teachers/</loc><lastmod>2026-11-22</lastmod></url>
-  <url><loc>https://otianoleksij.github.io/geek-informatic/privacy/</loc><lastmod>2026-11-22</lastmod></url>
+  <url>
+    <loc>https://otianoleksij.github.io/geek-informatic/games/kod-galaktyky/</loc>
+    <lastmod>2026-11-22</lastmod>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://otianoleksij.github.io/geek-informatic/games/kod-galaktyky/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://otianoleksij.github.io/geek-informatic/en/games/kod-galaktyky/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://otianoleksij.github.io/geek-informatic/games/kod-galaktyky/"/>
+  </url>
+  <url>
+    <loc>https://otianoleksij.github.io/geek-informatic/en/games/kod-galaktyky/</loc>
+    <lastmod>2026-11-22</lastmod>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://otianoleksij.github.io/geek-informatic/games/kod-galaktyky/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://otianoleksij.github.io/geek-informatic/en/games/kod-galaktyky/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://otianoleksij.github.io/geek-informatic/games/kod-galaktyky/"/>
+  </url>
+  <url>
+    <loc>https://otianoleksij.github.io/geek-informatic/games/robot/</loc>
+    <lastmod>2026-11-22</lastmod>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://otianoleksij.github.io/geek-informatic/games/robot/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://otianoleksij.github.io/geek-informatic/en/games/robot/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://otianoleksij.github.io/geek-informatic/games/robot/"/>
+  </url>
+  <url>
+    <loc>https://otianoleksij.github.io/geek-informatic/en/games/robot/</loc>
+    <lastmod>2026-11-22</lastmod>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://otianoleksij.github.io/geek-informatic/games/robot/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://otianoleksij.github.io/geek-informatic/en/games/robot/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://otianoleksij.github.io/geek-informatic/games/robot/"/>
+  </url>
+  <url>
+    <loc>https://otianoleksij.github.io/geek-informatic/games/mars/</loc>
+    <lastmod>2026-11-22</lastmod>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://otianoleksij.github.io/geek-informatic/games/mars/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://otianoleksij.github.io/geek-informatic/en/games/mars/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://otianoleksij.github.io/geek-informatic/games/mars/"/>
+  </url>
+  <url>
+    <loc>https://otianoleksij.github.io/geek-informatic/en/games/mars/</loc>
+    <lastmod>2026-11-22</lastmod>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://otianoleksij.github.io/geek-informatic/games/mars/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://otianoleksij.github.io/geek-informatic/en/games/mars/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://otianoleksij.github.io/geek-informatic/games/mars/"/>
+  </url>
+  <url><loc>https://otianoleksij.github.io/geek-informatic/puzzles/rebusy/</loc><lastmod>2026-11-22</lastmod></url>
+  <url>
+    <loc>https://otianoleksij.github.io/geek-informatic/teachers/</loc>
+    <lastmod>2026-11-22</lastmod>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://otianoleksij.github.io/geek-informatic/teachers/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://otianoleksij.github.io/geek-informatic/en/teachers/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://otianoleksij.github.io/geek-informatic/teachers/"/>
+  </url>
+  <url>
+    <loc>https://otianoleksij.github.io/geek-informatic/en/teachers/</loc>
+    <lastmod>2026-11-22</lastmod>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://otianoleksij.github.io/geek-informatic/teachers/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://otianoleksij.github.io/geek-informatic/en/teachers/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://otianoleksij.github.io/geek-informatic/teachers/"/>
+  </url>
+  <url>
+    <loc>https://otianoleksij.github.io/geek-informatic/privacy/</loc>
+    <lastmod>2026-11-22</lastmod>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://otianoleksij.github.io/geek-informatic/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://otianoleksij.github.io/geek-informatic/en/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://otianoleksij.github.io/geek-informatic/privacy/"/>
+  </url>
+  <url>
+    <loc>https://otianoleksij.github.io/geek-informatic/en/privacy/</loc>
+    <lastmod>2026-11-22</lastmod>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://otianoleksij.github.io/geek-informatic/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://otianoleksij.github.io/geek-informatic/en/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://otianoleksij.github.io/geek-informatic/privacy/"/>
+  </url>
 </urlset>

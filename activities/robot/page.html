@@ -1,0 +1,67 @@
+  <!-- Вибір рівнів -->
+  <section id="screenSelect" aria-labelledby="selTitle">
+    <div class="intro">
+      <p class="notebook-head">{{robot.eyebrow}}</p>
+      <h1 id="selTitle"><span class="hl">{{robot.title}}</span></h1>
+      <p class="lead">{{robot.lead}}</p>
+    </div>
+    <div class="levels" id="levels"></div>
+    <div class="sel-tools">
+      <span id="progressTxt"></span>
+      <button class="linkbtn" id="resetProgress" type="button">{{robot.resetProgress}}</button>
+    </div>
+  </section>
+
+  <!-- Гра -->
+  <section id="screenPlay" hidden aria-labelledby="lvTitle">
+    <div class="pagehead">
+      <button class="btn ghost back" id="back" type="button" aria-label="{{robot.backAria}}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>{{robot.back}}
+      </button>
+      <h2 id="lvTitle"></h2>
+    </div>
+    <p class="sticky" id="tip"></p>
+
+    <div class="game">
+      <div class="board-col">
+        <div class="hud">
+          <div class="gemcount" id="gemcount" role="img"><span id="gemIcon"></span><span id="gemTxt">0 / 0</span></div>
+          <div class="speed" role="group" aria-label="{{robot.speedGroup}}">
+            <button type="button" id="spSlow" aria-pressed="true" aria-label="{{robot.speedSlow}}" title="{{robot.speedSlow}}">🐢</button>
+            <button type="button" id="spFast" aria-pressed="false" aria-label="{{robot.speedFast}}" title="{{robot.speedFast}}">🐇</button>
+          </div>
+        </div>
+        <div class="boardwrap"><span class="tape" aria-hidden="true"></span><div class="board" id="board" role="img" aria-label="{{robot.board}}"></div></div>
+        <div class="msg info" id="msg" role="status" aria-live="polite"></div>
+      </div>
+
+      <div class="panel">
+        <div class="card">
+          <h3>{{robot.commands}}</h3>
+          <div class="palette" id="palette" role="group" aria-label="{{robot.commands}}">
+            <button class="cmd" data-d="U" type="button" aria-label="{{robot.dirUp}}"></button>
+            <button class="cmd" data-d="D" type="button" aria-label="{{robot.dirDown}}"></button>
+            <button class="cmd" data-d="L" type="button" aria-label="{{robot.dirLeft}}"></button>
+            <button class="cmd" data-d="R" type="button" aria-label="{{robot.dirRight}}"></button>
+            <button class="cmd rep" id="addRep" type="button" aria-label="{{robot.addRepeatAria}}" hidden>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/></svg>{{robot.repeat}}
+            </button>
+          </div>
+        </div>
+        <div class="card">
+          <h3>{{robot.myProgram}}</h3>
+          <div class="limit"><b id="limit" aria-live="polite"></b><button class="btn ghost" id="clear" type="button" style="min-height:44px;padding:6px 14px">{{robot.clear}}</button></div>
+          <div class="program" id="program" role="group" aria-label="{{robot.programAria}}"></div>
+          <div class="actions">
+            <button class="btn go" id="run" type="button"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg><span id="runTxt">{{robot.run}}</span></button>
+            <button class="btn ghost" id="step" type="button" aria-label="{{robot.stepAria}}">{{robot.step}}</button>
+            <button class="btn stop" id="stop" type="button" hidden>{{robot.stop}}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="flash" id="flash" aria-hidden="true"></div>
+  <canvas id="confetti" aria-hidden="true"></canvas>
+  <div id="modalHost"></div>

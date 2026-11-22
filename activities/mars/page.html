@@ -1,0 +1,240 @@
+
+<!-- Космос лініями: тільки контури, без заливки -->
+<svg class="bg-lines" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+  <!-- великий Марс з Фобосом -->
+  <g class="drift d4">
+    <g transform="translate(1380 250)">
+      <circle class="c2" r="130"/>
+      <path class="c2" d="M-118 -50 Q-40 -30 40 -70 Q90 -90 120 -50"/>
+      <circle class="c2" cx="-46" cy="-34" r="26"/><circle class="c2" cx="38" cy="30" r="36"/>
+      <circle class="c2" cx="-64" cy="52" r="13"/><circle class="c2" cx="70" cy="-30" r="9"/>
+      <path class="c2" d="M-100 78 Q-30 100 60 90"/>
+      <ellipse class="c2 dash" rx="210" ry="60" transform="rotate(-18)"/>
+    </g>
+    <g transform="translate(1180 120) rotate(20)">
+      <path class="c4" d="M-26 -4 Q-24 -18 -6 -20 Q16 -22 26 -8 Q30 8 12 16 Q-8 22 -22 12 Q-28 6 -26 -4 Z"/>
+      <circle class="c4" cx="-6" cy="-2" r="5"/>
+    </g>
+  </g>
+  <!-- планета з кільцем -->
+  <g class="drift d1">
+    <g transform="translate(170 175)">
+      <circle class="c1" r="70"/>
+      <path class="c1" d="M-58 -38 Q0 -60 58 -38M-70 -12 Q0 -36 70 -12"/>
+      <ellipse class="c3" rx="132" ry="32" transform="rotate(-20)"/>
+      <ellipse class="c3 dash" rx="164" ry="44" transform="rotate(-20)"/>
+    </g>
+  </g>
+  <!-- планета з кратерами -->
+  <g class="drift d2">
+    <g transform="translate(1430 830)">
+      <circle class="c1" r="90"/>
+      <circle class="c1" cx="-32" cy="-28" r="20"/><circle class="c1" cx="28" cy="22" r="28"/>
+      <circle class="c1" cx="-38" cy="38" r="10"/><circle class="c1" cx="44" cy="-50" r="8"/>
+    </g>
+  </g>
+  <ellipse class="c2 dash" cx="1430" cy="830" rx="250" ry="90" transform="rotate(-24 1430 830)"/>
+  <ellipse class="c3 dash" cx="170" cy="175" rx="300" ry="120" transform="rotate(14 170 175)"/>
+  <circle class="dot" cx="1180" cy="910" r="5"/><circle class="dot" cx="410" cy="120" r="4"/>
+  <!-- ракета -->
+  <g class="drift d3">
+    <g transform="translate(150 790) rotate(38)">
+      <path class="c2" d="M0 -78 C24 -52 26 0 17 48 L-17 48 C-26 0 -24 -52 0 -78 Z"/>
+      <circle class="c2" cy="-26" r="11"/>
+      <path class="c2" d="M17 22 L40 58 L17 46M-17 22 L-40 58 L-17 46"/>
+      <path class="c3" d="M-10 54 Q0 98 10 54"/><path class="c3" d="M-4 58 Q0 78 4 58"/>
+    </g>
+  </g>
+  <!-- супутник -->
+  <g class="drift d2">
+    <g transform="translate(860 880) rotate(-16)">
+      <rect class="c1" x="-24" y="-18" width="48" height="36" rx="6"/>
+      <rect class="c1" x="-100" y="-12" width="64" height="24"/><rect class="c1" x="36" y="-12" width="64" height="24"/>
+      <path class="c1" d="M-84 -12V12M-68 -12V12M-52 -12V12M52 -12V12M68 -12V12M84 -12V12M-24 0H-36M24 0H36"/>
+      <path class="c1" d="M0 -18V-42"/><circle class="c1" cy="-46" r="5"/>
+    </g>
+  </g>
+  <!-- комета -->
+  <g class="drift d1">
+    <g transform="translate(760 90)">
+      <circle class="c2" r="14"/>
+      <path class="c2" d="M-18 -6 Q-120 -26 -260 -84M-16 4 Q-130 14 -290 -22M-14 12 Q-100 50 -230 38"/>
+    </g>
+  </g>
+  <!-- сузір'я -->
+  <g class="drift d3">
+    <g transform="translate(1130 520)">
+      <path class="c1" d="M0 0 L70 -34 L150 -8 L196 46 L126 92 L56 66 Z"/>
+      <circle class="dot" r="5"/><circle class="dot" cx="70" cy="-34" r="5"/><circle class="dot" cx="150" cy="-8" r="5"/>
+      <circle class="dot" cx="196" cy="46" r="5"/><circle class="dot" cx="126" cy="92" r="5"/><circle class="dot" cx="56" cy="66" r="5"/>
+    </g>
+  </g>
+  <g transform="translate(330 560)">
+    <path class="c3" d="M0 0 L36 28 L28 74 L-20 60"/>
+    <circle class="c3" r="3.5"/><circle class="c3" cx="36" cy="28" r="3.5"/><circle class="c3" cx="28" cy="74" r="3.5"/><circle class="c3" cx="-20" cy="60" r="3.5"/>
+  </g>
+  <!-- чотири променеві зірки -->
+  <g class="c4"><path d="M520 300v26M507 313h26"/><path d="M980 330v20M970 340h20"/><path d="M60 560v22M49 571h22"/><path d="M700 700v24M688 712h24"/></g>
+</svg>
+<div class="stars-layer" id="stars" aria-hidden="true"></div>
+
+<div class="page">
+  <header class="top">
+    <a class="logo" href="{{homeHref}}" aria-label="{{common.logoLabel}}">
+      <span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="#FFE45C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 7l-5 5 5 5M15 7l5 5-5 5"/></svg></span>
+      <span>{{common.siteName}}<small>{{common.tagline}}</small></span>
+    </a>
+    <nav><a href="{{homeHref}}">{{common.home}}</a>{{#if altHref}}<a class="lang-switch" href="{{altHref}}" hreflang="{{altLang}}" lang="{{altLang}}" title="{{common.langSwitch}}">{{altName}}</a>{{/if}}</nav>
+  </header>
+
+  <main>
+  <div id="loadError" class="card load-error" role="alert" hidden>{{common.loadError}}</div>
+  <noscript><p class="card">{{common.noscript}}</p></noscript>
+
+  <section class="hero">
+    <span class="tag">{{mars.tag}}</span>
+    <h1>{{mars.title}}</h1>
+  </section>
+
+  <section class="card rule" id="ruleCard" aria-labelledby="ruleH">
+    <h2 id="ruleH" style="margin-bottom:6px">{{mars.ruleTitle}}</h2>
+    <p data-rich="mars.rule1"></p>
+    <p data-rich="mars.rule2"></p>
+  </section>
+
+  <section id="viewNoEditor" class="card no-editor" role="alert" hidden>
+    <h2>{{mars.noEditorTitle}}</h2>
+    <p>{{mars.noEditorText}}</p>
+    <div class="row">
+      <button class="btn btn-main" id="reloadPage" type="button">{{mars.reload}}</button>
+    </div>
+  </section>
+
+  <div class="game-grid" id="gameArea">
+    <section class="card stage-card" id="stageCard" aria-label="{{mars.stageAria}}">
+      <h3>{{mars.stageAria}} <span id="pos"></span></h3>
+      <div class="stage-box" id="stageBox">
+        <svg class="field" id="field" viewBox="-8 -8 616 616" role="img" aria-label="{{mars.fieldAria}}" style="--step:420ms">
+          <defs>
+            <radialGradient id="soilG" cx=".5" cy=".5" r=".75"><stop offset="0" stop-color="#c6652f"/><stop offset="1" stop-color="#96401f"/></radialGradient>
+            <pattern id="soilP" width="150" height="150" patternUnits="userSpaceOnUse">
+              <ellipse cx="40" cy="36" rx="34" ry="20" fill="#ffd2a0" opacity=".1"/>
+              <ellipse cx="112" cy="104" rx="30" ry="16" fill="#ffd2a0" opacity=".09"/>
+              <circle cx="30" cy="100" r="14" fill="#5a230f" opacity=".2"/><circle cx="28" cy="98" r="14" fill="none" stroke="#ffc99a" stroke-opacity=".3" stroke-width="2"/>
+              <circle cx="118" cy="34" r="9" fill="#5a230f" opacity=".2"/><circle cx="116" cy="33" r="9" fill="none" stroke="#ffc99a" stroke-opacity=".3" stroke-width="1.6"/>
+              <circle cx="78" cy="68" r="5" fill="#5a230f" opacity=".2"/>
+              <ellipse cx="66" cy="20" rx="3.2" ry="2.2" fill="#6e2f17" opacity=".5"/><ellipse cx="90" cy="130" rx="3" ry="2" fill="#6e2f17" opacity=".5"/>
+              <ellipse cx="10" cy="64" rx="2.6" ry="1.8" fill="#6e2f17" opacity=".5"/><ellipse cx="140" cy="76" rx="3.4" ry="2.2" fill="#6e2f17" opacity=".5"/>
+              <ellipse cx="132" cy="140" rx="2.4" ry="1.6" fill="#e9a878" opacity=".4"/><ellipse cx="52" cy="140" rx="2.8" ry="1.8" fill="#e9a878" opacity=".4"/>
+            </pattern>
+            <filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="4"/><feColorMatrix values="0 0 0 0 .25  0 0 0 0 .08  0 0 0 0 .02  0 0 0 .55 -.12"/></filter>
+            <filter id="rough" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".07" numOctaves="2" seed="9" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5"/></filter>
+          </defs>
+          <rect x="-8" y="-8" width="616" height="616" fill="url(#soilG)"/>
+          <rect x="-8" y="-8" width="616" height="616" fill="url(#soilP)"/>
+          <rect x="-8" y="-8" width="616" height="616" filter="url(#grain)" opacity=".5"/>
+          <path class="grid-l" id="gridL"/>
+          <g id="startMark">
+            <circle cx="30" cy="30" r="23" fill="rgba(255,230,200,.1)" stroke="#ffe3c4" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="30" y="55" text-anchor="middle" font-size="8.5" fill="#ffe3c4">{{mars.startLabel}}</text>
+          </g>
+          <g id="finishMark" transform="translate(570 570)">
+            <circle r="26" fill="#2f3441" stroke="#d8dfee" stroke-width="2.5"/>
+            <circle r="19" fill="#4b5365" stroke="#aab4c8" stroke-width="1.5" stroke-dasharray="5 4"/>
+            <circle class="beacon" r="26" fill="none" stroke="#3fe0d0" stroke-width="2" stroke-opacity=".8"/>
+            <text y="2" text-anchor="middle" font-size="9" fill="#d8dfee" opacity=".8">{{mars.baseLabel}}</text>
+            <g transform="translate(-13 10)">
+              <path d="M0 0V-34" stroke="#e8edf7" stroke-width="2.4" stroke-linecap="round"/>
+              <g id="flagLift"><path class="flag-wave" d="M1 -34 L21 -29 L1 -23 Z" fill="#ff3d3d" stroke="#7a1010" stroke-width="1.2" stroke-linejoin="round"/></g>
+              <circle cy="-35" r="2" fill="#ffd54a"/>
+            </g>
+          </g>
+          <g id="trail"></g>
+          <g id="walls"></g>
+          <g id="rv" transform="translate(30 30)" style="transform:translate(30px,30px)">
+            <g id="rvShake"><g id="rvRot" style="transform:rotate(0deg)">
+              <g transform="scale(.92)">
+                <ellipse cx="-1" cy="3" rx="22" ry="19" fill="#2a0f06" opacity=".3"/>
+                <g stroke="#8b8b97" stroke-width="2" stroke-linecap="round"><path d="M-13 -15V15M0 -15V15M13 -15V15"/></g>
+                <g fill="#22222b" stroke="#0e0e14" stroke-width="1">
+                  <rect x="-18" y="-18.5" width="10" height="7" rx="2.2"/><rect x="-5" y="-18.5" width="10" height="7" rx="2.2"/><rect x="8" y="-18.5" width="10" height="7" rx="2.2"/>
+                  <rect x="-18" y="11.5" width="10" height="7" rx="2.2"/><rect x="-5" y="11.5" width="10" height="7" rx="2.2"/><rect x="8" y="11.5" width="10" height="7" rx="2.2"/>
+                </g>
+                <g class="tread"><path d="M-17 -15H-9M-4 -15H4M9 -15H17M-17 15H-9M-4 15H4M9 15H17" fill="none"/></g>
+                <rect x="-17" y="-9.5" width="30" height="19" rx="4.5" fill="#eae3d8" stroke="#3b2f2a" stroke-width="1.8"/>
+                <g>
+                  <rect x="-16" y="-8" width="19" height="16" rx="2" fill="#27468a" stroke="#f3c85a" stroke-width="1.6"/>
+                  <path d="M-9.7 -8V8M-3.3 -8V8M-16 -2.7H3M-16 2.7H3" stroke="#7da0ea" stroke-width=".8" fill="none"/>
+                </g>
+                <circle cx="8" cy="0" r="3.2" fill="#9a9aa6" stroke="#3b2f2a" stroke-width="1.2"/>
+                <rect x="9" y="-6.2" width="8.4" height="12.4" rx="3" fill="#f4efe6" stroke="#3b2f2a" stroke-width="1.6"/>
+                <g><circle cx="15" cy="-2.9" r="2.1" fill="#fff" stroke="#3b2f2a" stroke-width=".9"/><circle cx="15" cy="2.9" r="2.1" fill="#fff" stroke="#3b2f2a" stroke-width=".9"/>
+                  <ellipse class="eye" cx="15.5" cy="-2.9" rx="1" ry="1.3" fill="#0b1b2a"/><ellipse class="eye" cx="15.5" cy="2.9" rx="1" ry="1.3" fill="#0b1b2a"/></g>
+                <path d="M-14 6L-21 13" stroke="#3b2f2a" stroke-width="1.6" stroke-linecap="round"/><circle cx="-21.5" cy="13.5" r="2.2" fill="#ff5a4a" stroke="#3b2f2a" stroke-width="1"/>
+              </g>
+            </g></g>
+          </g>
+          <g id="fx"></g>
+        </svg>
+      </div>
+      <div class="controls">
+        <button class="btn btn-run" id="run" type="button">{{mars.run}}</button>
+        <button class="btn btn-stop" id="stop" type="button" hidden>{{mars.stop}}</button>
+        <button class="btn btn-ghost" id="reset" type="button">{{mars.reset}}</button>
+        <button class="btn btn-ghost" id="newMaze" type="button">{{mars.newMaze}}</button>
+      </div>
+      <div class="controls">
+        <div class="speed" role="group" aria-label="{{mars.speedAria}}">
+          <button type="button" data-speed="1" aria-pressed="true">×1</button>
+          <button type="button" data-speed="3" aria-pressed="false">×3</button>
+          <button type="button" data-speed="10" aria-pressed="false">×10</button>
+        </div>
+        <button class="btn btn-ghost" id="hintBtn" type="button" aria-expanded="false">{{mars.hint}}</button>
+        <span class="streak" id="mazeNo" style="margin-left:auto"></span>
+      </div>
+      <div class="status" id="status" role="status" aria-live="polite">{{mars.ready}}</div>
+      <div class="counter">
+        <span>{{mars.solvedLabel}} <b id="cnt">0</b></span>
+        <span class="streak" id="streak" aria-label="{{mars.streakAria}}"><i></i><i></i><i></i></span>
+      </div>
+      <div class="hintbox" id="hintBox" hidden aria-live="polite"></div>
+    </section>
+
+    <section class="card code-card" aria-label="{{mars.codeAria}}">
+      <h3>{{mars.codeTitle}} <span>{{mars.codeHint}}</span></h3>
+      <details class="kbd-help"><summary>{{common.kbdSummary}}</summary>
+        <p class="kbd-steps-h"><b>{{common.kbdStepsHead}}</b></p>
+        <ol class="kbd-steps">
+          <li data-rich="common.kbdStep1"></li>
+          <li data-rich="common.kbdStep2"></li>
+          <li data-rich="common.kbdStep3"></li>
+          <li data-rich="common.kbdStep4"></li>
+          <li data-rich="common.kbdStep5"></li>
+        </ol>
+        <p class="kbd-steps-h"><b>{{common.kbdAllHead}}</b></p>
+        <ul>
+          <li data-rich="common.kbdAll1"></li>
+          <li data-rich="common.kbdAll2"></li>
+          <li data-rich="common.kbdAll3"></li>
+          <li data-rich="common.kbdAll4"></li>
+          <li data-rich="common.kbdAll5"></li>
+          <li data-rich="common.kbdAll6"></li>
+          <li data-rich="common.kbdAll7"></li>
+      </ul></details>
+      <div id="blockly"></div>
+    </section>
+  </div>
+  </main>
+</div>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mtitle">
+  <div class="modal-box">
+    <div class="big" aria-hidden="true">🚀</div>
+    <h2 id="mtitle">{{mars.modalTitle}}</h2>
+    <p>{{mars.modalText}}</p>
+    <div class="mbtns">
+      <button class="btn btn-ghost" id="mClose" type="button">{{mars.close}}</button>
+      <button class="btn btn-main" id="mNew" type="button">{{mars.moreMaze}}</button>
+    </div>
+  </div>
+</div>

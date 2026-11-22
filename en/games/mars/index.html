@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en" data-root="../../../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mars Rover Maze — Geek Informatic</title>
+<meta name="description" content="Build the right-hand rule from blocks and the rover will find its way out of any maze. The maze is new every time.">
+<link rel="canonical" href="https://otianoleksij.github.io/geek-informatic/en/games/mars/">
+<link rel="alternate" hreflang="uk" href="https://otianoleksij.github.io/geek-informatic/games/mars/">
+<link rel="alternate" hreflang="en" href="https://otianoleksij.github.io/geek-informatic/en/games/mars/">
+<link rel="alternate" hreflang="x-default" href="https://otianoleksij.github.io/geek-informatic/games/mars/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Geek Informatic">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Mars Rover Maze">
+<meta property="og:description" content="Build the right-hand rule from blocks and the rover will find its way out of any maze. The maze is new every time.">
+<meta property="og:url" content="https://otianoleksij.github.io/geek-informatic/en/games/mars/">
+<meta property="og:image" content="https://otianoleksij.github.io/geek-informatic/assets/og/en/mars.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Mars Rover Maze — Geek Informatic">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Mars Rover Maze","description":"Build the right-hand rule from blocks and the rover will find its way out of any maze. The maze is new every time.","url":"https://otianoleksij.github.io/geek-informatic/en/games/mars/","inLanguage":"en","isAccessibleForFree":true,"learningResourceType":"game","educationalLevel":"Grades 6–7","teaches":["algorithms","loops","conditions"],"provider":{"@type":"Organization","name":"Geek Informatic","url":"https://otianoleksij.github.io/geek-informatic/"},"publisher":{"@type":"Organization","name":"Geek Informatic","url":"https://otianoleksij.github.io/geek-informatic/"}}</script>
+<meta name="theme-color" content="#0B0916">
+<link rel="icon" type="image/svg+xml" href="../../../activities/mars/favicon.svg">
+<link rel="preload" href="../../../assets/fonts/nunito-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../../assets/fonts/fonts.css">
+<link rel="stylesheet" href="../../../activities/mars/mars.css">
+</head>
+<body>
+
+<!-- Космос лініями: тільки контури, без заливки -->
+<svg class="bg-lines" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+  <!-- великий Марс з Фобосом -->
+  <g class="drift d4">
+    <g transform="translate(1380 250)">
+      <circle class="c2" r="130"/>
+      <path class="c2" d="M-118 -50 Q-40 -30 40 -70 Q90 -90 120 -50"/>
+      <circle class="c2" cx="-46" cy="-34" r="26"/><circle class="c2" cx="38" cy="30" r="36"/>
+      <circle class="c2" cx="-64" cy="52" r="13"/><circle class="c2" cx="70" cy="-30" r="9"/>
+      <path class="c2" d="M-100 78 Q-30 100 60 90"/>
+      <ellipse class="c2 dash" rx="210" ry="60" transform="rotate(-18)"/>
+    </g>
+    <g transform="translate(1180 120) rotate(20)">
+      <path class="c4" d="M-26 -4 Q-24 -18 -6 -20 Q16 -22 26 -8 Q30 8 12 16 Q-8 22 -22 12 Q-28 6 -26 -4 Z"/>
+      <circle class="c4" cx="-6" cy="-2" r="5"/>
+    </g>
+  </g>
+  <!-- планета з кільцем -->
+  <g class="drift d1">
+    <g transform="translate(170 175)">
+      <circle class="c1" r="70"/>
+      <path class="c1" d="M-58 -38 Q0 -60 58 -38M-70 -12 Q0 -36 70 -12"/>
+      <ellipse class="c3" rx="132" ry="32" transform="rotate(-20)"/>
+      <ellipse class="c3 dash" rx="164" ry="44" transform="rotate(-20)"/>
+    </g>
+  </g>
+  <!-- планета з кратерами -->
+  <g class="drift d2">
+    <g transform="translate(1430 830)">
+      <circle class="c1" r="90"/>
+      <circle class="c1" cx="-32" cy="-28" r="20"/><circle class="c1" cx="28" cy="22" r="28"/>
+      <circle class="c1" cx="-38" cy="38" r="10"/><circle class="c1" cx="44" cy="-50" r="8"/>
+    </g>
+  </g>
+  <ellipse class="c2 dash" cx="1430" cy="830" rx="250" ry="90" transform="rotate(-24 1430 830)"/>
+  <ellipse class="c3 dash" cx="170" cy="175" rx="300" ry="120" transform="rotate(14 170 175)"/>
+  <circle class="dot" cx="1180" cy="910" r="5"/><circle class="dot" cx="410" cy="120" r="4"/>
+  <!-- ракета -->
+  <g class="drift d3">
+    <g transform="translate(150 790) rotate(38)">
+      <path class="c2" d="M0 -78 C24 -52 26 0 17 48 L-17 48 C-26 0 -24 -52 0 -78 Z"/>
+      <circle class="c2" cy="-26" r="11"/>
+      <path class="c2" d="M17 22 L40 58 L17 46M-17 22 L-40 58 L-17 46"/>
+      <path class="c3" d="M-10 54 Q0 98 10 54"/><path class="c3" d="M-4 58 Q0 78 4 58"/>
+    </g>
+  </g>
+  <!-- супутник -->
+  <g class="drift d2">
+    <g transform="translate(860 880) rotate(-16)">
+      <rect class="c1" x="-24" y="-18" width="48" height="36" rx="6"/>
+      <rect class="c1" x="-100" y="-12" width="64" height="24"/><rect class="c1" x="36" y="-12" width="64" height="24"/>
+      <path class="c1" d="M-84 -12V12M-68 -12V12M-52 -12V12M52 -12V12M68 -12V12M84 -12V12M-24 0H-36M24 0H36"/>
+      <path class="c1" d="M0 -18V-42"/><circle class="c1" cy="-46" r="5"/>
+    </g>
+  </g>
+  <!-- комета -->
+  <g class="drift d1">
+    <g transform="translate(760 90)">
+      <circle class="c2" r="14"/>
+      <path class="c2" d="M-18 -6 Q-120 -26 -260 -84M-16 4 Q-130 14 -290 -22M-14 12 Q-100 50 -230 38"/>
+    </g>
+  </g>
+  <!-- сузір'я -->
+  <g class="drift d3">
+    <g transform="translate(1130 520)">
+      <path class="c1" d="M0 0 L70 -34 L150 -8 L196 46 L126 92 L56 66 Z"/>
+      <circle class="dot" r="5"/><circle class="dot" cx="70" cy="-34" r="5"/><circle class="dot" cx="150" cy="-8" r="5"/>
+      <circle class="dot" cx="196" cy="46" r="5"/><circle class="dot" cx="126" cy="92" r="5"/><circle class="dot" cx="56" cy="66" r="5"/>
+    </g>
+  </g>
+  <g transform="translate(330 560)">
+    <path class="c3" d="M0 0 L36 28 L28 74 L-20 60"/>
+    <circle class="c3" r="3.5"/><circle class="c3" cx="36" cy="28" r="3.5"/><circle class="c3" cx="28" cy="74" r="3.5"/><circle class="c3" cx="-20" cy="60" r="3.5"/>
+  </g>
+  <!-- чотири променеві зірки -->
+  <g class="c4"><path d="M520 300v26M507 313h26"/><path d="M980 330v20M970 340h20"/><path d="M60 560v22M49 571h22"/><path d="M700 700v24M688 712h24"/></g>
+</svg>
+<div class="stars-layer" id="stars" aria-hidden="true"></div>
+
+<div class="page">
+  <header class="top">
+    <a class="logo" href="../../../en/" aria-label="Geek Informatic — home">
+      <span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="#FFE45C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 7l-5 5 5 5M15 7l5 5-5 5"/></svg></span>
+      <span>Geek Informatic<small>computer science lessons</small></span>
+    </a>
+    <nav><a href="../../../en/">Home</a><a class="lang-switch" href="../../../games/mars/" hreflang="uk" lang="uk" title="Change language">Українська</a></nav>
+  </header>
+
+  <main>
+  <div id="loadError" class="card load-error" role="alert" hidden>Couldn&#39;t load the task. Please refresh the page.</div>
+  <noscript><p class="card">This page needs JavaScript. Please turn it on in your browser.</p></noscript>
+
+  <section class="hero">
+    <span class="tag">ALGORITHMS</span>
+    <h1>Mars Rover Maze</h1>
+  </section>
+
+  <section class="card rule" id="ruleCard" aria-labelledby="ruleH">
+    <h2 id="ruleH" style="margin-bottom:6px">The right-hand rule</h2>
+    <p data-rich="mars.rule1"></p>
+    <p data-rich="mars.rule2"></p>
+  </section>
+
+  <section id="viewNoEditor" class="card no-editor" role="alert" hidden>
+    <h2>The block editor didn’t load</h2>
+    <p>The block editor couldn’t be loaded. Refresh the page. If that doesn’t help, tell your teacher.</p>
+    <div class="row">
+      <button class="btn btn-main" id="reloadPage" type="button">Refresh the page</button>
+    </div>
+  </section>
+
+  <div class="game-grid" id="gameArea">
+    <section class="card stage-card" id="stageCard" aria-label="Surface of Mars">
+      <h3>Surface of Mars <span id="pos"></span></h3>
+      <div class="stage-box" id="stageBox">
+        <svg class="field" id="field" viewBox="-8 -8 616 616" role="img" aria-label="A 10 by 10 maze on the surface of Mars" style="--step:420ms">
+          <defs>
+            <radialGradient id="soilG" cx=".5" cy=".5" r=".75"><stop offset="0" stop-color="#c6652f"/><stop offset="1" stop-color="#96401f"/></radialGradient>
+            <pattern id="soilP" width="150" height="150" patternUnits="userSpaceOnUse">
+              <ellipse cx="40" cy="36" rx="34" ry="20" fill="#ffd2a0" opacity=".1"/>
+              <ellipse cx="112" cy="104" rx="30" ry="16" fill="#ffd2a0" opacity=".09"/>
+              <circle cx="30" cy="100" r="14" fill="#5a230f" opacity=".2"/><circle cx="28" cy="98" r="14" fill="none" stroke="#ffc99a" stroke-opacity=".3" stroke-width="2"/>
+              <circle cx="118" cy="34" r="9" fill="#5a230f" opacity=".2"/><circle cx="116" cy="33" r="9" fill="none" stroke="#ffc99a" stroke-opacity=".3" stroke-width="1.6"/>
+              <circle cx="78" cy="68" r="5" fill="#5a230f" opacity=".2"/>
+              <ellipse cx="66" cy="20" rx="3.2" ry="2.2" fill="#6e2f17" opacity=".5"/><ellipse cx="90" cy="130" rx="3" ry="2" fill="#6e2f17" opacity=".5"/>
+              <ellipse cx="10" cy="64" rx="2.6" ry="1.8" fill="#6e2f17" opacity=".5"/><ellipse cx="140" cy="76" rx="3.4" ry="2.2" fill="#6e2f17" opacity=".5"/>
+              <ellipse cx="132" cy="140" rx="2.4" ry="1.6" fill="#e9a878" opacity=".4"/><ellipse cx="52" cy="140" rx="2.8" ry="1.8" fill="#e9a878" opacity=".4"/>
+            </pattern>
+            <filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="4"/><feColorMatrix values="0 0 0 0 .25  0 0 0 0 .08  0 0 0 0 .02  0 0 0 .55 -.12"/></filter>
+            <filter id="rough" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".07" numOctaves="2" seed="9" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5"/></filter>
+          </defs>
+          <rect x="-8" y="-8" width="616" height="616" fill="url(#soilG)"/>
+          <rect x="-8" y="-8" width="616" height="616" fill="url(#soilP)"/>
+          <rect x="-8" y="-8" width="616" height="616" filter="url(#grain)" opacity=".5"/>
+          <path class="grid-l" id="gridL"/>
+          <g id="startMark">
+            <circle cx="30" cy="30" r="23" fill="rgba(255,230,200,.1)" stroke="#ffe3c4" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="30" y="55" text-anchor="middle" font-size="8.5" fill="#ffe3c4">START</text>
+          </g>
+          <g id="finishMark" transform="translate(570 570)">
+            <circle r="26" fill="#2f3441" stroke="#d8dfee" stroke-width="2.5"/>
+            <circle r="19" fill="#4b5365" stroke="#aab4c8" stroke-width="1.5" stroke-dasharray="5 4"/>
+            <circle class="beacon" r="26" fill="none" stroke="#3fe0d0" stroke-width="2" stroke-opacity=".8"/>
+            <text y="2" text-anchor="middle" font-size="9" fill="#d8dfee" opacity=".8">BASE</text>
+            <g transform="translate(-13 10)">
+              <path d="M0 0V-34" stroke="#e8edf7" stroke-width="2.4" stroke-linecap="round"/>
+              <g id="flagLift"><path class="flag-wave" d="M1 -34 L21 -29 L1 -23 Z" fill="#ff3d3d" stroke="#7a1010" stroke-width="1.2" stroke-linejoin="round"/></g>
+              <circle cy="-35" r="2" fill="#ffd54a"/>
+            </g>
+          </g>
+          <g id="trail"></g>
+          <g id="walls"></g>
+          <g id="rv" transform="translate(30 30)" style="transform:translate(30px,30px)">
+            <g id="rvShake"><g id="rvRot" style="transform:rotate(0deg)">
+              <g transform="scale(.92)">
+                <ellipse cx="-1" cy="3" rx="22" ry="19" fill="#2a0f06" opacity=".3"/>
+                <g stroke="#8b8b97" stroke-width="2" stroke-linecap="round"><path d="M-13 -15V15M0 -15V15M13 -15V15"/></g>
+                <g fill="#22222b" stroke="#0e0e14" stroke-width="1">
+                  <rect x="-18" y="-18.5" width="10" height="7" rx="2.2"/><rect x="-5" y="-18.5" width="10" height="7" rx="2.2"/><rect x="8" y="-18.5" width="10" height="7" rx="2.2"/>
+                  <rect x="-18" y="11.5" width="10" height="7" rx="2.2"/><rect x="-5" y="11.5" width="10" height="7" rx="2.2"/><rect x="8" y="11.5" width="10" height="7" rx="2.2"/>
+                </g>
+                <g class="tread"><path d="M-17 -15H-9M-4 -15H4M9 -15H17M-17 15H-9M-4 15H4M9 15H17" fill="none"/></g>
+                <rect x="-17" y="-9.5" width="30" height="19" rx="4.5" fill="#eae3d8" stroke="#3b2f2a" stroke-width="1.8"/>
+                <g>
+                  <rect x="-16" y="-8" width="19" height="16" rx="2" fill="#27468a" stroke="#f3c85a" stroke-width="1.6"/>
+                  <path d="M-9.7 -8V8M-3.3 -8V8M-16 -2.7H3M-16 2.7H3" stroke="#7da0ea" stroke-width=".8" fill="none"/>
+                </g>
+                <circle cx="8" cy="0" r="3.2" fill="#9a9aa6" stroke="#3b2f2a" stroke-width="1.2"/>
+                <rect x="9" y="-6.2" width="8.4" height="12.4" rx="3" fill="#f4efe6" stroke="#3b2f2a" stroke-width="1.6"/>
+                <g><circle cx="15" cy="-2.9" r="2.1" fill="#fff" stroke="#3b2f2a" stroke-width=".9"/><circle cx="15" cy="2.9" r="2.1" fill="#fff" stroke="#3b2f2a" stroke-width=".9"/>
+                  <ellipse class="eye" cx="15.5" cy="-2.9" rx="1" ry="1.3" fill="#0b1b2a"/><ellipse class="eye" cx="15.5" cy="2.9" rx="1" ry="1.3" fill="#0b1b2a"/></g>
+                <path d="M-14 6L-21 13" stroke="#3b2f2a" stroke-width="1.6" stroke-linecap="round"/><circle cx="-21.5" cy="13.5" r="2.2" fill="#ff5a4a" stroke="#3b2f2a" stroke-width="1"/>
+              </g>
+            </g></g>
+          </g>
+          <g id="fx"></g>
+        </svg>
+      </div>
+      <div class="controls">
+        <button class="btn btn-run" id="run" type="button">▶ Run</button>
+        <button class="btn btn-stop" id="stop" type="button" hidden>■ Stop</button>
+        <button class="btn btn-ghost" id="reset" type="button">↺ Reset rover</button>
+        <button class="btn btn-ghost" id="newMaze" type="button">🎲 New maze</button>
+      </div>
+      <div class="controls">
+        <div class="speed" role="group" aria-label="Execution speed">
+          <button type="button" data-speed="1" aria-pressed="true">×1</button>
+          <button type="button" data-speed="3" aria-pressed="false">×3</button>
+          <button type="button" data-speed="10" aria-pressed="false">×10</button>
+        </div>
+        <button class="btn btn-ghost" id="hintBtn" type="button" aria-expanded="false">💡 Hint</button>
+        <span class="streak" id="mazeNo" style="margin-left:auto"></span>
+      </div>
+      <div class="status" id="status" role="status" aria-live="polite">Build a program from blocks and press “Run”.</div>
+      <div class="counter">
+        <span>Mazes solved with this program: <b id="cnt">0</b></span>
+        <span class="streak" id="streak" aria-label="In a row without mistakes"><i></i><i></i><i></i></span>
+      </div>
+      <div class="hintbox" id="hintBox" hidden aria-live="polite"></div>
+    </section>
+
+    <section class="card code-card" aria-label="Rover program">
+      <h3>Rover program <span>drag blocks under “▶ when started”</span></h3>
+      <details class="kbd-help"><summary>Keyboard controls</summary>
+        <p class="kbd-steps-h"><b>How to add a block without a mouse:</b></p>
+        <ol class="kbd-steps">
+          <li data-rich="common.kbdStep1"></li>
+          <li data-rich="common.kbdStep2"></li>
+          <li data-rich="common.kbdStep3"></li>
+          <li data-rich="common.kbdStep4"></li>
+          <li data-rich="common.kbdStep5"></li>
+        </ol>
+        <p class="kbd-steps-h"><b>All keys:</b></p>
+        <ul>
+          <li data-rich="common.kbdAll1"></li>
+          <li data-rich="common.kbdAll2"></li>
+          <li data-rich="common.kbdAll3"></li>
+          <li data-rich="common.kbdAll4"></li>
+          <li data-rich="common.kbdAll5"></li>
+          <li data-rich="common.kbdAll6"></li>
+          <li data-rich="common.kbdAll7"></li>
+      </ul></details>
+      <div id="blockly"></div>
+    </section>
+  </div>
+  </main>
+</div>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mtitle">
+  <div class="modal-box">
+    <div class="big" aria-hidden="true">🚀</div>
+    <h2 id="mtitle">An algorithm works everywhere!</h2>
+    <p>One and the same program guided the rover through 3 different mazes. This is how real algorithms work: they solve a whole class of problems, not just one.</p>
+    <div class="mbtns">
+      <button class="btn btn-ghost" id="mClose" type="button">Close</button>
+      <button class="btn btn-main" id="mNew" type="button">Another maze ➜</button>
+    </div>
+  </div>
+</div>
+
+<script type="application/json" id="i18n-data">{"common":{"siteName":"Geek Informatic","tagline":"computer science lessons","logoLabel":"Geek Informatic — home","home":"Home","teachers":"For teachers","privacy":"Privacy","noscript":"This page needs JavaScript. Please turn it on in your browser.","loadError":"Couldn't load the task. Please refresh the page.","lang.uk":"Українська","lang.en":"English","langSwitch":"Change language","topic.safety":"online safety","topic.algorithms":"algorithms","topic.loops":"loops","topic.conditions":"conditions","topic.blocks":"block coding","topic.vocabulary":"computer science words","grade.single":"Grade {range}","grade.range":"Grades {range}","navLabel":"Sections","footer":"computer science games, quests and puzzles","ukOnly":"Ukrainian only","ogAlt":"Geek Informatic — computer science you can play","kbdSummary":"Keyboard controls","kbdStepsHead":"How to add a block without a mouse:","kbdStep1":"Press [[Tab]] to move into the program area, then press [[Ctrl]]+[[Shift]]+[[K]].","kbdStep2":"[[D]] and [[S]]: move the cursor under the last block of the program (a line will appear there).","kbdStep3":"[[Enter]]: mark this spot.","kbdStep4":"[[T]]: go to the block panel, [[S]]: pick the block you need.","kbdStep5":"[[Enter]]: the block will snap into the marked spot.","kbdAllHead":"All keys:","kbdAll1":"[[Ctrl]]+[[Shift]]+[[K]]: turn keyboard mode on or off (the workspace must have focus).","kbdAll2":"[[W]] [[A]] [[S]] [[D]]: move between blocks: up, out, down, in.","kbdAll3":"[[T]]: go to the block panel; [[W]]/[[S]]: choose a category, [[D]]: open its blocks.","kbdAll4":"[[Enter]]: in the block panel, take a block into the program; in the program, mark the place to insert.","kbdAll5":"[[I]]: insert (attach) the block at the marked spot. [[Shift]]+[[W]]/[[A]]/[[S]]/[[D]]: move the cursor over empty workspace.","kbdAll6":"[[X]]: detach a block. [[Delete]] or [[Backspace]]: delete the selected block.","kbdAll7":"[[Esc]] or [[E]]: go back from the block panel to the program."},"mars":{"footer":"Mars Rover Maze","title":"Mars Rover Maze","tag":"ALGORITHMS","ruleTitle":"The right-hand rule","rule1":"To get out of a maze, touch the **right wall with your right hand** and keep walking without lifting your hand. You will go around every dead end and always find the exit, whatever maze you are in.","rule2":"Build a program from blocks. The rover can only see what is **straight ahead**, so your algorithm has to work with that sensor. When the program is ready, press “New maze”: the right algorithm will lead the rover through any maze.","noEditorTitle":"The block editor didn’t load","noEditorText":"The block editor couldn’t be loaded. Refresh the page. If that doesn’t help, tell your teacher.","reload":"Refresh the page","stageAria":"Surface of Mars","fieldAria":"A 10 by 10 maze on the surface of Mars","startLabel":"START","baseLabel":"BASE","pos":"heading: {dir}","dir.0":"⬆ north","dir.1":"➜ east","dir.2":"⬇ south","dir.3":"⬅ west","run":"▶ Run","stop":"■ Stop","reset":"↺ Reset rover","newMaze":"🎲 New maze","speedAria":"Execution speed","hint":"💡 Hint","hintMore":"💡 Another hint ({n}/3)","hintAll":"💡 All hints shown","hint1":"Idea: imagine walking through the maze with your right hand always touching the wall on your right. Your hand “guides” you along the wall and always leads you to the exit.","hint2":"First try turning right. While there is a wall ahead, turn left. When the way is clear, drive forward. Keep repeating this until the rover is at the finish.","hint3Intro":"An outline with blanks:","hint3Code":"repeat while [ ??? ]\n    turn [ ??? ]\n    repeat while [ ??? ]\n        turn [ ??? ]\n    [ ??? ]","mazeNo":"Maze #{n}","solvedLabel":"Mazes solved with this program:","streakAria":"In a row without mistakes","streakTitle":"In a row without mistakes: {n} of 3","codeAria":"Rover program","codeTitle":"Rover program","codeHint":"drag blocks under “▶ when started”","ready":"Build a program from blocks and press “Run”.","running":"The rover is on its way…","stopped":"Stopped. The rover is back at the start.","resetDone":"The rover is at the start. Same maze, program unchanged.","changed":"The program was changed, so the run was stopped.","newMazeSay":"New maze. Same program: try it out here.","linkMazeSay":"Opened the maze from the link. Same program.","emptyLoose":"The blocks aren’t attached to “▶ when started” (they are grey). Drag them under the start block until they snap on.","emptyProgram":"The program is empty. Drag blocks from the left under “▶ when started”.","winNew":"Finish! The rover is at the base. Now press “New maze”: will this program work in another one too?","winAgain":"Finish! But this maze has already been counted. Press “New maze” and test your algorithm on a different one.","bump":"Boom! There’s a wall ahead. Check the condition before moving.","limit":"It looks like the rover is going in circles. Think about how to always keep to the right wall.","end":"The program ended, but the rover isn’t at the finish yet.","modalTitle":"An algorithm works everywhere!","modalText":"One and the same program guided the rover through 3 different mazes. This is how real algorithms work: they solve a whole class of problems, not just one.","close":"Close","moreMaze":"Another maze ➜","cond.notFinish":"not at the finish","cond.wallAhead":"wall ahead","cond.clearAhead":"clear ahead","block.start":"▶ when started","block.forward":"⬆ forward","block.left":"↺ turn left","block.right":"↻ turn right","block.while":"🔁 repeat while %1","block.if":"❓ if %1 then","block.else":"else","tt.start":"The start of the program. The blocks under it run from top to bottom.","tt.forward":"Drive one cell forward. If there is a wall ahead, the rover will bump into it.","tt.left":"Turn 90° left on the spot","tt.right":"Turn 90° right on the spot","tt.while":"Run the blocks inside while the condition is true","tt.if":"Run the blocks inside if the condition is true","tt.ifelse":"If the condition is true, run the first blocks, otherwise run the second ones"}}</script>
+<script defer src="../../../vendor/blockly@10.4.3/blockly_compressed.js"></script>
+<script defer src="../../../vendor/blockly@10.4.3/msg/en.js"></script>
+<script defer src="../../../vendor/blockly-keyboard-navigation@0.5.13/index.js"></script>
+<script defer src="../../../assets/js/storage.js"></script>
+<script defer src="../../../assets/js/i18n.js"></script>
+<script defer src="../../../assets/js/data.js"></script>
+<script defer src="../../../activities/mars/mars-core.js"></script>
+<script defer src="../../../activities/mars/app.js"></script>
+</body>
+</html>

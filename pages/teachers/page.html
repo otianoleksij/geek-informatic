@@ -1,0 +1,43 @@
+<main class="wrap doc">
+  <h1><span>{{ns.name}}</span></h1>
+  <p class="lead">{{ns.lead}}</p>
+
+  <h2>{{ns.how.h}}</h2>
+  <ul>
+    <li>{{ns.how.1}}</li>
+    <li>{{ns.how.2}}</li>
+    <li>{{ns.how.3}}</li>
+    <li>{{rich:ns.how.4}}</li>
+    <li>{{ns.how.5}}</li>
+  </ul>
+
+  <h2>{{ns.act.h}}</h2>
+  <div class="tbl" tabindex="0" role="region" aria-label="{{ns.act.label}}">
+    <table>
+      <thead><tr><th scope="col">{{ns.act.name}}</th><th scope="col">{{ns.act.grades}}</th><th scope="col">{{ns.act.topics}}</th><th scope="col">{{ns.act.time}}</th><th scope="col">{{ns.act.do}}</th></tr></thead>
+      <tbody>
+{{{activityRows}}}
+      </tbody>
+    </table>
+  </div>
+  <p>{{rich:ns.act.filter}}</p>
+
+  <h2>{{ns.links.h}}</h2>
+  <p>{{rich:ns.links.lead}}</p>
+  <ul class="links">
+    <li>{{rich:ns.links.robot}}</li>
+    <li>{{rich:ns.links.galaxy}}</li>
+    <li>{{rich:ns.links.rebusy}}</li>
+    <li>{{rich:ns.links.mars}}</li>
+    <li>{{rich:ns.links.kiber}}</li>
+    <li>{{rich:ns.links.catalog}}</li>
+  </ul>
+
+  <h2>{{ns.tips.h}}</h2>
+  <ul>
+    <li>{{rich:ns.tips.1}}</li>
+    <li>{{rich:ns.tips.2}}</li>
+    <li>{{rich:ns.tips.3}}</li>
+    <li>{{rich:ns.tips.4}}</li>
+  </ul>
+</main>

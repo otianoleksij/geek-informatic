@@ -43,24 +43,13 @@
     return true;
   }
 
-  function pluralCategory(n) {
-    try {
-      if (typeof Intl !== "undefined" && Intl.PluralRules) return new Intl.PluralRules("uk").select(n);
-    } catch (e) {}
-    var m10 = n % 10, m100 = n % 100;
-    if (m10 === 1 && m100 !== 11) return "one";
-    if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return "few";
-    return "many";
-  }
+  /* Рядки з i18n (простір імен home; i18n.js має бути підключений раніше). Без t() повертаємо ключ. */
+  function tr(key, params) { return typeof root.t === "function" ? root.t(key, params) : key; }
 
-  function countText(n) {
-    var c = pluralCategory(n);
-    var w = c === "one" ? "активність" : c === "few" ? "активності" : "активностей";
-    return "Знайдено: " + n + " " + w;
-  }
+  function countText(n) { return tr("home.found", { count: n }); }
 
   function progressText(done, total) {
-    return done >= total ? "Пройдено ✓" : "Пройдено " + done + " з " + total;
+    return done >= total ? tr("home.progressDone") : tr("home.progress", { done: done, total: total });
   }
 
   var api = {

@@ -1,0 +1,17 @@
+<svg viewBox="0 0 120 120" aria-hidden="true">
+    <ellipse cx="60" cy="104" rx="42" ry="6" fill="#000" opacity=".2"/>
+    <circle cx="96" cy="26" r="9" fill="none" stroke="#FFD9A8" stroke-width="2.5" stroke-dasharray="3 4" opacity=".8"/>
+    <g stroke="#2A1208" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M30 86L22 100M60 86V101M90 86L98 100" fill="none" stroke="#6b6b78" stroke-width="3.5"/>
+      <rect x="14" y="94" width="20" height="14" rx="6" fill="#22222b"/><rect x="50" y="94" width="20" height="14" rx="6" fill="#22222b"/><rect x="86" y="94" width="20" height="14" rx="6" fill="#22222b"/>
+      <rect x="22" y="56" width="76" height="38" rx="10" fill="#EAE3D8"/>
+      <rect x="14" y="28" width="52" height="30" rx="4" fill="#27468A" transform="rotate(-8 40 43)"/>
+      <path d="M26 31V57M40 29V55M54 27V53M16 42H64" stroke="#7DA0EA" stroke-width="1.6" fill="none" transform="rotate(-8 40 43)"/>
+      <path d="M82 56V38" fill="none"/>
+      <rect x="72" y="14" width="26" height="24" rx="8" fill="#F4EFE6"/>
+      <circle cx="80" cy="26" r="5.5" fill="#FFFFFF" stroke-width="2.4"/><circle cx="91" cy="26" r="5.5" fill="#FFFFFF" stroke-width="2.4"/>
+      <circle cx="81" cy="27" r="2.2" fill="#0B1B2A" stroke="none"/><circle cx="92" cy="27" r="2.2" fill="#0B1B2A" stroke="none"/>
+      <path d="M30 70h22M30 78h14" fill="none" stroke-width="2.6" opacity=".35"/>
+      <circle cx="84" cy="74" r="6" fill="#FF5A4A" stroke-width="2.6"/>
+    </g>
+</svg>

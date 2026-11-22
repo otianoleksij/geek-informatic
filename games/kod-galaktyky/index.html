@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="uk" data-root="../../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Код Галактики — Geek Informatic</title>
+<meta name="description" content="Гра з програмування блоками для 7 класу: 15 рівнів, повтори й вкладені цикли. Склади програму для дроїда Біпа та збери всі кристали на станції.">
+<link rel="canonical" href="https://otianoleksij.github.io/geek-informatic/games/kod-galaktyky/">
+<link rel="alternate" hreflang="uk" href="https://otianoleksij.github.io/geek-informatic/games/kod-galaktyky/">
+<link rel="alternate" hreflang="en" href="https://otianoleksij.github.io/geek-informatic/en/games/kod-galaktyky/">
+<link rel="alternate" hreflang="x-default" href="https://otianoleksij.github.io/geek-informatic/games/kod-galaktyky/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Geek Informatic">
+<meta property="og:locale" content="uk_UA">
+<meta property="og:title" content="Код Галактики">
+<meta property="og:description" content="Гра з програмування блоками для 7 класу: 15 рівнів, повтори й вкладені цикли. Склади програму для дроїда Біпа та збери всі кристали на станції.">
+<meta property="og:url" content="https://otianoleksij.github.io/geek-informatic/games/kod-galaktyky/">
+<meta property="og:image" content="https://otianoleksij.github.io/geek-informatic/assets/og/kod-galaktyky.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Код Галактики — Geek Informatic">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Код Галактики","description":"Гра з програмування блоками для 7 класу: 15 рівнів, повтори й вкладені цикли. Склади програму для дроїда Біпа та збери всі кристали на станції.","url":"https://otianoleksij.github.io/geek-informatic/games/kod-galaktyky/","inLanguage":"uk","isAccessibleForFree":true,"learningResourceType":"game","educationalLevel":"7 клас","teaches":["алгоритми","цикли","блокове програмування"],"provider":{"@type":"Organization","name":"Geek Informatic","url":"https://otianoleksij.github.io/geek-informatic/"},"publisher":{"@type":"Organization","name":"Geek Informatic","url":"https://otianoleksij.github.io/geek-informatic/"}}</script>
+<meta name="theme-color" content="#070B1E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232D55E0'/%3E%3Cpath d='M12 10l-5 6 5 6M20 10l5 6-5 6' stroke='%23FFE45C' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preload" href="../../assets/fonts/nunito-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../assets/fonts/fonts.css">
+<link rel="stylesheet" href="../../activities/kod-galaktyky/kod-galaktyky.css">
+</head>
+<body>
+
+<!-- Космос лініями: тільки контури, без заливки -->
+<svg class="bg-lines" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+  <!-- планета з кільцем, зліва вгорі -->
+  <g class="drift d1">
+    <g transform="translate(170 175)">
+      <circle class="c1" r="74"/>
+      <path class="c1" d="M-60 -40 Q0 -62 60 -40M-72 -14 Q0 -38 72 -14"/>
+      <ellipse class="c3" rx="138" ry="34" transform="rotate(-20)"/>
+      <ellipse class="c3 dash" rx="170" ry="46" transform="rotate(-20)"/>
+    </g>
+  </g>
+  <!-- планета з кратерами, справа внизу -->
+  <g class="drift d2">
+    <g transform="translate(1440 820)">
+      <circle class="c2" r="96"/>
+      <circle class="c2" cx="-34" cy="-30" r="22"/><circle class="c2" cx="30" cy="22" r="30"/>
+      <circle class="c2" cx="-40" cy="40" r="11"/><circle class="c2" cx="46" cy="-52" r="9"/>
+      <path class="c2" d="M-84 -20 Q-30 -4 20 -66"/>
+    </g>
+  </g>
+  <!-- орбіти -->
+  <ellipse class="c1 dash" cx="1440" cy="820" rx="250" ry="90" transform="rotate(-24 1440 820)"/>
+  <ellipse class="c1 dash" cx="1440" cy="820" rx="330" ry="130" transform="rotate(-24 1440 820)"/>
+  <ellipse class="c3 dash" cx="170" cy="175" rx="300" ry="120" transform="rotate(14 170 175)"/>
+  <circle class="dot" cx="1180" cy="905" r="5"/><circle class="dot" cx="410" cy="120" r="4"/>
+  <!-- ракета -->
+  <g class="drift d3">
+    <g transform="translate(150 790) rotate(38)">
+      <path class="c1" d="M0 -78 C24 -52 26 0 17 48 L-17 48 C-26 0 -24 -52 0 -78 Z"/>
+      <circle class="c1" cy="-26" r="11"/>
+      <path class="c1" d="M17 22 L40 58 L17 46M-17 22 L-40 58 L-17 46"/>
+      <path class="c2" d="M-10 54 Q0 98 10 54"/><path class="c2" d="M-4 58 Q0 78 4 58"/>
+    </g>
+  </g>
+  <!-- супутник -->
+  <g class="drift d4">
+    <g transform="translate(1390 150) rotate(-16)">
+      <rect class="c1" x="-24" y="-18" width="48" height="36" rx="6"/>
+      <rect class="c1" x="-100" y="-12" width="64" height="24"/><rect class="c1" x="36" y="-12" width="64" height="24"/>
+      <path class="c1" d="M-84 -12V12M-68 -12V12M-52 -12V12M52 -12V12M68 -12V12M84 -12V12M-24 0H-36M24 0H36"/>
+      <path class="c1" d="M0 -18V-42"/><circle class="c1" cy="-46" r="5"/>
+      <path class="c1" d="M-14 20 Q0 42 14 20"/>
+    </g>
+  </g>
+  <!-- комета -->
+  <g class="drift d2">
+    <g transform="translate(860 80)">
+      <circle class="c2" r="15"/>
+      <path class="c2" d="M-18 -6 Q-120 -26 -260 -84M-16 4 Q-130 14 -290 -22M-14 12 Q-100 50 -230 38"/>
+    </g>
+  </g>
+  <!-- астронавт-контур -->
+  <g class="drift d1">
+    <g transform="translate(90 470) rotate(12)">
+      <circle class="c3" r="30"/><rect class="c3" x="-20" y="-14" width="40" height="26" rx="12"/>
+      <rect class="c3" x="-26" y="34" width="52" height="64" rx="16"/>
+      <rect class="c3" x="-40" y="42" width="14" height="44" rx="7" transform="rotate(8 -33 64)"/>
+      <path class="c3" d="M26 46 Q52 54 58 84M-26 46 Q-52 38 -62 18"/>
+      <path class="c3" d="M-16 98 L-20 142M16 98 L24 138"/>
+      <circle class="c3" cx="-10" cy="62" r="4"/>
+    </g>
+  </g>
+  <!-- сузір'я -->
+  <g class="drift d3">
+    <g transform="translate(1170 470)">
+      <path class="c1" d="M0 0 L70 -34 L150 -8 L196 46 L126 92 L56 66 Z"/>
+      <circle class="dot" r="5"/><circle class="dot" cx="70" cy="-34" r="5"/><circle class="dot" cx="150" cy="-8" r="5"/>
+      <circle class="dot" cx="196" cy="46" r="5"/><circle class="dot" cx="126" cy="92" r="5"/><circle class="dot" cx="56" cy="66" r="5"/>
+    </g>
+  </g>
+  <g transform="translate(560 880)">
+    <path class="c2" d="M0 0 L50 -40 L120 -18 L160 -64 L230 -50"/>
+    <circle class="c2" r="4"/><circle class="c2" cx="50" cy="-40" r="4"/><circle class="c2" cx="120" cy="-18" r="4"/><circle class="c2" cx="160" cy="-64" r="4"/><circle class="c2" cx="230" cy="-50" r="4"/>
+  </g>
+  <g transform="translate(330 330)">
+    <path class="c3" d="M0 0 L36 28 L28 74 L-20 60"/>
+    <circle class="c3" r="3.5"/><circle class="c3" cx="36" cy="28" r="3.5"/><circle class="c3" cx="28" cy="74" r="3.5"/><circle class="c3" cx="-20" cy="60" r="3.5"/>
+  </g>
+</svg>
+<div class="stars-layer" id="stars" aria-hidden="true"></div>
+<div class="flash" id="flash" aria-hidden="true"></div>
+
+<div class="page">
+  <header class="top">
+    <a class="home-link" href="../../">← На головну</a>
+    <h1 class="logo">Код Галактики</h1>
+    <span class="tag">7 КЛАС · 15 РІВНІВ</span>
+    <a class="home-link lang-switch" href="../../en/games/kod-galaktyky/" hreflang="en" lang="en" title="Перемкнути мову">English</a>
+  </header>
+
+  <main>
+  <div id="loadError" class="card load-error" role="alert" hidden>Не вдалося завантажити завдання. Онови сторінку.</div>
+  <noscript><p class="card">Для цієї сторінки потрібен JavaScript. Увімкни його в браузері.</p></noscript>
+  <!-- ===== карта рівнів ===== -->
+  <section id="viewMap" aria-labelledby="mapTitle">
+    <div class="map-head">
+      <h2 id="mapTitle">Карта сектору</h2>
+      <span class="total" id="totalStars" aria-live="polite"></span>
+    </div>
+    <p class="intro" data-rich="kod-galaktyky.intro"></p>
+    <ol class="planets" id="planets"></ol>
+    <div class="reset-row"><button class="btn btn-ghost" id="resetProg" type="button">Скинути прогрес</button></div>
+  </section>
+
+  <!-- ===== редактор блоків недоступний ===== -->
+  <section id="viewNoEditor" class="card no-editor" role="alert" hidden>
+    <h2>Редактор блоків не завантажився</h2>
+    <p>Не вдалося завантажити редактор блоків. Онови сторінку. Якщо не допоможе — повідом учителя.</p>
+    <div class="row">
+      <button class="btn btn-main" id="reloadPage" type="button">Оновити сторінку</button>
+      <button class="btn btn-ghost" id="noEditorMap" type="button">← Карта рівнів</button>
+    </div>
+  </section>
+
+  <!-- ===== гра ===== -->
+  <section id="viewGame" hidden>
+    <div class="gbar">
+      <button class="btn btn-ghost" id="toMap" type="button">← Карта рівнів</button>
+      <div class="lvl-title"><span class="num" id="lvlNum"></span><h2 id="lvlTitle"></h2></div>
+      <div class="hud">
+        <div class="hud-item" id="hudCrystal" title="Кристали"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 4 L50 24 L32 60 L14 24 Z" fill="#5ee6ff"/><path d="M32 4 L50 24 L32 30 L14 24 Z" fill="#b8f6ff"/><path d="M32 30 L50 24 L32 60 Z" fill="#2bb8d6"/></svg><b id="crystalCount">0/0</b></div>
+      </div>
+    </div>
+    <p class="story" id="story"></p>
+
+    <div class="game-grid">
+      <section class="card stage-card" aria-label="Ігрове поле">
+        <h3>Сектор <span id="pos"></span></h3>
+        <div class="stage-box" id="stageBox">
+          <div class="stage" id="stage">
+            <div class="stage-bg" id="stageBg"></div>
+            <svg class="trail" id="trail" aria-hidden="true"></svg>
+            <div class="layer" id="objs"></div>
+            <div class="layer" id="fxl"></div>
+            <div class="ship hide" id="ship">
+              <div class="ship-fly" id="shipFly">
+                <div class="ship-rot" id="shipRot">
+                  <span class="streak" id="streak"></span><span class="fire" id="fire"></span>
+                  <svg viewBox="0 0 64 64" aria-hidden="true">
+                    <defs>
+                      <linearGradient id="gHull" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#b9c6ff"/></linearGradient>
+                      <radialGradient id="gFlame" cx="1" cy=".5" r="1"><stop offset="0" stop-color="#fff6c2"/><stop offset=".45" stop-color="#ffc94a"/><stop offset="1" stop-color="#ff5a1f"/></radialGradient>
+                    </defs>
+                    <g class="flame"><path d="M13 27 L-2 32 L13 37 Z" fill="url(#gFlame)"/></g>
+                    <g class="flame f2"><path d="M13 29.5 L4 32 L13 34.5 Z" fill="#fffbe0"/></g>
+                    <path d="M18 22 L8 10 L30 22 Z M18 42 L8 54 L30 42 Z" fill="#ff6b6b" stroke="#14213A" stroke-width="2.2" stroke-linejoin="round"/>
+                    <path d="M10 27 H15 V37 H10 Z" fill="#6c7bd6" stroke="#14213A" stroke-width="2" stroke-linejoin="round"/>
+                    <path d="M14 22 H34 C45 22 53 27 60 32 C53 37 45 42 34 42 H14 Z" fill="url(#gHull)" stroke="#14213A" stroke-width="2.4" stroke-linejoin="round"/>
+                    <path d="M46 23.6 C52 26 56 29 60 32 C56 35 52 38 46 40.4 Z" fill="#ff6b6b" stroke="#14213A" stroke-width="2" stroke-linejoin="round"/>
+                    <path d="M20 22 V42" stroke="#14213A" stroke-width="1.6" opacity=".35"/>
+                    <circle cx="33" cy="32" r="7.6" fill="#5ee6ff" stroke="#14213A" stroke-width="2.4"/>
+                    <ellipse class="eye" cx="30.8" cy="31.6" rx="1.6" ry="2.4" fill="#0b1129"/>
+                    <ellipse class="eye e2" cx="35.4" cy="31.6" rx="1.6" ry="2.4" fill="#0b1129"/>
+                    <path d="M30.4 35.6 Q33 37.4 35.8 35.6" stroke="#0b1129" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+                    <path d="M28.6 28 q2-1.6 4.2-1.2" stroke="#fff" stroke-width="1.4" fill="none" stroke-linecap="round" opacity=".85"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="controls">
+          <button class="btn btn-run" id="run" type="button">▶ Запустити</button>
+          <button class="btn btn-stop" id="stop" type="button" hidden>■ Стоп</button>
+          <button class="btn btn-ghost" id="reset" type="button">↺ Скинути</button>
+          <button class="btn btn-ghost" id="speed" type="button" aria-label="Швидкість виконання">⏩ ×1</button>
+          <button class="btn btn-ghost" id="hintBtn" type="button" aria-expanded="false">💡 Підказка</button>
+        </div>
+        <div class="status" id="status" role="status" aria-live="polite">Склади програму з блоків і натисни «Запустити».</div>
+        <div class="hintbox" id="hintBox" hidden></div>
+      </section>
+
+      <section class="card code-card" aria-label="Програма дроїда">
+        <h3>Програма Біпа <span id="count"></span></h3>
+        <div class="chips" id="chips"></div>
+        <details class="kbd-help"><summary>Керування з клавіатури</summary>
+        <p class="kbd-steps-h"><b>Як додати блок без миші:</b></p>
+        <ol class="kbd-steps">
+          <li data-rich="common.kbdStep1"></li>
+          <li data-rich="common.kbdStep2"></li>
+          <li data-rich="common.kbdStep3"></li>
+          <li data-rich="common.kbdStep4"></li>
+          <li data-rich="common.kbdStep5"></li>
+        </ol>
+        <p class="kbd-steps-h"><b>Усі клавіші:</b></p>
+        <ul>
+          <li data-rich="common.kbdAll1"></li>
+          <li data-rich="common.kbdAll2"></li>
+          <li data-rich="common.kbdAll3"></li>
+          <li data-rich="common.kbdAll4"></li>
+          <li data-rich="common.kbdAll5"></li>
+          <li data-rich="common.kbdAll6"></li>
+          <li data-rich="common.kbdAll7"></li>
+        </ul></details>
+        <div id="blockly"></div>
+      </section>
+    </div>
+  </section>
+  </main>
+</div>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mtitle">
+  <div class="modal-box">
+    <div class="mstars" id="mstars"></div>
+    <h2 id="mtitle">Рівень пройдено!</h2>
+    <p id="mtext"></p>
+    <div class="mbtns">
+      <button class="btn btn-ghost" id="mBetter" type="button">Покращити</button>
+      <button class="btn btn-main" id="mNext" type="button">Наступний рівень ➜</button>
+    </div>
+  </div>
+</div>
+
+<script type="application/json" id="i18n-data">{"common":{"siteName":"Geek Informatic","tagline":"уроки інформатики","logoLabel":"Geek Informatic — на головну","home":"На головну","teachers":"Для вчителів","privacy":"Приватність","noscript":"Для цієї сторінки потрібен JavaScript. Увімкни його в браузері.","loadError":"Не вдалося завантажити завдання. Онови сторінку.","lang.uk":"Українська","lang.en":"English","langSwitch":"Перемкнути мову","topic.safety":"кібербезпека","topic.algorithms":"алгоритми","topic.loops":"цикли","topic.conditions":"умови","topic.blocks":"блокове програмування","topic.vocabulary":"поняття інформатики","grade.single":"{range} клас","grade.range":"{range} клас","navLabel":"Розділи","footer":"ігри, квести й ребуси з інформатики","ukOnly":"Лише українською","ogAlt":"Geek Informatic — інформатика, в яку грають","kbdSummary":"Керування з клавіатури","kbdStepsHead":"Як додати блок без миші:","kbdStep1":"Клавішею [[Tab]] перейди в поле програми й натисни [[Ctrl]]+[[Shift]]+[[K]].","kbdStep2":"[[D]] і [[S]] — підведи курсор під останній блок програми (там з’явиться лінія).","kbdStep3":"[[Enter]] — позначити це місце.","kbdStep4":"[[T]] — перейти до панелі, [[S]] — вибрати потрібний блок.","kbdStep5":"[[Enter]] — блок стане на позначене місце.","kbdAllHead":"Усі клавіші:","kbdAll1":"[[Ctrl]]+[[Shift]]+[[K]] — увімкнути або вимкнути клавіатурний режим (фокус має бути на робочій області).","kbdAll2":"[[W]] [[A]] [[S]] [[D]] — рухатися по блоках: вгору, назовні, вниз, всередину.","kbdAll3":"[[T]] — перейти до панелі блоків; [[W]]/[[S]] — вибрати розділ, [[D]] — відкрити блоки розділу.","kbdAll4":"[[Enter]] — у панелі блоків: узяти блок у програму; у програмі: позначити місце, куди вставити.","kbdAll5":"[[I]] — вставити (приєднати) блок до позначеного місця. [[Shift]]+[[W]]/[[A]]/[[S]]/[[D]] — рухати курсор по порожньому полю.","kbdAll6":"[[X]] — від’єднати блок. [[Delete]] або [[Backspace]] — видалити вибраний блок.","kbdAll7":"[[Esc]] або [[E]] — повернутися з панелі блоків до програми."},"kod-galaktyky":{"footer":"Код Галактики","title":"Код Галактики","tag":"7 КЛАС · 15 РІВНІВ","mapTitle":"Карта сектору","intro":"Станція «Аврора» втратила енергію. Ремонтний дроїд **Біп** підбере кристали, якщо ти складеш для нього програму з блоків: від простих команд до вкладених повторів. Нові планети відкриваються по черзі.","resetProgress":"Скинути прогрес","resetConfirm":"Стерти прогрес? Ще раз","noEditorTitle":"Редактор блоків не завантажився","noEditorText":"Не вдалося завантажити редактор блоків. Онови сторінку. Якщо не допоможе — повідом учителя.","reload":"Оновити сторінку","toMap":"← Карта рівнів","crystals":"Кристали","stageAria":"Ігрове поле","sector":"Сектор","pos":"корабель: {dir}","dir.E":"➜ схід","dir.N":"⬆ північ","dir.W":"⬅ захід","dir.S":"⬇ південь","run":"▶ Запустити","stop":"■ Стоп","reset":"↺ Скинути","speedAria":"Швидкість виконання","hint":"💡 Підказка","codeAria":"Програма дроїда","codeTitle":"Програма Біпа","count":"блоків: {n} / {max}","winTitle":"Рівень пройдено!","finalTitle":"Станцію відновлено!","better":"Покращити","next":"Наступний рівень ➜","toMapShort":"До карти","levelNum":"Рівень {n} з {total}","starsTotal":"★ {stars} / {total}","levelAria":{"one":"Рівень {n}: {title}, {count} зірка з 3","few":"Рівень {n}: {title}, {count} зірки з 3","many":"Рівень {n}: {title}, {count} зірок з 3","other":"Рівень {n}: {title}, {count} зірки з 3"},"levelLocked":"Рівень {n}: {title}, закритий","cmd.F":"🚀 вперед","cmd.L":"↺ ліворуч","cmd.R":"↻ праворуч","cmd.C":"💎 зібрати кристал","cmd.rep":"🔁 повторити","chip.F":"🚀 вперед","chip.L":"↺ ліворуч","chip.R":"↻ праворуч","chip.C":"💎 зібрати","chip.rep":"🔁 повторити","chipBlocks":"Блоків: **{n}** з {max}","chipLimit":"{name}: **{n}** з {limit}","chipOff":"{name}: недоступно","chipStars":"Зірки: 3 при ≤ {par} блоків","block.start":"▶ коли запущено","block.repeat":"🔁 повторити %1 разів","tt.start":"Початок програми. Блоки під ним виконуються згори донизу.","tt.forward":"Корабель пролітає одну клітинку туди, куди дивиться","tt.left":"Повернути на 90° проти годинникової стрілки","tt.right":"Повернути на 90° за годинниковою стрілкою","tt.collect":"Підібрати кристал на клітинці, де стоїть корабель","tt.repeat":"Виконати вкладені блоки кілька разів","blockAt":"блоці №{n} («{name}»)","blockNom":"Блок №{n} («{name}»)","problem.allowed":"У цьому рівні ще немає блока «{name}». Прибери його з програми.","problem.forbidden":"У цьому рівні блок «{name}» заборонений. Зайві блоки підсвічено.","problem.limit":"Забагато блоків «{name}»: можна лише {limit}, а в програмі {count}. Зайві блоки підсвічено.","problem.limitForward":"Забагато блоків «{name}»: можна лише {limit}, а в програмі {count}. Спробуй блок «🔁 повторити». Зайві блоки підсвічено.","problem.max":"Забагато блоків: максимум {max}, а в програмі {count}. Спробуй скоротити програму повторами. Зайві блоки підсвічено.","problem.depth":"Повтори можна вкладати не глибше ніж на {max} рівні.","problem.repn":"Повтор має бути від {min} до {max} разів.","problems":"🚧 {list}","ready":"Склади програму з блоків і натисни «Запустити».","running":"Виконую програму…","runningLoose":"Виконую програму… (Сірі блоки поза програмою не виконуються.)","stopped":"Зупинено. Корабель повернувся на старт.","resetDone":"Корабель повернувся на старт. Можна змінити програму й спробувати ще раз.","emptyLoose":"Блоки не приєднані до «▶ коли запущено» (вони сірі). Підтягни їх під стартовий блок, щоб вони клацнули.","emptyProgram":"Програма порожня. Перетягни блоки з лівої панелі під «▶ коли запущено».","error":"Сталася помилка. Натисни «Скинути».","crashRock":"💥 Аварія на {block} (рахуючи згори): корабель врізався в астероїд. Перевір цей блок і спробуй ще раз.","crashEdge":"💥 Аварія на {block} (рахуючи згори): корабель вилетів за межі поля. Перевір цей блок і спробуй ще раз.","noCrystal":"❌ Тут немає кристала! {block} виконано на порожній клітинці. Збирай кристал, лише коли корабель стоїть на ньому.","incomplete":"Програма закінчилась. Зібрано {collected} з {total}. Додай команди й спробуй ще раз.","win":"✅ Рівень пройдено! Блоків у програмі: {blocks}. Зірок: {stars}.","tailPerfect":"Ідеально: стільки блоків, скільки треба!","tailBetter":{"one":"Найкоротша програма має {count} блок. Спробуєш скоротити?","few":"Найкоротша програма має {count} блоки. Спробуєш скоротити?","many":"Найкоротша програма має {count} блоків. Спробуєш скоротити?","other":"Найкоротша програма має {count} блоку. Спробуєш скоротити?"},"winText":{"one":"Програма з {count} блоку. {tail}","few":"Програма з {count} блоків. {tail}","many":"Програма з {count} блоків. {tail}","other":"Програма з {count} блока. {tail}"},"finalText":"Біп зібрав усі кристали, і станція «Аврора» знову сяє. Зірок на карті: {stars} з {total}. {tail}","improve":"Покращ програму: спробуй зробити її коротшою."}}</script>
+<script defer src="../../vendor/blockly@10.4.3/blockly_compressed.js"></script>
+<script defer src="../../vendor/blockly@10.4.3/msg/uk.js"></script>
+<script defer src="../../vendor/blockly-keyboard-navigation@0.5.13/index.js"></script>
+<script defer src="../../assets/js/storage.js"></script>
+<script defer src="../../assets/js/i18n.js"></script>
+<script defer src="../../assets/js/data.js"></script>
+<script defer src="../../activities/kod-galaktyky/galaxy-core.js"></script>
+<script defer src="../../activities/kod-galaktyky/app.js"></script>
+</body>
+</html>

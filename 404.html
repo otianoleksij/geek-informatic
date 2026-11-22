@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Сторінку не знайдено — Geek Informatic</title>
+<title data-en="Page not found — Geek Informatic">Сторінку не знайдено — Geek Informatic</title>
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#EEF3FA">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232D55E0'/%3E%3Cpath d='M12 10l-5 6 5 6M20 10l5 6-5 6' stroke='%23fff' stroke-width='2.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
@@ -13,33 +13,45 @@
 <link rel="stylesheet" href="/geek-informatic/assets/css/base.css">
 <style>
 .wrap{padding:24px max(16px,env(safe-area-inset-right,0px)) 40px max(24px,env(safe-area-inset-left,0px))}
-.logo{display:inline-flex;color:inherit}
+.logo{display:inline-flex;align-items:center;min-height:44px;color:inherit}
 h1{font:800 clamp(30px,6vw,52px)/1.12 var(--f-display);letter-spacing:-.02em;margin:48px 0 16px;text-wrap:balance}
 h1 span{background:linear-gradient(transparent 60%,var(--hl) 60%,var(--hl) 92%,transparent 92%);padding:0 .06em}
 p{margin:0 0 20px;max-width:560px;color:var(--muted)}
 .btn{display:inline-block;font:800 16px/1 var(--f-body);background:#2D55E0;color:#fff;padding:13px 20px;border-radius:12px;box-shadow:0 3px 0 #1B3AA8;text-decoration:none}
 h2{font:800 22px/1.2 var(--f-display);margin:40px 0 14px;letter-spacing:normal;text-wrap:wrap}
 ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
-li a{display:inline-block;min-height:40px;padding:8px 0;font-weight:800;color:var(--accent)}
+li a{display:inline-block;min-height:44px;padding:10px 0;font-weight:800;color:var(--accent)}
+.foot{margin-top:40px}
+.foot a{display:inline-block;min-height:44px;padding:10px 2px;font-weight:800;color:var(--accent)}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <a class="logo" href="/geek-informatic/" aria-label="Geek Informatic — на головну"><span class="mk"><svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true"><path d="M12 10l-5 6 5 6M20 10l5 6-5 6" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Geek Informatic</a>
+  <a class="logo" href="/geek-informatic/" aria-label="Geek Informatic — на головну" data-en-label="Geek Informatic — home" data-en-href="/geek-informatic/en/"><span class="mk"><svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true"><path d="M12 10l-5 6 5 6M20 10l5 6-5 6" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Geek Informatic</a>
   <main>
-    <h1><span>Сторінку не знайдено</span></h1>
-    <p>Схоже, за цією адресою нічого немає: посилання могло застаріти або в ньому помилка. Повернися на головну або обери активність нижче.</p>
-    <a class="btn" href="/geek-informatic/">На головну</a>
-    <h2>Активності</h2>
+    <h1><span data-en="Page not found">Сторінку не знайдено</span></h1>
+    <p data-en="Looks like there is nothing at this address: the link may be out of date or have a typo. Go back to the home page or pick an activity below.">Схоже, за цією адресою нічого немає: посилання могло застаріти або в ньому помилка. Повернися на головну або обери активність нижче.</p>
+    <a class="btn" href="/geek-informatic/" data-en-href="/geek-informatic/en/" data-en="Home">На головну</a>
+    <h2 data-en="Activities">Активності</h2>
     <ul>
       <li><a href="/geek-informatic/web-quests/agenty-kibershchytu/">Агенти КіберЩиту</a></li>
-      <li><a href="/geek-informatic/web-quests/kod-galaktyky/">Код Галактики</a></li>
-      <li><a href="/geek-informatic/robot/">Я керую роботом!</a></li>
-      <li><a href="/geek-informatic/mars/">Марсохід у лабіринті</a></li>
-      <li><a href="/geek-informatic/rebusy/">100 ребусів з інформатики</a></li>
+      <li><a href="/geek-informatic/games/kod-galaktyky/" data-en-href="/geek-informatic/en/games/kod-galaktyky/" data-en="Galaxy Code">Код Галактики</a></li>
+      <li><a href="/geek-informatic/games/robot/" data-en-href="/geek-informatic/en/games/robot/" data-en="Drive the Robot!">Я керую роботом!</a></li>
+      <li><a href="/geek-informatic/games/mars/" data-en-href="/geek-informatic/en/games/mars/" data-en="Mars Rover Maze">Марсохід у лабіринті</a></li>
+      <li><a href="/geek-informatic/puzzles/rebusy/">100 ребусів з інформатики</a></li>
     </ul>
   </main>
-  <p style="margin-top:40px"><a style="display:inline-block;padding:11px 2px;font-weight:800;color:var(--accent)" href="/geek-informatic/teachers/">Для вчителів</a> · <a style="display:inline-block;padding:11px 2px;font-weight:800;color:var(--accent)" href="/geek-informatic/privacy/">Приватність</a></p>
+  <p class="foot"><a href="/geek-informatic/teachers/" data-en-href="/geek-informatic/en/teachers/" data-en="For teachers">Для вчителів</a> · <a href="/geek-informatic/privacy/" data-en-href="/geek-informatic/en/privacy/" data-en="Privacy">Приватність</a></p>
 </div>
+<script>
+/* GitHub Pages віддає цей файл для будь-якого неіснуючого адресу. Для адрес під en/ перемикаємо тексти й посилання на англійську. */
+(function () {
+  if (location.pathname.indexOf("/geek-informatic/en/") !== 0) return;
+  document.documentElement.lang = "en";
+  [].forEach.call(document.querySelectorAll("[data-en]"), function (e) { e.textContent = e.getAttribute("data-en"); });
+  [].forEach.call(document.querySelectorAll("[data-en-href]"), function (e) { e.setAttribute("href", e.getAttribute("data-en-href")); });
+  [].forEach.call(document.querySelectorAll("[data-en-label]"), function (e) { e.setAttribute("aria-label", e.getAttribute("data-en-label")); });
+})();
+</script>
 </body>
 </html>

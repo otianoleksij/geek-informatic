@@ -1,89 +1,299 @@
 {
+  "$schema": "schemas/catalog.schema.json",
   "format": 1,
+  "lastmod": "2026-11-22",
   "taxonomy": {
-    "types": {
-      "webquest": "Вебквести",
-      "game": "Навчальні ігри",
-      "puzzle": "Головоломки",
-      "trainer": "Тренажери",
-      "event": "Позакласні заходи",
-      "lab": "Дослідження"
-    },
-    "topics": {
-      "safety": "Кібербезпека",
-      "algorithms": "Алгоритми",
-      "loops": "Цикли",
-      "conditions": "Умови",
-      "blocks": "Блокове програмування",
-      "vocabulary": "Поняття інформатики"
-    },
-    "difficulty": { "1": "Легко", "2": "Середньо", "3": "Складно" }
+    "types": [
+      "webquest",
+      "game",
+      "puzzle",
+      "trainer",
+      "event",
+      "lab"
+    ],
+    "topics": [
+      "safety",
+      "algorithms",
+      "loops",
+      "conditions",
+      "blocks",
+      "vocabulary"
+    ],
+    "difficulty": [
+      "1",
+      "2",
+      "3"
+    ]
   },
+  "pages": [
+    {
+      "id": "home",
+      "path": "",
+      "locales": [
+        "uk",
+        "en"
+      ],
+      "og": "assets/og/home.png",
+      "scripts": [
+        "assets/js/storage.js",
+        "assets/js/i18n.js",
+        "assets/js/site.js",
+        "assets/js/catalog-filter.js",
+        "pages/home/home.js"
+      ]
+    },
+    {
+      "id": "teachers",
+      "path": "teachers/",
+      "locales": [
+        "uk",
+        "en"
+      ],
+      "og": "assets/og/home.png",
+      "css": [
+        "assets/css/doc.css"
+      ],
+      "scripts": [
+        "assets/js/site.js"
+      ]
+    },
+    {
+      "id": "privacy",
+      "path": "privacy/",
+      "locales": [
+        "uk",
+        "en"
+      ],
+      "og": "assets/og/home.png",
+      "css": [
+        "assets/css/doc.css"
+      ],
+      "scripts": [
+        "assets/js/storage.js",
+        "assets/js/i18n.js",
+        "assets/js/site.js",
+        "pages/privacy/privacy.js"
+      ]
+    }
+  ],
   "activities": [
     {
       "id": "agenty-kibershchytu",
       "type": "webquest",
       "path": "web-quests/agenty-kibershchytu/",
-      "title": { "uk": "Агенти КіберЩиту" },
-      "description": { "uk": "Вебквест з кібербезпеки для 6 класу: 8 інтерактивних місій про паролі, фішинг, фейки та приватність в інтернеті, наприкінці — посвідчення агента." },
-      "locales": ["uk"],
-      "grades": [6],
-      "topics": ["safety"],
+      "title": {
+        "uk": "Агенти КіберЩиту"
+      },
+      "description": {
+        "uk": "Вебквест з кібербезпеки для 6 класу: 8 інтерактивних місій про паролі, фішинг, фейки та приватність в інтернеті, наприкінці — посвідчення агента."
+      },
+      "locales": [
+        "uk"
+      ],
+      "grades": [
+        6
+      ],
+      "topics": [
+        "safety"
+      ],
       "difficulty": 2,
       "duration": 40,
-      "og": "assets/og/agenty-kibershchytu.png"
+      "og": "assets/og/agenty-kibershchytu.png",
+      "skin": "own",
+      "scripts": [
+        "quest-core.js",
+        "app.js"
+      ],
+      "card": {
+        "cover": 1,
+        "facts": [
+          "list",
+          "stopwatch",
+          "shield"
+        ]
+      }
     },
     {
       "id": "kod-galaktyky",
       "type": "game",
-      "path": "web-quests/kod-galaktyky/",
-      "title": { "uk": "Код Галактики" },
-      "description": { "uk": "Гра з програмування блоками для 7 класу: 15 рівнів, повтори й вкладені цикли. Склади програму для дроїда Біпа та збери всі кристали на станції." },
-      "locales": ["uk"],
-      "grades": [7],
-      "topics": ["algorithms", "loops", "blocks"],
+      "path": "games/kod-galaktyky/",
+      "title": {
+        "uk": "Код Галактики",
+        "en": "Galaxy Code"
+      },
+      "description": {
+        "uk": "Гра з програмування блоками для 7 класу: 15 рівнів, повтори й вкладені цикли. Склади програму для дроїда Біпа та збери всі кристали на станції.",
+        "en": "A block-coding game for grade 7: 15 levels with repeats and nested loops. Build a program for the droid Bip and collect every crystal on the space station."
+      },
+      "locales": [
+        "uk",
+        "en"
+      ],
+      "skin": "space",
+      "themeColor": "#070B1E",
+      "vendorScripts": [
+        "vendor/blockly@10.4.3/blockly_compressed.js",
+        "vendor/blockly@10.4.3/msg/{lang}.js",
+        "vendor/blockly-keyboard-navigation@0.5.13/index.js"
+      ],
+      "scripts": [
+        "galaxy-core.js",
+        "app.js"
+      ],
+      "grades": [
+        7
+      ],
+      "topics": [
+        "algorithms",
+        "loops",
+        "blocks"
+      ],
       "difficulty": 3,
       "duration": 35,
-      "og": "assets/og/kod-galaktyky.png"
+      "og": "assets/og/kod-galaktyky.png",
+      "card": {
+        "cover": 2,
+        "facts": [
+          "blocks",
+          "plus",
+          "nested"
+        ]
+      }
     },
     {
       "id": "robot",
       "type": "game",
-      "path": "robot/",
-      "title": { "uk": "Я керую роботом!" },
-      "description": { "uk": "Гра для 3–4 класу: склади програму зі стрілок і блоків «Повтори», щоб робот зібрав усі кристали. 10 рівнів." },
-      "locales": ["uk"],
-      "grades": [3, 4],
-      "topics": ["algorithms", "loops"],
+      "path": "games/robot/",
+      "title": {
+        "uk": "Я керую роботом!",
+        "en": "Drive the Robot!"
+      },
+      "description": {
+        "uk": "Гра для 3–4 класу: склади програму зі стрілок і блоків «Повтори», щоб робот зібрав усі кристали. 10 рівнів.",
+        "en": "A game for grades 3–4: build a program from arrows and “Repeat” blocks to help the robot collect every crystal. 10 levels."
+      },
+      "locales": [
+        "uk",
+        "en"
+      ],
+      "scripts": [
+        "robot-core.js",
+        "app.js"
+      ],
+      "grades": [
+        3,
+        4
+      ],
+      "topics": [
+        "algorithms",
+        "loops"
+      ],
       "difficulty": 1,
       "duration": 20,
-      "og": "assets/og/robot.png"
+      "og": "assets/og/robot.png",
+      "card": {
+        "cover": 4,
+        "facts": [
+          "levels",
+          "loop",
+          "star"
+        ]
+      }
     },
     {
       "id": "mars",
       "type": "game",
-      "path": "mars/",
-      "title": { "uk": "Марсохід у лабіринті" },
-      "description": { "uk": "Склади з блоків алгоритм правої руки, і марсохід вибереться з будь-якого лабіринту. Лабіринт щоразу новий." },
-      "locales": ["uk"],
-      "grades": [6, 7],
-      "topics": ["algorithms", "loops", "conditions"],
+      "path": "games/mars/",
+      "title": {
+        "uk": "Марсохід у лабіринті",
+        "en": "Mars Rover Maze"
+      },
+      "description": {
+        "uk": "Склади з блоків алгоритм правої руки, і марсохід вибереться з будь-якого лабіринту. Лабіринт щоразу новий.",
+        "en": "Build the right-hand rule from blocks and the rover will find its way out of any maze. The maze is new every time."
+      },
+      "locales": [
+        "uk",
+        "en"
+      ],
+      "skin": "space",
+      "themeColor": "#0B0916",
+      "vendorScripts": [
+        "vendor/blockly@10.4.3/blockly_compressed.js",
+        "vendor/blockly@10.4.3/msg/{lang}.js",
+        "vendor/blockly-keyboard-navigation@0.5.13/index.js"
+      ],
+      "scripts": [
+        "mars-core.js",
+        "app.js"
+      ],
+      "grades": [
+        6,
+        7
+      ],
+      "topics": [
+        "algorithms",
+        "loops",
+        "conditions"
+      ],
       "difficulty": 2,
       "duration": 15,
-      "og": "assets/og/mars.png"
+      "og": "assets/og/mars.png",
+      "card": {
+        "cover": 5,
+        "facts": [
+          "loop",
+          "branch",
+          "maze"
+        ]
+      },
+      "favicon": "favicon.svg"
     },
     {
       "id": "rebusy",
       "type": "puzzle",
-      "path": "rebusy/",
-      "title": { "uk": "100 ребусів з інформатики" },
-      "description": { "uk": "100 ребусів з інформатики для учнів 1–11 класів: розгадуй картинки, коми й заміни літер та знаходи комп’ютерні терміни." },
-      "locales": ["uk"],
-      "grades": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-      "topics": ["vocabulary"],
+      "path": "puzzles/rebusy/",
+      "title": {
+        "uk": "100 ребусів з інформатики"
+      },
+      "description": {
+        "uk": "100 ребусів з інформатики для учнів 1–11 класів: розгадуй картинки, коми й заміни літер та знаходи комп’ютерні терміни."
+      },
+      "locales": [
+        "uk"
+      ],
+      "grades": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "topics": [
+        "vocabulary"
+      ],
       "difficulty": 2,
       "duration": 25,
-      "og": "assets/og/rebusy.png"
+      "og": "assets/og/rebusy.png",
+      "scripts": [
+        "rebus-core.js",
+        "app.js"
+      ],
+      "card": {
+        "cover": 3,
+        "facts": [
+          "levels",
+          "bulb",
+          "list"
+        ],
+        "note": true
+      }
     }
   ]
 }

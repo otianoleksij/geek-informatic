@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Рівні гри «Я керую роботом!» (content/robot/levels.json)",
+  "type": "object",
+  "required": ["format", "levels"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "format": { "const": 1 },
+    "levels": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "tip", "map", "maxBlocks", "par", "loops", "solution"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "description": "Стабільний id (kebab-case): за ним зберігається прогрес і будується посилання #id" },
+          "title": { "$ref": "#/definitions/text" },
+          "tip": { "$ref": "#/definitions/text" },
+          "map": {
+            "type": "array", "minItems": 1,
+            "items": { "type": "string", "pattern": "^[.#SG]+$" },
+            "description": "S старт, G кристал, # камінь, . порожньо"
+          },
+          "maxBlocks": { "type": "integer", "minimum": 1 },
+          "par": { "type": "integer", "minimum": 1 },
+          "loops": { "type": "boolean" },
+          "solution": {
+            "type": "array", "minItems": 1,
+            "items": {
+              "oneOf": [
+                { "type": "string", "enum": ["U", "D", "L", "R"] },
+                {
+                  "type": "object",
+                  "required": ["rep", "body"],
+                  "additionalProperties": false,
+                  "properties": {
+                    "rep": { "type": "integer", "minimum": 2, "maximum": 5 },
+                    "body": { "type": "array", "minItems": 1, "items": { "type": "string", "enum": ["U", "D", "L", "R"] } }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "text": {
+      "type": "object",
+      "required": ["uk", "en"],
+      "additionalProperties": { "type": "string", "pattern": "\\S" },
+      "properties": { "uk": { "type": "string" }, "en": { "type": "string" } }
+    }
+  }
+}

@@ -1,19 +1,28 @@
 #!/usr/bin/env node
 /* Перевірка рівнів: node tools/check-robot.js */
 "use strict";
+var fs = require("fs");
 var path = require("path");
-var root = path.join(__dirname, "..", "robot");
-var Core = require(path.join(root, "robot-core.js"));
-var levels = require(path.join(root, "levels.js"));
-var errors = [], rows = [];
+var Core = require(path.join(__dirname, "..", "activities", "robot", "robot-core.js"));
+var file = path.join(__dirname, "..", "content", "robot", "levels.json");
+var doc;
+try { doc = JSON.parse(fs.readFileSync(file, "utf8")); } catch (e) { console.error("content/robot/levels.json: " + e.message); process.exit(1); }
+var levels = doc.levels;
+var errors = [], rows = [], seenIds = {};
 function err(n, msg) { errors.push("рівень " + n + ": " + msg); }
 
+if (doc.format !== 1) { console.error("format має бути 1"); process.exit(1); }
 if (!Array.isArray(levels) || levels.length !== 10) { console.error("потрібно рівно 10 рівнів"); process.exit(1); }
 var okCount = 0;
 levels.forEach(function (lv, idx) {
-  var n = lv.n, before = errors.length;
-  if (n !== idx + 1) err(n, "номер має бути " + (idx + 1));
-  ["title", "tip"].forEach(function (f) { if (!lv[f]) err(n, "немає " + f); });
+  var n = (lv.id || "#" + (idx + 1)) + " (" + (idx + 1) + ")", before = errors.length;
+  if (typeof lv.id !== "string" || !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(lv.id)) err(n, "id має бути kebab-case латиницею");
+  else if (seenIds[lv.id]) err(n, "id не унікальний");
+  seenIds[lv.id] = true;
+  ["title", "tip"].forEach(function (f) {
+    if (!lv[f] || typeof lv[f] !== "object") { err(n, "немає " + f + " {uk, en}"); return; }
+    ["uk", "en"].forEach(function (l) { if (typeof lv[f][l] !== "string" || !lv[f][l].trim()) err(n, "немає " + f + "." + l); });
+  });
   var map = lv.map;
   if (!Array.isArray(map) || !map.length) { err(n, "немає map"); return; }
   var w = map[0].length, starts = 0, gems = 0, bad = false;
@@ -55,13 +64,13 @@ levels.forEach(function (lv, idx) {
   if (minMoves < 0) err(n, "shortestPath: кристали недосяжні");
   else if (lv.loops && !(lv.maxBlocks < minMoves)) err(n, "для loops maxBlocks (" + lv.maxBlocks + ") має бути меншим за мін. ходів (" + minMoves + ")");
   var size = w + "×" + map.length;
-  rows.push([n, size, gems, minMoves, blocks, lv.maxBlocks, lv.loops ? "так" : "—"]);
+  rows.push([lv.id, size, gems, minMoves, blocks, lv.maxBlocks, lv.loops ? "так" : "—"]);
   if (errors.length === before) okCount++;
 });
 
 var head = ["Рівень", "Розмір", "Кристали", "Мін.ходів", "Блоків", "maxBlocks", "Повтори"];
 function pad(s, k) { s = String(s); while (s.length < k) s += " "; return s; }
-console.log(head.map(function (h, i) { return pad(h, i === 0 ? 7 : 10); }).join(""));
-rows.forEach(function (r) { console.log(r.map(function (c, i) { return pad(c, i === 0 ? 7 : 10); }).join("")); });
+console.log(head.map(function (h, i) { return pad(h, i === 0 ? 18 : 10); }).join(""));
+rows.forEach(function (r) { console.log(r.map(function (c, i) { return pad(c, i === 0 ? 18 : 10); }).join("")); });
 if (errors.length) { console.error("\nПОМИЛКИ:\n" + errors.join("\n")); process.exit(1); }
 console.log("\nOK: " + okCount + "/" + levels.length);

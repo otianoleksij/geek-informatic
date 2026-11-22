@@ -1,11 +1,14 @@
 #!/usr/bin/env node
 /* Перевірка рівнів «Коду Галактики»: node tools/check-galaxy.js */
 "use strict";
+var fs = require("fs");
 var path = require("path");
-var root = path.join(__dirname, "..", "web-quests", "kod-galaktyky");
-var Core = require(path.join(root, "galaxy-core.js"));
-var levels = require(path.join(root, "levels.js"));
-var errors = [], rows = [];
+var Core = require(path.join(__dirname, "..", "activities", "kod-galaktyky", "galaxy-core.js"));
+var file = path.join(__dirname, "..", "content", "kod-galaktyky", "levels.json");
+var doc;
+try { doc = JSON.parse(fs.readFileSync(file, "utf8")); } catch (e) { console.error("content/kod-galaktyky/levels.json: " + e.message); process.exit(1); }
+var levels = doc.levels;
+var errors = [], rows = [], seenIds = {};
 function err(n, msg) { errors.push("рівень " + n + ": " + msg); }
 
 /* Мінімальна вартість програми, де повтори НЕ вкладені (тіло — лише F/L/R/C).
@@ -81,12 +84,20 @@ function minFlatCost(level, budget) {
   return best;
 }
 
+if (doc.format !== 1) { console.error("format має бути 1"); process.exit(1); }
 if (!Array.isArray(levels) || levels.length !== 15) { console.error("потрібно рівно 15 рівнів"); process.exit(1); }
 var okCount = 0;
 levels.forEach(function (lv, idx) {
-  var n = lv.n, before = errors.length;
-  if (n !== idx + 1) err(n, "номер має бути " + (idx + 1));
-  ["title", "story", "tip"].forEach(function (f) { if (!lv[f]) err(n, "немає " + f); });
+  var n = idx + 1, before = errors.length, label = (lv.id || "#" + n) + " (" + n + ")";
+  var err = function (_n, msg) { errors.push("рівень " + label + ": " + msg); };
+  if (lv.n !== undefined) err(n, "поле n більше не використовується (порядок задає позиція в масиві)");
+  if (typeof lv.id !== "string" || !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(lv.id)) err(n, "id має бути kebab-case латиницею");
+  else if (seenIds[lv.id]) err(n, "id не унікальний");
+  seenIds[lv.id] = true;
+  ["title", "story", "tip"].forEach(function (f) {
+    if (!lv[f] || typeof lv[f] !== "object") { err(n, "немає " + f + " {uk, en}"); return; }
+    ["uk", "en"].forEach(function (l) { if (typeof lv[f][l] !== "string" || !lv[f][l].trim()) err(n, "немає " + f + "." + l); });
+  });
   var map = lv.map;
   if (!Array.isArray(map) || !map.length) { err(n, "немає map"); return; }
   var h = map.length, w = map[0].length, starts = 0, gems = 0, bad = false;
@@ -122,7 +133,7 @@ levels.forEach(function (lv, idx) {
   var res = Core.run(lv, sol);
   if (!res.win) err(n, "розв'язок не виграє (статус " + res.status + ", зібрано " + res.collected + "/" + res.total + ")");
   var v = Core.validate(lv, sol);
-  if (!v.ok) v.problems.forEach(function (p) { err(n, "розв'язок порушує обмеження: " + p.message); });
+  if (!v.ok) v.problems.forEach(function (p) { err(n, "розв'язок порушує обмеження: " + p.kind + (p.cmd ? " " + p.cmd : "")); });
   if (blocks > lv.maxBlocks) err(n, "блоків " + blocks + " > maxBlocks " + lv.maxBlocks);
   if (lv.par !== blocks) err(n, "par " + lv.par + " ≠ блоків у розв'язку " + blocks);
   if (lv.par > lv.maxBlocks) err(n, "par > maxBlocks");
@@ -161,12 +172,12 @@ levels.forEach(function (lv, idx) {
   }
   if (n === 15 && Core.maxDepth(sol) < 3) err(n, "у фіналі очікується глибина вкладення 3");
   var lim = Object.keys(lv.limits).map(function (k) { return k + ":" + lv.limits[k]; }).join(" ") || "—";
-  rows.push([n, w + "×" + h, gems, lv.maxBlocks, blocks, lim, minStr, n >= 10 ? flat : "—", nested ? "так" : "—", lv.allowed.indexOf("rep") >= 0 ? "так" : "—"]);
+  rows.push([lv.id, w + "×" + h, gems, lv.maxBlocks, blocks, lim, minStr, n >= 10 ? flat : "—", nested ? "так" : "—", lv.allowed.indexOf("rep") >= 0 ? "так" : "—"]);
   if (errors.length === before) okCount++;
 });
 
-var head = ["Рів.", "Розмір", "Кристали", "maxBlocks", "par", "Ліміти", "Мін.ходів", "Мін.плоский", "Вкладені", "Повтори"];
-var widths = [6, 8, 10, 11, 6, 14, 11, 13, 10, 8];
+var head = ["Рівень", "Розмір", "Кристали", "maxBlocks", "par", "Ліміти", "Мін.ходів", "Мін.плоский", "Вкладені", "Повтори"];
+var widths = [18, 8, 10, 11, 6, 14, 11, 13, 10, 8];
 function pad(s, k) { s = String(s); while (s.length < k) s += " "; return s; }
 console.log(head.map(function (h, i) { return pad(h, widths[i]); }).join(""));
 rows.forEach(function (r) { console.log(r.map(function (c, i) { return pad(c, widths[i]); }).join("")); });

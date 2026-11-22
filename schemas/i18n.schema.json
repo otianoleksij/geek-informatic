@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Словник інтерфейсу (i18n/<lang>/<namespace>.json): пласкі ключі, рядок або об'єкт форм множини",
+  "type": "object",
+  "additionalProperties": {
+    "oneOf": [
+      { "type": "string" },
+      {
+        "type": "object",
+        "required": ["other"],
+        "additionalProperties": false,
+        "properties": {
+          "zero": { "type": "string" },
+          "one": { "type": "string" },
+          "two": { "type": "string" },
+          "few": { "type": "string" },
+          "many": { "type": "string" },
+          "other": { "type": "string" }
+        }
+      }
+    ]
+  }
+}

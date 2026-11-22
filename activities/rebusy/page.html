@@ -1,0 +1,56 @@
+  <section class="intro">
+    <p class="notebook-head">{{rebusy.eyebrow}}</p>
+    <h1><span class="hl">{{rebusy.title}}</span></h1>
+    <p class="lead">{{rebusy.lead}}</p>
+  </section>
+
+  <div class="filters" id="filters" role="group" aria-label="{{rebusy.gradeGroup}}"></div>
+
+  <details class="legend">
+    <summary>{{rebusy.legendTitle}}</summary>
+    <ul>
+      <li><b>,🐱</b><span>{{rebusy.legendLeft}}</span></li>
+      <li><b>🐱,,</b><span>{{rebusy.legendRight}}</span></li>
+      <li><b>1 3</b><span>{{rebusy.legendKeep}}</span></li>
+      <li><b>{{rebusy.legendReplaceSample}}</b><span>{{rebusy.legendReplace}}</span></li>
+      <li><b>{{rebusy.legendRevSample}}</b><span>{{rebusy.legendRev}}</span></li>
+      <li><b><s>{{rebusy.legendStrikeSample}}</s></b><span>{{rebusy.legendStrike}}</span></li>
+    </ul>
+  </details>
+
+  <section class="stage" aria-label="{{rebusy.stageAria}}">
+    <article class="card" id="card">
+      <div class="confetti" id="confetti" aria-hidden="true"></div>
+      <div class="card-head">
+        <span class="counter" id="counter"></span>
+        <span class="badges">
+          <span class="badge done" id="seen" hidden>{{rebusy.seen}}</span>
+          <span class="badge" id="grade"></span>
+        </span>
+      </div>
+      <div class="pieces" id="pieces" role="group" aria-label="{{rebusy.piecesAria}}"></div>
+      <div class="answer">
+        <form id="form" autocomplete="off" novalidate>
+          <label for="ans">{{rebusy.answerLabel}}</label>
+          <div class="row" id="row">
+            <input class="field" id="ans" name="ans" type="text" inputmode="text" autocomplete="off" autocapitalize="characters" autocorrect="off" spellcheck="false" enterkeyhint="done" aria-describedby="boxes">
+            <button class="btn" id="check" type="submit">{{rebusy.check}}</button>
+          </div>
+          <div class="boxes" id="boxes" aria-hidden="true"></div>
+          <span class="sr" id="lettersSr"></span>
+        </form>
+        <div class="tools">
+          <button class="btn ghost" id="bulb" type="button" aria-label="{{rebusy.hint}}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.7.6 1.1 1.3 1.1 2.2h5c0-.9.4-1.6 1.1-2.2A6 6 0 0 0 12 3z" fill="#FFE45C"/></svg>
+            <span id="bulbTxt">{{rebusy.hint}}</span>
+          </button>
+          <button class="linkbtn" id="reveal" type="button" hidden>{{rebusy.reveal}}</button>
+          <button class="btn ghost" id="next" type="button">{{rebusy.next}}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="feedback" id="feedback" role="status" aria-live="polite"></div>
+    </article>
+    <p class="counter" id="solved" style="margin-top:14px"></p>
+  </section>

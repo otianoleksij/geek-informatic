@@ -1,0 +1,202 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Місії вебквесту «Агенти КіберЩиту» (content/agenty-kibershchytu/<lang>.json)",
+  "description": "Один набір на мову: фішингові приклади й ігрові слова прив'язані до мови, тому це окремий набір, а не переклад. У рядках немає HTML; виділення — **жирний**. Типи завдань малює app.js; глибоку перевірку (кількість правильних відповідей, посилання на id) робить tools/check-kiber.js.",
+  "type": "object",
+  "required": ["format", "lang", "word", "missions"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "format": { "const": 1 },
+    "lang": { "type": "string", "enum": ["uk", "en"] },
+    "word": { "type": "string", "pattern": "\\S{2,}", "description": "Секретне слово: літери місій (поле letter) за порядком місій дають це слово" },
+    "missions": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "letter", "icon", "intro", "facts", "tasks"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "$ref": "#/definitions/id" },
+          "title": { "$ref": "#/definitions/text" },
+          "letter": { "type": "string", "pattern": "^\\S$", "description": "Літера слова на цій позиції. Гравцеві ключ показує перемішану літеру, тож порядок місій не підказує слово" },
+          "icon": { "type": "string", "enum": ["lock", "hook", "shield", "steps", "chat", "bug", "search", "phone"] },
+          "intro": { "$ref": "#/definitions/text" },
+          "facts": { "type": "array", "minItems": 1, "items": { "$ref": "#/definitions/text" } },
+          "tasks": { "type": "array", "minItems": 1, "items": { "$ref": "#/definitions/task" } }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "description": "Стабільний id (kebab-case): за ним зберігається прогрес, за ним будується посилання #id" },
+    "text": { "type": "string", "pattern": "\\S", "description": "Текст без HTML; **жирний**" },
+    "option": {
+      "type": "object",
+      "required": ["correct"],
+      "additionalProperties": false,
+      "properties": {
+        "text": { "$ref": "#/definitions/text" },
+        "view": { "type": "string", "enum": ["browser"], "description": "browser: макет вікна браузера з адресою url (замочок малюється за https://) і сторінкою входу з task.browserPage" },
+        "url": { "type": "string", "pattern": "^https?://\\S+$" },
+        "banner": { "$ref": "#/definitions/text" },
+        "correct": { "type": "boolean" }
+      }
+    },
+    "part": {
+      "type": "object",
+      "required": ["text"],
+      "additionalProperties": false,
+      "properties": {
+        "text": { "$ref": "#/definitions/text" },
+        "clue": { "$ref": "#/definitions/text" },
+        "mono": { "type": "boolean" }
+      }
+    },
+    "task": {
+      "type": "object",
+      "required": ["id", "type", "q"],
+      "additionalProperties": false,
+      "description": "Спільні поля: id, type, q. Решта залежить від type (див. allOf нижче; CLI-валідатор його не читає, його правила повторює tools/check-kiber.js).",
+      "properties": {
+        "id": { "$ref": "#/definitions/id" },
+        "type": { "type": "string", "enum": ["password", "scene", "choice", "multi", "classify", "hotspots", "privacy", "chat", "memory", "order", "wordsearch"] },
+        "q": { "$ref": "#/definitions/text" },
+        "explain": { "$ref": "#/definitions/text" },
+        "weak": { "type": "array", "minItems": 1, "items": { "$ref": "#/definitions/text" }, "description": "password: підрядки, наявність яких робить пароль простим" },
+        "picture": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "description": "scene: ім'я файлу scenes/<lang>/<picture>.svg" },
+        "spots": {
+          "type": "array", "minItems": 1,
+          "items": {
+            "type": "object", "required": ["id", "name", "why"], "additionalProperties": false,
+            "properties": { "id": { "$ref": "#/definitions/id" }, "name": { "$ref": "#/definitions/text" }, "why": { "$ref": "#/definitions/text" } }
+          },
+          "description": "scene: небезпечні місця; у SVG їм відповідає data-spot=\"<id>\""
+        },
+        "decoys": { "type": "object", "additionalProperties": { "$ref": "#/definitions/text" }, "description": "scene: підказки для безпечних предметів; ключ — data-decoy у SVG" },
+        "layout": { "type": "string", "enum": ["grid"], "description": "choice: варіанти в три колонки" },
+        "browserPage": {
+          "type": "object", "required": ["logo", "fields", "button"], "additionalProperties": false,
+          "properties": {
+            "logo": { "$ref": "#/definitions/text" },
+            "fields": { "type": "array", "minItems": 1, "items": { "$ref": "#/definitions/text" } },
+            "button": { "$ref": "#/definitions/text" }
+          },
+          "description": "choice з варіантами view=browser: спільна сторінка входу"
+        },
+        "options": { "type": "array", "minItems": 2, "items": { "$ref": "#/definitions/option" }, "description": "choice (1 правильний) і multi (кілька правильних)" },
+        "labels": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "$ref": "#/definitions/text" }, "description": "classify: дві підписи кнопок; answer 0 або 1" },
+        "kind": { "type": "string", "enum": ["file"], "description": "classify: рядки малюються як файли" },
+        "showAll": { "type": "boolean" },
+        "items": {
+          "type": "array", "minItems": 2,
+          "items": {
+            "oneOf": [
+              { "$ref": "#/definitions/text" },
+              {
+                "type": "object", "required": ["text", "answer", "explain"], "additionalProperties": false,
+                "properties": {
+                  "from": { "$ref": "#/definitions/text" }, "text": { "$ref": "#/definitions/text" },
+                  "answer": { "type": "integer", "minimum": 0, "maximum": 1 }, "explain": { "$ref": "#/definitions/text" }
+                }
+              }
+            ]
+          },
+          "description": "classify: об'єкти {from?, text, answer, explain}; order: рядки у правильному порядку"
+        },
+        "listTitle": { "$ref": "#/definitions/text", "description": "hotspots: «Ось усі ознаки <listTitle>:»" },
+        "head": {
+          "type": "array",
+          "items": {
+            "type": "object", "required": ["label", "parts"], "additionalProperties": false,
+            "properties": { "label": { "$ref": "#/definitions/text" }, "parts": { "type": "array", "minItems": 1, "items": { "$ref": "#/definitions/part" } } }
+          }
+        },
+        "body": { "type": "array", "minItems": 1, "items": { "type": "array", "minItems": 1, "items": { "$ref": "#/definitions/part" } } },
+        "panel": { "$ref": "#/definitions/text" },
+        "pvTitle": { "$ref": "#/definitions/text" },
+        "who": {
+          "type": "object", "required": ["av", "name", "sub"], "additionalProperties": false,
+          "properties": { "av": { "$ref": "#/definitions/text" }, "name": { "$ref": "#/definitions/text" }, "sub": { "$ref": "#/definitions/text" } }
+        },
+        "countLbl": { "$ref": "#/definitions/text" },
+        "safeMsg": { "$ref": "#/definitions/text" },
+        "saveBtn": { "$ref": "#/definitions/text" },
+        "okTitle": { "$ref": "#/definitions/text" },
+        "okText": { "$ref": "#/definitions/text" },
+        "initial": { "type": "string", "enum": ["exposed", "on"], "description": "privacy: exposed — кожен перемикач стартує в небезпечному стані; on — усі увімкнені" },
+        "sets": {
+          "type": "array", "minItems": 1,
+          "items": {
+            "type": "object", "required": ["label", "sub", "safe", "show", "why"], "additionalProperties": false,
+            "properties": {
+              "label": { "$ref": "#/definitions/text" }, "sub": { "$ref": "#/definitions/text" },
+              "safe": { "type": "boolean", "description": "безпечний стан перемикача" },
+              "show": { "$ref": "#/definitions/text" }, "why": { "$ref": "#/definitions/text" }
+            }
+          }
+        },
+        "title": { "$ref": "#/definitions/text" },
+        "sub": { "$ref": "#/definitions/text" },
+        "avatar": { "$ref": "#/definitions/text" },
+        "outro": {
+          "type": "object", "required": ["best", "ok", "text"], "additionalProperties": false,
+          "properties": { "best": { "$ref": "#/definitions/text" }, "ok": { "$ref": "#/definitions/text" }, "text": { "$ref": "#/definitions/text" } }
+        },
+        "script": {
+          "type": "array", "minItems": 1,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "properties": {
+              "from": { "$ref": "#/definitions/text" }, "text": { "$ref": "#/definitions/text" },
+              "image": { "type": "string", "enum": ["photo-fall"] },
+              "system": { "$ref": "#/definitions/text" },
+              "ask": { "$ref": "#/definitions/text" },
+              "options": {
+                "type": "array", "minItems": 2,
+                "items": {
+                  "type": "object", "required": ["text", "correct"], "additionalProperties": false,
+                  "properties": {
+                    "text": { "$ref": "#/definitions/text" }, "correct": { "type": "boolean" }, "note": { "$ref": "#/definitions/text" },
+                    "reply": { "type": "array", "items": { "type": "object", "required": ["from", "text"], "additionalProperties": false, "properties": { "from": { "$ref": "#/definitions/text" }, "text": { "$ref": "#/definitions/text" } } } }
+                  }
+                }
+              }
+            }
+          },
+          "description": "chat: кроки {from,text,image?} | {system} | {ask,options}"
+        },
+        "pairs": {
+          "type": "array", "minItems": 2,
+          "items": { "type": "object", "required": ["term", "meaning"], "additionalProperties": false, "properties": { "term": { "$ref": "#/definitions/text" }, "meaning": { "$ref": "#/definitions/text" } } }
+        },
+        "size": { "type": "integer", "minimum": 5, "maximum": 14 },
+        "alphabet": { "type": "string", "pattern": "\\S{10,}", "description": "wordsearch: літери-наповнювач" },
+        "words": {
+          "type": "array", "minItems": 1,
+          "items": {
+            "type": "object", "required": ["word", "row", "col", "dir"], "additionalProperties": false,
+            "properties": {
+              "word": { "$ref": "#/definitions/text" },
+              "row": { "type": "integer", "minimum": 0 }, "col": { "type": "integer", "minimum": 0 },
+              "dir": { "type": "string", "enum": ["h", "v"], "description": "h — зліва направо, v — згори вниз" }
+            }
+          }
+        }
+      },
+      "allOf": [
+        { "if": { "properties": { "type": { "const": "password" } } }, "then": { "required": ["weak"] } },
+        { "if": { "properties": { "type": { "const": "scene" } } }, "then": { "required": ["picture", "spots", "decoys"] } },
+        { "if": { "properties": { "type": { "const": "choice" } } }, "then": { "required": ["options", "explain"] } },
+        { "if": { "properties": { "type": { "const": "multi" } } }, "then": { "required": ["options", "explain"] } },
+        { "if": { "properties": { "type": { "const": "classify" } } }, "then": { "required": ["labels", "items", "showAll"] } },
+        { "if": { "properties": { "type": { "const": "hotspots" } } }, "then": { "required": ["listTitle", "head", "body"] } },
+        { "if": { "properties": { "type": { "const": "privacy" } } }, "then": { "required": ["panel", "pvTitle", "who", "countLbl", "safeMsg", "saveBtn", "okTitle", "okText", "initial", "sets"] } },
+        { "if": { "properties": { "type": { "const": "chat" } } }, "then": { "required": ["title", "sub", "avatar", "outro", "script"] } },
+        { "if": { "properties": { "type": { "const": "memory" } } }, "then": { "required": ["pairs"] } },
+        { "if": { "properties": { "type": { "const": "order" } } }, "then": { "required": ["items", "explain"] } },
+        { "if": { "properties": { "type": { "const": "wordsearch" } } }, "then": { "required": ["size", "alphabet", "words"] } }
+      ]
+    }
+  }
+}

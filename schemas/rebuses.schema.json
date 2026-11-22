@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Набір ребусів однієї мови (content/rebusy/<lang>.json)",
+  "description": "Ребуси тримаються на мові (гра слів), тому для кожної мови окремий набір, а не переклад.",
+  "type": "object",
+  "required": ["format", "lang", "groups", "rebuses"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "format": { "const": 1 },
+    "lang": { "type": "string", "enum": ["uk"], "description": "Мова набору; збігається з назвою файлу" },
+    "groups": {
+      "type": "array", "minItems": 1,
+      "description": "Групи класів для фільтра, у порядку показу",
+      "items": {
+        "type": "object",
+        "required": ["id", "label"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^[0-9a-z]+(-[0-9a-z]+)*$" },
+          "label": { "type": "string", "minLength": 1, "description": "Підпис на кнопці фільтра" }
+        }
+      }
+    },
+    "rebuses": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "g", "answer", "hint", "parts"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^r[0-9]{3,}$", "description": "Стабільний id: за ним зберігається прогрес і будується посилання #id" },
+          "g": { "type": "string", "description": "id групи з groups" },
+          "answer": { "type": "string", "minLength": 1 },
+          "hint": { "type": "string", "minLength": 1, "maxLength": 120 },
+          "parts": {
+            "type": "array", "minItems": 2, "maxItems": 4,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "pic": { "type": "string", "description": "Емодзі-картинка" },
+                "num": { "type": "string", "pattern": "^[0-9]+$", "description": "Число замість картинки" },
+                "w": { "type": "string", "description": "Слово, яке означає картинка або число" },
+                "t": { "type": "string", "description": "Звичайні літери" },
+                "x": { "type": "array", "items": { "type": "integer", "minimum": 1 }, "description": "Позиції закреслених літер у t" },
+                "l": { "type": "integer", "minimum": 1, "description": "Коми зліва: прибрати стільки перших літер" },
+                "r": { "type": "integer", "minimum": 1, "description": "Коми справа: прибрати стільки останніх літер" },
+                "rev": { "type": "boolean", "description": "Перевернута картинка: читати навпаки" },
+                "keep": { "type": "array", "minItems": 1, "items": { "type": "integer", "minimum": 1 }, "description": "Номери літер, які залишаються, у цьому порядку" },
+                "rep": { "type": "array", "items": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "type": "string" } }, "description": "Заміни літер [з, на]" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
