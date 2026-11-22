@@ -1,0 +1,1352 @@
+{
+  "$schema": "../../schemas/quest.schema.json",
+  "format": 1,
+  "lang": "en",
+  "word": "DEFENDER",
+  "missions": [
+    {
+      "id": "fortress-passwords",
+      "title": "Password Fortress",
+      "letter": "D",
+      "icon": "lock",
+      "intro": "Phantom is trying to guess the passwords to school accounts. He is counting on people choosing passwords that are too simple and leaving them where anyone can see. Make your defenses stronger!",
+      "facts": [
+        "A strong password has at least 12 characters.",
+        "It mixes uppercase and lowercase letters, numbers and symbols: ! # _ & ? *",
+        "Don’t use your name, your birthday, your pet’s name or “123456”.",
+        "Use a different password for every site. Don’t write passwords on scraps of paper and don’t tell anyone, not even friends. Only your parents may know them.",
+        "Leaving the computer? Lock it (Win + L, or Control + Command + Q on a Mac) or log out of your account.",
+        "Two-factor authentication is a second lock: after your password, you also enter a code from your phone."
+      ],
+      "tasks": [
+        {
+          "id": "password-lab",
+          "type": "password",
+          "q": "Password lab. Invent a made-up password that earns the “Fortress” level.",
+          "weak": [
+            "qwerty",
+            "1234",
+            "password",
+            "1111",
+            "0000",
+            "abcd",
+            "letmein",
+            "admin"
+          ]
+        },
+        {
+          "id": "desk-scene",
+          "type": "scene",
+          "q": "The computer lab. Emma went out for break and left her desk. Find 5 cyber-safety mistakes in the picture. Click on them right on the picture.",
+          "picture": "desk",
+          "spots": [
+            {
+              "id": "sticky-note",
+              "name": "Sticky note with a password",
+              "why": "Anyone walking past can read a password stuck on the monitor."
+            },
+            {
+              "id": "password-notebook",
+              "name": "Notebook “My passwords”",
+              "why": "Written-down passwords are easy to peek at or photograph."
+            },
+            {
+              "id": "open-session",
+              "name": "Unlocked account",
+              "why": "Emma left without logging out of the gradebook. Anyone can sign in as her."
+            },
+            {
+              "id": "found-usb",
+              "name": "Someone else’s USB stick",
+              "why": "A USB stick you find can carry a virus. Never plug unknown USB sticks into a computer."
+            },
+            {
+              "id": "sms-phone",
+              "name": "Phone showing a code",
+              "why": "Everyone can see the text-message code. Lock your phone and don’t leave it unattended."
+            }
+          ],
+          "decoys": {
+            "window": "Just a window. Keep looking!",
+            "clock": "The clock says break will be over soon. That’s not a threat!",
+            "cup": "A cup of tea is no danger to security. Maybe to the keyboard!",
+            "keyboard": "The keyboard has nothing to do with it. Keep looking!",
+            "mouse": "The mouse is safe. Keep looking!"
+          }
+        },
+        {
+          "id": "strongest-password",
+          "type": "choice",
+          "q": "Which password is the strongest?",
+          "options": [
+            {
+              "text": "qwerty2013",
+              "correct": false
+            },
+            {
+              "text": "Emma2014",
+              "correct": false
+            },
+            {
+              "text": "Fluffy_Kitty!",
+              "correct": false
+            },
+            {
+              "text": "Pizza#Moon&Fox7",
+              "correct": true
+            }
+          ],
+          "explain": "“Pizza#Moon&Fox7” is long (15 characters) and has uppercase and lowercase letters, a number and symbols. “qwerty2013” is just a row of keys, “Emma2014” is a name and a year, and a pet’s name is easy to guess."
+        },
+        {
+          "id": "weak-passwords",
+          "type": "multi",
+          "q": "Phantom made a list of passwords he will crack first. Which of these passwords are weak? Choose all that apply.",
+          "options": [
+            {
+              "text": "123456789",
+              "correct": true
+            },
+            {
+              "text": "Alex2013",
+              "correct": true
+            },
+            {
+              "text": "qwertyuiop",
+              "correct": true
+            },
+            {
+              "text": "Zebra#Window!Tea42",
+              "correct": false
+            },
+            {
+              "text": "password",
+              "correct": true
+            },
+            {
+              "text": "Cloud_7_Cat&Oak",
+              "correct": false
+            }
+          ],
+          "explain": "“123456789”, “qwertyuiop” and “password” are on lists of the most popular passwords in the world, and they are cracked in a second. “Alex2013” is a name and a birth year. Long passwords made of different kinds of characters are much stronger."
+        },
+        {
+          "id": "friend-asks-password",
+          "type": "choice",
+          "q": "Your best friend asks for your game password so they can beat a hard level for you. What do you do?",
+          "options": [
+            {
+              "text": "Tell them the password. They’re my best friend!",
+              "correct": false
+            },
+            {
+              "text": "Type the password in the chat so they don’t forget it",
+              "correct": false
+            },
+            {
+              "text": "Politely say no: only I and my parents know my password",
+              "correct": true
+            },
+            {
+              "text": "Tell them only half of the password",
+              "correct": false
+            }
+          ],
+          "explain": "A password is like the key to your home: you don’t give it out, not even to friends. Friends can fall out, and a chat message can end up in the wrong hands."
+        },
+        {
+          "id": "two-factor",
+          "type": "choice",
+          "q": "You typed the right password, but the site also asks for a code that was sent to your phone. What is this called?",
+          "options": [
+            {
+              "text": "Two-factor authentication",
+              "correct": true
+            },
+            {
+              "text": "A computer virus",
+              "correct": false
+            },
+            {
+              "text": "Phishing",
+              "correct": false
+            },
+            {
+              "text": "A website error",
+              "correct": false
+            }
+          ],
+          "explain": "It is a second lock on your account’s door. Even if Phantom learns your password, he can’t get in without the code from your phone. That is why you should never tell anyone a code from a text message."
+        }
+      ]
+    },
+    {
+      "id": "phishing-trap",
+      "title": "Don’t Take the Bait",
+      "letter": "E",
+      "icon": "hook",
+      "intro": "Phantom sends out trap emails and messages and builds fake websites. He wants you to hand over your password yourself. This trick is called phishing, from “fishing”: the scammer throws out bait and waits for you to bite.",
+      "facts": [
+        "Scammers pretend to be popular games, services, banks and even your friends.",
+        "Signs of phishing: rushing and threats (“your account will be deleted in 2 hours!”) and amazing gifts (“you won a smartphone!”).",
+        "Check the website address: the real game address is cubeworld.example. Fakes: cubew0rld.example (a zero instead of an “o”) or cubeworld.example.free-gift.example (it ends in someone else’s domain).",
+        "A green padlock and https at the start of the address mean the connection is secure. But scammers can have a padlock too, so the address itself is what matters most.",
+        "Real services never ask you to send your password or a code from a text message.",
+        "Spotted a trap? Don’t click anything, don’t reply, and show the message to an adult."
+      ],
+      "tasks": [
+        {
+          "id": "mail-triage",
+          "type": "classify",
+          "q": "Sort the agent’s mail. Which messages are safe and which are phishing?",
+          "labels": [
+            "Safe",
+            "Phishing"
+          ],
+          "showAll": true,
+          "items": [
+            {
+              "from": "PicLoop Support · security@picloop-help.example",
+              "text": "Your account will be deleted in 24 hours! Confirm your password at picloop-help.example/login",
+              "answer": 1,
+              "explain": "Phishing: threats, rushing, a strange address and a request to type your password."
+            },
+            {
+              "from": "Text message · +1 202 555 0117",
+              "text": "Congratulations! You won a new smartphone! Just pay $2.99 for delivery: short.example/prize-now",
+              "answer": 1,
+              "explain": "Phishing: an amazing gift from a stranger and a request to pay."
+            },
+            {
+              "from": "Class teacher · school chat",
+              "text": "Reminder: the field trip is tomorrow. We meet at 8:30 in front of the school.",
+              "answer": 0,
+              "explain": "Safe: you know the sender, and there are no links or requests for passwords."
+            },
+            {
+              "from": "Mia (friend) · messenger",
+              "text": "Hi! Vote for me in the contest: enter your phone number and the code from the text message here: vote-contest.example",
+              "answer": 1,
+              "explain": "Phishing: your friend’s account may have been hacked. Never give anyone a code from a text message."
+            },
+            {
+              "from": "Mom · messenger",
+              "text": "Please buy some bread on your way home.",
+              "answer": 0,
+              "explain": "Safe: an ordinary request with no links and no passwords."
+            }
+          ]
+        },
+        {
+          "id": "fake-site",
+          "type": "choice",
+          "q": "Someone sent you three links to log in to the game CubeWorld. The real game site is cubeworld.example. Which of these sites is the real one? Look carefully at the address bar.",
+          "layout": "grid",
+          "browserPage": {
+            "logo": "CubeWorld",
+            "fields": [
+              "Username",
+              "Password"
+            ],
+            "button": "Log in"
+          },
+          "options": [
+            {
+              "view": "browser",
+              "url": "https://cubeworld.example/login",
+              "correct": true
+            },
+            {
+              "view": "browser",
+              "url": "http://cubew0rld.example/login",
+              "correct": false
+            },
+            {
+              "view": "browser",
+              "url": "https://cubeworld.example.free-gift.example/login",
+              "banner": "+5000 crystals for logging in!",
+              "correct": false
+            }
+          ],
+          "explain": "The real one is option A. Option B has a zero instead of the letter “o” and no secure connection. Option C only starts with cubeworld.example, but it is really the site free-gift.example: look at what the address ends with before the first slash “/”."
+        },
+        {
+          "id": "bank-sms",
+          "type": "choice",
+          "q": "Your mom got a text: “Your bank card has been blocked! Urgently tell our operator the code you will get in the next text, at +1 202 555 0111.” What do you advise her?",
+          "options": [
+            {
+              "text": "Read out the code quickly before the card is blocked",
+              "correct": false
+            },
+            {
+              "text": "Tell no one the code and call the bank at the number printed on the card itself",
+              "correct": true
+            },
+            {
+              "text": "Forward the text to everyone she knows to warn them",
+              "correct": false
+            },
+            {
+              "text": "Reply to the text and ask for an explanation",
+              "correct": false
+            }
+          ],
+          "explain": "A real bank never asks you to read out a code from a text message. The only way to check is to call the official number printed on the card."
+        },
+        {
+          "id": "phishing-email",
+          "type": "hotspots",
+          "q": "Investigate the email. Find 5 signs of phishing by clicking on the suspicious parts. Be careful: every wrong click costs a point.",
+          "listTitle": "phishing in this email",
+          "head": [
+            {
+              "label": "From:",
+              "parts": [
+                {
+                  "text": "CubeWorld Support"
+                },
+                {
+                  "text": "<support@cubew0rld-help.example>",
+                  "clue": "A fake address: a zero instead of the letter “o” and someone else’s domain. The real game site is cubeworld.example.",
+                  "mono": true
+                }
+              ]
+            },
+            {
+              "label": "Subject:",
+              "parts": [
+                {
+                  "text": "URGENT!!! Your account will be deleted",
+                  "clue": "Rushing and threats: scammers want you to act without thinking."
+                }
+              ]
+            }
+          ],
+          "body": [
+            [
+              {
+                "text": "Hello, player!"
+              }
+            ],
+            [
+              {
+                "text": "We noticed that someone logged in to your account from another city."
+              },
+              {
+                "text": "Within 2 hours, send us your username, your password and the code from the text message.",
+                "clue": "Real services never ask you to send a password or a code from a text message."
+              }
+            ],
+            [
+              {
+                "text": "Click here: http://cubew0rld-help.example/login",
+                "clue": "The link leads to a fake site, not to cubeworld.example.",
+                "mono": true
+              }
+            ],
+            [
+              {
+                "text": "And as a thank-you for confirming, you will get 5000 crystals as a gift!",
+                "clue": "An amazing gift is the bait on the hook."
+              }
+            ],
+            [
+              {
+                "text": "Best wishes, the CubeWorld team"
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "secret-data",
+      "title": "Secret Data",
+      "letter": "F",
+      "icon": "shield",
+      "intro": "Phantom collects information about students from open pages and photos on social media. The less he finds, the safer everyone is.",
+      "facts": [
+        "Personal data is information that can be used to recognize or find you.",
+        "Keep these secret: your home address, phone number, passwords, bank card details and photos of documents.",
+        "Photos can give away secrets too: a sign with your address, the school name on your uniform, a car number plate, a location tag.",
+        "Don’t tell people online when nobody is home, and don’t show everyone where you are right now.",
+        "You can share your hobbies: favorite books, games and drawings, without your address or private details."
+      ],
+      "tasks": [
+        {
+          "id": "share-or-secret",
+          "type": "classify",
+          "q": "Sorting. What can you share online, and what must stay secret?",
+          "labels": [
+            "OK to share",
+            "Secret"
+          ],
+          "showAll": false,
+          "items": [
+            {
+              "text": "My favorite cartoon",
+              "answer": 0,
+              "explain": "This is a safe hobby. Nobody can find you with it."
+            },
+            {
+              "text": "My home address",
+              "answer": 1,
+              "explain": "Strangers can use an address to find you."
+            },
+            {
+              "text": "My drawing of a cat for a contest",
+              "answer": 0,
+              "explain": "You can share your creative work if the drawing has no personal data."
+            },
+            {
+              "text": "My phone number",
+              "answer": 1,
+              "explain": "You give your phone number only to people you know in real life."
+            },
+            {
+              "text": "The password for my email",
+              "answer": 1,
+              "explain": "A password is always a secret."
+            },
+            {
+              "text": "My favorite color",
+              "answer": 0,
+              "explain": "This can’t hurt anyone."
+            },
+            {
+              "text": "A photo of my mom’s bank card",
+              "answer": 1,
+              "explain": "Scammers can steal money with card details."
+            },
+            {
+              "text": "“We’re all going to the seaside for two weeks, the house will be empty”",
+              "answer": 1,
+              "explain": "That is how burglars find out nobody is home."
+            },
+            {
+              "text": "The title of my favorite book",
+              "answer": 0,
+              "explain": "Sharing favorite books is safe."
+            },
+            {
+              "text": "A photo of my birth certificate",
+              "answer": 1,
+              "explain": "Documents contain a lot of personal data."
+            }
+          ]
+        },
+        {
+          "id": "photo-post",
+          "type": "scene",
+          "q": "Emma wants to publish this post. Find 5 details that give away her personal information. Click right on the picture.",
+          "picture": "photo",
+          "spots": [
+            {
+              "id": "house-sign",
+              "name": "Sign with the address",
+              "why": "With the street name and house number, strangers can find where Emma lives."
+            },
+            {
+              "id": "school-emblem",
+              "name": "School badge on the uniform",
+              "why": "The school name shows where Emma can be found every day."
+            },
+            {
+              "id": "car-plate",
+              "name": "Car number plate",
+              "why": "A number plate tells things about a family. It is better to blur plates."
+            },
+            {
+              "id": "geotag",
+              "name": "Location tag “now”",
+              "why": "The tag shows exactly where Emma is right now. It is better to turn location off in posts."
+            },
+            {
+              "id": "home-alone-caption",
+              "name": "Caption about an empty house",
+              "why": "Never write that you are home alone and your parents are away: bad people can use that."
+            }
+          ],
+          "decoys": {
+            "menu": "Three dots are just the post menu.",
+            "sun": "The sun shines on everyone the same. Keep looking!",
+            "window": "An ordinary window. You can’t see anything.",
+            "tree": "A tree won’t tell anyone where you live.",
+            "cat": "The cat is lovely and harmless :)",
+            "smile": "A smile is great! Keep looking.",
+            "likes": "Likes are not a threat. The danger is somewhere else!"
+          }
+        },
+        {
+          "id": "fake-admin",
+          "type": "choice",
+          "q": "A message from a “game admin” says you won a prize and you must send your home address for delivery. What do you do?",
+          "options": [
+            {
+              "text": "Send the address. It’s a prize!",
+              "correct": false
+            },
+            {
+              "text": "Send only the street name",
+              "correct": false
+            },
+            {
+              "text": "Send nothing and tell my parents",
+              "correct": true
+            },
+            {
+              "text": "Ask them to send the prize to my school and give the school’s name",
+              "correct": false
+            }
+          ],
+          "explain": "Real admins never ask for your address in private messages. It is a way to trick you into giving away your data. Show such messages to an adult."
+        }
+      ]
+    },
+    {
+      "id": "digital-footprint",
+      "title": "Digital Footprint",
+      "letter": "E",
+      "icon": "steps",
+      "intro": "Everything you post online leaves a trail, like footprints in the snow. Phantom knows how to follow a trail. Learn not to leave too much behind.",
+      "facts": [
+        "The internet remembers everything: even a deleted post may have been saved or screenshotted by someone.",
+        "Before posting, ask yourself: “Would I be okay with my teacher and my grandma seeing this?”",
+        "Make your profile private so that only friends you know in real life can see your posts.",
+        "Turn off location in posts and don’t show everyone your phone number or school name.",
+        "A stranger online may not be who they say they are. Don’t send them photos and don’t agree to meet."
+      ],
+      "tasks": [
+        {
+          "id": "profile-privacy",
+          "type": "privacy",
+          "q": "Set up the privacy of Emma’s profile on the social network PicLoop. Flip the settings and see what a stranger can see.",
+          "panel": "PicLoop · Settings",
+          "pvTitle": "What a stranger sees",
+          "who": {
+            "av": "E",
+            "name": "emma_k",
+            "sub": "Emma K."
+          },
+          "countLbl": "Open to strangers",
+          "safeMsg": "A stranger sees only a name and an avatar. The profile is protected!",
+          "saveBtn": "Save settings",
+          "okTitle": "The profile is safe!",
+          "okText": "Now Phantom can’t find out anything extra about Emma.",
+          "initial": "exposed",
+          "sets": [
+            {
+              "label": "Private profile",
+              "sub": "Only friends see the posts",
+              "safe": true,
+              "show": "All photos and posts",
+              "why": "An open profile can be seen by everyone, including strangers."
+            },
+            {
+              "label": "Show phone number",
+              "sub": "In the “About me” section",
+              "safe": false,
+              "show": "Phone: +1 202 555 0145",
+              "why": "You give your phone number only to people you know, in person."
+            },
+            {
+              "label": "Location in posts",
+              "sub": "Add a place to every photo",
+              "safe": false,
+              "show": "Place: 12 Lime Street (2 min ago)",
+              "why": "Location shows where you go and where you live."
+            },
+            {
+              "label": "Messages from strangers",
+              "sub": "Any user can write to you",
+              "safe": false,
+              "show": "A “Send message” button",
+              "why": "Strangers should not be able to write to you."
+            },
+            {
+              "label": "Show school and class",
+              "sub": "In the “About me” section",
+              "safe": false,
+              "show": "Elm School, Grade 6B",
+              "why": "With the school name, it is easy to find you."
+            },
+            {
+              "label": "Review photo tags",
+              "sub": "I can be tagged only with my permission",
+              "safe": true,
+              "show": "Photos where others tagged you",
+              "why": "Without a review, anyone can tag you in any photo."
+            }
+          ]
+        },
+        {
+          "id": "deleted-post",
+          "type": "choice",
+          "q": "You deleted an embarrassing post 5 minutes after publishing it. Is it gone forever?",
+          "options": [
+            {
+              "text": "Yes, deleted things disappear completely",
+              "correct": false
+            },
+            {
+              "text": "No, someone may have saved it or taken a screenshot",
+              "correct": true
+            },
+            {
+              "text": "Yes, if nobody liked it",
+              "correct": false
+            }
+          ],
+          "explain": "In 5 minutes, someone could have seen the post, saved it or photographed the screen. It is better to think before you post than to delete afterwards."
+        },
+        {
+          "id": "think-before-posting",
+          "type": "classify",
+          "q": "Think before you post. Which of these can you post online, and which can’t you?",
+          "labels": [
+            "Post it",
+            "Don’t post it"
+          ],
+          "showAll": true,
+          "items": [
+            {
+              "text": "A photo of my drawing from the art show",
+              "answer": 0,
+              "explain": "OK: it is your own creative work with no personal data."
+            },
+            {
+              "text": "A video of my little sister crying, with the caption “haha”",
+              "answer": 1,
+              "explain": "Not OK: it is humiliating, and your sister didn’t agree to it."
+            },
+            {
+              "text": "A screenshot of a chat with a friend, without asking her",
+              "answer": 1,
+              "explain": "Not OK: you don’t post other people’s messages without their permission."
+            },
+            {
+              "text": "A photo of a concert ticket with the barcode showing",
+              "answer": 1,
+              "explain": "Not OK: scammers can use a barcode to get in instead of you."
+            },
+            {
+              "text": "A review of a book I read",
+              "answer": 0,
+              "explain": "OK: it is useful and safe."
+            },
+            {
+              "text": "A group photo from the field trip that all my classmates agreed to post",
+              "answer": 0,
+              "explain": "OK: everyone in the photo agreed."
+            }
+          ]
+        },
+        {
+          "id": "stranger-max",
+          "type": "choice",
+          "q": "In a game, someone called “Max, 12 years old” writes to you. He wants to be friends, asks for your photo and suggests meeting in the park. What do you do?",
+          "options": [
+            {
+              "text": "Send a photo. He’s my age!",
+              "correct": false
+            },
+            {
+              "text": "Agree to meet, but bring a friend",
+              "correct": false
+            },
+            {
+              "text": "Don’t send a photo, don’t go, and tell an adult",
+              "correct": true
+            },
+            {
+              "text": "Give him my phone number to get to know him better",
+              "correct": false
+            }
+          ],
+          "explain": "Anyone could be hiding behind “Max”, even an adult with bad intentions. Tell your parents or a teacher about such messages and block the user."
+        }
+      ]
+    },
+    {
+      "id": "cyber-friendship",
+      "title": "Cyber Friendship",
+      "letter": "N",
+      "icon": "chat",
+      "intro": "Phantom stirs up fights in chats because it is easier to destroy friendship and trust that way. A CyberShield agent knows how to stop cyberbullying and how to support others.",
+      "facts": [
+        "Cyberbullying is bullying online: hurtful messages, mocking, sharing someone’s photos without permission, fake profiles, leaving someone out of a group on purpose.",
+        "If you are being bullied: don’t answer rudely, take screenshots, block the bully and report them in the app.",
+        "Always tell an adult you trust: a parent, a teacher or a school counselor.",
+        "Many countries have a free helpline for children. In many European countries it is 116 111. Ask an adult for the number in your country. Calls are free.",
+        "Don’t be a silent bystander: support the person being bullied and never forward hurtful things."
+      ],
+      "tasks": [
+        {
+          "id": "class-chat",
+          "type": "chat",
+          "q": "The class chat. Read the messages and choose what to reply. Your words decide how this story ends.",
+          "title": "Class 6B chat",
+          "sub": "28 members",
+          "avatar": "6B",
+          "outro": {
+            "best": "A true CyberShield agent!",
+            "ok": "The story ended well",
+            "text": "You stopped the bullying, supported Ben and gave him the right advice."
+          },
+          "script": [
+            {
+              "from": "Jack",
+              "text": "Look how Ben fell over in PE 😂",
+              "image": "photo-fall"
+            },
+            {
+              "from": "Lily",
+              "text": "hahaha 😂😂😂"
+            },
+            {
+              "from": "Mark",
+              "text": "Let’s make a meme out of it and send it to all the school chats!"
+            },
+            {
+              "ask": "What do you write in the class chat?",
+              "options": [
+                {
+                  "text": "Haha, yes! I’ll think of a caption",
+                  "correct": false,
+                  "note": "That will only make the bullying worse: the meme will spread around school and Ben will feel even worse. Try something else."
+                },
+                {
+                  "text": "Don’t. Ben will feel awful. Jack, please delete it",
+                  "correct": true,
+                  "reply": [
+                    {
+                      "from": "Jack",
+                      "text": "But it’s just a joke…"
+                    },
+                    {
+                      "from": "Lily",
+                      "text": "Actually, I wouldn’t like it either. Jack, delete it."
+                    },
+                    {
+                      "from": "Jack",
+                      "text": "Okay, deleted."
+                    }
+                  ]
+                },
+                {
+                  "text": "Write nothing, but quietly forward the photo to a friend",
+                  "correct": false,
+                  "note": "By forwarding the photo you take part in the bullying too, even if you say nothing in the chat. Try something else."
+                }
+              ]
+            },
+            {
+              "system": "Private message"
+            },
+            {
+              "from": "Ben",
+              "text": "Was everyone laughing at me? I feel awful… I don’t want to go to school tomorrow."
+            },
+            {
+              "ask": "What do you answer Ben?",
+              "options": [
+                {
+                  "text": "Don’t worry about it. It’s your own fault for falling",
+                  "correct": false,
+                  "note": "Words like that hurt even more. Ben needs support right now."
+                },
+                {
+                  "text": "I’m on your side. Let’s tell our teacher together. She will help",
+                  "correct": true,
+                  "reply": [
+                    {
+                      "from": "Ben",
+                      "text": "Thank you… Okay, let’s do it together."
+                    }
+                  ]
+                },
+                {
+                  "text": "I didn’t laugh, so it has nothing to do with me",
+                  "correct": false,
+                  "note": "A witness to bullying can help too. Supporting a friend is very important."
+                }
+              ]
+            },
+            {
+              "system": "The next day"
+            },
+            {
+              "from": "Ben",
+              "text": "Some anonymous account keeps sending me nasty messages. What should I do?"
+            },
+            {
+              "ask": "What advice do you give Ben?",
+              "options": [
+                {
+                  "text": "Reply with something even worse!",
+                  "correct": false,
+                  "note": "A rude reply only fuels the conflict, and the bully gets what he wanted."
+                },
+                {
+                  "text": "Delete all your accounts and never go online again",
+                  "correct": false,
+                  "note": "Ben has done nothing wrong and shouldn’t have to hide. There are better ways to protect yourself."
+                },
+                {
+                  "text": "Take screenshots, block the account, report it and tell your parents",
+                  "correct": true,
+                  "reply": [
+                    {
+                      "from": "Ben",
+                      "text": "I’ll do that. Thanks for being there for me!"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "what-is-bullying",
+          "type": "multi",
+          "q": "Which of these is cyberbullying? Choose all the correct options.",
+          "options": [
+            {
+              "text": "Writing hurtful comments under someone’s photo",
+              "correct": true
+            },
+            {
+              "text": "Making a fake profile with someone else’s name and photo",
+              "correct": true
+            },
+            {
+              "text": "Wishing a classmate a happy birthday in the chat",
+              "correct": false
+            },
+            {
+              "text": "Leaving someone out of the class group on purpose and laughing about it",
+              "correct": true
+            },
+            {
+              "text": "Sharing a funny cat video with a friend",
+              "correct": false
+            }
+          ],
+          "explain": "Cyberbullying is when someone is deliberately hurt, humiliated or shut out. Birthday wishes and funny cat videos don’t harm anyone."
+        },
+        {
+          "id": "bullying-steps",
+          "type": "order",
+          "q": "You are being bullied online. Put the steps in the right order. Move them with the arrows.",
+          "items": [
+            "Don’t reply rudely",
+            "Take screenshots of the hurtful messages",
+            "Block the bully and report them",
+            "Tell an adult you trust"
+          ],
+          "explain": "First, don’t add fuel to the fire. Then save the evidence, block the bully, and be sure to tell an adult."
+        },
+        {
+          "id": "hotline",
+          "type": "choice",
+          "q": "Many countries have a free helpline for children. Which of these numbers is the child helpline number used in many European countries?",
+          "options": [
+            {
+              "text": "911",
+              "correct": false
+            },
+            {
+              "text": "116 111",
+              "correct": true
+            },
+            {
+              "text": "999",
+              "correct": false
+            },
+            {
+              "text": "112",
+              "correct": false
+            }
+          ],
+          "explain": "116 111 is a free child helpline in many European countries: you can call it if you are bullied or scared. Ask an adult for the number in your own country (for example, in the UK it is Childline, 0800 1111). 911, 999 and 112 are emergency numbers for police, ambulance and fire."
+        }
+      ]
+    },
+    {
+      "id": "virus-attack",
+      "title": "Virus Attack",
+      "letter": "D",
+      "icon": "bug",
+      "intro": "Phantom’s last strike: he planted infected files in the school network. Neutralize them before the malicious programs spread to the computers!",
+      "facts": [
+        "Malicious programs (viruses, trojans) can steal passwords, damage files and spy on you.",
+        "They most often hide in “free” games, cheats, game currency generators and pirated software.",
+        "Be careful with files from strangers. A file called “photo.jpg.exe” is a program, not a photo: look at the last extension.",
+        "Never plug a USB stick you found into a computer.",
+        "Antivirus software and timely system updates are your shield. Is the computer acting strangely? Tell an adult."
+      ],
+      "tasks": [
+        {
+          "id": "file-check",
+          "type": "classify",
+          "q": "File check. Which of these are safe to open, and which could be infected?",
+          "labels": [
+            "Safe",
+            "Dangerous"
+          ],
+          "kind": "file",
+          "showAll": true,
+          "items": [
+            {
+              "from": "Teacher · Google Classroom",
+              "text": "homework.docx",
+              "answer": 0,
+              "explain": "Safe: a file from your teacher in the school service, and you were expecting it."
+            },
+            {
+              "from": "Unknown site “free-robux”",
+              "text": "free_robux_generator.exe",
+              "answer": 1,
+              "explain": "Dangerous: generators of free game currency don’t exist. It is a malicious program."
+            },
+            {
+              "from": "Unknown number · messenger",
+              "text": "beach_photo.jpg.exe",
+              "answer": 1,
+              "explain": "Dangerous: the last extension is .exe. It is a program that only pretends to be a photo."
+            },
+            {
+              "from": "Pirated games website",
+              "text": "Minecraft_FREE_crack.zip",
+              "answer": 1,
+              "explain": "Dangerous: pirated “cracks” often contain viruses."
+            },
+            {
+              "from": "Settings → System update",
+              "text": "Security update for your system",
+              "answer": 0,
+              "explain": "Safe: official updates close the “holes” that viruses crawl through."
+            },
+            {
+              "from": "Found in the schoolyard",
+              "text": "USB stick “Class_photos”",
+              "answer": 1,
+              "explain": "Dangerous: a stranger’s USB stick can infect the computer as soon as you plug it in."
+            },
+            {
+              "from": "Classmate · school email (you agreed on it)",
+              "text": "science_project.pptx",
+              "answer": 0,
+              "explain": "Safe: you know the sender and were expecting this file."
+            }
+          ]
+        },
+        {
+          "id": "infection-signs",
+          "type": "multi",
+          "q": "How can you tell that a computer is infected? Choose all the signs.",
+          "options": [
+            {
+              "text": "The computer suddenly became very slow",
+              "correct": true
+            },
+            {
+              "text": "Ads and windows open by themselves",
+              "correct": true
+            },
+            {
+              "text": "Friends get messages from you that you didn’t write",
+              "correct": true
+            },
+            {
+              "text": "A new episode of your favorite cartoon came out",
+              "correct": false
+            },
+            {
+              "text": "The antivirus suddenly turned itself off",
+              "correct": true
+            },
+            {
+              "text": "The laptop ran out of battery after 5 hours",
+              "correct": false
+            }
+          ],
+          "explain": "Slowing down, strange windows, messages sent in your name and a switched-off antivirus are warning signs. Tell an adult about them. A battery that runs out after 5 hours is normal."
+        },
+        {
+          "id": "term-memory",
+          "type": "memory",
+          "q": "Final agent training. Flip the cards and find the pairs: a term and its meaning. The fewer moves, the more points.",
+          "pairs": [
+            {
+              "term": "Phishing",
+              "meaning": "A trick to get your password or money"
+            },
+            {
+              "term": "Antivirus",
+              "meaning": "A program that looks for malicious files"
+            },
+            {
+              "term": "Cyberbullying",
+              "meaning": "Bullying online"
+            },
+            {
+              "term": "Digital footprint",
+              "meaning": "Everything you leave behind online"
+            },
+            {
+              "term": "Two-factor authentication",
+              "meaning": "A code from your phone after the password"
+            },
+            {
+              "term": "Personal data",
+              "meaning": "Information that can be used to find you"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fake-detector",
+      "title": "Fake Detector",
+      "letter": "E",
+      "icon": "search",
+      "intro": "Phantom has changed his tactics: now he spreads made-up news to scare students and cause panic. A CyberShield agent can tell truth from fake.",
+      "facts": [
+        "A fake is a false or twisted piece of news that is spread on purpose.",
+        "Signs of a fake: a screaming headline in capital letters, “SHOCKING!”, “Share this NOW!”, and strong emotions such as fear, anger or excitement.",
+        "There is no real source: “scientists proved”, “a doctor I know said”, “they are hiding the truth from us”.",
+        "Check the news on 2–3 reliable sites: official websites and well-known news outlets. If only one anonymous channel reports it, it is doubtful.",
+        "Photos and videos can be fake too: old ones, ones from a different event, or ones created by artificial intelligence.",
+        "Not sure it’s true? Don’t share it!"
+      ],
+      "tasks": [
+        {
+          "id": "news-feed",
+          "type": "classify",
+          "q": "The news feed. Which messages look true, and which look fake? Pay attention to the source.",
+          "labels": [
+            "Looks true",
+            "Looks fake"
+          ],
+          "showAll": true,
+          "items": [
+            {
+              "from": "Official city council website",
+              "text": "Repairs to the library on School Street begin on Monday. The reading room will work in the community center.",
+              "answer": 0,
+              "explain": "Looks true: an official source, a calm tone and specific facts."
+            },
+            {
+              "from": "Social media channel “SHOCKING NEWS 24/7”",
+              "text": "SHOCK!!! Smartphones make children grow a third eye! Share before they delete this!",
+              "answer": 1,
+              "explain": "Fake: a screaming headline, an unbelievable claim and a demand to share quickly."
+            },
+            {
+              "from": "Anonymous post on social media",
+              "text": "Tomorrow all schools in the country close for a month. A principal I know told me!",
+              "answer": 1,
+              "explain": "Fake: an anonymous source and “a principal I know” instead of an official announcement."
+            },
+            {
+              "from": "National weather service website",
+              "text": "Tomorrow: snow and temperatures dropping to -5 °C (23 °F).",
+              "answer": 0,
+              "explain": "Looks true: an official weather service and an ordinary forecast."
+            },
+            {
+              "from": "Unknown website news-super-top.example",
+              "text": "Scientists proved it: if you eat chocolate instead of breakfast, your grades will go up!",
+              "answer": 1,
+              "explain": "Fake: “scientists proved” with no names, a strange website, and news that is too good to be true."
+            },
+            {
+              "from": "Our school’s website",
+              "text": "On Thursday there will be a charity fair. All the money will go to help an animal shelter.",
+              "answer": 0,
+              "explain": "Looks true: a familiar official source and a specific event."
+            }
+          ]
+        },
+        {
+          "id": "fake-post",
+          "type": "hotspots",
+          "q": "Examine the fake post. Find 5 signs of a fake in it. Every wrong click costs a point.",
+          "listTitle": "a fake in this post",
+          "head": [
+            {
+              "label": "Channel:",
+              "parts": [
+                {
+                  "text": "SHOCKING NEWS 24/7",
+                  "clue": "An unknown, anonymous channel with a screaming name is an unreliable source."
+                }
+              ]
+            },
+            {
+              "label": "Time:",
+              "parts": [
+                {
+                  "text": "today at 07:15"
+                }
+              ]
+            }
+          ],
+          "body": [
+            [
+              {
+                "text": "SHOCK!!! SCIENTISTS IN HORROR!!!",
+                "clue": "A screaming headline in capital letters and the word “SHOCK” are an attempt to scare you."
+              }
+            ],
+            [
+              {
+                "text": "A doctor I know told me that smartphones make children grow a third eye.",
+                "clue": "There is no real source, only “a doctor I know”."
+              }
+            ],
+            [
+              {
+                "text": "Official websites say nothing about this because they are hiding it from us!",
+                "clue": "“They are hiding it from us” is how the author explains why nobody else is writing about it."
+              }
+            ],
+            [
+              {
+                "text": "SHARE WITH EVERYONE NOW BEFORE THEY DELETE THIS!",
+                "clue": "A demand to share right away, so you don’t have time to check."
+              }
+            ],
+            [
+              {
+                "text": "Have a nice day, friends!"
+              }
+            ]
+          ]
+        },
+        {
+          "id": "check-news-steps",
+          "type": "order",
+          "q": "Someone forwarded you suspicious news. Put the checking steps in the right order. Move them with the arrows.",
+          "items": [
+            "Stop and don’t share it right away",
+            "Look at who the author is and what the source is",
+            "Search for the news on 2–3 reliable sites",
+            "If nothing confirms it, don’t share it and tell an adult"
+          ],
+          "explain": "First stop, then check the source, then look for confirmation in reliable outlets. No confirmation? Don’t share it."
+        },
+        {
+          "id": "viral-photo",
+          "type": "choice",
+          "q": "A photo went viral on social media: a whale swimming in a school swimming pool. What is the most likely explanation?",
+          "options": [
+            {
+              "text": "It’s true. A photo doesn’t lie",
+              "correct": false
+            },
+            {
+              "text": "The photo could be edited or made by artificial intelligence, so it needs checking",
+              "correct": true
+            },
+            {
+              "text": "If the photo has lots of likes, it must be true",
+              "correct": false
+            },
+            {
+              "text": "I should forward it to my friends quickly",
+              "correct": false
+            }
+          ],
+          "explain": "Images are easy to edit or to generate with artificial intelligence. A lot of likes doesn’t make a photo true."
+        }
+      ]
+    },
+    {
+      "id": "smart-phone",
+      "title": "Smart Phone",
+      "letter": "R",
+      "icon": "phone",
+      "intro": "The final mission. Phantom wants to sneak into your smartphone through “free” games, open Wi-Fi and unnecessary app permissions. Protect your phone!",
+      "facts": [
+        "Install apps only from official stores (Google Play, App Store) and with your parents’ permission.",
+        "Check permissions: a puzzle game doesn’t need your contacts, microphone, location or text messages.",
+        "Free Wi-Fi in a café or a mall can be unsafe: don’t type passwords or bank card details there.",
+        "“Free skins” or “pay $1 for 1000 coins” on other sites is a trap to steal your account.",
+        "Update your system and apps: updates close “holes” in your protection.",
+        "If your account is hacked, don’t panic: there is a clear plan of action."
+      ],
+      "tasks": [
+        {
+          "id": "app-permissions",
+          "type": "privacy",
+          "q": "You are installing the game “Kitty Puzzles”, and it asks for a lot of permissions. Leave on only the ones the game really needs.",
+          "panel": "Kitty Puzzles · Permissions",
+          "pvTitle": "What the game gets",
+          "who": {
+            "av": "KP",
+            "name": "Kitty Puzzles",
+            "sub": "Game · Ages 4+"
+          },
+          "countLbl": "Unnecessary permissions",
+          "safeMsg": "The game got only what it really needs. Great!",
+          "saveBtn": "Confirm permissions",
+          "okTitle": "The phone is protected!",
+          "okText": "The game can save your progress, but it knows nothing about you or your friends.",
+          "initial": "on",
+          "sets": [
+            {
+              "label": "Saving progress",
+              "sub": "Keep completed levels on the phone",
+              "safe": true,
+              "show": "The game can’t save your levels",
+              "why": "The game really needs this permission to remember your levels. You can leave it on."
+            },
+            {
+              "label": "Access to contacts",
+              "sub": "Names and numbers of everyone in your phone",
+              "safe": false,
+              "show": "Names and numbers of all your friends",
+              "why": "Puzzles don’t need your contacts."
+            },
+            {
+              "label": "Microphone",
+              "sub": "Record sound",
+              "safe": false,
+              "show": "The sound around you",
+              "why": "A puzzle game doesn’t need to listen to you."
+            },
+            {
+              "label": "Location",
+              "sub": "Know where you are",
+              "safe": false,
+              "show": "Where you are right now",
+              "why": "Puzzles don’t care where you are."
+            },
+            {
+              "label": "Reading text messages",
+              "sub": "Read your messages",
+              "safe": false,
+              "show": "Your text messages, including verification codes",
+              "why": "Login codes for your accounts arrive in text messages. A game must not read them."
+            },
+            {
+              "label": "Camera",
+              "sub": "Take photos and videos",
+              "safe": false,
+              "show": "Access to the camera",
+              "why": "Puzzles don’t need a camera."
+            }
+          ]
+        },
+        {
+          "id": "public-wifi",
+          "type": "choice",
+          "q": "You are in a café with open Wi-Fi called “FREE_WiFi” and no password. What should you definitely NOT do on this network?",
+          "options": [
+            {
+              "text": "Check the weather forecast",
+              "correct": false
+            },
+            {
+              "text": "Log in to your parents’ online bank and type in card details",
+              "correct": true
+            },
+            {
+              "text": "Read news on a well-known website",
+              "correct": false
+            },
+            {
+              "text": "Listen to music",
+              "correct": false
+            }
+          ],
+          "explain": "On an open network, scammers can intercept data. Passwords, card details and banking are only for home or mobile data."
+        },
+        {
+          "id": "free-skins",
+          "type": "choice",
+          "q": "In a game, someone writes: “Free skins! Log in with your account at free-skins-game.example”. What do you do?",
+          "options": [
+            {
+              "text": "Log in. The skins are free!",
+              "correct": false
+            },
+            {
+              "text": "Don’t click the link: it’s a way to steal accounts. Tell an adult",
+              "correct": true
+            },
+            {
+              "text": "Give my password to a friend so he can check the site",
+              "correct": false
+            },
+            {
+              "text": "Type only my username first, and the password later",
+              "correct": false
+            }
+          ],
+          "explain": "There are no free skins on other sites. It is phishing: logging in through such a site hands your account to scammers."
+        },
+        {
+          "id": "hacked-account",
+          "type": "order",
+          "q": "Disaster: your game account was hacked! Put the actions in the right order. Move them with the arrows.",
+          "items": [
+            "Tell your parents or a teacher",
+            "Change the password from another, safe device",
+            "Turn on two-factor authentication",
+            "Warn your friends not to open messages sent in your name"
+          ],
+          "explain": "First, adults: they will help. Then a new password from a safe device, two-factor protection and a warning to your friends."
+        },
+        {
+          "id": "cyber-wordsearch",
+          "type": "wordsearch",
+          "q": "The final challenge! Find 6 cyber-safety words in the grid. Click the first and the last letter of a word. Words run horizontally (left to right) or vertically (top to bottom).",
+          "size": 10,
+          "alphabet": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+          "words": [
+            {
+              "word": "ANTIVIRUS",
+              "row": 1,
+              "col": 0,
+              "dir": "h"
+            },
+            {
+              "word": "PASSWORD",
+              "row": 2,
+              "col": 9,
+              "dir": "v"
+            },
+            {
+              "word": "PHISHING",
+              "row": 3,
+              "col": 1,
+              "dir": "h"
+            },
+            {
+              "word": "HACKER",
+              "row": 4,
+              "col": 0,
+              "dir": "v"
+            },
+            {
+              "word": "SPAM",
+              "row": 9,
+              "col": 2,
+              "dir": "h"
+            },
+            {
+              "word": "LOGIN",
+              "row": 4,
+              "col": 7,
+              "dir": "v"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -288,8 +288,12 @@
       });
     }
     if (isObj(raw.letters)) {
-      S.letters = {};
-      missions.forEach(function (m) { if (typeof raw.letters[m.id] === "string") S.letters[m.id] = raw.letters[m.id]; });
+      /* Прогрес спільний для всіх мов, а слово в кожної мови своє: чужі літери (інша мова) відкидаємо, ключі розкладуться заново */
+      var kept = {};
+      missions.forEach(function (m) { if (typeof raw.letters[m.id] === "string") kept[m.id] = raw.letters[m.id]; });
+      var have = missions.map(function (m) { return kept[m.id] || ""; }).sort().join("");
+      var want = missions.map(function (m) { return m.letter; }).sort().join("");
+      if (have === want) S.letters = kept;
     }
     var cur = typeof raw.cur === "string" && missionIndex(missions, raw.cur) >= 0 ? raw.cur : null;
     S.cur = cur;

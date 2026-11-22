@@ -10,7 +10,7 @@
 
 | Назва | Тип | Класи | Мови | Сторінка | Код і дані |
 |---|---|---|---|---|---|
-| Агенти КіберЩиту | вебквест, 8 місій | 6 | uk | `web-quests/agenty-kibershchytu/` | `activities/agenty-kibershchytu/`, місії `content/agenty-kibershchytu/` |
+| Агенти КіберЩиту | вебквест, 8 місій | 6 | uk, en | `web-quests/agenty-kibershchytu/` | `activities/agenty-kibershchytu/`, місії `content/agenty-kibershchytu/<мова>.json` |
 | Код Галактики | гра, блоки Blockly, 15 рівнів | 7 | uk, en | `games/kod-galaktyky/` | `activities/kod-galaktyky/`, рівні `content/kod-galaktyky/levels.json` |
 | Я керую роботом! | гра, стрілки й повтори, 10 рівнів | 3–4 | uk, en | `games/robot/` | `activities/robot/`, рівні `content/robot/levels.json` |
 | Марсохід у лабіринті | гра, алгоритм правої руки | 6–7 | uk, en | `games/mars/` | `activities/mars/`; лабіринт генерується із зерна |
@@ -87,7 +87,7 @@ CI (`.github/workflows/check.yml`) на кожен push і pull request запу
 - **Робот** (`content/robot/levels.json`): `id`, `title`, `tip`, `map` (`S` старт, `G` кристал, `#` камінь, `.` порожньо), `maxBlocks`, `par`, `loops`, `solution` (`"R"`, `"L"`, `"U"`, `"D"` і повтори `{rep:N, body:[…]}`, N від 2 до 5).
 - **Код Галактики** (`content/kod-galaktyky/levels.json`): `id`, `title`, `story`, `tip`, `size` (6..9), `map` (`S`, `*` кристал, `#` астероїд, `.`), `start.dir`, `maxBlocks`, `par`, `allowed`, `limits`, `solution`.
 - **Ребуси** (`content/rebusy/uk.json`): `id` (`r001`…), група `"1-4"`…`"10-11"`, `answer`, `hint`, `parts` (2–4 частини: `{t}`, `{pic, w}` або `{num, w}` з операціями `rev`, `keep`, `rep`, `l`, `r`). Відповіді не повторюються.
-- **Місії КіберЩиту** (`content/agenty-kibershchytu/uk.json` і `scenes/`): структура описана в `schemas/quest.schema.json`; `node tools/check-kiber.js`.
+- **Місії КіберЩиту** (`content/agenty-kibershchytu/<мова>.json` і `scenes/<мова>/`; секретне слово й приклади адаптовано окремо для кожної мови): структура описана в `schemas/quest.schema.json`; `node tools/check-kiber.js`.
 - **Марсохід**: рівнів немає, лабіринт щоразу генерується із зерна (`MarsCore.generate`).
 
 Кількість рівнів і ребусів жорстко задана валідаторами (10, 15, 100): змінюєш кількість, то онови перевірку й тексти (`card.<id>.f*` у `i18n/*/home.json`, `description` у `catalog.json`).

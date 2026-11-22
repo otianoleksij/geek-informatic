@@ -823,7 +823,7 @@
 
   function certScreen() {
     if (!S.name) { nameGate(); return; }
-    var pts = Core.score(S), rk = T("rank." + Core.rank(pts / TOTAL)), d = new Date(S.finished || Date.now()), date = Core.fmtDate(d), time = Core.fmtTime(elapsed());
+    var pts = Core.score(S), rk = T("rank." + Core.rank(pts / TOTAL)), d = new Date(S.finished || Date.now()), date = LANG === "uk" ? Core.fmtDate(d) : GII18n.formatDate(d, { day: "numeric", month: "short", year: "numeric" }), time = Core.fmtTime(elapsed());
     var line = T("resultLine", { who: S.name + (S.cls ? ", " + S.cls : ""), pts: pts, total: TOTAL, rank: rk, time: time, date: date });
     var cmsg = el("span", "muted t14", "", { "aria-live": "polite" });
     var cbox = el("div", "copybox", line);
@@ -872,6 +872,8 @@
     M = data.missions; WORD = data.word; TOTAL = Core.totalPoints(M);
     S = loadState() || Core.freshState();
     S.name = ""; S.cls = "";
+    /* Літери ключів потрібні, щойно квест розпочато (у збереженому стані їх могло не бути, наприклад після переходу з іншої мови) */
+    if (S.started && !S.letters) { S.letters = Core.lettersById(M, Core.makeLetters(WORD)); save(); }
     /* Знайдено збережений квест — спершу питаємо, продовжувати чи почати заново. */
     if (S.started) { resumeTo = Core.resumeTarget(S); S.screen = "resume"; }
     syncSummary();

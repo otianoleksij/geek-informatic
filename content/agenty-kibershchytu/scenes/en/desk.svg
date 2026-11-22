@@ -1,0 +1,83 @@
+<svg viewBox="0 0 800 480" xmlns="http://www.w3.org/2000/svg" font-family="Nunito, Segoe UI, sans-serif" role="img" aria-label="Emma’s desk in the computer lab">
+<rect width="800" height="480" fill="#DCE6F5"/>
+<g data-decoy="window">
+<rect x="40" y="40" width="150" height="130" rx="6" fill="#BFD7F5" stroke="#FFFFFF" stroke-width="8"/>
+<path d="M115 40v130M40 105h150" stroke="#FFFFFF" stroke-width="6"/>
+</g>
+<g data-decoy="clock">
+<circle cx="725" cy="80" r="38" fill="#FFFFFF" stroke="#24324D" stroke-width="5"/>
+<path d="M725 80V56M725 80l16 10" stroke="#24324D" stroke-width="4" stroke-linecap="round"/>
+</g>
+<rect y="360" width="800" height="120" fill="#C8956A"/>
+<rect y="356" width="800" height="10" fill="#B07E55"/>
+<rect x="380" y="280" width="40" height="52" fill="#24324D"/>
+<rect x="330" y="328" width="140" height="14" rx="7" fill="#24324D"/>
+<rect x="230" y="50" width="340" height="230" rx="12" fill="#24324D"/>
+<rect x="245" y="65" width="310" height="190" fill="#F5F8FF"/>
+<rect x="245" y="65" width="310" height="28" fill="#2D55E0"/>
+<text x="257" y="84" fill="#FFFFFF" font-size="13" font-weight="800">School Gradebook</text>
+<g data-spot="open-session">
+<rect x="322" y="102" width="154" height="30" rx="6" fill="#E1E8FD" stroke="#2D55E0"/>
+<circle cx="337" cy="117" r="8" fill="#2D55E0"/>
+<text x="351" y="121" fill="#14213A" font-size="12" font-weight="700">Logged in: Emma K.</text>
+</g>
+<g font-size="12" fill="#56668A">
+<text x="260" y="160">Mathematics</text>
+<text x="260" y="182">English</text>
+<text x="260" y="204">Computing</text>
+<text x="260" y="226">Science</text>
+<text x="260" y="248">Art</text>
+</g>
+<g font-size="12" font-weight="800" fill="#17905A">
+<text x="505" y="160">A</text>
+<text x="505" y="182">B+</text>
+<text x="505" y="204">A</text>
+<text x="505" y="226">B</text>
+<text x="505" y="248">A-</text>
+</g>
+<g data-spot="sticky-note" transform="rotate(8 560 85)">
+<rect x="515" y="40" width="98" height="86" fill="#FFE066"/>
+<rect x="515" y="40" width="98" height="12" fill="#F2CF45"/>
+<text x="525" y="76" font-size="13" fill="#14213A" font-family="Comic Sans MS, Chalkboard SE, cursive">password:</text>
+<text x="525" y="100" font-size="14" font-weight="700" fill="#CF3F37" font-family="Comic Sans MS, Chalkboard SE, cursive">emma2013</text>
+</g>
+<rect x="600" y="170" width="84" height="190" rx="8" fill="#3A4A6B"/>
+<circle cx="642" cy="196" r="7" fill="#7D9BFF"/>
+<rect x="616" y="222" width="52" height="5" rx="2" fill="#24324D"/>
+<rect x="616" y="234" width="52" height="5" rx="2" fill="#24324D"/>
+<g data-spot="found-usb">
+<rect x="684" y="250" width="34" height="16" rx="3" fill="#CF3F37"/>
+<rect x="678" y="253" width="8" height="10" fill="#9AA8C2"/>
+<path d="M716 258q16 0 20 16" stroke="#14213A" stroke-width="2" fill="none"/>
+<rect x="712" y="274" width="66" height="24" rx="4" fill="#FFFFFF" stroke="#14213A" stroke-width="1.5"/>
+<text x="718" y="290" font-size="10" font-weight="800" fill="#CF3F37">FOUND</text>
+</g>
+<g data-decoy="cup">
+<rect x="222" y="384" width="40" height="46" rx="6" fill="#FFFFFF" stroke="#9AA8C2" stroke-width="2"/>
+<path d="M262 394q16 0 16 14t-16 14" stroke="#9AA8C2" stroke-width="4" fill="none"/>
+<path d="M234 376q-6-8 0-14M248 376q-6-8 0-14" stroke="#9AA8C2" stroke-width="2" fill="none"/>
+</g>
+<g data-decoy="keyboard">
+<rect x="284" y="378" width="230" height="44" rx="6" fill="#E9EEF6" stroke="#9AA8C2" stroke-width="2"/>
+<path d="M296 392h206M296 408h206" stroke="#C3CEDF" stroke-width="8" stroke-dasharray="14 4"/>
+</g>
+<g data-decoy="mouse">
+<ellipse cx="550" cy="400" rx="15" ry="21" fill="#E9EEF6" stroke="#9AA8C2" stroke-width="2"/>
+<path d="M550 380v14" stroke="#9AA8C2" stroke-width="2"/>
+</g>
+<g data-spot="password-notebook" transform="rotate(-4 130 420)">
+<rect x="50" y="372" width="160" height="96" rx="4" fill="#FFFFFF" stroke="#9AA8C2" stroke-width="2"/>
+<path d="M50 394h160" stroke="#CF3F37" stroke-width="2"/>
+<text x="62" y="389" font-size="12" font-weight="800" fill="#14213A">MY PASSWORDS</text>
+<text x="62" y="413" font-size="11" fill="#2D55E0" font-family="Comic Sans MS, Chalkboard SE, cursive">email: Emma_2013</text>
+<text x="62" y="432" font-size="11" fill="#2D55E0" font-family="Comic Sans MS, Chalkboard SE, cursive">game: kitty777</text>
+<text x="62" y="451" font-size="11" fill="#2D55E0" font-family="Comic Sans MS, Chalkboard SE, cursive">gradebook: emma2013</text>
+</g>
+<g data-spot="sms-phone" transform="rotate(10 655 420)">
+<rect x="618" y="368" width="74" height="100" rx="12" fill="#14213A"/>
+<rect x="625" y="378" width="60" height="80" rx="6" fill="#E1E8FD"/>
+<text x="631" y="396" font-size="9" font-weight="800" fill="#2D55E0">SMS</text>
+<text x="631" y="416" font-size="9" fill="#14213A">Your code:</text>
+<text x="631" y="438" font-size="16" font-weight="800" fill="#14213A">4821</text>
+</g>
+</svg>

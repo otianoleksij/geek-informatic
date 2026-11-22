@@ -23,7 +23,9 @@ PAGES={
  "home":("#2D55E0","#1B3AA8",code,{
    "uk":("Інформатика,<br>в&nbsp;яку грають","Вебквести, ігри й ребуси · 1–11 клас","1–11 клас"),
    "en":("Computer science<br>you can play","Quests, games, puzzles · grades 1–11","Grades 1–11")}),
- "agenty-kibershchytu":("#2D55E0","#1B3AA8",shield,{"uk":("Агенти КіберЩиту","6 клас · кібербезпека","6 клас")}),
+ "agenty-kibershchytu":("#2D55E0","#1B3AA8",shield,{
+   "uk":("Агенти КіберЩиту","6 клас · кібербезпека","6 клас"),
+   "en":("Cyber Shield Agents","Grade 6 · cyber safety","Grade 6")}),
  "kod-galaktyky":("#251B5C","#150F38",planet,{
    "uk":("Код Галактики","7 клас · цикли й алгоритми","7 клас"),
    "en":("Galaxy Code","Grade 7 · loops and algorithms","Grade 7")}),

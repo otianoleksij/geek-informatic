@@ -1,0 +1,77 @@
+<svg viewBox="0 0 800 520" xmlns="http://www.w3.org/2000/svg" font-family="Nunito, Segoe UI, sans-serif" role="img" aria-label="Emma’s post with a photo in front of her house">
+<rect width="800" height="520" fill="#FFFFFF"/>
+<circle cx="32" cy="28" r="18" fill="#FFC23D"/>
+<text x="25" y="34" font-size="16" font-weight="800" fill="#14213A">E</text>
+<text x="60" y="23" font-size="15" font-weight="800" fill="#14213A">emma_k</text>
+<g data-spot="geotag">
+<path d="M66 30c-4.5 0-7 3.4-7 7 0 5 7 11 7 11s7-6 7-11c0-3.6-2.5-7-7-7z" fill="#CF3F37"/>
+<circle cx="66" cy="37" r="2.6" fill="#FFFFFF"/>
+<text x="78" y="46" font-size="13" font-weight="700" fill="#56668A">12 Lime Street · now</text>
+</g>
+<g data-decoy="menu">
+<circle cx="752" cy="28" r="3" fill="#56668A"/>
+<circle cx="764" cy="28" r="3" fill="#56668A"/>
+<circle cx="776" cy="28" r="3" fill="#56668A"/>
+</g>
+<rect y="56" width="800" height="380" fill="#BFE0FF"/>
+<g data-decoy="sun">
+<circle cx="610" cy="110" r="30" fill="#FFD15C"/>
+</g>
+<polygon points="0,170 270,86 540,170" fill="#B5523B"/>
+<rect x="0" y="170" width="540" height="266" fill="#F2C9A0"/>
+<g data-decoy="window">
+<rect x="40" y="210" width="110" height="90" fill="#CFE7FF" stroke="#FFFFFF" stroke-width="6"/>
+<path d="M95 210v90" stroke="#FFFFFF" stroke-width="4"/>
+</g>
+<rect x="420" y="290" width="80" height="146" fill="#7A4B2E"/>
+<circle cx="486" cy="365" r="4" fill="#FFC23D"/>
+<g data-spot="house-sign">
+<rect x="380" y="196" width="140" height="56" rx="6" fill="#2D55E0" stroke="#FFFFFF" stroke-width="3"/>
+<text x="392" y="219" font-size="15" font-weight="800" fill="#FFFFFF">Lime Street</text>
+<text x="392" y="242" font-size="15" font-weight="800" fill="#FFFFFF">No. 12</text>
+</g>
+<g data-decoy="tree">
+<rect x="690" y="290" width="22" height="146" fill="#7A4B2E"/>
+<circle cx="700" cy="250" r="64" fill="#5DAA5D"/>
+<circle cx="660" cy="280" r="34" fill="#4E9A50"/>
+</g>
+<g data-spot="car-plate">
+<path d="M575 382l26-26h110l28 26z" fill="#B23A33"/>
+<rect x="612" y="362" width="44" height="18" fill="#CFE7FF"/>
+<rect x="664" y="362" width="44" height="18" fill="#CFE7FF"/>
+<rect x="560" y="380" width="220" height="40" rx="12" fill="#CF3F37"/>
+<circle cx="605" cy="420" r="14" fill="#24324D"/>
+<circle cx="735" cy="420" r="14" fill="#24324D"/>
+<rect x="632" y="390" width="80" height="20" rx="3" fill="#FFFFFF" stroke="#14213A" stroke-width="2"/>
+<text x="638" y="405" font-size="11.5" font-weight="800" fill="#14213A">KLM 2847</text>
+</g>
+<g data-decoy="cat">
+<ellipse cx="530" cy="422" rx="22" ry="14" fill="#3A3A3A"/>
+<circle cx="515" cy="402" r="13" fill="#3A3A3A"/>
+<path d="M505 394l2-14 8 9zM525 394l-2-14-8 9z" fill="#3A3A3A"/>
+<circle cx="511" cy="401" r="2" fill="#FFD15C"/>
+<circle cx="519" cy="401" r="2" fill="#FFD15C"/>
+</g>
+<path d="M200 436v-70q0-62 70-62t70 62v70z" fill="#24324D"/>
+<path d="M250 304l20 28 20-28" fill="#FFFFFF"/>
+<g data-decoy="smile">
+<circle cx="270" cy="250" r="44" fill="#F5C9A6"/>
+<path d="M226 246c0-34 22-50 44-50s44 16 44 50c-10-16-26-22-44-22s-34 6-44 22z" fill="#5A3A22"/>
+<circle cx="254" cy="252" r="5" fill="#14213A"/>
+<circle cx="286" cy="252" r="5" fill="#14213A"/>
+<path d="M254 272q16 14 32 0" stroke="#14213A" stroke-width="4" fill="none" stroke-linecap="round"/>
+</g>
+<g data-spot="school-emblem">
+<path d="M292 340h54v26q0 16-27 24-27-8-27-24z" fill="#FFC23D" stroke="#FFFFFF" stroke-width="2"/>
+<text x="313" y="358" font-size="10" font-weight="800" fill="#14213A">Elm</text>
+<text x="303" y="374" font-size="10" font-weight="800" fill="#14213A">School</text>
+</g>
+<g data-decoy="likes">
+<text x="20" y="466" font-size="15" font-weight="800" fill="#CF3F37">♥</text>
+<text x="40" y="466" font-size="14" font-weight="700" fill="#14213A">24 likes</text>
+</g>
+<g data-spot="home-alone-caption">
+<text x="20" y="498" font-size="15" fill="#14213A">
+<tspan font-weight="800">emma_k</tspan> Mom and Dad are away until Sunday, I’m home alone!</text>
+</g>
+</svg>

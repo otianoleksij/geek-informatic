@@ -82,13 +82,16 @@
       "type": "webquest",
       "path": "web-quests/agenty-kibershchytu/",
       "title": {
-        "uk": "Агенти КіберЩиту"
+        "uk": "Агенти КіберЩиту",
+        "en": "Cyber Shield Agents"
       },
       "description": {
-        "uk": "Вебквест з кібербезпеки для 6 класу: 8 інтерактивних місій про паролі, фішинг, фейки та приватність в інтернеті, наприкінці — посвідчення агента."
+        "uk": "Вебквест з кібербезпеки для 6 класу: 8 інтерактивних місій про паролі, фішинг, фейки та приватність в інтернеті, наприкінці — посвідчення агента.",
+        "en": "A cyber-safety web quest for grade 6: 8 interactive missions about passwords, phishing, fake news and online privacy, ending with an agent ID card."
       },
       "locales": [
-        "uk"
+        "uk",
+        "en"
       ],
       "grades": [
         6

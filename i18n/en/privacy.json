@@ -17,7 +17,7 @@
   "progress.2": "**Galaxy Code**: stars for levels, the current level, your block programs for each level and the run speed.",
   "progress.3": "**Mars Rover Maze**: your block program, the speed and a mark that the algorithm has already passed the check.",
   "progress.4": "**100 rebuses**: the numbers of the rebuses you have solved.",
-  "progress.5": "**CyberShield Agents** (Ukrainian only): which missions are done, points, the mission and screen where you stopped, start and finish times and the key letters.",
+  "progress.5": "**Cyber Shield Agents**: which missions are done, points, the mission and screen where you stopped, start and finish times and the key letters.",
   "progress.6": "**Home page**: a short summary of “done out of total” for each activity, used to show the progress bars on the cards.",
   "kiber.h": "Name and grade in CyberShield",
   "kiber.p": "The quest asks for a name and grade only for the agent ID card. They exist **only in the memory of the open page**: they are not saved to the device and not sent anywhere. After you reload the page you need to enter them again.",
