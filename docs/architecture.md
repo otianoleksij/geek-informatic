@@ -34,7 +34,7 @@ i18n/<lang>/<ns>.json          рядки однієї активності чи
 schemas/*.schema.json          JSON Schema для VS Code і check-schemas
 templates/activity.html        оболонка активності: <head>, шапка, підвал, підключення скриптів
 templates/page.html            оболонка сайтової сторінки (так само, плюс навігація й перемикач мови)
-templates/404.html             шаблон 404
+templates/404.html             шаблон 404 (стилі й скрипт у pages/notfound/)
 templates/icons.json           іконки фактів на картках
 assets/js/data.js · i18n.js · storage.js · catalog-filter.js · site.js
 ```
@@ -125,8 +125,17 @@ GIData.pick(obj)                  // для полів {uk, en}: поверта�
 - **Перемикач мови** (`a.lang-switch`) є в шапці кожної сторінки. Він веде на ту саму сторінку іншою мовою, а якщо перекладу немає, на головну цієї мови. Автоматичного перенаправлення за мовою браузера немає.
 - **Головна англійською** показує всі активності. Картка активності без `en` веде на українську сторінку (`hreflang="uk" lang="uk"`) і має позначку `Ukrainian only`.
 - **sitemap.xml** генерується: кожна сторінка (головна, активності, сайтові сторінки) для кожної мови, для сторінок із кількома мовами додано `xhtml:link` (`hreflang` + `x-default` → uk), `lastmod` береться з `catalog.json`.
-- **404.html** — один файл на весь сайт (вимога GitHub Pages), усі шляхи абсолютні від `/geek-informatic/`. Статичний текст українською, а `<script>` наприкінці для адрес під `/geek-informatic/en/` підставляє англійські тексти (`data-en`), посилання (`data-en-href`) і `lang`.
+- **404.html** — один файл на весь сайт (вимога GitHub Pages), усі шляхи абсолютні від `/geek-informatic/`. Статичний текст українською, а `pages/notfound/notfound.js` (підключений через `<script src defer>`, бо CSP забороняє inline-скрипти; корінь сайту береться з `data-base` на `<html>`) для адрес під `/geek-informatic/en/` підставляє англійські тексти (`data-en`), посилання (`data-en-href`) і `lang`.
 - Картинки для соцмереж: `assets/og/<slug>.png` (uk), `assets/og/en/<slug>.png` (en, лише якщо є; інакше береться українська). Генерує `tools/og/make.py`.
+
+## 8a. Content-Security-Policy
+
+GitHub Pages не вміє віддавати заголовки, тому політика лежить у `<meta http-equiv="Content-Security-Policy">` (шаблони `activity.html`, `page.html`, `404.html`; рядок будує `cspFor()` у `tools/build-pages.js`). Сайт не робить жодних запитів до зовнішніх origin (шрифти в `assets/fonts`, Blockly у `vendor/`), тож усе `'self'`:
+
+- `default-src 'self'; script-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'none'`. `data:` потрібен для іконки вкладки (inline SVG); форми працюють через JS, тому `form-action 'none'`. `frame-ancestors` у `<meta>` ігнорується, тому його немає.
+- Inline-скрипти заборонені: блоки `<script type="application/json">` (`i18n-data`) і `application/ld+json` не виконуються, тож їх політика не чіпає. Новий код пишіть у файлах `.js`, без `onclick=` і `<script>…</script>`.
+- Стилі: `style-src 'self' 'unsafe-inline'` на всіх сторінках. Blockly (Код Галактики, Марсохід) під час `inject()` створює `<style>` з CSS, що залежить від шляху до `media/`, тож хеші не стабільні; активності мають атрибути `style="…"`. Окремий `style-src-attr` не використовуємо: старі браузери шкільних ПК його не знають і заблокували б усі `style="…"`. Головний захист — `script-src 'self'` без винятків: жодних вбудованих скриптів, `eval` чи зовнішніх доменів.
+- **Потрібен зовнішній ресурс** (шрифт, CDN, iframe, `fetch` на інший домен)? Спершу спробуйте покласти його в репозиторій. Якщо ні, додайте origin у відповідну директиву в `cspFor()` (`script-src`, `style-src`, `font-src`, `connect-src`, `img-src`, `frame-src`; якщо директиви ще немає, додайте новий елемент масиву) і запустіть `node tools/build-pages.js`. Перевірте сторінку у браузері: порушення видно в консолі як «Refused to …».
 
 ## 9. Валідатори
 

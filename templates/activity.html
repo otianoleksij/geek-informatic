@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="{{{csp}}}">
 <title>{{pageTitle}}</title>
 <meta name="description" content="{{description}}">
 <link rel="canonical" href="{{canonical}}">
@@ -29,6 +30,7 @@
 {{/if}}{{#if activityCss}}<link rel="stylesheet" href="{{activityCss}}">
 {{/if}}</head>
 <body>
+<a class="skip" href="#main">{{common.skip}}</a>
 {{#if chrome}}
 <header class="top">
   <div class="wrap">
@@ -40,7 +42,7 @@
   </div>
 </header>
 
-<main class="wrap">
+<main class="wrap" id="main">
   <div id="loadError" class="noscript load-error" role="alert" hidden>{{common.loadError}}</div>
   <noscript><p class="noscript">{{common.noscript}}</p></noscript>
 

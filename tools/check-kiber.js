@@ -69,6 +69,16 @@ function checkTask(t, where, lang, mission) {
       if (new Set(t.spots.map(function (s) { return s.id; })).size !== t.spots.length) err(where, "id місць повторюються");
       Object.keys(decoyIds).forEach(function (id) { if (!has(t.decoys, id)) err(where, "у SVG data-decoy=\"" + id + "\" немає підказки в decoys"); });
       Object.keys(t.decoys).forEach(function (id) { if (!decoyIds[id]) err(where, "підказка decoys." + id + " не використана в SVG"); });
+      if (!need("objectLabels")) break;
+      var allIds = Object.keys(spotIds).concat(Object.keys(decoyIds)), seenLabel = {};
+      allIds.forEach(function (id) {
+        var lb = t.objectLabels[id];
+        if (typeof lb !== "string" || !lb.trim()) { err(where, "objectLabels." + id + " обов'язковий і непорожній"); return; }
+        if (seenLabel[lb]) err(where, "objectLabels." + id + " повторює підпис «" + lb + "»");
+        seenLabel[lb] = true;
+        t.spots.forEach(function (s) { if (s.id === id && s.name.trim().toLowerCase() === lb.trim().toLowerCase()) err(where, "objectLabels." + id + " збігається з name (розкриває відповідь)"); });
+      });
+      Object.keys(t.objectLabels).forEach(function (id) { if (allIds.indexOf(id) < 0) err(where, "objectLabels." + id + " не має data-spot/data-decoy у SVG"); });
       break;
     case "choice":
     case "multi":
@@ -311,6 +321,32 @@ function playQuest(doc, label) {
   if (mg.letters[M[0].id] !== old.letters[0] || mg.letters[M[7].id] !== old.letters[7]) err(label, "міграція: літери");
   var mg2 = Core.migrateV3({ started: 1, done: [], scores: {}, screen: "brief", cur: 42, task: 0 }, M);
   if (mg2.screen !== "map" || mg2.cur !== null) err(label, "міграція: невідома місія має вести на map");
+  /* «Продовжити» повертає на перше завдання без балів, а не на збережене S.task */
+  function resumeState(mi, answered, savedTask, screen, done) {
+    var R = Core.freshState();
+    R.started = 1; R.screen = screen || "task"; R.cur = M[mi].id; R.task = M[mi].tasks[savedTask].id; R.letters = null;
+    R.done = done || [];
+    for (var i = 0; i < answered; i++) R.scores[Core.taskKey(M[mi].id, M[mi].tasks[i].id)] = 1;
+    return Core.sanitize(JSON.parse(JSON.stringify(Core.publicState(R))), M);
+  }
+  var R1 = resumeState(0, 1, 0);
+  if (Core.resumeTarget(R1, M) !== "task" || R1.task !== M[0].tasks[1].id) err(label, "resume: після завдання 1 місії 1 має відкритися завдання 2");
+  var n2 = Math.min(3, M[1].tasks.length - 1), R2 = resumeState(1, n2, n2 - 1);
+  if (Core.resumeTarget(R2, M) !== "task" || R2.task !== M[1].tasks[n2].id) err(label, "resume: після " + n2 + " завдань місії 2 має відкритися завдання " + (n2 + 1));
+  var R3 = resumeState(1, 2, 0);                 // S.task вказує на виконане, а виконані — перші два
+  if (Core.resumeTarget(R3, M) !== "task" || R3.task !== M[1].tasks[2].id) err(label, "resume: S.task на виконаному завданні має виправлятися");
+  var R4 = resumeState(0, M[0].tasks.length, M[0].tasks.length - 1);
+  if (Core.resumeTarget(R4, M) !== "done" || !Core.isDone(R4, M[0].id)) err(label, "resume: усі завдання виконано, але місію не завершено → екран done і місія в done");
+  var R5 = resumeState(0, 0, 0);
+  if (Core.resumeTarget(R5, M) !== "task" || R5.task !== M[0].tasks[0].id) err(label, "resume: без балів лишається перше завдання");
+  var R6 = resumeState(0, 1, 0, "map");
+  if (Core.resumeTarget(R6, M) !== "map" || R6.task !== M[0].tasks[0].id) err(label, "resume: map лишається map");
+  var R7 = resumeState(0, 1, 0, "brief");
+  if (Core.resumeTarget(R7, M) !== "brief") err(label, "resume: brief лишається brief");
+  /* повторний прохід завдання не нараховує бали вдруге */
+  var before = Core.score(R1);
+  Core.recordScore(R1, M[0].id, M[0].tasks[0].id, 9);
+  if (Core.score(R1) !== before) err(label, "recordScore нарахував бали вдруге");
 }
 
 /* ---------- основний прохід ---------- */

@@ -278,6 +278,10 @@ python3 -m http.server               # http://localhost:8000/games/<id>/
 - Типове повідомлення, коли забули: `Застарілі сторінки (запусти node tools/build-pages.js):` і список файлів.
 - Сторінка має працювати з `http://localhost:8000/…`, а не з `file://`.
 
+### Content-Security-Policy
+
+Усі сторінки мають `<meta http-equiv="Content-Security-Policy">` (`cspFor()` у `tools/build-pages.js`, деталі в `architecture.md`, §8a): лише `'self'`, без inline-скриптів і без `<style>`. Тому: код і стилі тільки у файлах; жодних `onclick=`/`<script>…</script>`; зовнішні шрифти й CDN не підключати. Якщо активність таки потребує зовнішнього ресурсу, додайте origin у `cspFor()` і обґрунтуйте в PR. Перед здачею відкрийте сторінку в браузері й переконайтеся, що в консолі немає «Refused to …».
+
 ## 10. Чек-лист
 
 - [ ] `id` у kebab-case, збігається в `catalog.json`, `activities/<id>/`, `content/<id>/`, словниках.

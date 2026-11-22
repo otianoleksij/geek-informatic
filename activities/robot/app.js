@@ -591,7 +591,7 @@
       '<button class="btn go" id="mNext" type="button">' + esc(last ? t("robot.toLevels") : t("robot.nextLevel")) + '</button>' +
       '<button class="btn ghost" id="mAgain" type="button">' + esc(t("robot.improve")) + '</button></div></div></div>';
     $("mNext").addEventListener("click", function () { closeModal(true); if (last) { goSelect(); } else navigate(LEVELS[lvIdx + 1].id, "replace"); });
-    $("mAgain").addEventListener("click", function () { closeModal(true); resetRobot(); setMsg(t("robot.tryShorter"), "info"); });
+    $("mAgain").addEventListener("click", function () { closeModal(true); resetRobot(); setMsg(t("robot.tryShorter"), "info"); try { $("run").focus(); } catch (e) {} });
     $("mNext").focus();
     $("modal").addEventListener("keydown", function (e) {
       if (e.key !== "Tab") return;

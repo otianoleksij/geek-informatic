@@ -18,6 +18,9 @@
 }
 *{box-sizing:border-box}
 html,body{margin:0}
+/* Липка панель не має затуляти елемент у фокусі (WCAG 2.4.11) */
+html{scroll-padding-top:110px}
+@media(max-width:560px){html{scroll-padding-top:150px}}
 [hidden]{display:none!important}
 body{
   background-color:var(--paper); color:var(--ink);
@@ -73,8 +76,10 @@ main{padding-block:28px 56px}
 
 label.fld{display:flex;flex-direction:column;gap:6px;font-weight:700;font-size:15px;flex:1 1 220px;min-width:0}
 .stack>label.fld{flex:none}
-input[type=text]{font:600 17px var(--f-body);padding:12px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);width:100%}
-input[type=text]:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px var(--accent-soft)}
+input[type=text]{font:600 17px var(--f-body);padding:12px 14px;border-radius:12px;border:1.5px solid var(--ctl);background:var(--paper);color:var(--ink);width:100%}
+input::placeholder{color:var(--muted);opacity:1}
+input[type=text]:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+input[type=text]:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 input.mono{font-family:var(--f-mono);font-size:16px;letter-spacing:.02em}
 
 /* Hero */
@@ -95,7 +100,7 @@ button.mrow{cursor:pointer}
 button.mrow:hover{border-color:var(--accent)}
 .mrow .ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent)}
 .mrow .ic svg{width:24px;height:24px}
-.mrow.locked{opacity:.55}
+.mrow.locked{background:var(--paper);border-style:dashed;color:var(--muted)}
 .mrow.locked .ic{background:var(--paper);color:var(--muted)}
 .mrow.done .ic{background:var(--ok-bg);color:var(--ok)}
 .mrow .t{min-width:0}
@@ -407,3 +412,18 @@ button.mrow:hover{transform:translateX(3px)}
 .pv-count.ok{color:var(--ok)}
 .pv-count.bad{color:var(--bad)}
 .hint-c{text-align:center;min-height:1.5em}
+
+/* Прихований текст для скрінрідерів (h1 на екранах квесту, крім стартового) */
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+
+/* Scene tasks: keyboard focus ring on picture objects (outline on <g> is unreliable in SVG) */
+.scene [data-spot]:focus,.scene [data-decoy]:focus{outline:none}
+.scene .sc-ring,.scene .sc-ring-halo{display:none;fill:none;pointer-events:none}
+.scene .sc-ring-halo{stroke:#FFFFFF;stroke-width:9}
+.scene .sc-ring{stroke:#2D55E0;stroke-width:4}
+.scene [data-spot]:focus-visible>.sc-ring,.scene [data-spot]:focus-visible>.sc-ring-halo,.scene [data-decoy]:focus-visible>.sc-ring,.scene [data-decoy]:focus-visible>.sc-ring-halo{display:inline}
+.ws-kbd{text-align:center}
+
+/* Посилання «Перейти до основного вмісту»: видиме лише у фокусі (WCAG 2.4.1) */
+.skip{position:absolute;left:12px;top:-100px;z-index:200;padding:12px 18px;border-radius:10px;background:var(--accent);color:var(--accent-ink);font:800 16px/1.2 system-ui,sans-serif;text-decoration:none;border:2px solid var(--accent-deep)}
+.skip:focus{top:12px}

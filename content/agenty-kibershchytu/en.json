@@ -66,6 +66,18 @@
               "why": "Everyone can see the text-message code. Lock your phone and don’t leave it unattended."
             }
           ],
+          "objectLabels": {
+            "window": "Window, top left",
+            "clock": "Clock, top right",
+            "cup": "Cup on the desk",
+            "keyboard": "Keyboard",
+            "mouse": "Computer mouse",
+            "open-session": "Monitor screen",
+            "sticky-note": "Yellow paper next to the monitor",
+            "found-usb": "Computer case and whatever is plugged into it",
+            "password-notebook": "Notebook on the desk, left",
+            "sms-phone": "Phone on the desk, right"
+          },
           "decoys": {
             "window": "Just a window. Keep looking!",
             "clock": "The clock says break will be over soon. That’s not a threat!",
@@ -468,6 +480,20 @@
               "why": "Never write that you are home alone and your parents are away: bad people can use that."
             }
           ],
+          "objectLabels": {
+            "geotag": "Line under the username at the top",
+            "menu": "Three dots, top right",
+            "sun": "Sun",
+            "window": "House window",
+            "house-sign": "Blue sign on the house",
+            "tree": "Tree",
+            "car-plate": "Red car",
+            "cat": "Cat by the door",
+            "smile": "Person in front of the house",
+            "school-emblem": "Yellow badge on the clothes",
+            "likes": "Likes count",
+            "home-alone-caption": "Caption under the photo"
+          },
           "decoys": {
             "menu": "Three dots are just the post menu.",
             "sun": "The sun shines on everyone the same. Keep looking!",

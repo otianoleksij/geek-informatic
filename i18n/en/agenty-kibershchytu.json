@@ -117,6 +117,8 @@
   "pwWarn": "Careful, agent! Never type your real password here. Use an invented one.",
   "pwLabel": "Invented password",
   "pwPlaceholder": "Start typing…",
+  "sceneKbd": "With a keyboard: Tab moves to the picture, arrow keys pick an object, Enter or Space checks it. The rules are the same as for a click.",
+  "wsKbd": "With a keyboard: arrow keys move between letters, Enter or Space picks a letter.",
   "pwLevel": "Protection level: {name}",
   "pwName0": "Empty",
   "pwName1": "Cardboard hut",

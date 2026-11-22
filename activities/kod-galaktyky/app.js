@@ -242,13 +242,13 @@
   function defineBlocks() {
     var T = function (k) { return t("kod-galaktyky." + k); };
     Blockly.defineBlocksWithJsonArray([
-      { type: "g_start", message0: T("block.start"), nextStatement: null, colour: "#F59E0B", tooltip: T("tt.start") },
-      { type: "g_forward", message0: T("cmd.F"), previousStatement: null, nextStatement: null, colour: "#3B82F6", tooltip: T("tt.forward") },
-      { type: "g_left", message0: T("cmd.L"), previousStatement: null, nextStatement: null, colour: "#A855F7", tooltip: T("tt.left") },
-      { type: "g_right", message0: T("cmd.R"), previousStatement: null, nextStatement: null, colour: "#A855F7", tooltip: T("tt.right") },
-      { type: "g_collect", message0: T("cmd.C"), previousStatement: null, nextStatement: null, colour: "#0EA5B7", tooltip: T("tt.collect") },
+      { type: "g_start", message0: T("block.start"), nextStatement: null, colour: "#C2410C", tooltip: T("tt.start") },
+      { type: "g_forward", message0: T("cmd.F"), previousStatement: null, nextStatement: null, colour: "#2563EB", tooltip: T("tt.forward") },
+      { type: "g_left", message0: T("cmd.L"), previousStatement: null, nextStatement: null, colour: "#9333EA", tooltip: T("tt.left") },
+      { type: "g_right", message0: T("cmd.R"), previousStatement: null, nextStatement: null, colour: "#9333EA", tooltip: T("tt.right") },
+      { type: "g_collect", message0: T("cmd.C"), previousStatement: null, nextStatement: null, colour: "#0E7490", tooltip: T("tt.collect") },
       { type: "g_repeat", message0: T("block.repeat"), args0: [{ type: "field_number", name: "N", value: 3, min: 2, max: 9, precision: 1 }],
-        message1: "%1", args1: [{ type: "input_statement", name: "DO" }], previousStatement: null, nextStatement: null, colour: "#16A34A", tooltip: T("tt.repeat") }
+        message1: "%1", args1: [{ type: "input_statement", name: "DO" }], previousStatement: null, nextStatement: null, colour: "#15803D", tooltip: T("tt.repeat") }
     ]);
   }
   var BLOCK_OF = { F: "g_forward", L: "g_left", R: "g_right", C: "g_collect", rep: "g_repeat" };
@@ -293,6 +293,11 @@
         kbNav.addWorkspace(ws);
       }
     } catch (err) { if (window.console) console.warn("Keyboard navigation unavailable:", err); }
+    try {
+      /* Підказка для скрінрідерів: робоча область посилається на розділ «Керування з клавіатури» */
+      var kh = document.querySelector(".kbd-help summary"), inj = ws.getInjectionDiv && ws.getInjectionDiv();
+      if (kh && inj) { if (!kh.id) kh.id = "kbdHint"; inj.setAttribute("aria-describedby", kh.id); }
+    } catch (err2) { /* необов'язково */ }
     ws.addChangeListener(onChange);
     var rs = function () { if (ws && !viewGame.hidden) Blockly.svgResize(ws); };
     window.addEventListener("resize", rs);
@@ -776,7 +781,14 @@
     var i = levelIndex(lv.id);
     if (i >= LEVELS.length - 1) goMap(); else navigate(LEVELS[i + 1].id, "replace");
   });
-  $("mBetter").addEventListener("click", function () { closeModal(); finishWarp(); resetStage(); say(t("kod-galaktyky.improve")); });
+  $("mBetter").addEventListener("click", function () { closeModal(); finishWarp(); resetStage(); say(t("kod-galaktyky.improve")); try { $("run").focus({ preventScroll: true }); } catch (e) {} });
+  /* Фокус не виходить із модального вікна (aria-modal): Tab і Shift+Tab ходять по колу його кнопок. */
+  modal.addEventListener("keydown", function (e) {
+    if (e.key !== "Tab") return;
+    var bs = modal.querySelectorAll("button"), f = bs[0], l = bs[bs.length - 1];
+    if (e.shiftKey && document.activeElement === f) { e.preventDefault(); l.focus(); }
+    else if (!e.shiftKey && document.activeElement === l) { e.preventDefault(); f.focus(); }
+  });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape" && modal.classList.contains("show")) { closeModal(); $("run").focus(); } });
 
   function confetti() {

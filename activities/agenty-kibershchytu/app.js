@@ -141,7 +141,7 @@
     } catch (e) {}
   }
   function focusHead() {
-    try { var h = view.querySelector("h1,h2,.qtext"); if (h) { h.setAttribute("tabindex", "-1"); h.focus({ preventScroll: true }); } } catch (e) {}
+    try { var h = view.querySelector(".qtext") || view.querySelector("h1:not(.vh)") || view.querySelector("h2") || view.querySelector("h1"); if (h) { h.setAttribute("tabindex", "-1"); h.focus({ preventScroll: true }); } } catch (e) {}
   }
   function go(screen, mode) {
     clearTimers(); S.screen = screen; save(); syncHash(screen, mode); render();
@@ -156,6 +156,7 @@
     if (h === Core.hashFor(S.screen, S) && S.started) return;
     var r = Core.resolveHash(h, M, S);
     if (r.cur !== undefined) Core.startMission(S, r.cur, M);
+    if (r.screen === "task") r.screen = Core.settleTask(S, M);
     go(r.screen, "route");
   });
 
@@ -176,6 +177,8 @@
     header();
     byId("restart").hidden = !S.started;
     clear(view);
+    /* Один h1 на екран: на стартовому він видимий, на решті екранів — прихований (назва квесту для скрінрідерів) */
+    if (S.screen !== "start") add(view, el("h1", "vh", T("title")));
     var screens = { start: startScreen, resume: resumeScreen, map: mapScreen, brief: briefScreen, task: taskScreen, done: doneScreen, final: finalScreen, cert: certScreen };
     (screens[S.screen] || startScreen)();
   }
@@ -192,7 +195,7 @@
     var clsLabel = nameField("fcls", T("clsLabel"), T("clsPlaceholder"), 8, "cls", S.cls);
     var startBtn = el("button", "btn", T("startBtn"), { id: "startBtn", type: "submit", disabled: true });
     var form = el("form", "panel stack", [
-      el("h3", "", T("regTitle")),
+      el("h2", "", T("regTitle")),
       el("div", "row", [nameLabel, clsLabel]),
       el("div", "row", [startBtn, el("span", "muted t14", T("startNote"))])
     ], { id: "reg" });
@@ -284,7 +287,7 @@
     var area = el("div", "stack"), fb = el("div", "stack");
     add(view, [
       el("div", "stack", [
-        el("div", "eyebrow", T("taskCrumb", { n: mi + 1, title: m.title, task: ti + 1, total: m.tasks.length })),
+        el("h2", "eyebrow", T("taskCrumb", { n: mi + 1, title: m.title, task: ti + 1, total: m.tasks.length })),
         el("p", "qtext", md(tk.q))
       ]),
       area, fb
@@ -466,7 +469,7 @@
     return e;
   }
   function markSpot(svg, g, label, missed) {
-    var b = g.getBBox(), grp = svgEl("g", { "pointer-events": "none", transform: g.getAttribute("transform") || "" });
+    var b = g.__bb || g.getBBox(), grp = svgEl("g", { "pointer-events": "none", transform: g.getAttribute("transform") || "" });
     grp.appendChild(svgEl("rect", { x: b.x - 7, y: b.y - 7, width: b.width + 14, height: b.height + 14, rx: 10, fill: missed ? "rgba(207,63,55,.10)" : "rgba(255,194,61,.22)", stroke: missed ? "#CF3F37" : "#FFB000", "stroke-width": 4, "stroke-dasharray": missed ? "10 6" : "none" }));
     var cx = Math.max(16, b.x - 4), cy = Math.max(16, b.y - 4);
     grp.appendChild(svgEl("circle", { cx: cx, cy: cy, r: 14, fill: missed ? "#CF3F37" : "#14213A", stroke: "#FFFFFF", "stroke-width": 2.5 }));
@@ -478,7 +481,7 @@
     var total = t.spots.length, found = [], wrong = 0, ended = false, tried = {}, svg = null;
     var box = el("div", "scene"), stat = el("span", "lvl"), msg = el("div", "muted msgline", T("sceneHint"), { "aria-live": "polite" });
     var list = el("ol", "slist"), giveup = button("btn ghost small", T("giveUp"), function () { if (svg) end(true); });
-    add(area, [box, el("div", "row", [stat, giveup]), msg, list]);
+    add(area, [box, el("div", "row", [stat, giveup]), msg, el("p", "muted t14", T("sceneKbd")), list]);
     function upd() { stat.textContent = T("hsStat", { found: found.length, total: total, wrong: wrong }); }
     upd();
     function spotIndex(id) {
@@ -487,6 +490,7 @@
     }
     function end(gaveUp) {
       ended = true; box.classList.add("ended");
+      (box.__objs || []).forEach(function (g) { g.setAttribute("tabindex", "-1"); g.removeAttribute("role"); });
       if (giveup.parentNode) giveup.parentNode.removeChild(giveup);
       t.spots.forEach(function (s, i) {
         if (found.indexOf(i) < 0) {
@@ -498,27 +502,58 @@
       var res = Core.searchResult(found.length, wrong, gaveUp);
       finish(res.pts, res.ok, T(gaveUp ? "hsGaveTitle" : "sceneDoneTitle"), T(gaveUp ? "sceneGaveText" : "sceneDoneText"));
     }
+    /* Ту саму логіку виконують клік по малюнку й клавіатура (Enter/пробіл на предметі) */
+    function hit(spot, decoy) {
+      if (ended) return;
+      if (spot) {
+        var i = spotIndex(spot.getAttribute("data-spot"));
+        if (i < 0 || found.indexOf(i) > -1) return;
+        found.push(i); markSpot(svg, spot, String(found.length), false);
+        spot.setAttribute("aria-pressed", "true");
+        var s = t.spots[i];
+        add(list, el("li", "", md(T("sceneItem", { name: s.name, why: s.why }))));
+        msg.textContent = T("sceneFound", { name: s.name });
+      } else if (decoy) {
+        var d = decoy.getAttribute("data-decoy");
+        msg.textContent = t.decoys[d] || "";
+        if (!tried[d]) { tried[d] = 1; wrong++; }
+      } else {
+        msg.textContent = T("sceneMiss");
+      }
+      upd();
+      if (found.length === total) end(false);
+    }
+    /* Клавіатура: предмети (і небезпечні, і безпечні) впорядковані за розташуванням на малюнку, порядок нічого не підказує.
+       Один пункт у Tab-порядку, між предметами — стрілки (roving tabindex). */
+    function setupKeyboard() {
+      var objs = Array.prototype.slice.call(svg.querySelectorAll("[data-spot],[data-decoy]")), H = svg.getBoundingClientRect().height || 480, cur = 0;
+      objs.forEach(function (g) {
+        var r = g.getBoundingClientRect(), id = g.getAttribute("data-spot") || g.getAttribute("data-decoy"), b = g.getBBox(); g.__bb = b;
+        g.__cy = Math.round((r.top + r.height / 2) / (H / 6)); g.__cx = r.left + r.width / 2;
+        g.setAttribute("role", "button"); g.setAttribute("aria-label", (t.objectLabels && t.objectLabels[id]) || id); g.setAttribute("tabindex", "-1");
+        g.appendChild(svgEl("rect", { "class": "sc-ring-halo", x: b.x - 6, y: b.y - 6, width: b.width + 12, height: b.height + 12, rx: 10 }));
+        g.appendChild(svgEl("rect", { "class": "sc-ring", x: b.x - 6, y: b.y - 6, width: b.width + 12, height: b.height + 12, rx: 10 }));
+      });
+      objs.sort(function (a, b) { return a.__cy - b.__cy || a.__cx - b.__cx; });
+      function setCur(i) { objs[cur].setAttribute("tabindex", "-1"); cur = i; objs[cur].setAttribute("tabindex", "0"); }
+      if (objs.length) objs[0].setAttribute("tabindex", "0");
+      on(svg, "focusin", function (e) { var g = e.target.closest && e.target.closest("[data-spot],[data-decoy]"); if (g && objs.indexOf(g) > -1) setCur(objs.indexOf(g)); });
+      on(svg, "keydown", function (e) {
+        var g = e.target.closest && e.target.closest("[data-spot],[data-decoy]"); if (!g || ended) return;
+        var i = objs.indexOf(g), n = -1;
+        if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") { e.preventDefault(); hit(g.hasAttribute("data-spot") ? g : null, g.hasAttribute("data-decoy") ? g : null); return; }
+        if (e.key === "ArrowRight" || e.key === "ArrowDown") n = Math.min(objs.length - 1, i + 1);
+        else if (e.key === "ArrowLeft" || e.key === "ArrowUp") n = Math.max(0, i - 1);
+        else if (e.key === "Home") n = 0; else if (e.key === "End") n = objs.length - 1;
+        if (n >= 0) { e.preventDefault(); setCur(n); objs[n].focus(); }
+      });
+      box.__objs = objs;
+    }
     loadScene(t.picture).then(function (node) {
-      svg = node; box.appendChild(svg);
+      svg = node; box.appendChild(svg); setupKeyboard();
       on(svg, "click", function (e) {
         if (ended) return;
-        var spot = e.target.closest("[data-spot]"), decoy = e.target.closest("[data-decoy]");
-        if (spot) {
-          var i = spotIndex(spot.getAttribute("data-spot"));
-          if (i < 0 || found.indexOf(i) > -1) return;
-          found.push(i); markSpot(svg, spot, String(found.length), false);
-          var s = t.spots[i];
-          add(list, el("li", "", md(T("sceneItem", { name: s.name, why: s.why }))));
-          msg.textContent = T("sceneFound", { name: s.name });
-        } else if (decoy) {
-          var d = decoy.getAttribute("data-decoy");
-          msg.textContent = t.decoys[d] || "";
-          if (!tried[d]) { tried[d] = 1; wrong++; }
-        } else {
-          msg.textContent = T("sceneMiss");
-        }
-        upd();
-        if (found.length === total) end(false);
+        hit(e.target.closest("[data-spot]"), e.target.closest("[data-decoy]"));
       });
     }, function () { showLoadError(); });
   }
@@ -687,14 +722,35 @@
     var grid = el("div", "ws");
     g.forEach(function (row, r) {
       row.forEach(function (ch, c) {
-        var b = el("button", "wc", ch, { type: "button", "data-r": String(r), "data-c": String(c), "aria-label": T("wsCell", { letter: ch, row: r + 1, col: c + 1 }) });
+        var b = el("button", "wc", ch, { type: "button", "data-r": String(r), "data-c": String(c), "aria-label": T("wsCell", { letter: ch, row: r + 1, col: c + 1 }), tabindex: r === 0 && c === 0 ? "0" : "-1" });
         cells[r + "," + c] = b; grid.appendChild(b);
       });
     });
     var stat = el("span", "lvl"), msg = el("div", "muted msgline ws-msg", T("wsHint"), { "aria-live": "polite" });
     var giveup = button("btn ghost small", T("giveUp"), function () { end(true); });
-    add(area, [el("div", "ws-words", chips), grid, el("div", "row center-row", [stat, giveup]), msg]);
+    add(area, [el("div", "ws-words", chips), grid, el("div", "row center-row", [stat, giveup]), msg, el("p", "muted t14 ws-kbd", T("wsKbd"))]);
     function cell(r, c) { return cells[r + "," + c]; }
+    /* Roving tabindex: один пункт у Tab-порядку, між літерами — стрілки, Home/End у рядку, Ctrl+Home/End у сітці */
+    var cur = [0, 0], ROWS = g.length, COLS = g[0].length;
+    function moveTo(r, c) {
+      r = Math.max(0, Math.min(ROWS - 1, r)); c = Math.max(0, Math.min(COLS - 1, c));
+      cell(cur[0], cur[1]).setAttribute("tabindex", "-1"); cur = [r, c];
+      var n = cell(r, c); n.setAttribute("tabindex", "0"); n.focus();
+    }
+    on(grid, "focusin", function (e) {
+      var b = e.target.closest && e.target.closest(".wc"); if (!b) return;
+      var r = +b.getAttribute("data-r"), c = +b.getAttribute("data-c");
+      if (r !== cur[0] || c !== cur[1]) { cell(cur[0], cur[1]).setAttribute("tabindex", "-1"); cur = [r, c]; b.setAttribute("tabindex", "0"); }
+    });
+    on(grid, "keydown", function (e) {
+      var b = e.target.closest && e.target.closest(".wc"); if (!b || e.altKey || e.metaKey) return;
+      var r = +b.getAttribute("data-r"), c = +b.getAttribute("data-c"), k = e.key, ok = true;
+      if (k === "ArrowRight") moveTo(r, c + 1); else if (k === "ArrowLeft") moveTo(r, c - 1);
+      else if (k === "ArrowDown") moveTo(r + 1, c); else if (k === "ArrowUp") moveTo(r - 1, c);
+      else if (k === "Home") moveTo(e.ctrlKey ? 0 : r, 0); else if (k === "End") moveTo(e.ctrlKey ? ROWS - 1 : r, COLS - 1);
+      else ok = false;
+      if (ok) e.preventDefault();
+    });
     function upd() { stat.textContent = T("wsStat", { found: found.length, total: t.words.length }); }
     upd();
     function end(gaveUp) {
@@ -841,7 +897,7 @@
         el("div", "facts", [fact(T("factRank"), rk), fact(T("factPoints"), pts + " / " + TOTAL), fact(T("factTime"), time)])
       ]),
       el("section", "panel stack", [
-        el("h3", "", T("handoffTitle")), el("p", "muted t15", T("handoffText")), cbox,
+        el("h2", "", T("handoffTitle")), el("p", "muted t15", T("handoffText")), cbox,
         el("div", "row", [button("btn small", T("copy"), function () {
           function sel() {
             try { var r = document.createRange(); r.selectNodeContents(cbox); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); } catch (e) {}
@@ -875,7 +931,7 @@
     /* Літери ключів потрібні, щойно квест розпочато (у збереженому стані їх могло не бути, наприклад після переходу з іншої мови) */
     if (S.started && !S.letters) { S.letters = Core.lettersById(M, Core.makeLetters(WORD)); save(); }
     /* Знайдено збережений квест — спершу питаємо, продовжувати чи почати заново. */
-    if (S.started) { resumeTo = Core.resumeTarget(S); S.screen = "resume"; }
+    if (S.started) { resumeTo = Core.resumeTarget(S, M); S.screen = "resume"; }
     syncSummary();
     if (!S.started && curHash()) { try { history.replaceState(null, "", location.pathname + location.search); } catch (e) {} }
     render();

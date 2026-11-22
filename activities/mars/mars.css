@@ -44,7 +44,7 @@ p{margin:0}
 .page{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:6px 16px 44px}
 
 /* ===== шапка ===== */
-.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0 6px}
+.top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px 12px;padding:10px 0 6px}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none;font:800 17px var(--f-display);letter-spacing:-.02em;min-height:44px}
 .logo .mk{width:36px;height:36px;flex:none;border-radius:10px;background:var(--mars-deep);display:grid;place-items:center;box-shadow:0 3px 0 #6e2a12}
 .logo .mk svg{width:22px;height:22px}
@@ -83,7 +83,7 @@ p{margin:0}
 .stage-box{width:100%;margin:0 auto}
 @media (max-width:899px){.stage-box{max-width:min(100%,55vh)}}
 .field{display:block;width:100%;height:auto;aspect-ratio:1/1;border-radius:12px;border:1px solid var(--line);background:#8c3a1c;overflow:hidden;touch-action:manipulation}
-.field text{font-family:var(--f-body);font-weight:800}
+.field text{font-family:var(--f-body);font-weight:800;paint-order:stroke;stroke:#2a0f06;stroke-width:2.4px;stroke-linejoin:round}
 
 /* стіни */
 .wall-shadow{fill:none;stroke:#2a0f06;stroke-opacity:.5;stroke-width:12;stroke-linecap:round}
@@ -148,6 +148,8 @@ p{margin:0}
 .kbd-help ul{margin:8px 0 0;padding-left:20px;line-height:1.6}
 .kbd-help kbd{font-family:var(--f-mono,ui-monospace,Menlo,monospace);font-size:12px;padding:1px 6px;border:1px solid var(--line);border-radius:6px;background:var(--panel-2);color:var(--ink)}
 #blockly{width:100%;height:clamp(480px,70vh,760px);border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+/* Кільце фокусу робочої області Blockly малюємо всередині: #blockly має overflow:hidden і обрізає зовнішній контур */
+#blockly .injectionDiv:focus-visible,#blockly .blocklySvg:focus-visible{outline-offset:-3px;border-radius:0}
 @media (max-width:899px){#blockly{height:clamp(420px,62vh,560px)}}
 .blocklyMainBackground{stroke:none!important}
 .blocklyFlyoutBackground{fill:#1a1432!important;fill-opacity:1!important}
@@ -172,12 +174,17 @@ p{margin:0}
 @media (prefers-reduced-motion:reduce){
   .drift,.st,.flag-wave,.beacon,.eye,.go .tread,.shake,.hop{animation:none!important}
   .st{opacity:.6}
+  .modal-box{animation:none!important}
   #rv,#rvRot,#flagLift{transition-duration:.1s!important}
 }
 .kbd-steps{margin:4px 0 8px;padding-left:22px}.kbd-steps li{margin:3px 0}.kbd-steps-h{margin:6px 0 2px}
 
 /* ===== додано після локалізації ===== */
-.top nav{display:flex;align-items:center;gap:6px}
+.top nav{display:flex;align-items:center;flex-wrap:wrap;gap:6px}
 .top nav .lang-switch{border:1px solid var(--line);border-radius:999px;padding:0 12px;min-height:36px;background:var(--panel-2)}
 .load-error{max-width:640px;margin:16px auto;border-color:var(--bad);color:var(--bad);text-align:center;font-weight:700}
 noscript .card{display:block;max-width:640px;margin:16px auto}
+
+/* Посилання «Перейти до основного вмісту»: видиме лише у фокусі (WCAG 2.4.1) */
+.skip{position:absolute;left:12px;top:-100px;z-index:200;padding:12px 18px;border-radius:10px;background:var(--teal);color:var(--teal-ink);font:800 16px/1.2 system-ui,sans-serif;text-decoration:none;border:2px solid var(--warn)}
+.skip:focus{top:12px}

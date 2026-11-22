@@ -74,6 +74,7 @@
           "description": "scene: небезпечні місця; у SVG їм відповідає data-spot=\"<id>\""
         },
         "decoys": { "type": "object", "additionalProperties": { "$ref": "#/definitions/text" }, "description": "scene: підказки для безпечних предметів; ключ — data-decoy у SVG" },
+        "objectLabels": { "type": "object", "additionalProperties": { "$ref": "#/definitions/text" }, "description": "scene: нейтральні підписи для клавіатури й скрінрідерів; ключі = усі data-spot і data-decoy у SVG; не мають розкривати відповідь (відрізняються від name)" },
         "layout": { "type": "string", "enum": ["grid"], "description": "choice: варіанти в три колонки" },
         "browserPage": {
           "type": "object", "required": ["logo", "fields", "button"], "additionalProperties": false,
@@ -186,7 +187,7 @@
       },
       "allOf": [
         { "if": { "properties": { "type": { "const": "password" } } }, "then": { "required": ["weak"] } },
-        { "if": { "properties": { "type": { "const": "scene" } } }, "then": { "required": ["picture", "spots", "decoys"] } },
+        { "if": { "properties": { "type": { "const": "scene" } } }, "then": { "required": ["picture", "spots", "decoys", "objectLabels"] } },
         { "if": { "properties": { "type": { "const": "choice" } } }, "then": { "required": ["options", "explain"] } },
         { "if": { "properties": { "type": { "const": "multi" } } }, "then": { "required": ["options", "explain"] } },
         { "if": { "properties": { "type": { "const": "classify" } } }, "then": { "required": ["labels", "items", "showAll"] } },

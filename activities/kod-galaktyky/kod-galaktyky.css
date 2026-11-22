@@ -80,7 +80,7 @@ button{font-family:inherit}
 .planet.locked .orb::after{display:none}
 .pname{font-weight:800;font-size:13px;line-height:1.2}
 .pstars{font-size:15px;letter-spacing:2px;color:var(--signal)}
-.pstars .off{color:#33407a}
+.pstars .off{color:#6370AD}
 .planet.cur{border-color:var(--signal)}
 .reset-row{display:flex;justify-content:flex-end}
 
@@ -166,6 +166,8 @@ button{font-family:inherit}
 .chip.over{border-color:var(--bad);color:#ffb0b0;background:#2a0f12}
 .chip.off{opacity:.8;border-style:dashed}
 #blockly{width:100%;height:clamp(480px,66vh,720px);border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+/* Кільце фокусу робочої області Blockly малюємо всередині: #blockly має overflow:hidden і обрізає зовнішній контур */
+#blockly .injectionDiv:focus-visible,#blockly .blocklySvg:focus-visible{outline-offset:-3px;border-radius:0}
 @media (max-width:899px){#blockly{height:clamp(420px,62vh,560px)}}
 .blocklyMainBackground{stroke:none!important}
 .blocklyFlyoutBackground{fill:#141c40!important;fill-opacity:1!important}
@@ -193,6 +195,8 @@ button{font-family:inherit}
 @media (prefers-reduced-motion:reduce){
   .drift,.st,.crystal svg,.eye,.flame,.stage.appear .cell{animation:none!important}
   .ship,.ship-rot{transition-duration:.12s!important}
+  .flash{display:none!important}
+  .modal-box,.mstar.on,#hudCrystal.pulse,.rock.hit{animation-duration:.01ms!important;animation-iteration-count:1!important}
   .st{opacity:.6}
 }
 .kbd-steps{margin:4px 0 8px;padding-left:22px}.kbd-steps li{margin:3px 0}.kbd-steps-h{margin:6px 0 2px}
@@ -203,3 +207,7 @@ button{font-family:inherit}
 .load-error{max-width:640px;margin:16px auto;border-color:var(--bad);color:var(--bad);text-align:center;font-weight:700}
 noscript .card{display:block;max-width:640px;margin:16px auto}
 .chip strong,.intro strong{color:var(--ink)}
+
+/* Посилання «Перейти до основного вмісту»: видиме лише у фокусі (WCAG 2.4.1) */
+.skip{position:absolute;left:12px;top:-100px;z-index:200;padding:12px 18px;border-radius:10px;background:var(--accent);color:var(--accent-ink);font:800 16px/1.2 system-ui,sans-serif;text-decoration:none;border:2px solid var(--signal)}
+.skip:focus{top:12px}

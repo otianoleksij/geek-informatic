@@ -18,11 +18,26 @@ var OG_LOCALE = { uk: "uk_UA", en: "en_US" };
 function prefix(lang) { return lang === "uk" ? "" : lang + "/"; }
 
 /* Змінні сторінки: {{name}} (з екрануванням) і {{{name}}} (сирий HTML, лише для змінних нижче). */
-var RAW_VARS = ["hreflang", "jsonld", "i18nData", "scripts", "body", "styles", "nav", "links",
+var RAW_VARS = ["csp", "hreflang", "jsonld", "i18nData", "scripts", "body", "styles", "nav", "links",
   "filterGrade", "filterType", "filterTopic", "filterLevel", "sections", "activityRows"];
 var PAGE_VARS = ["lang", "root", "prefix", "basePath", "id", "canonical", "title", "pageTitle", "description", "ogDescription",
   "ogLocale", "ogImage", "ogAlt", "fontFile", "homeHref", "altHref", "altLang", "altName", "activityCss", "themeColor",
   "baseCss", "chrome", "ownPage", "favicon", "defaultFavicon"].concat(RAW_VARS);
+/* Content-Security-Policy для <meta http-equiv>: GitHub Pages не вміє віддавати заголовки. Пояснення кожного токена: docs/architecture.md.
+   frame-ancestors у <meta> ігнорується, тому тут його немає. */
+function cspFor() {
+  return [
+    "default-src 'self'",
+    "script-src 'self'",
+    /* 'unsafe-inline' для стилів: Blockly вставляє <style> під час роботи (хеш нестабільний), а активності мають style="…".
+       style-src-attr не беремо: старі браузери шкільних ПК його не знають і заблокували б усі атрибути style. Скрипти лишаються суворими */
+    "style-src 'self' 'unsafe-inline'",
+    "img-src 'self' data:",
+    "object-src 'none'",
+    "base-uri 'self'",
+    "form-action 'none'"
+  ].join("; ");
+}
 /* Простори імен 404.html (немає в catalog.json) */
 var NOTFOUND_NS = "notfound";
 
@@ -143,6 +158,7 @@ function richText(str, ctx, label) {
 }
 
 function render(src, ctx, label) {
+  if (ctx.vars.csp == null) ctx.vars.csp = cspFor(false);
   var rest = expandIfs(src, ctx, label, true).replace(RE_TOKEN, "");
   if (rest.indexOf("{{") >= 0) fail(label + ": некоректна конструкція {{ … }} поруч із «" + rest.slice(rest.indexOf("{{"), rest.indexOf("{{") + 30).replace(/\n/g, " ") + "»");
   var out = expandIfs(src, ctx, label, false);
@@ -252,6 +268,7 @@ function buildActivity(cat, act, lang, template, label) {
   var ctx = {
     dicts: dicts,
     vars: {
+      csp: cspFor(vendor.length > 0),
       lang: lang, root: root, id: id, canonical: canonical, title: title, description: description,
       pageTitle: title + " — " + cs("siteName"), ogLocale: OG_LOCALE[lang],
       ogImage: BASE + ogFor(act.og, lang), ogAlt: title + " — " + cs("siteName"),
@@ -427,7 +444,7 @@ function build404(cat, template) {
   dicts[NOTFOUND_NS] = loadDict("uk", NOTFOUND_NS); dictsEn[NOTFOUND_NS] = loadDict("en", NOTFOUND_NS);
   var links = cat.activities.map(function (a) {
     var en = a.locales.indexOf("en") >= 0;
-    return '      <li><a href="' + esc(basePath + a.path) + '"' + (en ? ' data-en-href="' + esc(basePath + "en/" + a.path) + '" data-en="' + esc(a.title.en) + '"' : "") + ">" +
+    return '      <li><a href="' + esc(basePath + a.path) + '"' + (en ? "" : ' lang="uk"') + (en ? ' data-en-href="' + esc(basePath + "en/" + a.path) + '" data-en="' + esc(a.title.en) + '"' : "") + ">" +
       esc(a.title.uk) + "</a></li>";
   }).join("\n");
   var ctx = { dicts: dicts, dictsEn: dictsEn, vars: { basePath: basePath, links: links } };

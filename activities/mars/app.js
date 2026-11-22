@@ -221,12 +221,12 @@
     COND_ALL = [[T("cond.notFinish"), "notFinish"], [T("cond.wallAhead"), "wallAhead"], [T("cond.clearAhead"), "clearAhead"]];
     COND_IF = [[T("cond.wallAhead"), "wallAhead"], [T("cond.clearAhead"), "clearAhead"], [T("cond.notFinish"), "notFinish"]];
     Blockly.defineBlocksWithJsonArray([
-      { type: "mars_start", message0: T("block.start"), nextStatement: null, colour: "#F59E0B", tooltip: T("tt.start") },
-      { type: "mars_forward", message0: T("block.forward"), previousStatement: null, nextStatement: null, colour: "#3B82F6", tooltip: T("tt.forward") },
-      { type: "mars_left", message0: T("block.left"), previousStatement: null, nextStatement: null, colour: "#A855F7", tooltip: T("tt.left") },
-      { type: "mars_right", message0: T("block.right"), previousStatement: null, nextStatement: null, colour: "#A855F7", tooltip: T("tt.right") },
+      { type: "mars_start", message0: T("block.start"), nextStatement: null, colour: "#C2410C", tooltip: T("tt.start") },
+      { type: "mars_forward", message0: T("block.forward"), previousStatement: null, nextStatement: null, colour: "#2563EB", tooltip: T("tt.forward") },
+      { type: "mars_left", message0: T("block.left"), previousStatement: null, nextStatement: null, colour: "#9333EA", tooltip: T("tt.left") },
+      { type: "mars_right", message0: T("block.right"), previousStatement: null, nextStatement: null, colour: "#9333EA", tooltip: T("tt.right") },
       { type: "mars_while", message0: T("block.while"), args0: [{ type: "field_dropdown", name: "COND", options: COND_ALL }],
-        message1: "%1", args1: [{ type: "input_statement", name: "DO" }], previousStatement: null, nextStatement: null, colour: "#16A34A", tooltip: T("tt.while") },
+        message1: "%1", args1: [{ type: "input_statement", name: "DO" }], previousStatement: null, nextStatement: null, colour: "#15803D", tooltip: T("tt.while") },
       { type: "mars_if", message0: T("block.if"), args0: [{ type: "field_dropdown", name: "COND", options: COND_IF }],
         message1: "%1", args1: [{ type: "input_statement", name: "THEN" }], previousStatement: null, nextStatement: null, colour: "#DB2777", tooltip: T("tt.if") },
       { type: "mars_ifelse", message0: T("block.if"), args0: [{ type: "field_dropdown", name: "COND", options: COND_IF }],
@@ -278,6 +278,11 @@
         kbNav.addWorkspace(ws);
       }
     } catch (err) { if (window.console) console.warn("Keyboard navigation unavailable:", err); }
+    try {
+      /* Підказка для скрінрідерів: робоча область посилається на розділ «Керування з клавіатури» */
+      var kh = document.querySelector(".kbd-help summary"), inj = ws.getInjectionDiv && ws.getInjectionDiv();
+      if (kh && inj) { if (!kh.id) kh.id = "kbdHint"; inj.setAttribute("aria-describedby", kh.id); }
+    } catch (err2) { /* необов'язково */ }
     ws.addChangeListener(onChange);
     var rs = function () { if (ws) Blockly.svgResize(ws); };
     window.addEventListener("resize", rs);
@@ -525,10 +530,19 @@
   Array.prototype.forEach.call(document.querySelectorAll(".speed button"), function (b) {
     b.addEventListener("click", function () { setSpeed(Number(b.getAttribute("data-speed"))); });
   });
-  $("mClose").addEventListener("click", closeModal);
-  $("mNew").addEventListener("click", function () { closeModal(); $("newMaze").click(); });
-  modal.addEventListener("click", function (e) { if (e.target === modal) closeModal(); });
-  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && modal.classList.contains("show")) closeModal(); });
+  /* Після закриття вікна фокус повертається на «Запустити», а не губиться. */
+  function dismissModal() { closeModal(); try { $("run").focus({ preventScroll: true }); } catch (e) {} }
+  $("mClose").addEventListener("click", dismissModal);
+  $("mNew").addEventListener("click", function () { dismissModal(); $("newMaze").click(); });
+  modal.addEventListener("click", function (e) { if (e.target === modal) dismissModal(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && modal.classList.contains("show")) dismissModal(); });
+  /* Фокус не виходить із модального вікна (aria-modal): Tab і Shift+Tab ходять по колу його кнопок. */
+  modal.addEventListener("keydown", function (e) {
+    if (e.key !== "Tab") return;
+    var bs = modal.querySelectorAll("button"), f = bs[0], l = bs[bs.length - 1];
+    if (e.shiftKey && document.activeElement === f) { e.preventDefault(); l.focus(); }
+    else if (!e.shiftKey && document.activeElement === l) { e.preventDefault(); f.focus(); }
+  });
 
   /* ---------- маршрутизація: #maze-<seed> (replaceState, без нових записів історії) ---------- */
   function hashSeed() {

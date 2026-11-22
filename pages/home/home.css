@@ -42,7 +42,7 @@ h1 .hl{background:linear-gradient(transparent 60%,var(--hl) 60%,var(--hl) 92%,tr
 .book.b5{--c1:var(--cover-5);--c2:var(--cover-5b)}
 .cover{padding:24px 24px 0 40px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;min-height:150px}
 .cover svg{width:112px;height:112px;flex:none}
-.grade{font:800 13px var(--f-body);background:rgba(255,255,255,.16);border:1.5px solid rgba(255,255,255,.35);padding:5px 12px;border-radius:999px;white-space:nowrap}
+.grade{font:800 13px var(--f-body);background:rgba(0,0,0,.3);border:1.5px solid rgba(255,255,255,.35);padding:5px 12px;border-radius:999px;white-space:nowrap}
 .grade.test{background:#FFE45C;color:#3A3110;border-color:#FFE45C}
 /* Наліпка-етикетка зошита */
 .label{margin:18px 22px 22px 38px;background:#FFFFFF;color:#14213A;border-radius:10px;padding:18px 20px 16px;display:flex;flex-direction:column;gap:10px;flex:1;
@@ -81,7 +81,7 @@ h1 .hl{background:linear-gradient(transparent 60%,var(--hl) 60%,var(--hl) 92%,tr
   background-image:linear-gradient(90deg,transparent 12px,var(--margin) 12px,var(--margin) 13.5px,transparent 13.5px);background-repeat:no-repeat}
 .f{display:flex;flex-direction:column;gap:4px;min-width:0}
 .f label{font:700 18px/1 var(--f-hand);color:var(--muted)}
-.f select{width:100%;min-width:0;min-height:44px;font:700 16px var(--f-body);color:var(--ink);background:var(--paper);border:1.5px solid var(--line);border-radius:10px;padding:0 10px}
+.f select{width:100%;min-width:0;min-height:44px;font:700 16px var(--f-body);color:var(--ink);background:var(--paper);border:1.5px solid var(--ctl);border-radius:10px;padding:0 10px}
 .f-reset{min-height:44px;font:800 15px var(--f-body);color:var(--accent);background:transparent;border:1.5px solid var(--accent);border-radius:10px;padding:0 16px;cursor:pointer}
 .f-reset:hover{background:var(--accent-soft)}
 .f-count{margin-top:12px;font:700 20px/1.2 var(--f-hand);color:var(--muted)}

@@ -266,9 +266,23 @@
     if (h === "cert") return { screen: S.finished ? "cert" : (nextOpen(missions, S) < 0 ? "final" : "map") };
     return { screen: "map" };
   }
-  /* Куди повернути учня після «Продовжити» */
-  function resumeTarget(S) {
-    return (S.screen && S.screen !== "start" && S.screen !== "resume") ? S.screen : (S.finished ? "cert" : "map");
+  /* Усередині місії: перше завдання без запису балів (S.task лише вказує, де учень був, і міг лишитися на вже виконаному).
+     Знайшлося — S.task = воно, повертає "task". Усі виконані — місія завершується (як у nextStep) і повертає "done" */
+  function settleTask(S, missions) {
+    var mi = missionIndex(missions, S.cur);
+    if (mi < 0) return "map";
+    var m = missions[mi];
+    for (var i = 0; i < m.tasks.length; i++) {
+      if (S.scores[taskKey(m.id, m.tasks[i].id)] === undefined) { S.task = m.tasks[i].id; return "task"; }
+    }
+    if (!isDone(S, m.id)) S.done.push(m.id);
+    return "done";
+  }
+  /* Куди повернути учня після «Продовжити». З missions екран "task" коригується на перше невиконане завдання (може змінити S) */
+  function resumeTarget(S, missions) {
+    var scr = (S.screen && S.screen !== "start" && S.screen !== "resume") ? S.screen : (S.finished ? "cert" : "map");
+    if (scr === "task" && missions) return settleTask(S, missions);
+    return scr;
   }
 
   /* ---------- збережений стан: перевірка й міграція ---------- */
@@ -345,7 +359,7 @@
     freshState: freshState, publicState: publicState, taskKey: taskKey, missionIndex: missionIndex, taskIndex: taskIndex,
     isDone: isDone, nextOpen: nextOpen, score: score, elapsed: elapsed, recordScore: recordScore, missionScore: missionScore,
     nextStep: nextStep, startMission: startMission,
-    hashFor: hashFor, legacyHash: legacyHash, resolveHash: resolveHash, resumeTarget: resumeTarget,
+    settleTask: settleTask, hashFor: hashFor, legacyHash: legacyHash, resolveHash: resolveHash, resumeTarget: resumeTarget,
     sanitize: sanitize, migrateV3: migrateV3, has: has
   };
 });

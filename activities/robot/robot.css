@@ -13,7 +13,7 @@
 /* кольори команд (однакові в обох темах) */
 :root{
   --k-u:#4F7CFF; --kd-u:#2548B8;
-  --k-d:#1FB57F; --kd-d:#0E7A53;
+  --k-d:#16A06C; --kd-d:#0E7A53;
   --k-l:#F0559F; --kd-l:#A8236A;
   --k-r:#FFC21A; --kd-r:#B58300;
   --k-rep:#FF7A1A; --kd-rep:#B8500A;
@@ -166,7 +166,7 @@ h1 .hl{background:linear-gradient(transparent 60%,var(--hl) 60%,var(--hl) 92%,tr
 .cmd[data-d="D"],.chip[data-d="D"]{--k:var(--k-d);--kd:var(--kd-d)}
 .cmd[data-d="L"],.chip[data-d="L"]{--k:var(--k-l);--kd:var(--kd-l)}
 .cmd[data-d="R"],.chip[data-d="R"]{--k:var(--k-r);--kd:var(--kd-r);color:#3A2A00}
-.cmd.rep{--k:var(--k-rep);--kd:var(--kd-rep);width:auto;padding:0 18px;gap:8px;grid-auto-flow:column;font:800 16px var(--f-body)}
+.cmd.rep{--k:var(--k-rep);--kd:var(--kd-rep);color:#2B1300;width:auto;padding:0 18px;gap:8px;grid-auto-flow:column;font:800 16px var(--f-body)}
 .cmd.rep svg{width:26px;height:26px}
 .cmd[hidden]{display:none}
 
@@ -197,13 +197,13 @@ h1 .hl{background:linear-gradient(transparent 60%,var(--hl) 60%,var(--hl) 92%,tr
 .stepper{display:inline-flex;align-items:center;gap:4px}
 .stepper button{width:36px;height:36px;min-width:36px;border-radius:10px;border:2px solid var(--k-rep);background:var(--surface);color:var(--ink);font:800 20px/1 var(--f-body);cursor:pointer;display:grid;place-items:center;padding:0;touch-action:manipulation}
 .stepper button:disabled{opacity:.35;cursor:not-allowed}
-.stepper .n{min-width:30px;height:36px;border-radius:10px;background:var(--k-rep);color:#fff;font:800 18px/36px var(--f-display);text-align:center;border:0;cursor:pointer;padding:0}
+.stepper .n{min-width:30px;height:36px;border-radius:10px;background:var(--k-rep);color:#2B1300;font:800 18px/36px var(--f-display);text-align:center;border:0;cursor:pointer;padding:0}
 .rep-head .iter{margin-left:auto;font:800 14px var(--f-display);background:var(--hl);color:#3A2A00;border-radius:8px;padding:3px 8px}
 .rep-body{display:flex;flex-wrap:wrap;gap:6px;align-items:center;min-height:52px;flex:1 1 100%;padding:2px 0 2px 2px}
 .rep-body .hint{font:700 18px var(--f-hand);color:var(--muted)}
 .rep-btns{display:inline-flex;gap:6px;margin-left:auto}
 .mini{min-height:36px;padding:0 12px;border-radius:10px;border:2px solid var(--k-rep);background:var(--surface);font:800 14px var(--f-body);cursor:pointer;touch-action:manipulation}
-.mini.done{background:var(--k-rep);color:#fff}
+.mini.done{background:var(--k-rep);color:#2B1300}
 
 .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
 .actions .btn{flex:1 1 110px}
