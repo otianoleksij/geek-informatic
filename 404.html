@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Сторінку не знайдено — Geek Informatic</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#EEF3FA">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232D55E0'/%3E%3Cpath d='M12 10l-5 6 5 6M20 10l5 6-5 6' stroke='%23fff' stroke-width='2.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preload" href="/geek-informatic/assets/fonts/nunito-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/geek-informatic/assets/fonts/fonts.css">
+<style>
+:root{
+  --paper:#EEF3FA; --surface:#FFFFFF; --ink:#14213A; --muted:#56668A; --line:#CCD7E8; --grid:rgba(45,85,224,.10);
+  --accent:#2D55E0; --accent-deep:#1B3AA8; --margin:#E3655B; --hl:#FFE45C;
+  --f-display:"Unbounded","Arial Black",system-ui,sans-serif;
+  --f-body:"Nunito","Segoe UI",system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root{--paper:#0D1423;--surface:#162036;--ink:#E6ECF8;--muted:#98A7C4;--line:#2A3854;--grid:rgba(125,155,255,.07);--accent:#7D9BFF;--accent-deep:#4C69D6;--margin:#B4544D;--hl:#8A6F00}
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background-color:var(--paper);color:var(--ink);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:24px 24px;font:400 17px/1.55 var(--f-body);min-height:100vh}
+body::after{content:"";position:fixed;top:0;bottom:0;left:max(8px,calc(50% - 560px));border-left:2px solid var(--margin);opacity:.55;pointer-events:none}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+.wrap{width:100%;max-width:1060px;margin:0 auto;padding:24px max(16px,env(safe-area-inset-right,0px)) 40px max(24px,env(safe-area-inset-left,0px))}
+.logo{display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:inherit;font:800 18px var(--f-display);letter-spacing:-.02em}
+.mk{width:36px;height:36px;border-radius:10px;background:var(--accent);display:grid;place-items:center;box-shadow:0 3px 0 var(--accent-deep)}
+h1{font:800 clamp(30px,6vw,52px)/1.12 var(--f-display);letter-spacing:-.02em;margin:48px 0 16px;text-wrap:balance}
+h1 span{background:linear-gradient(transparent 60%,var(--hl) 60%,var(--hl) 92%,transparent 92%);padding:0 .06em}
+p{margin:0 0 20px;max-width:560px;color:var(--muted)}
+.btn{display:inline-block;font:800 16px/1 var(--f-body);background:#2D55E0;color:#fff;padding:13px 20px;border-radius:12px;box-shadow:0 3px 0 #1B3AA8;text-decoration:none}
+h2{font:800 22px/1.2 var(--f-display);margin:40px 0 14px}
+ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+li a{display:inline-block;min-height:40px;padding:8px 0;font-weight:800;color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="logo" href="/geek-informatic/" aria-label="Geek Informatic — на головну"><span class="mk"><svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true"><path d="M12 10l-5 6 5 6M20 10l5 6-5 6" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Geek Informatic</a>
+  <main>
+    <h1><span>Сторінку не знайдено</span></h1>
+    <p>Схоже, за цією адресою нічого немає: посилання могло застаріти або в ньому помилка. Повернися на головну або обери активність нижче.</p>
+    <a class="btn" href="/geek-informatic/">На головну</a>
+    <h2>Активності</h2>
+    <ul>
+      <li><a href="/geek-informatic/web-quests/agenty-kibershchytu/">Агенти КіберЩиту</a></li>
+      <li><a href="/geek-informatic/web-quests/kod-galaktyky/">Код Галактики</a></li>
+      <li><a href="/geek-informatic/robot/">Я керую роботом!</a></li>
+      <li><a href="/geek-informatic/mars/">Марсохід у лабіринті</a></li>
+      <li><a href="/geek-informatic/rebusy/">100 ребусів з інформатики</a></li>
+    </ul>
+  </main>
+</div>
+</body>
+</html>

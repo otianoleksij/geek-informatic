@@ -3,12 +3,26 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Код Галактики</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Nunito:wght@400;600;700;800&family=Unbounded:wght@600;800&display=swap">
-<script src="https://unpkg.com/blockly@10.4.3/blockly_compressed.js"></script>
-<script src="https://unpkg.com/blockly@10.4.3/msg/uk.js"></script>
+<title>Код Галактики — Geek Informatic</title>
+<meta name="description" content="Гра з програмування блоками для 7 класу: 15 рівнів, повтори й вкладені цикли. Склади програму для дроїда Біпа та збери всі кристали на станції.">
+<link rel="canonical" href="https://otianoleksij.github.io/geek-informatic/web-quests/kod-galaktyky/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Geek Informatic">
+<meta property="og:locale" content="uk_UA">
+<meta property="og:title" content="Код Галактики">
+<meta property="og:description" content="Гра з програмування блоками для 7 класу: 15 рівнів, повтори й вкладені цикли. Склади програму для дроїда Біпа та збери всі кристали на станції.">
+<meta property="og:url" content="https://otianoleksij.github.io/geek-informatic/web-quests/kod-galaktyky/">
+<meta property="og:image" content="https://otianoleksij.github.io/geek-informatic/assets/og/kod-galaktyky.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Код Галактики — Geek Informatic">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Код Галактики", "description": "Гра з програмування блоками для 7 класу: 15 рівнів, повтори й вкладені цикли. Склади програму для дроїда Біпа та збери всі кристали на станції.", "url": "https://otianoleksij.github.io/geek-informatic/web-quests/kod-galaktyky/", "inLanguage": "uk", "isAccessibleForFree": true, "learningResourceType": "webquest", "educationalLevel": "7 клас", "teaches": ["алгоритми", "цикли", "вкладені цикли"], "provider": {"@type": "Organization", "name": "Geek Informatic", "url": "https://otianoleksij.github.io/geek-informatic/"}, "publisher": {"@type": "Organization", "name": "Geek Informatic", "url": "https://otianoleksij.github.io/geek-informatic/"}}</script>
+<link rel="preload" href="../../assets/fonts/nunito-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../assets/fonts/fonts.css">
+<script defer src="../../vendor/blockly@10.4.3/blockly_compressed.js"></script>
+<script defer src="../../vendor/blockly@10.4.3/msg/uk.js"></script>
+<script defer src="../../vendor/blockly-keyboard-navigation@0.5.13/index.js"></script>
 <style>
 :root{
   --space:#070B1E; --panel:#111833; --panel-2:#18214A; --ink:#E8ECFF; --muted:#9AA5D1; --line:#2A3566;
@@ -53,6 +67,12 @@ button{font-family:inherit}
 .top{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
 .logo{font-family:var(--f-display);font-weight:800;font-size:clamp(20px,3.4vw,28px);letter-spacing:.02em;margin:0;
   background:linear-gradient(90deg,var(--accent),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
+.home-link{display:inline-flex;align-items:center;min-height:32px;min-width:24px;padding:4px 12px;border:1px solid var(--line);border-radius:999px;background:var(--panel-2);color:var(--muted);font-weight:700;font-size:14px;text-decoration:none}
+.home-link:hover{color:var(--accent);border-color:var(--accent)}
+.no-editor{max-width:640px;margin:24px auto;text-align:center}
+.no-editor h2{margin:0 0 10px}
+.no-editor p{color:var(--muted)}
+.no-editor .row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
 .tag{font-family:var(--f-mono);font-size:12px;color:var(--accent);border:1px solid var(--line);border-radius:999px;padding:4px 10px;background:#0d1430}
 
 .card{background:rgba(17,24,51,.94);border:1px solid var(--line);border-radius:var(--r);padding:14px}
@@ -165,6 +185,11 @@ button{font-family:inherit}
 
 /* ===== код ===== */
 .chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.kbd-help{margin:0 0 10px;color:var(--muted);font-size:14px}
+.kbd-help summary{cursor:pointer;color:var(--accent);font-weight:700}
+.kbd-help summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.kbd-help ul{margin:8px 0 0;padding-left:20px;line-height:1.6}
+.kbd-help kbd{font-family:var(--f-mono,ui-monospace,Menlo,monospace);font-size:12px;padding:1px 6px;border:1px solid var(--line);border-radius:6px;background:var(--panel-2);color:var(--ink)}
 .chip{font:700 13px var(--f-body);background:#0d1430;border:1px solid var(--line);border-radius:999px;padding:4px 10px;color:var(--muted)}
 .chip b{color:var(--ink)}
 .chip.over{border-color:var(--bad);color:#ffb0b0;background:#2a0f12}
@@ -199,6 +224,7 @@ button{font-family:inherit}
   .ship,.ship-rot{transition-duration:.12s!important}
   .st{opacity:.6}
 }
+.kbd-steps{margin:4px 0 8px;padding-left:22px}.kbd-steps li{margin:3px 0}.kbd-steps-h{margin:6px 0 2px}
 </style>
 </head>
 <body>
@@ -287,10 +313,12 @@ button{font-family:inherit}
 
 <div class="page">
   <header class="top">
+    <a class="home-link" href="../../">← На головну</a>
     <h1 class="logo">Код Галактики</h1>
     <span class="tag">7 КЛАС · 15 РІВНІВ</span>
   </header>
 
+  <main>
   <!-- ===== карта рівнів ===== -->
   <section id="viewMap" aria-labelledby="mapTitle">
     <div class="map-head">
@@ -300,6 +328,16 @@ button{font-family:inherit}
     <p class="intro">Станція «Аврора» втратила енергію. Ремонтний дроїд <b>Біп</b> підбере кристали, якщо ти складеш для нього програму з блоків: від простих команд до вкладених повторів. Нові планети відкриваються по черзі.</p>
     <ol class="planets" id="planets"></ol>
     <div class="reset-row"><button class="btn btn-ghost" id="resetProg" type="button">Скинути прогрес</button></div>
+  </section>
+
+  <!-- ===== редактор блоків недоступний ===== -->
+  <section id="viewNoEditor" class="card no-editor" role="alert" hidden>
+    <h2>Редактор блоків не завантажився</h2>
+    <p>Не вдалося завантажити редактор блоків. Онови сторінку. Якщо не допоможе — повідом учителя.</p>
+    <div class="row">
+      <button class="btn btn-main" id="reloadPage" type="button">Оновити сторінку</button>
+      <button class="btn btn-ghost" id="noEditorMap" type="button">← Карта рівнів</button>
+    </div>
   </section>
 
   <!-- ===== гра ===== -->
@@ -363,10 +401,30 @@ button{font-family:inherit}
       <section class="card code-card" aria-label="Програма дроїда">
         <h3>Програма Біпа <span id="count"></span></h3>
         <div class="chips" id="chips"></div>
+        <details class="kbd-help"><summary>Керування з клавіатури</summary>
+        <p class="kbd-steps-h"><b>Як додати блок без миші:</b></p>
+        <ol class="kbd-steps">
+          <li>Клавішею <kbd>Tab</kbd> перейди в поле програми й натисни <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>K</kbd>.</li>
+          <li><kbd>D</kbd> і <kbd>S</kbd> — підведи курсор під останній блок програми (там з’явиться лінія).</li>
+          <li><kbd>Enter</kbd> — позначити це місце.</li>
+          <li><kbd>T</kbd> — перейти до панелі, <kbd>S</kbd> — вибрати потрібний блок.</li>
+          <li><kbd>Enter</kbd> — блок стане на позначене місце.</li>
+        </ol>
+        <p class="kbd-steps-h"><b>Усі клавіші:</b></p>
+        <ul>
+          <li><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>K</kbd> — увімкнути або вимкнути клавіатурний режим (фокус має бути на робочій області).</li>
+          <li><kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd> — рухатися по блоках: вгору, назовні, вниз, всередину.</li>
+          <li><kbd>T</kbd> — перейти до панелі блоків; <kbd>W</kbd>/<kbd>S</kbd> — вибрати розділ, <kbd>D</kbd> — відкрити блоки розділу.</li>
+          <li><kbd>Enter</kbd> — у панелі блоків: узяти блок у програму; у програмі: позначити місце, куди вставити.</li>
+          <li><kbd>I</kbd> — вставити (приєднати) блок до позначеного місця. <kbd>Shift</kbd>+<kbd>W</kbd>/<kbd>A</kbd>/<kbd>S</kbd>/<kbd>D</kbd> — рухати курсор по порожньому полю.</li>
+          <li><kbd>X</kbd> — від’єднати блок. <kbd>Delete</kbd> або <kbd>Backspace</kbd> — видалити вибраний блок.</li>
+          <li><kbd>Esc</kbd> або <kbd>E</kbd> — повернутися з панелі блоків до програми.</li>
+        </ul></details>
         <div id="blockly"></div>
       </section>
     </div>
   </section>
+  </main>
 </div>
 
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mtitle">
@@ -381,8 +439,8 @@ button{font-family:inherit}
   </div>
 </div>
 
-<script src="galaxy-core.js"></script>
-<script src="levels.js"></script>
-<script src="app.js"></script>
+<script defer src="galaxy-core.js"></script>
+<script defer src="levels.js"></script>
+<script defer src="app.js"></script>
 </body>
 </html>

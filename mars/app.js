@@ -217,8 +217,16 @@
     { kind: "block", type: "mars_while" }, { kind: "block", type: "mars_if" }, { kind: "block", type: "mars_ifelse" }
   ] };
 
+  /* Blockly не завантажився (файли Blockly не завантажились): замість гри показуємо пояснення. */
+  function showNoEditor() {
+    $("ruleCard").hidden = true; $("gameArea").hidden = true;
+    $("viewNoEditor").hidden = false;
+    $("reloadPage").focus();
+  }
+  $("reloadPage").addEventListener("click", function () { location.reload(); });
+
   function initBlockly() {
-    if (typeof Blockly === "undefined") { say("Не вдалося завантажити редактор блоків. Перевір інтернет і онови сторінку.", "bad"); return false; }
+    if (typeof Blockly === "undefined" || !Blockly.inject || !Blockly.defineBlocksWithJsonArray) { showNoEditor(); return false; }
     defineBlocks();
     var theme = Blockly.Theme.defineTheme("mars", {
       base: Blockly.Themes.Classic, startHats: true,
@@ -238,8 +246,16 @@
       grid: { spacing: 24, length: 2, colour: "#241c40", snap: true },
       zoom: { controls: true, startScale: narrow ? 0.75 : 0.85, maxScale: 1.6, minScale: 0.5 },
       move: { scrollbars: true, drag: true, wheel: false },
-      sounds: false, media: "https://unpkg.com/blockly@10.4.3/media/"
+      sounds: false, media: "../vendor/blockly@10.4.3/media/"
     });
+    /* Клавіатурна навігація (WCAG 2.1.1): плагін необов'язковий — якщо не завантажився, гра працює мишею. */
+    try {
+      if (typeof NavigationController === "function") {
+        var kbNav = new NavigationController();
+        kbNav.init();
+        kbNav.addWorkspace(ws);
+      }
+    } catch (err) { if (window.console) console.warn("Keyboard navigation unavailable:", err); }
     ws.addChangeListener(onChange);
     var rs = function () { if (ws) Blockly.svgResize(ws); };
     window.addEventListener("resize", rs);

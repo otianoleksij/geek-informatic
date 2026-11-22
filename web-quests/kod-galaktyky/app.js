@@ -40,10 +40,10 @@
   })();
 
   /* ---------- екрани ---------- */
-  var viewMap = $("viewMap"), viewGame = $("viewGame");
+  var viewMap = $("viewMap"), viewGame = $("viewGame"), viewNoEditor = $("viewNoEditor");
   function showMap() {
     cancelRun(true);
-    viewGame.hidden = true; viewMap.hidden = false;
+    viewGame.hidden = true; viewNoEditor.hidden = true; viewMap.hidden = false;
     renderMap();
     window.scrollTo(0, 0);
   }
@@ -224,8 +224,16 @@
       grid: { spacing: 24, length: 2, colour: "#1c2654", snap: true },
       zoom: { controls: true, startScale: narrow ? 0.75 : 0.85, maxScale: 1.6, minScale: 0.5 },
       move: { scrollbars: true, drag: true, wheel: false },
-      sounds: false, media: "https://unpkg.com/blockly@10.4.3/media/"
+      sounds: false, media: "../../vendor/blockly@10.4.3/media/"
     });
+    /* Клавіатурна навігація (WCAG 2.1.1): плагін необов'язковий — якщо не завантажився, гра працює мишею. */
+    try {
+      if (typeof NavigationController === "function") {
+        var kbNav = new NavigationController();
+        kbNav.init();
+        kbNav.addWorkspace(ws);
+      }
+    } catch (err) { if (window.console) console.warn("Keyboard navigation unavailable:", err); }
     ws.addChangeListener(onChange);
     var rs = function () { if (ws && !viewGame.hidden) Blockly.svgResize(ws); };
     window.addEventListener("resize", rs);
@@ -336,6 +344,12 @@
     if (!unlocked(n)) return;
     cancelRun(true);
     closeModal();
+    if (typeof Blockly === "undefined" || !Blockly.inject) {
+      viewMap.hidden = true; viewGame.hidden = true; viewNoEditor.hidden = false;
+      window.scrollTo(0, 0);
+      $("reloadPage").focus();
+      return;
+    }
     state.cur = n; saveState();
     var level = LEVELS[n - 1];
     viewMap.hidden = true; viewGame.hidden = false;
@@ -355,6 +369,9 @@
     warpIn();
     window.scrollTo(0, 0);
   }
+
+  $("reloadPage").addEventListener("click", function () { location.reload(); });
+  $("noEditorMap").addEventListener("click", showMap);
 
   hintBtn.addEventListener("click", function () {
     hintBox.hidden = !hintBox.hidden;

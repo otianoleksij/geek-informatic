@@ -3,11 +3,23 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Агенти КіберЩиту</title>
-<meta name="description" content="Веб-квест з кібербезпеки для 6 класу: 8 місій, ключі-літери та посвідчення агента.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=JetBrains+Mono:wght@500;700&family=Nunito:wght@400;600;700;800&family=Unbounded:wght@600;800&display=swap">
+<title>Агенти КіберЩиту — Geek Informatic</title>
+<meta name="description" content="Вебквест з кібербезпеки для 6 класу: 8 інтерактивних місій про паролі, фішинг, фейки та приватність в інтернеті, наприкінці — посвідчення агента.">
+<link rel="canonical" href="https://otianoleksij.github.io/geek-informatic/web-quests/agenty-kibershchytu/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Geek Informatic">
+<meta property="og:locale" content="uk_UA">
+<meta property="og:title" content="Агенти КіберЩиту">
+<meta property="og:description" content="Вебквест з кібербезпеки для 6 класу: 8 інтерактивних місій про паролі, фішинг, фейки та приватність в інтернеті, наприкінці — посвідчення агента.">
+<meta property="og:url" content="https://otianoleksij.github.io/geek-informatic/web-quests/agenty-kibershchytu/">
+<meta property="og:image" content="https://otianoleksij.github.io/geek-informatic/assets/og/agenty-kibershchytu.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Агенти КіберЩиту — Geek Informatic">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Агенти КіберЩиту", "description": "Вебквест з кібербезпеки для 6 класу: 8 інтерактивних місій про паролі, фішинг, фейки та приватність в інтернеті, наприкінці — посвідчення агента.", "url": "https://otianoleksij.github.io/geek-informatic/web-quests/agenty-kibershchytu/", "inLanguage": "uk", "isAccessibleForFree": true, "learningResourceType": "webquest", "educationalLevel": "6 клас", "teaches": ["кібербезпека", "паролі", "фішинг", "приватність в інтернеті"], "provider": {"@type": "Organization", "name": "Geek Informatic", "url": "https://otianoleksij.github.io/geek-informatic/"}, "publisher": {"@type": "Organization", "name": "Geek Informatic", "url": "https://otianoleksij.github.io/geek-informatic/"}}</script>
+<link rel="preload" href="../../assets/fonts/nunito-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../assets/fonts/fonts.css">
 <style>
 /* Layout: a blueprint-grid "agency HQ" — sticky console bar with key slots, one centered mission column below. */
 :root{
@@ -64,6 +76,9 @@ p{margin:0}
 .bar .wrap{display:flex;align-items:center;gap:10px 14px;padding-block:10px;flex-wrap:wrap}
 .brand{font-family:var(--f-display);font-weight:800;font-size:14px;display:flex;align-items:center;gap:8px;white-space:nowrap}
 .brand svg{width:22px;height:22px;color:var(--accent)}
+.home{display:inline-flex;align-items:center;gap:6px;min-height:32px;min-width:32px;padding:4px 10px 4px 8px;border-radius:999px;border:1.5px solid var(--line);font:800 14px var(--f-body);color:var(--muted);text-decoration:none;white-space:nowrap}
+.home svg{width:16px;height:16px;flex:none}
+.home:hover{color:var(--accent);border-color:var(--accent)}
 .keys{display:flex;gap:5px;margin-left:auto}
 .key{width:27px;height:32px;border:2px dashed var(--line);border-radius:7px;display:grid;place-items:center;font:700 15px var(--f-mono);color:var(--muted)}
 .key.got{border-style:solid;border-color:var(--ink);background:var(--signal);color:var(--signal-ink)}
@@ -86,7 +101,7 @@ main{padding-block:28px 56px}
 .btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line);box-shadow:none}
 .btn.small{font-size:14px;padding:9px 14px}
 .btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
-:focus-visible{outline:3px solid var(--signal);outline-offset:2px}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 
 label.fld{display:flex;flex-direction:column;gap:6px;font-weight:700;font-size:15px;flex:1 1 220px;min-width:0}
 input[type=text]{font:600 17px var(--f-body);padding:12px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);width:100%}
@@ -401,6 +416,7 @@ button.mrow:hover{transform:translateX(3px)}
   .restart{padding:6px}
   .restart.armed{padding:6px 10px}
   .bar .wrap{gap:8px 10px}
+  .home{font-size:13px;padding:4px 8px 4px 6px}
   .meta{margin-left:auto}
   .keys{order:3;width:100%;margin-left:0;justify-content:space-between;max-width:320px}
 }
@@ -411,6 +427,7 @@ button.mrow:hover{transform:translateX(3px)}
 
 <header class="bar">
   <div class="wrap">
+    <a class="home" href="../../"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M11 6l-6 6 6 6"/></svg>На головну</a>
     <div class="brand">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.5l8 3v6.2c0 4.9-3.4 8.3-8 9.8-4.6-1.5-8-4.9-8-9.8V5.5z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>
       КіберЩит
@@ -532,7 +549,7 @@ var M = [
    facts:[
      "Шахраї видають себе за відомі ігри, сервіси, банки і навіть за твоїх друзів.",
      "Ознаки фішингу: поспіх і погрози («акаунт видалять за 2 години!») та неймовірні подарунки («ти виграв смартфон!»).",
-     "Перевіряй адресу сайту: справжня адреса гри — kubosvit.com. Підробки: kub0svit.com (нуль замість «о») або kubosvit.com.free-gift.top (закінчується чужим доменом).",
+     "Перевіряй адресу сайту: справжня адреса гри — kubosvit.example. Підробки: kub0svit.example (нуль замість «о») або kubosvit.example.free-gift.example (закінчується чужим доменом).",
      "Зелений замочок і https на початку адреси означають захищене з’єднання. Але й шахраї бувають із замочком, тому головне — сама адреса.",
      "Справжні сервіси ніколи не просять надіслати пароль або код із SMS.",
      "Помітив пастку? Нічого не натискай, не відповідай і покажи повідомлення дорослим."
@@ -540,36 +557,36 @@ var M = [
    tasks:[
      {type:"classify", q:"Розбери пошту агента. Які повідомлення безпечні, а які — фішинг?", labels:["Безпечне","Фішинг"], showAll:true,
       items:[
-        {from:"Служба підтримки ФотоГрам · security@fotogram-help.xyz", text:"Твій акаунт буде видалено через 24 години! Підтверди пароль за посиланням fotogram-help.xyz/login", a:1,
+        {from:"Служба підтримки ФотоГрам · security@fotogram-help.example", text:"Твій акаунт буде видалено через 24 години! Підтверди пароль за посиланням fotogram-help.example/login", a:1,
          ex:"Фішинг: погрози, поспіх, дивна адреса і прохання ввести пароль."},
         {from:"SMS · +380 93 *** ** 17", text:"Вітаємо! Ви виграли новий смартфон! Сплатіть лише доставку 99 грн: bit.ly/priz-tut", a:1,
          ex:"Фішинг: неймовірний подарунок від незнайомця і прохання заплатити."},
         {from:"Класна керівниця · шкільний чат", text:"Нагадую: завтра екскурсія. Зустрічаємося о 8:30 біля школи.", a:0,
          ex:"Безпечне: знайомий відправник, немає посилань і жодних прохань про паролі."},
-        {from:"Оля (подруга) · месенджер", text:"Привіт! Проголосуй за мене в конкурсі: введи свій номер телефону і код із SMS тут — golos-konkurs.online", a:1,
+        {from:"Оля (подруга) · месенджер", text:"Привіт! Проголосуй за мене в конкурсі: введи свій номер телефону і код із SMS тут — golos-konkurs.example", a:1,
          ex:"Фішинг: акаунт подруги могли зламати. Код із SMS не можна повідомляти нікому."},
         {from:"Мама · месенджер", text:"Купи, будь ласка, хліб дорогою додому.", a:0,
          ex:"Безпечне: звичайне прохання, без посилань і паролів."}
       ]},
-     {type:"choice", html:true, grid:true, q:"Тобі надіслали три посилання на вхід у гру КубоСвіт. Справжній сайт гри — kubosvit.com. Який із цих сайтів справжній? Уважно подивись на адресний рядок.",
+     {type:"choice", html:true, grid:true, q:"Тобі надіслали три посилання на вхід у гру КубоСвіт. Справжній сайт гри — kubosvit.example. Який із цих сайтів справжній? Уважно подивись на адресний рядок.",
       options:[
-        browser("https://kubosvit.com/login", true, LOGIN),
-        browser("http://kub0svit.com/login", false, LOGIN),
-        browser("https://kubosvit.com.free-gift.top/login", true, '<div class="bm-ban">+5000 кристалів за вхід!</div>'+LOGIN)
+        browser("https://kubosvit.example/login", true, LOGIN),
+        browser("http://kub0svit.example/login", false, LOGIN),
+        browser("https://kubosvit.example.free-gift.example/login", true, '<div class="bm-ban">+5000 кристалів за вхід!</div>'+LOGIN)
       ], answer:0,
-      explain:"Справжній — варіант А. У варіанті Б цифра 0 замість літери «о» і немає захищеного з’єднання. Варіант В лише починається з kubosvit.com, а насправді це сайт free-gift.top: дивись, чим закінчується адреса перед першою скісною рискою «/»."},
+      explain:"Справжній — варіант А. У варіанті Б цифра 0 замість літери «о» і немає захищеного з’єднання. Варіант В лише починається з kubosvit.example, а насправді це сайт free-gift.example: дивись, чим закінчується адреса перед першою скісною рискою «/»."},
      {type:"choice", q:"Мамі прийшла SMS: «Вашу банківську картку заблоковано! Терміново назвіть код, який прийде в наступній SMS, нашому оператору за номером +380 63 *** ** 11». Що порадиш мамі?",
       options:["Швидше продиктувати код, поки картку не заблокували","Нікому не називати код і зателефонувати в банк за номером, що написаний на самій картці","Переслати SMS усім знайомим, щоб попередити","Відповісти на SMS і попросити пояснень"], answer:1,
       explain:"Справжній банк ніколи не просить назвати код із SMS. Перевірити можна, лише зателефонувавши за офіційним номером, надрукованим на картці."},
      {type:"hotspots", q:"Розслідування листа. Знайди в ньому 5 ознак фішингу — натискай на підозрілі частини. Обережно: кожен хибний клік забирає бал.",
       head:[
-        {l:"Від:", parts:[{t:"Служба підтримки КубоСвіт"},{t:"<support@kub0svit-help.top>", clue:"Підроблена адреса: цифра 0 замість літери «о» і чужий домен. Справжній сайт гри — kubosvit.com.", mono:true}]},
+        {l:"Від:", parts:[{t:"Служба підтримки КубоСвіт"},{t:"<support@kub0svit-help.example>", clue:"Підроблена адреса: цифра 0 замість літери «о» і чужий домен. Справжній сайт гри — kubosvit.example.", mono:true}]},
         {l:"Тема:", parts:[{t:"ТЕРМІНОВО!!! Твій акаунт буде видалено", clue:"Поспіх і погрози: шахраї хочуть, щоб ти діяв не думаючи."}]}
       ],
       body:[
         [{t:"Привіт, гравцю!"}],
         [{t:"Ми помітили, що у твій акаунт хтось заходив з іншого міста."},{t:"Протягом 2 годин надішли нам свій логін, пароль і код із SMS.", clue:"Справжні сервіси ніколи не просять надіслати пароль чи код із SMS."}],
-        [{t:"Натисни тут: http://kub0svit-help.top/login", clue:"Посилання веде на підроблений сайт, а не на kubosvit.com.", mono:true}],
+        [{t:"Натисни тут: http://kub0svit-help.example/login", clue:"Посилання веде на підроблений сайт, а не на kubosvit.example.", mono:true}],
         [{t:"А ще за підтвердження ти отримаєш 5000 кристалів у подарунок!", clue:"Неймовірний подарунок — це приманка на гачку."}],
         [{t:"З повагою, команда КубоСвіт"}]
       ]}
@@ -741,7 +758,7 @@ var M = [
         {from:"Telegram-канал «ШОКОВІ НОВИНИ 24/7»", text:"ШОК!!! Від смартфонів у дітей виростає третє око! Поширте, поки не видалили!", a:1, ex:"Фейк: кричущий заголовок, неймовірне твердження, заклик терміново поширити."},
         {from:"Анонімний допис у соцмережі", text:"Завтра всі школи країни закривають на місяць. Мені сказав знайомий директор!", a:1, ex:"Фейк: анонімне джерело і «знайомий директор» замість офіційного повідомлення."},
         {from:"Сайт Українського гідрометцентру", text:"Завтра очікується сніг і похолодання до −5 °C.", a:0, ex:"Схоже на правду: офіційна служба погоди і звичайний прогноз."},
-        {from:"Невідомий сайт news-super-top.xyz", text:"Вчені довели: якщо їсти шоколад замість сніданку, оцінки стануть вищими!", a:1, ex:"Фейк: «вчені довели» без назви вчених, дивний сайт, надто приємна «новина»."},
+        {from:"Невідомий сайт news-super-top.example", text:"Вчені довели: якщо їсти шоколад замість сніданку, оцінки стануть вищими!", a:1, ex:"Фейк: «вчені довели» без назви вчених, дивний сайт, надто приємна «новина»."},
         {from:"Сайт нашої школи", text:"У четвер відбудеться благодійний ярмарок. Усі кошти підуть на допомогу притулку для тварин.", a:0, ex:"Схоже на правду: знайоме офіційне джерело і конкретна подія."}
       ]},
      {type:"hotspots", q:"Розбери фейковий допис. Знайди в ньому 5 ознак фейку. Кожен хибний клік забирає бал.", listTitle:"фейку в цьому дописі",
@@ -789,7 +806,7 @@ var M = [
      {type:"choice", q:"Ти в кафе, і там є відкритий Wi-Fi «FREE_WiFi» без пароля. Чого точно НЕ варто робити через цю мережу?",
       options:["Дивитися прогноз погоди","Входити в онлайн-банк батьків і вводити дані картки","Читати новини на відомому сайті","Слухати музику"], answer:1,
       explain:"У відкритій мережі шахраї можуть перехоплювати дані. Паролі, дані карток і банк — лише вдома або через мобільний інтернет."},
-     {type:"choice", q:"У грі тобі пишуть: «Безкоштовні скіни! Увійди через свій акаунт на сайті free-skins-game.top». Що робиш?",
+     {type:"choice", q:"У грі тобі пишуть: «Безкоштовні скіни! Увійди через свій акаунт на сайті free-skins-game.example». Що робиш?",
       options:["Входжу — скіни ж безкоштовні","Не переходжу за посиланням: це спосіб украсти акаунт. Розповім дорослим","Дам свій пароль другові, щоб він перевірив сайт","Спершу введу лише логін, а пароль потім"], answer:1,
       explain:"Безкоштовних скінів на сторонніх сайтах не буває. Це фішинг: вхід через такий сайт віддає твій акаунт шахраям."},
      {type:"order", q:"Біда: твій акаунт у грі зламали! Розстав дії в правильному порядку. Переміщуй їх стрілками.",
@@ -829,13 +846,18 @@ var TOTAL = M.reduce(function(s,m){ return s + m.tasks.reduce(function(a,t){retu
 
 /* ---------- State ---------- */
 function fresh(){ return {name:"",cls:"",started:0,finished:0,done:[],scores:{},screen:"start",cur:0,task:0}; }
-/* Прогрес зберігається 5 хв від останньої дії учня; після цього квест починається з нуля. */
-var TTL = 5*60*1000;
-function expired(st){ return !st || !st.savedAt || Date.now()-st.savedAt > TTL; }
-function load(){ try{ var r=localStorage.getItem(LS); if(!r) return null; var st=JSON.parse(r); if(expired(st)){ localStorage.removeItem(LS); return null; } return st; }catch(e){ return null; } }
-function save(){ S.savedAt=Date.now(); try{ localStorage.setItem(LS, JSON.stringify(S)); }catch(e){} }
+/* Ім’я і клас учня не зберігаються (персональні дані) — лише в пам’яті, поки відкрита сторінка. */
+function load(){ try{ var r=localStorage.getItem(LS); if(!r) return null; return JSON.parse(r); }catch(e){ return null; } }
+function save(){ var o={}; for(var k in S){ if(k!=="name" && k!=="cls") o[k]=S[k]; } try{ localStorage.setItem(LS, JSON.stringify(o)); }catch(e){} }
 var S = load() || fresh();
-if(S.started && S.screen==="start") S.screen = S.finished ? "cert" : "map";
+S.name=""; S.cls="";
+/* Знайдено збережений квест — спершу питаємо, продовжувати чи почати заново. */
+var resumeTo = null;
+if(S.started){
+  /* Повертаємо туди, де учень зупинився (місія, бриф тощо); якщо екран невідомий — на карту чи посвідчення. */
+  resumeTo = (S.screen && S.screen!=="start" && S.screen!=="resume") ? S.screen : (S.finished ? "cert" : "map");
+  S.screen = "resume";
+}
 
 var view = document.getElementById("view");
 var reduced = false; try{ reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches; }catch(e){}
@@ -860,7 +882,7 @@ setInterval(function(){ document.getElementById("timer").textContent = fmt(elaps
 function render(){
   header();
   document.getElementById("restart").hidden = !S.started;
-  var f = {start:startScreen, map:mapScreen, brief:briefScreen, task:taskScreen, done:doneScreen, final:finalScreen, cert:certScreen}[S.screen] || startScreen;
+  var f = {start:startScreen, resume:resumeScreen, map:mapScreen, brief:briefScreen, task:taskScreen, done:doneScreen, final:finalScreen, cert:certScreen}[S.screen] || startScreen;
   f();
 }
 
@@ -898,6 +920,17 @@ function startScreen(){
   });
 }
 
+function resumeScreen(){
+  view.innerHTML =
+   '<section class="panel stack"><div class="eyebrow">Збережений прогрес</div><h2 id="rh" tabindex="-1">Знайдено незавершений квест</h2>'+
+   '<p>Пройдено місій: <b>'+S.done.length+' з '+M.length+'</b>. Бали: <b>'+score()+'</b>.</p>'+
+   '<p class="muted" style="font-size:15px">Якщо це не твій квест, натисни «Почати заново».</p>'+
+   '<div class="row"><button class="btn" id="rcont" type="button">Продовжити</button><button class="btn ghost" id="rnew" type="button">Почати заново</button></div></section>';
+  document.getElementById("rcont").addEventListener("click",function(){ go(resumeTo||"map"); });
+  document.getElementById("rnew").addEventListener("click",function(){ resetAll(); });
+  document.getElementById("rh").focus();
+}
+
 function nextOpen(){ for(var i=0;i<M.length;i++) if(S.done.indexOf(i)<0) return i; return -1; }
 
 function mapScreen(){
@@ -909,7 +942,7 @@ function mapScreen(){
     rows += can ? '<button class="mrow" data-m="'+i+'">'+inner+'</button>' : '<div class="mrow '+(done?'done':'locked')+'">'+inner+'</div>';
   });
   view.innerHTML =
-   '<div class="stack"><div class="eyebrow">Агент '+esc(S.name)+'</div><h2>Карта місій</h2>'+
+   '<div class="stack"><div class="eyebrow">Агент'+(S.name?' '+esc(S.name):'')+'</div><h2>Карта місій</h2>'+
    '<p class="muted">Місії відкриваються по черзі. Виконай усі, щоб зібрати секретне слово.</p></div>'+
    '<div class="map">'+rows+'</div>'+
    (open<0 ? '<button class="btn" id="toFinal">Скласти секретне слово</button>' : '');
@@ -1359,7 +1392,28 @@ function finalScreen(){
 }
 
 function rank(p){ return p>=0.9?"Старший агент":p>=0.7?"Агент":p>=0.5?"Молодший агент":"Агент-стажер"; }
+function nameGate(){
+  view.innerHTML =
+   '<form class="panel stack" id="ng">'+
+     '<h2 id="ngh" tabindex="-1">Для кого посвідчення?</h2>'+
+     '<p class="muted" style="font-size:15px">Ім’я не зберігається на цьому пристрої, тому введи його ще раз.</p>'+
+     '<div class="row">'+
+       '<label class="fld" for="fname">Ім’я та прізвище<input type="text" id="fname" autocomplete="off" maxlength="40" placeholder="Наприклад, Олена Коваль"></label>'+
+       '<label class="fld" for="fcls" style="flex:0 1 140px">Клас (необов’язково)<input type="text" id="fcls" autocomplete="off" maxlength="8" placeholder="6-А"></label>'+
+     '</div>'+
+     '<div class="row"><button class="btn" id="ngb" type="submit" disabled>Показати посвідчення</button></div>'+
+   '</form>';
+  var n=document.getElementById("fname"), b=document.getElementById("ngb");
+  function upd(){ b.disabled = n.value.trim().length<2; }
+  n.addEventListener("input",upd); upd();
+  document.getElementById("ng").addEventListener("submit",function(e){
+    e.preventDefault(); if(b.disabled) return;
+    S.name=n.value.trim(); S.cls=document.getElementById("fcls").value.trim(); render();
+  });
+  document.getElementById("ngh").focus();
+}
 function certScreen(){
+  if(!S.name){ nameGate(); return; }
   var pts=score(), r=rank(pts/TOTAL), d=new Date(S.finished||Date.now());
   var date=("0"+d.getDate()).slice(-2)+"."+("0"+(d.getMonth()+1)).slice(-2)+"."+d.getFullYear();
   var line=S.name+(S.cls?", "+S.cls:"")+" — Агенти КіберЩиту: "+pts+" з "+TOTAL+" балів, звання «"+r+"», час "+fmt(elapsed())+", "+date;
@@ -1370,7 +1424,7 @@ function certScreen(){
     '<p>'+(S.cls?'Клас '+esc(S.cls)+'. ':'')+'Пройшов(-ла) '+M.length+' місій, зібрав(-ла) ключі й розгадав(-ла) секретне слово <b>'+WORD+'</b>. Тепер Фантом не пройде!</p>'+
     '<div class="facts"><div><small>Звання</small><b>'+r+'</b></div><div><small>Бали</small><b>'+pts+' / '+TOTAL+'</b></div><div><small>Час</small><b>'+fmt(elapsed())+'</b></div></div>'+
   '</section>'+
-  '<section class="panel stack"><h3>Здай результат учителю</h3><p class="muted" style="font-size:15px">Покажи цей екран учителю або скопіюй рядок нижче і встав його у форму на сторінці квесту.</p>'+
+  '<section class="panel stack"><h3>Здай результат учителю</h3><p class="muted" style="font-size:15px">Покажи цей екран учителю або скопіюй рядок нижче й надішли його так, як домовились із учителем (наприклад, у чат класу чи Google Classroom).</p>'+
     '<div class="copybox" id="cbox">'+esc(line)+'</div>'+
     '<div class="row"><button class="btn small" id="copy">Скопіювати результат</button><span class="muted" id="cmsg" style="font-size:14px" aria-live="polite"></span></div></section>'+
   '<div class="row"><button class="btn ghost small" id="again">Пройти квест заново</button></div>';
@@ -1382,20 +1436,11 @@ function certScreen(){
   var ag=document.getElementById("again"), armed=false;
   ag.addEventListener("click",function(){
     if(!armed){ armed=true; ag.textContent="Точно? Результат зітреться. Натисни ще раз"; return; }
-    var keep={name:S.name, cls:S.cls}; S=fresh(); S.name=keep.name; S.cls=keep.cls; go("start");
+    S=fresh(); go("start");
   });
 }
 
 function resetAll(){ timers.forEach(clearTimeout); timers=[]; try{ localStorage.removeItem(LS); }catch(e){} S=fresh(); go("start"); }
-
-/* Будь-яка дія учня продовжує 5 хвилин */
-var lastTouch=0;
-function touch(){ var n=Date.now(); if(n-lastTouch<15000) return; lastTouch=n; if(S.started) save(); }
-document.addEventListener("pointerdown",touch,true);
-document.addEventListener("keydown",touch,true);
-function checkExpired(){ if(S.started && expired(S)) resetAll(); }
-document.addEventListener("visibilitychange",function(){ if(!document.hidden) checkExpired(); });
-setInterval(checkExpired, 30000);
 
 var rb=document.getElementById("restart"), rbArmed=null;
 function disarm(){ clearTimeout(rbArmed); rbArmed=null; rb.classList.remove("armed"); rb.querySelector("span").textContent="Почати спочатку"; }

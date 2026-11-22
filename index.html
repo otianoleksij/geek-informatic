@@ -3,15 +3,26 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Geek Informatic</title>
+<title>Geek Informatic — інформатика, в яку грають</title>
 <meta name="description" content="Geek Informatic — вебквести та ребуси з інформатики для учнів: кібербезпека, алгоритми та програмування у форматі місій і ігор.">
-<meta property="og:title" content="Geek Informatic — вебквести з інформатики">
-<meta property="og:description" content="Проходь місії, збирай ключі й отримуй посвідчення агента.">
+<link rel="canonical" href="https://otianoleksij.github.io/geek-informatic/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Geek Informatic">
+<meta property="og:locale" content="uk_UA">
+<meta property="og:title" content="Geek Informatic — інформатика, в яку грають">
+<meta property="og:description" content="Вебквести, навчальні ігри й ребуси з інформатики для 1–11 класів: кібербезпека, алгоритми, цикли та програмування блоками.">
+<meta property="og:url" content="https://otianoleksij.github.io/geek-informatic/">
+<meta property="og:image" content="https://otianoleksij.github.io/geek-informatic/assets/og/home.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Geek Informatic — інформатика, в яку грають">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Geek Informatic", "url": "https://otianoleksij.github.io/geek-informatic/", "inLanguage": "uk", "description": "Geek Informatic — вебквести та ребуси з інформатики для учнів: кібербезпека, алгоритми та програмування у форматі місій і ігор."}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Активності Geek Informatic", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Агенти КіберЩиту", "url": "https://otianoleksij.github.io/geek-informatic/web-quests/agenty-kibershchytu/"}, {"@type": "ListItem", "position": 2, "name": "Код Галактики", "url": "https://otianoleksij.github.io/geek-informatic/web-quests/kod-galaktyky/"}, {"@type": "ListItem", "position": 3, "name": "Я керую роботом!", "url": "https://otianoleksij.github.io/geek-informatic/robot/"}, {"@type": "ListItem", "position": 4, "name": "Марсохід у лабіринті", "url": "https://otianoleksij.github.io/geek-informatic/mars/"}, {"@type": "ListItem", "position": 5, "name": "100 ребусів з інформатики", "url": "https://otianoleksij.github.io/geek-informatic/rebusy/"}]}</script>
 <meta name="theme-color" content="#EEF3FA">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232D55E0'/%3E%3Cpath d='M12 10l-5 6 5 6M20 10l5 6-5 6' stroke='%23FFE45C' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Nunito:wght@400;600;700;800&family=Unbounded:wght@600;800&display=swap">
+<link rel="preload" href="assets/fonts/nunito-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts/fonts.css">
 <style>
 :root{
   --paper:#EEF3FA; --surface:#FFFFFF; --ink:#14213A; --muted:#56668A; --line:#CCD7E8; --grid:rgba(45,85,224,.10);
@@ -51,7 +62,7 @@ body{
 body::after{content:"";position:fixed;top:0;bottom:0;left:max(8px,calc(50% - 560px));border-left:2px solid var(--margin);opacity:.55;pointer-events:none}
 .wrap{width:100%;max-width:1060px;margin:0 auto;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 a{color:inherit}
-:focus-visible{outline:3px solid var(--hl);outline-offset:3px;border-radius:6px}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
 h1,h2,h3{font-family:var(--f-display);margin:0;line-height:1.12;letter-spacing:-.015em;text-wrap:balance}
 p{margin:0}
 
@@ -62,14 +73,17 @@ p{margin:0}
 .logo .mk{width:36px;height:36px;flex:none;border-radius:10px;background:var(--accent);display:grid;place-items:center;box-shadow:0 3px 0 var(--accent-deep)}
 .logo .mk svg{width:22px;height:22px}
 .logo small{display:block;font:600 13px/1 var(--f-body);color:var(--muted);letter-spacing:0}
-.top nav a{font-weight:800;font-size:15px;text-decoration:none;color:var(--muted)}
+.top nav{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:0 6px}
+.top nav a{display:inline-flex;align-items:center;min-height:40px;padding:0 8px;font-weight:800;font-size:15px;text-decoration:none;color:var(--muted)}
 .top nav a:hover{color:var(--accent)}
+.top nav a:focus-visible{color:var(--accent)}
+@media(min-width:720px){.top nav a{min-height:32px}}
 
 /* Заголовок сторінки як у зошиті */
 .hero{padding-block:clamp(28px,6vw,64px) clamp(32px,6vw,56px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.8fr);gap:32px;align-items:center}
 .notebook-head{font:700 clamp(24px,3.6vw,30px)/1.15 var(--f-hand);color:var(--accent);margin-bottom:18px}
 .notebook-head span{display:block}
-h1{font-size:clamp(34px,6.4vw,64px);font-weight:800;max-width:14ch}
+h1{font-size:clamp(26px,8.4vw,64px);font-weight:800;max-width:14ch}
 h1 .hl{background:linear-gradient(transparent 60%,var(--hl) 60%,var(--hl) 92%,transparent 92%);-webkit-box-decoration-break:clone;box-decoration-break:clone;padding:0 .06em}
 .lead{margin-top:18px;font-size:clamp(17px,2vw,19px);color:var(--muted);max-width:44ch}
 .hero-art{justify-self:end;width:100%;max-width:380px}
@@ -82,10 +96,14 @@ h1 .hl{background:linear-gradient(transparent 60%,var(--hl) 60%,var(--hl) 92%,tr
 .sec-head p{font:700 22px/1 var(--f-hand);color:var(--muted)}
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(18px,3vw,32px)}
 
-.book{position:relative;display:flex;flex-direction:column;text-decoration:none;color:#FFFFFF;border-radius:6px 18px 18px 6px;overflow:hidden;box-shadow:var(--lift);background:var(--c1);
+.book{position:relative;display:flex;flex-direction:column;color:#FFFFFF;border-radius:6px 18px 18px 6px;overflow:hidden;box-shadow:var(--lift);background:var(--c1);
   background-image:radial-gradient(120% 90% at 100% 0%,rgba(255,255,255,.14),transparent 60%),linear-gradient(160deg,var(--c1),var(--c2));
   transition:transform .2s ease,box-shadow .2s ease;min-height:100%}
 .book::before{content:"";position:absolute;inset:0 auto 0 0;width:16px;background:repeating-linear-gradient(180deg,rgba(0,0,0,.28) 0 10px,rgba(255,255,255,.12) 10px 12px);opacity:.6}
+.book-link{color:inherit;text-decoration:none}
+.book-link::after{content:"";position:absolute;inset:0;z-index:2}
+.book-link:focus{outline:none}
+.book:focus-within{outline:3px solid var(--accent);outline-offset:4px}
 .book:hover{transform:translateY(-4px) rotate(-.4deg)}
 .book.b1{--c1:var(--cover-1);--c2:var(--cover-1b)}
 .book.b2{--c1:var(--cover-2);--c2:var(--cover-2b)}
@@ -103,7 +121,8 @@ h1 .hl{background:linear-gradient(transparent 60%,var(--hl) 60%,var(--hl) 92%,tr
 .label .subj{font:700 22px/1 var(--f-hand);color:#2D55E0}
 .label p{font-size:16px;color:#3E4C6B}
 .facts{display:flex;flex-wrap:wrap;gap:6px 18px;font-weight:800;font-size:14px;color:#14213A;margin-top:2px}
-.facts span{display:inline-flex;align-items:center;gap:6px}
+.facts{list-style:none;padding:0;margin-bottom:0}
+.facts li{display:inline-flex;align-items:center;gap:6px}
 .facts svg{width:16px;height:16px;color:#2D55E0}
 .go{margin-top:auto;padding-top:8px;display:flex;align-items:center;justify-content:space-between;gap:10px}
 .btn{font:800 16px/1 var(--f-body);background:#2D55E0;color:#FFFFFF;padding:13px 20px;border-radius:12px;box-shadow:0 3px 0 #1B3AA8;display:inline-flex;align-items:center;gap:8px}
@@ -126,7 +145,7 @@ footer{margin-top:auto;padding-block:22px 28px;border-top:1.5px dashed var(--lin
 footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 
 @media (max-width:860px){
-  .hero{grid-template-columns:1fr}
+  .hero{grid-template-columns:minmax(0,1fr)}
   .hero-art{justify-self:start;max-width:300px;order:-1;display:none}
 }
 @media (max-width:700px){
@@ -152,7 +171,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
       <span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="#FFE45C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 7l-5 5 5 5M15 7l5 5-5 5"/></svg></span>
       <span>Geek Informatic<small>уроки інформатики</small></span>
     </a>
-    <nav><a href="#games">Ігри</a> <a href="#quests" style="margin-left:14px">Вебквести</a> <a href="#rebuses" style="margin-left:14px">Ребуси</a></nav>
+    <nav aria-label="Розділи"><a href="#quests">Вебквести</a> <a href="#games">Ігри</a> <a href="#rebuses">Ребуси</a></nav>
   </div>
 </header>
 
@@ -196,7 +215,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
     <div class="sec-head"><h2 id="qh">Вебквести</h2><p>обери свій зошит</p></div>
     <div class="grid">
 
-      <a class="book b1" href="web-quests/agenty-kibershchytu/">
+      <article class="book b1" aria-labelledby="t-cybershield">
         <div class="cover">
           <span class="grade">6 клас</span>
           <svg viewBox="0 0 120 120" aria-hidden="true">
@@ -208,18 +227,18 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
         </div>
         <div class="label">
           <span class="subj">Кібербезпека</span>
-          <h3>Агенти КіберЩиту</h3>
+          <h3 id="t-cybershield"><a href="web-quests/agenty-kibershchytu/" class="book-link">Агенти КіберЩиту</a></h3>
           <p>Хакер Фантом рветься в шкільну мережу. Захисти паролі, розпізнай фішинг і фейки, збери 8 ключів.</p>
-          <div class="facts">
-            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg>8 місій</span>
-            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/></svg>секундомір і бали</span>
-            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg>посвідчення агента</span>
-          </div>
-          <div class="go"><span class="btn">Почати квест<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+          <ul class="facts">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg>8 місій</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/></svg>секундомір і бали</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg>посвідчення агента</li>
+          </ul>
+          <div class="go"><span class="btn" aria-hidden="true">Почати квест<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
         </div>
-      </a>
+      </article>
 
-      <a class="book b2" href="web-quests/kod-galaktyky/">
+      <article class="book b2" aria-labelledby="t-galaxy">
         <div class="cover">
           <span class="grade">7 клас</span>
           <svg viewBox="0 0 120 120" aria-hidden="true">
@@ -232,16 +251,16 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
         </div>
         <div class="label">
           <span class="subj">Алгоритми</span>
-          <h3>Код Галактики</h3>
+          <h3 id="t-galaxy"><a href="web-quests/kod-galaktyky/" class="book-link">Код Галактики</a></h3>
           <p>Програмуй кораблик Біпа блоками: повтори, вкладені повтори і збір кристалів. 15 рівнів.</p>
-          <div class="facts">
-            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="10" height="6" rx="1.5"/><rect x="7" y="14" width="14" height="6" rx="1.5"/></svg>блоки Blockly</span>
-            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v8M8 12h8"/></svg>15 рівнів</span>
-            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><rect x="8" y="8" width="8" height="8" rx="2"/></svg>вкладені цикли</span>
-          </div>
-          <div class="go"><span class="btn">Почати гру<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+          <ul class="facts">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="10" height="6" rx="1.5"/><rect x="7" y="14" width="14" height="6" rx="1.5"/></svg>блоки Blockly</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v8M8 12h8"/></svg>15 рівнів</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><rect x="8" y="8" width="8" height="8" rx="2"/></svg>вкладені цикли</li>
+          </ul>
+          <div class="go"><span class="btn" aria-hidden="true">Почати гру<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
         </div>
-      </a>
+      </article>
 
     </div>
   </section>
@@ -250,7 +269,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
     <div class="sec-head"><h2 id="gh">Ігри</h2><p>програмуй граючи</p></div>
     <div class="grid">
 
-      <a class="book b4" href="robot/">
+      <article class="book b4" aria-labelledby="t-robot">
         <div class="cover">
           <span class="grade">3–4 клас</span>
           <svg viewBox="0 0 120 120" aria-hidden="true">
@@ -277,18 +296,18 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
         </div>
         <div class="label">
           <span class="subj">Алгоритми</span>
-          <h3>Я керую роботом!</h3>
+          <h3 id="t-robot"><a href="robot/" class="book-link">Я керую роботом!</a></h3>
           <p>Склади програму зі стрілок і допоможи роботу зібрати всі кристали.</p>
-          <div class="facts">
-            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6M9 13h4"/></svg>10 рівнів</span>
-            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/></svg>цикли</span>
-            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg>зірки за найкоротший шлях</span>
-          </div>
-          <div class="go"><span class="btn">Грати<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+          <ul class="facts">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6M9 13h4"/></svg>10 рівнів</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/></svg>цикли</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg>зірки за найкоротший шлях</li>
+          </ul>
+          <div class="go"><span class="btn" aria-hidden="true">Грати<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
         </div>
-      </a>
+      </article>
 
-      <a class="book b5" href="mars/">
+      <article class="book b5" aria-labelledby="t-mars">
         <div class="cover">
           <svg viewBox="0 0 120 120" aria-hidden="true">
             <ellipse cx="60" cy="104" rx="42" ry="6" fill="#000" opacity=".2"/>
@@ -310,16 +329,16 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
         </div>
         <div class="label">
           <span class="subj">Алгоритми</span>
-          <h3>Марсохід у лабіринті</h3>
+          <h3 id="t-mars"><a href="mars/" class="book-link">Марсохід у лабіринті</a></h3>
           <p>Склади алгоритм правої руки, і марсохід вибереться з будь-якого лабіринту.</p>
-          <div class="facts">
-            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/></svg>цикли «поки»</span>
-            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v6M12 9l-6 6M12 9l6 6M6 15v6M18 15v6"/></svg>умови</span>
-            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h9v6h9M9 3v6"/></svg>новий лабіринт щоразу</span>
-          </div>
-          <div class="go"><span class="btn">Грати<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+          <ul class="facts">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/></svg>цикли «поки»</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v6M12 9l-6 6M12 9l6 6M6 15v6M18 15v6"/></svg>умови</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h9v6h9M9 3v6"/></svg>новий лабіринт щоразу</li>
+          </ul>
+          <div class="go"><span class="btn" aria-hidden="true">Грати<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
         </div>
-      </a>
+      </article>
 
     </div>
   </section>
@@ -328,7 +347,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
     <div class="sec-head"><h2 id="rh">Ребуси</h2><p>розгадай слово</p></div>
     <div class="grid">
 
-      <a class="book b3" href="rebusy/">
+      <article class="book b3" aria-labelledby="t-rebusy">
         <div class="cover">
           <span class="grade">1–11 клас</span>
           <svg viewBox="0 0 120 120" aria-hidden="true">
@@ -348,16 +367,16 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
         </div>
         <div class="label">
           <span class="subj">Ребуси</span>
-          <h3>100 ребусів з інформатики</h3>
+          <h3 id="t-rebusy"><a href="rebusy/" class="book-link">100 ребусів з інформатики</a></h3>
           <p>Картинки, коми й заміни літер ховають комп’ютерні слова. Склади їх разом і впиши відповідь.</p>
-          <div class="facts">
-            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6M9 13h4"/></svg>100 ребусів</span>
-            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.7.6 1.1 1.3 1.1 2.2h5c0-.9.4-1.6 1.1-2.2A6 6 0 0 0 12 3z"/></svg>підказки</span>
-            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg>4 рівні складності</span>
-          </div>
-          <div class="go"><span class="btn">Розгадувати<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><small>випадковий порядок</small></div>
+          <ul class="facts">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6M9 13h4"/></svg>100 ребусів</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.7.6 1.1 1.3 1.1 2.2h5c0-.9.4-1.6 1.1-2.2A6 6 0 0 0 12 3z"/></svg>підказки</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg>4 рівні складності</li>
+          </ul>
+          <div class="go"><span class="btn" aria-hidden="true">Розгадувати<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><small>випадковий порядок</small></div>
         </div>
-      </a>
+      </article>
 
     </div>
   </section>

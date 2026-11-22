@@ -5,15 +5,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Марсохід у лабіринті — Geek Informatic</title>
 <meta name="description" content="Склади з блоків алгоритм правої руки, і марсохід вибереться з будь-якого лабіринту. Лабіринт щоразу новий.">
+<link rel="canonical" href="https://otianoleksij.github.io/geek-informatic/mars/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Geek Informatic">
+<meta property="og:locale" content="uk_UA">
 <meta property="og:title" content="Марсохід у лабіринті">
 <meta property="og:description" content="Один алгоритм — будь-який лабіринт. Правило правої руки з блоками.">
+<meta property="og:url" content="https://otianoleksij.github.io/geek-informatic/mars/">
+<meta property="og:image" content="https://otianoleksij.github.io/geek-informatic/assets/og/mars.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Марсохід у лабіринті — Geek Informatic">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Марсохід у лабіринті", "description": "Склади з блоків алгоритм правої руки, і марсохід вибереться з будь-якого лабіринту. Лабіринт щоразу новий.", "url": "https://otianoleksij.github.io/geek-informatic/mars/", "inLanguage": "uk", "isAccessibleForFree": true, "learningResourceType": "game", "teaches": ["алгоритми", "цикли", "умови"], "provider": {"@type": "Organization", "name": "Geek Informatic", "url": "https://otianoleksij.github.io/geek-informatic/"}, "publisher": {"@type": "Organization", "name": "Geek Informatic", "url": "https://otianoleksij.github.io/geek-informatic/"}}</script>
 <meta name="theme-color" content="#0B0916">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23C4572B'/%3E%3Crect x='8' y='11' width='16' height='10' rx='3' fill='%23F3E9E1'/%3E%3Ccircle cx='10' cy='24' r='3' fill='%23222'/%3E%3Ccircle cx='22' cy='24' r='3' fill='%23222'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Nunito:wght@400;600;700;800&family=Unbounded:wght@600;800&display=swap">
-<script src="https://unpkg.com/blockly@10.4.3/blockly_compressed.js"></script>
-<script src="https://unpkg.com/blockly@10.4.3/msg/uk.js"></script>
+<link rel="preload" href="../assets/fonts/nunito-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/fonts/fonts.css">
+<script defer src="../vendor/blockly@10.4.3/blockly_compressed.js"></script>
+<script defer src="../vendor/blockly@10.4.3/msg/uk.js"></script>
+<script defer src="../vendor/blockly-keyboard-navigation@0.5.13/index.js"></script>
 <style>
 :root{
   --space:#0B0916; --panel:#16122A; --panel-2:#211A3A; --ink:#F3E9E1; --muted:#B5A9BE; --line:#3A2D55;
@@ -37,6 +48,10 @@ a{color:inherit}
 p{margin:0}
 :focus-visible{outline:3px solid var(--warn);outline-offset:2px;border-radius:6px}
 [hidden]{display:none!important}
+.no-editor{max-width:640px;margin:24px auto;text-align:center}
+.no-editor h2{justify-content:center;margin:0 0 10px}
+.no-editor p{color:var(--muted)}
+.no-editor .row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
 
 /* ===== фон: космос лініями ===== */
 .bg-lines{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
@@ -157,6 +172,11 @@ p{margin:0}
 
 /* ===== Blockly ===== */
 .code-card{min-width:0}
+.kbd-help{margin:0 0 10px;color:var(--muted);font-size:14px}
+.kbd-help summary{cursor:pointer;color:var(--teal);font-weight:700}
+.kbd-help summary:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
+.kbd-help ul{margin:8px 0 0;padding-left:20px;line-height:1.6}
+.kbd-help kbd{font-family:var(--f-mono,ui-monospace,Menlo,monospace);font-size:12px;padding:1px 6px;border:1px solid var(--line);border-radius:6px;background:var(--panel-2);color:var(--ink)}
 #blockly{width:100%;height:clamp(480px,70vh,760px);border-radius:12px;overflow:hidden;border:1px solid var(--line)}
 @media (max-width:899px){#blockly{height:clamp(420px,62vh,560px)}}
 .blocklyMainBackground{stroke:none!important}
@@ -184,6 +204,7 @@ p{margin:0}
   .st{opacity:.6}
   #rv,#rvRot,#flagLift{transition-duration:.1s!important}
 }
+.kbd-steps{margin:4px 0 8px;padding-left:22px}.kbd-steps li{margin:3px 0}.kbd-steps-h{margin:6px 0 2px}
 </style>
 </head>
 <body>
@@ -276,6 +297,7 @@ p{margin:0}
     <nav><a href="../">На головну</a></nav>
   </header>
 
+  <main>
   <noscript><p class="card">Для гри потрібен JavaScript. Увімкни його в браузері.</p></noscript>
 
   <section class="hero">
@@ -283,13 +305,21 @@ p{margin:0}
     <h1>Марсохід у лабіринті</h1>
   </section>
 
-  <section class="card rule" aria-labelledby="ruleH">
+  <section class="card rule" id="ruleCard" aria-labelledby="ruleH">
     <h2 id="ruleH" style="margin-bottom:6px">Правило правої руки</h2>
     <p>Щоб вийти з лабіринту, торкайся <b>правою рукою правої стіни</b> і йди, не відриваючи руки. Так ти обійдеш усі закутки й обов'язково знайдеш вихід, у який би лабіринт не потрапив.</p>
     <p>Складіть програму з блоків. Марсохід бачить лише те, що <b>спереду</b>, тому алгоритм має працювати з цим датчиком. Коли програма готова, натискай «Новий лабіринт»: правильний алгоритм проведе марсохід крізь будь-який.</p>
   </section>
 
-  <div class="game-grid">
+  <section id="viewNoEditor" class="card no-editor" role="alert" hidden>
+    <h2>Редактор блоків не завантажився</h2>
+    <p>Не вдалося завантажити редактор блоків. Онови сторінку. Якщо не допоможе — повідом учителя.</p>
+    <div class="row">
+      <button class="btn btn-main" id="reloadPage" type="button">Оновити сторінку</button>
+    </div>
+  </section>
+
+  <div class="game-grid" id="gameArea">
     <section class="card stage-card" id="stageCard" aria-label="Поверхня Марса">
       <h3>Поверхня Марса <span id="pos">курс: ➜ схід</span></h3>
       <div class="stage-box" id="stageBox">
@@ -381,9 +411,29 @@ p{margin:0}
 
     <section class="card code-card" aria-label="Програма марсохода">
       <h3>Програма марсохода <span>блоки перетягуй під «▶ коли запущено»</span></h3>
+      <details class="kbd-help"><summary>Керування з клавіатури</summary>
+        <p class="kbd-steps-h"><b>Як додати блок без миші:</b></p>
+        <ol class="kbd-steps">
+          <li>Клавішею <kbd>Tab</kbd> перейди в поле програми й натисни <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>K</kbd>.</li>
+          <li><kbd>D</kbd> і <kbd>S</kbd> — підведи курсор під останній блок програми (там з’явиться лінія).</li>
+          <li><kbd>Enter</kbd> — позначити це місце.</li>
+          <li><kbd>T</kbd> — перейти до панелі, <kbd>S</kbd> — вибрати потрібний блок.</li>
+          <li><kbd>Enter</kbd> — блок стане на позначене місце.</li>
+        </ol>
+        <p class="kbd-steps-h"><b>Усі клавіші:</b></p>
+        <ul>
+        <li><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>K</kbd> — увімкнути або вимкнути клавіатурний режим (фокус має бути на робочій області).</li>
+        <li><kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd> — рухатися по блоках: вгору, назовні, вниз, всередину.</li>
+        <li><kbd>T</kbd> — перейти до панелі блоків; <kbd>W</kbd>/<kbd>S</kbd> — вибрати розділ, <kbd>D</kbd> — відкрити блоки розділу.</li>
+        <li><kbd>Enter</kbd> — у панелі блоків: узяти блок у програму; у програмі: позначити місце, куди вставити.</li>
+        <li><kbd>I</kbd> — вставити (приєднати) блок до позначеного місця. <kbd>Shift</kbd>+<kbd>W</kbd>/<kbd>A</kbd>/<kbd>S</kbd>/<kbd>D</kbd> — рухати курсор по порожньому полю.</li>
+        <li><kbd>X</kbd> — від’єднати блок. <kbd>Delete</kbd> або <kbd>Backspace</kbd> — видалити вибраний блок.</li>
+        <li><kbd>Esc</kbd> або <kbd>E</kbd> — повернутися з панелі блоків до програми.</li>
+      </ul></details>
       <div id="blockly"></div>
     </section>
   </div>
+  </main>
 </div>
 
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mtitle">
@@ -398,7 +448,7 @@ p{margin:0}
   </div>
 </div>
 
-<script src="mars-core.js"></script>
-<script src="app.js"></script>
+<script defer src="mars-core.js"></script>
+<script defer src="app.js"></script>
 </body>
 </html>
