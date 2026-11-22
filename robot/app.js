@@ -2,7 +2,7 @@
 (function () {
   "use strict";
   var Core = window.RobotCore, LEVELS = window.ROBOT_LEVELS || [];
-  var KEY = "geek-robot-v1";
+  var STORE_ID = "robot:v1", LEGACY_KEY = "geek-robot-v1", SLUG = "robot";
   var reduce = false;
   try { reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
   var $ = function (id) { return document.getElementById(id); };
@@ -56,13 +56,21 @@
 
   /* ---------- Прогрес ---------- */
   function loadProgress() {
-    try {
-      var o = JSON.parse(localStorage.getItem(KEY) || "null");
-      if (o && typeof o === "object" && o.stars && typeof o.stars === "object") return o;
-    } catch (e) {}
+    var o = window.GIStorage ? GIStorage.load(STORE_ID, LEGACY_KEY) : null;
+    if (o && typeof o === "object" && o.stars && typeof o.stars === "object") return o;
     return { stars: {} };
   }
-  function saveProgress() { try { localStorage.setItem(KEY, JSON.stringify(progress)); } catch (e) {} }
+  function saveProgress() {
+    if (!window.GIStorage) return;
+    GIStorage.save(STORE_ID, progress);
+    syncSummary();
+  }
+  function syncSummary() {
+    if (!window.GIStorage) return;
+    var done = 0;
+    LEVELS.forEach(function (lv) { if (starsOf(lv.n) > 0) done++; });
+    GIStorage.setSummary(SLUG, done, LEVELS.length);
+  }
   var progress = loadProgress();
   function starsOf(n) { var s = +progress.stars[n]; return s >= 1 && s <= 3 ? s : 0; }
   function unlocked(n) { return n === 1 || starsOf(n - 1) > 0; }
@@ -83,7 +91,7 @@
       for (var k = 1; k <= 3; k++) stars += starSVG(k <= st);
       b.innerHTML = '<span class="num">' + lv.n + '</span><span class="nm">' + esc(lv.title) + '</span>' +
         (open ? '<span class="stars" aria-hidden="true">' + stars + '</span>' : LOCK);
-      b.addEventListener("click", function () { openLevel(i); });
+      b.addEventListener("click", function () { navigate("level-" + lv.n, "push"); });
       host.appendChild(b);
     });
     $("progressTxt").textContent = "Зірок: " + total + " з " + LEVELS.length * 3;
@@ -97,7 +105,7 @@
       resetArmed = true; b.textContent = "Стерти прогрес? Ще раз"; b.classList.add("armed");
       resetTimer = setTimeout(disarm, 4000);
     } else {
-      disarm(); progress = { stars: {} }; saveProgress(); renderSelect();
+      disarm(); progress = { stars: {} }; if (window.GIStorage) GIStorage.remove(STORE_ID); syncSummary(); renderSelect();
     }
   });
   function disarm() {
@@ -126,8 +134,9 @@
     window.scrollTo(0, 0);
   }
 
-  function openLevel(i) {
-    if (i < 0 || i >= LEVELS.length || !unlocked(LEVELS[i].n)) return;
+  /* force=true: пряме посилання #level-N відкриває рівень, навіть якщо він ще закритий */
+  function openLevel(i, force) {
+    if (i < 0 || i >= LEVELS.length || (!force && !unlocked(LEVELS[i].n))) return;
     stopAll(true);
     lvIdx = i; level = LEVELS[i]; map = Core.parseMap(level);
     program = []; openIdx = -1; lastKey = "";
@@ -568,7 +577,7 @@
       '<p class="sub">' + esc(txt) + '</p><div class="btns">' +
       '<button class="btn go" id="mNext" type="button">' + (last ? "До рівнів" : "Наступний рівень") + '</button>' +
       '<button class="btn ghost" id="mAgain" type="button">Покращити</button></div></div></div>';
-    $("mNext").addEventListener("click", function () { closeModal(true); if (last) { goSelect(); } else openLevel(lvIdx + 1); });
+    $("mNext").addEventListener("click", function () { closeModal(true); if (last) { goSelect(); } else navigate("level-" + LEVELS[lvIdx + 1].n, "replace"); });
     $("mAgain").addEventListener("click", function () { closeModal(true); resetRobot(); setMsg("Спробуй скласти коротшу програму!", "info"); });
     $("mNext").focus();
     $("modal").addEventListener("keydown", function (e) {
@@ -608,7 +617,59 @@
   }
 
   /* ---------- Події ---------- */
-  function goSelect() { stopAll(true); renderSelect(); show("select"); }
+  /* ---------- Маршрутизація (#level-N) ---------- */
+  var curRoute = null;        // що зараз показано: "" (карта) або "level-N"; null — ще нічого
+  var cameFromMap = false;    // попередній запис історії — карта цього ж застосунку
+  function parseRoute() {
+    var h = (location.hash || "").replace(/^#/, "");
+    if (!h) return { key: "" };
+    var m = /^level-(\d+)$/.exec(h);
+    if (m) {
+      var n = parseInt(m[1], 10);
+      for (var i = 0; i < LEVELS.length; i++) if (LEVELS[i].n === n) return { key: "level-" + n, idx: i };
+    }
+    return { key: "", bad: true };
+  }
+  function cleanHash() {
+    try { history.replaceState(null, "", location.pathname + location.search); } catch (e) { location.hash = ""; }
+  }
+  /* Показує екран за поточним hash. Єдине місце, що рендерить екрани. */
+  function route(initial) {
+    var r = parseRoute();
+    if (r.bad) cleanHash();
+    if (r.key === curRoute) return;
+    var prev = curRoute;
+    curRoute = r.key;
+    if (r.key === "") {
+      stopAll(true); renderSelect(); show("select"); cameFromMap = false;
+      if (!initial) focusHead("selTitle");
+    } else {
+      if (!initial && prev === "") cameFromMap = true; else if (prev !== null) cameFromMap = false;
+      openLevel(r.idx, true);
+    }
+  }
+  function focusHead(id) {
+    try { var h = $(id); h.setAttribute("tabindex", "-1"); h.focus({ preventScroll: true }); } catch (e) {}
+  }
+  /* mode: push — новий запис історії (hashchange зробить решту); replace — без запису */
+  function navigate(key, mode) {
+    if (mode === "replace") {
+      try { history.replaceState(null, "", key ? "#" + key : location.pathname + location.search); } catch (e) { location.hash = key; return; }
+      route(false);
+    } else {
+      if ((location.hash || "").replace(/^#/, "") === key) { route(false); return; }
+      location.hash = key;   // → hashchange → route()
+    }
+  }
+  window.addEventListener("hashchange", function () { route(false); });
+
+  function goSelect() {
+    if (curRoute === "") { stopAll(true); renderSelect(); return; }
+    if (cameFromMap && window.history && history.length > 1) {
+      history.back();   // hashchange поверне на карту
+      setTimeout(function () { if (curRoute !== "") navigate("", "replace"); }, 400);
+    } else navigate("", "replace");
+  }
   $("back").addEventListener("click", goSelect);
   $("palette").addEventListener("click", function (e) {
     var b = e.target.closest && e.target.closest(".cmd"); if (!b) return;
@@ -648,6 +709,8 @@
   });
 
   try { $("yr").textContent = new Date().getFullYear(); } catch (e) {}
+  syncSummary();
   renderSelect();
   show("select");
+  route(true);
 })();

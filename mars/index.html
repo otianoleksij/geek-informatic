@@ -30,9 +30,7 @@
   --space:#0B0916; --panel:#16122A; --panel-2:#211A3A; --ink:#F3E9E1; --muted:#B5A9BE; --line:#3A2D55;
   --mars:#FF7A3D; --mars-deep:#C4572B; --red:#E5483A; --teal:#3FE0D0; --teal-ink:#03211E; --sand:#FFD9A8;
   --ok:#4BE39A; --bad:#FF7B6B; --warn:#FFC94A;
-  --f-display:"Unbounded","Arial Black",system-ui,sans-serif;
-  --f-body:"Nunito","Segoe UI",system-ui,-apple-system,sans-serif;
-  --f-hand:"Caveat","Segoe Print","Comic Sans MS",cursive;
+  --f-mono:ui-monospace,Menlo,monospace; /* як було: без JetBrains Mono (шрифтові змінні — assets/fonts/fonts.css) */
   --r:16px;
 }
 *{box-sizing:border-box}
@@ -448,6 +446,7 @@ p{margin:0}
   </div>
 </div>
 
+<script defer src="../assets/js/storage.js"></script>
 <script defer src="mars-core.js"></script>
 <script defer src="app.js"></script>
 </body>

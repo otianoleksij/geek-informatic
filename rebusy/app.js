@@ -2,7 +2,7 @@
 (function () {
   "use strict";
   var C = window.RebusCore, ALL = window.REBUSES || [];
-  var LS_KEY = "geek-rebus-solved-v1";
+  var STORE_ID = "rebusy:v1", LEGACY_KEY = "geek-rebus-solved-v1", SLUG = "rebusy";
   var GRADE_LABEL = { "1-4": "1–4 клас", "5-6": "5–6 клас", "7-9": "7–9 клас", "10-11": "10–11 клас" };
   var CONFETTI = ["#FFE45C", "#F08CA4", "#6FCB98", "#7FA3F5", "#B591F2", "#F0A96A"];
 
@@ -21,11 +21,18 @@
   /* --- збереження --- */
   var solvedSet = {};
   try {
-    var raw = window.localStorage.getItem(LS_KEY);
-    if (raw) JSON.parse(raw).forEach(function (id) { solvedSet[id] = 1; });
+    var raw = window.GIStorage ? GIStorage.load(STORE_ID, LEGACY_KEY) : null;
+    if (raw && raw.forEach) raw.forEach(function (id) { solvedSet[id] = 1; });
   } catch (e) { solvedSet = {}; }
+  function syncSummary() {
+    if (!window.GIStorage) return;
+    var done = 0;
+    ALL.forEach(function (r) { if (solvedSet[r.id]) done++; });
+    GIStorage.setSummary(SLUG, done, ALL.length);
+  }
   function persist() {
-    try { window.localStorage.setItem(LS_KEY, JSON.stringify(Object.keys(solvedSet))); } catch (e) {}
+    if (window.GIStorage) GIStorage.save(STORE_ID, Object.keys(solvedSet));
+    syncSummary();
   }
 
   /* --- стан --- */
@@ -142,6 +149,7 @@
   function show() {
     cur = deck[pos];
     lastId = cur.id;
+    setHash(cur.id);
     hintStep = 0; finished = false;
     el.pieces.textContent = "";
     cur.parts.forEach(function (p, i) { el.pieces.appendChild(renderPiece(p, i)); });
@@ -160,6 +168,41 @@
     renderBoxes();
     updateSolved();
   }
+  /* --- маршрутизація: #r017 (replaceState, без нових записів історії) --- */
+  function setHash(id) {
+    try { history.replaceState(null, "", "#" + id); } catch (e) { /* ок */ }
+  }
+  function cleanHash() {
+    try { history.replaceState(null, "", location.pathname + location.search); } catch (e) { /* ок */ }
+  }
+  function findById(id) {
+    for (var i = 0; i < ALL.length; i++) if (ALL[i].id === id) return ALL[i];
+    return null;
+  }
+  /* Показує ребус із hash. true, якщо hash вказував на існуючий ребус. */
+  function applyHash(initial) {
+    var id = (location.hash || "").replace(/^#/, "");
+    if (!id) return false;
+    var r = findById(id);
+    if (!r) { cleanHash(); return false; }
+    if (cur && cur.id === r.id) return true;
+    if (filter !== "all" && r.g !== filter) setFilterPills("all");
+    buildDeck();
+    for (var i = 0; i < deck.length; i++) if (deck[i].id === id) { pos = i; break; }
+    show();
+    if (!initial) {
+      try { el.counter.setAttribute("tabindex", "-1"); el.counter.focus({ preventScroll: true }); } catch (e) {}
+    }
+    return true;
+  }
+  function setFilterPills(g) {
+    filter = g;
+    Array.prototype.forEach.call(document.querySelectorAll(".pill"), function (b) {
+      b.setAttribute("aria-pressed", b.getAttribute("data-g") === g ? "true" : "false");
+    });
+  }
+  window.addEventListener("hashchange", function () { if (C && ALL.length) applyHash(false); });
+
   function updateSolved() { el.solved.textContent = "Розгадано: " + sessionSolved; }
 
   function nextRebus() {
@@ -171,10 +214,7 @@
   }
 
   function setFilter(g) {
-    filter = g;
-    Array.prototype.forEach.call(document.querySelectorAll(".pill"), function (b) {
-      b.setAttribute("aria-pressed", b.getAttribute("data-g") === g ? "true" : "false");
-    });
+    setFilterPills(g);
     lastId = null;
     buildDeck();
     show();
@@ -295,7 +335,7 @@
   if (!C || !ALL.length) {
     el.pieces.textContent = "Не вдалося завантажити ребуси.";
   } else {
-    buildDeck();
-    show();
+    syncSummary();
+    if (!applyHash(true)) { buildDeck(); show(); }
   }
 })();

@@ -1,0 +1,25 @@
+/* Дизайн-токени «зошита в клітинку» (світла й темна теми). Тільки custom properties та color-scheme.
+   Шрифтові змінні (--f-display, --f-body, --f-hand, --f-mono) лежать у assets/fonts/fonts.css.
+   Темна тема задана двічі: за системною темою (якщо не примусово світла) і через data-theme="dark". */
+:root{
+  --paper:#EEF3FA; --surface:#FFFFFF; --ink:#14213A; --muted:#56668A; --line:#CCD7E8; --grid:rgba(45,85,224,.10);
+  --accent:#2D55E0; --accent-deep:#1B3AA8; --accent-ink:#FFFFFF; --accent-soft:#E1E8FD;
+  --margin:#E3655B; --hl:#FFE45C; --ok:#17905A; --ok-soft:#DDF5E8; --bad:#C8362B; --bad-soft:#FDE5E2;
+  --lift:0 1px 0 rgba(20,33,58,.04),0 14px 30px -18px rgba(20,33,58,.45);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0D1423; --surface:#162036; --ink:#E6ECF8; --muted:#98A7C4; --line:#2A3854; --grid:rgba(125,155,255,.07);
+    --accent:#7D9BFF; --accent-deep:#4C69D6; --accent-ink:#0D1423; --accent-soft:#1E2B4C;
+    --margin:#B4544D; --hl:#8A6F00; --ok:#4CC98E; --ok-soft:#14352A; --bad:#FF8C80; --bad-soft:#3E1D1A;
+    --lift:0 14px 30px -18px rgba(0,0,0,.7);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0D1423; --surface:#162036; --ink:#E6ECF8; --muted:#98A7C4; --line:#2A3854; --grid:rgba(125,155,255,.07);
+  --accent:#7D9BFF; --accent-deep:#4C69D6; --accent-ink:#0D1423; --accent-soft:#1E2B4C;
+  --margin:#B4544D; --hl:#8A6F00; --ok:#4CC98E; --ok-soft:#14352A; --bad:#FF8C80; --bad-soft:#3E1D1A;
+  --lift:0 14px 30px -18px rgba(0,0,0,.7);
+  color-scheme:dark;
+}

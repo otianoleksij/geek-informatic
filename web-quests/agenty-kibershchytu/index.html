@@ -20,33 +20,23 @@
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Агенти КіберЩиту", "description": "Вебквест з кібербезпеки для 6 класу: 8 інтерактивних місій про паролі, фішинг, фейки та приватність в інтернеті, наприкінці — посвідчення агента.", "url": "https://otianoleksij.github.io/geek-informatic/web-quests/agenty-kibershchytu/", "inLanguage": "uk", "isAccessibleForFree": true, "learningResourceType": "webquest", "educationalLevel": "6 клас", "teaches": ["кібербезпека", "паролі", "фішинг", "приватність в інтернеті"], "provider": {"@type": "Organization", "name": "Geek Informatic", "url": "https://otianoleksij.github.io/geek-informatic/"}, "publisher": {"@type": "Organization", "name": "Geek Informatic", "url": "https://otianoleksij.github.io/geek-informatic/"}}</script>
 <link rel="preload" href="../../assets/fonts/nunito-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../../assets/fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/css/tokens.css">
 <style>
 /* Layout: a blueprint-grid "agency HQ" — sticky console bar with key slots, one centered mission column below. */
 :root{
-  --paper:#EBF1F9; --surface:#FFFFFF; --ink:#14213A; --muted:#56668A; --line:#CCD7E8; --grid:rgba(45,85,224,.07);
-  --accent:#2D55E0; --accent-deep:#1B3AA8; --accent-ink:#FFFFFF; --accent-soft:#E1E8FD;
   --signal:#FFC23D; --signal-ink:#14213A;
-  --ok:#17905A; --ok-bg:#E0F4EA; --bad:#CF3F37; --bad-bg:#FBE6E4;
-  --f-display:"Unbounded","Arial Black",system-ui,sans-serif;
-  --f-body:"Nunito","Segoe UI",system-ui,-apple-system,sans-serif;
-  --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --ok-bg:#E0F4EA; --bad:#CF3F37; --bad-bg:#FBE6E4;
   --r:14px;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --paper:#0D1423; --surface:#162036; --ink:#E6ECF8; --muted:#98A7C4; --line:#2A3854; --grid:rgba(125,155,255,.06);
-    --accent:#7D9BFF; --accent-deep:#4C69D6; --accent-ink:#0D1423; --accent-soft:#1E2B4C;
     --signal:#FFD15C; --signal-ink:#14213A;
-    --ok:#4CC98E; --ok-bg:#123327; --bad:#FF7B70; --bad-bg:#3B1C1F;
-    color-scheme:dark;
+    --ok-bg:#123327; --bad:#FF7B70; --bad-bg:#3B1C1F;
   }
 }
 :root[data-theme="dark"]{
-  --paper:#0D1423; --surface:#162036; --ink:#E6ECF8; --muted:#98A7C4; --line:#2A3854; --grid:rgba(125,155,255,.06);
-  --accent:#7D9BFF; --accent-deep:#4C69D6; --accent-ink:#0D1423; --accent-soft:#1E2B4C;
   --signal:#FFD15C; --signal-ink:#14213A;
-  --ok:#4CC98E; --ok-bg:#123327; --bad:#FF7B70; --bad-bg:#3B1C1F;
-  color-scheme:dark;
+  --ok-bg:#123327; --bad:#FF7B70; --bad-bg:#3B1C1F;
 }
 *{box-sizing:border-box}
 html,body{margin:0}
@@ -342,16 +332,15 @@ button.mrow:hover{border-color:var(--accent)}
 .copybox{font:600 14px var(--f-mono);background:var(--paper);border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;user-select:all;word-break:break-word}
 
 /* ===== Шкільна тема «зошит у клітинку» (Geek Informatic) ===== */
+/* спільна палітра (--paper, --grid, --margin, --hl, ...): assets/css/tokens.css */
 :root{
-  --f-hand:"Caveat","Segoe Print","Comic Sans MS",cursive;
-  --margin:#E3655B; --hl:#FFE45C; --note:#FFF3B0; --note-ink:#3A3110; --tape:rgba(255,255,255,.55);
-  --paper:#EEF3FA; --grid:rgba(45,85,224,.10);
+  --note:#FFF3B0; --note-ink:#3A3110; --tape:rgba(255,255,255,.55);
   --lift:0 1px 0 rgba(20,33,58,.04),0 6px 18px -10px rgba(20,33,58,.25);
 }
 @media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){--margin:#B4544D;--hl:#8A6F00;--note:#3A3418;--note-ink:#FFF1B8;--tape:rgba(255,255,255,.12);--paper:#0D1423;--grid:rgba(125,155,255,.07);--lift:0 6px 18px -10px rgba(0,0,0,.6)}
+  :root:not([data-theme="light"]){--note:#3A3418;--note-ink:#FFF1B8;--tape:rgba(255,255,255,.12);--lift:0 6px 18px -10px rgba(0,0,0,.6)}
 }
-:root[data-theme="dark"]{--margin:#B4544D;--hl:#8A6F00;--note:#3A3418;--note-ink:#FFF1B8;--tape:rgba(255,255,255,.12);--paper:#0D1423;--grid:rgba(125,155,255,.07);--lift:0 6px 18px -10px rgba(0,0,0,.6)}
+:root[data-theme="dark"]{--note:#3A3418;--note-ink:#FFF1B8;--tape:rgba(255,255,255,.12);--lift:0 6px 18px -10px rgba(0,0,0,.6)}
 
 body{background-size:24px 24px}
 /* Червона лінія полів зошита */
@@ -439,6 +428,7 @@ button.mrow:hover{transform:translateX(3px)}
 </header>
 <main class="wrap"><div id="view" class="stack lg"></div></main>
 
+<script src="../../assets/js/storage.js"></script>
 <script>
 (function(){
 "use strict";
@@ -824,7 +814,7 @@ var M = [
    ]}
 ];
 var WORD = "ЗАХИСНИК";
-var LS = "kiberquest-v3";
+var STORE_ID = "agenty-kibershchytu:v3", LEGACY_KEY = "kiberquest-v3", SLUG = "agenty-kibershchytu";
 function makeLetters(){ var a; do { a=shuffle(WORD.split("")); } while(a.join("")===WORD || a.slice(0,3).join("")===WORD.slice(0,3)); return a; }
 function letterOf(i){ return (S.letters && S.letters[i]) || WORD[i]; }
 
@@ -847,8 +837,9 @@ var TOTAL = M.reduce(function(s,m){ return s + m.tasks.reduce(function(a,t){retu
 /* ---------- State ---------- */
 function fresh(){ return {name:"",cls:"",started:0,finished:0,done:[],scores:{},screen:"start",cur:0,task:0}; }
 /* Ім’я і клас учня не зберігаються (персональні дані) — лише в пам’яті, поки відкрита сторінка. */
-function load(){ try{ var r=localStorage.getItem(LS); if(!r) return null; return JSON.parse(r); }catch(e){ return null; } }
-function save(){ var o={}; for(var k in S){ if(k!=="name" && k!=="cls") o[k]=S[k]; } try{ localStorage.setItem(LS, JSON.stringify(o)); }catch(e){} }
+function load(){ try{ var o=window.GIStorage ? GIStorage.load(STORE_ID, LEGACY_KEY) : null; return o && typeof o==="object" ? o : null; }catch(e){ return null; } }
+function syncSummary(){ try{ if(window.GIStorage) GIStorage.setSummary(SLUG, S.done ? S.done.length : 0, M.length); }catch(e){} }
+function save(){ var o={}; for(var k in S){ if(k!=="name" && k!=="cls") o[k]=S[k]; } try{ if(window.GIStorage) GIStorage.save(STORE_ID, o); }catch(e){} syncSummary(); }
 var S = load() || fresh();
 S.name=""; S.cls="";
 /* Знайдено збережений квест — спершу питаємо, продовжувати чи почати заново. */
@@ -868,7 +859,53 @@ function fmt(sec){ var m=Math.floor(sec/60), s=sec%60; return (m<10?"0":"")+m+":
 function shuffle(a){ a=a.slice(); for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var x=a[i]; a[i]=a[j]; a[j]=x; } return a; }
 var timers=[];
 function later(fn,ms){ timers.push(setTimeout(fn,ms)); }
-function go(screen){ timers.forEach(clearTimeout); timers=[]; S.screen=screen; save(); render(); try{ window.scrollTo({top:0,behavior:"smooth"}); }catch(e){ window.scrollTo(0,0); } }
+/* Маршрутизація: hash відповідає екрану (#map, #mission-N, #final, #cert; start/resume — без hash).
+   go(screen)           — новий запис історії, якщо hash змінився (Назад повертає на попередній екран);
+   go(screen,"replace") — той самий запис історії (start, resume, посвідчення після слова). */
+function hashFor(screen){
+  if(screen==="map") return "map";
+  if(screen==="brief" || screen==="task" || screen==="done") return "mission-"+(S.cur+1);
+  if(screen==="final") return "final";
+  if(screen==="cert") return "cert";
+  return "";
+}
+function curHash(){ return (location.hash||"").replace(/^#/,""); }
+function syncHash(screen, mode){
+  var h=hashFor(screen);
+  if(h===curHash()) return;
+  try{
+    if(mode==="replace" || mode==="route" || !h || screen==="resume") history.replaceState(null,"", h ? "#"+h : location.pathname+location.search);
+    else history.pushState(null,"","#"+h);
+  }catch(e){}
+}
+function focusHead(){
+  try{ var h=view.querySelector("h1,h2,.qtext"); if(h){ h.setAttribute("tabindex","-1"); h.focus({preventScroll:true}); } }catch(e){}
+}
+function go(screen, mode){ timers.forEach(clearTimeout); timers=[]; S.screen=screen; save(); syncHash(screen, mode); render(); if(mode!=="route") focusHead(); if(mode==="route"){ window.scrollTo(0,0); } else { try{ window.scrollTo({top:0,behavior:"smooth"}); }catch(e){ window.scrollTo(0,0); } } }
+/* Назад/Вперед: hash не може обійти замки місій чи ім’я перед посвідченням — екран визначає стан квесту. */
+function resolveHash(h){
+  if(!S.started) return {screen:"start"};
+  var m=/^mission-(\d+)$/.exec(h);
+  if(m){
+    var i=+m[1]-1;
+    if(i>=0 && i<M.length){
+      if(S.cur===i && (S.screen==="brief" || S.screen==="task" || S.screen==="done")) return {screen:S.screen};
+      if(i===nextOpen()) return {screen:"brief", cur:i};
+    }
+    return {screen:"map"};
+  }
+  if(h==="final" && nextOpen()<0) return {screen: S.finished ? "cert" : "final"};
+  if(h==="cert") return {screen: S.finished ? "cert" : (nextOpen()<0 ? "final" : "map")};
+  return {screen:"map"};
+}
+window.addEventListener("hashchange", function(){
+  if(S.screen==="resume") return;           // діалог «Продовжити?» не чіпаємо
+  var h=curHash();
+  if(h===hashFor(S.screen) && S.started) return;
+  var r=resolveHash(h);
+  if(r.cur!==undefined){ S.cur=r.cur; S.task=0; }
+  go(r.screen, "route");
+});
 
 function header(){
   var k=document.getElementById("keys"), h="";
@@ -1381,7 +1418,7 @@ function finalScreen(){
     picked.push(i); draw();
     if(picked.length===WORD.length){
       var w=picked.map(function(j){return TILE_ORDER[j];}).join("");
-      if(w===WORD){ S.finished=Date.now(); save(); hint.textContent="Двері відчинено!"; later(function(){ go("cert"); }, 600); }
+      if(w===WORD){ if(!S.finished) S.finished=Date.now(); save(); hint.textContent="Двері відчинено!"; later(function(){ go("cert","replace"); }, 600); }
       else { tries++; slots.classList.remove("shake"); void slots.offsetWidth; slots.classList.add("shake");
         hint.textContent = tries>1 ? "Підказка: хто такий агент КіберЩиту? Той, хто захищає. Слово починається на «З»." : "Не те слово. Спробуй ще раз!";
         later(function(){ picked=[]; draw(); }, 700); }
@@ -1436,11 +1473,11 @@ function certScreen(){
   var ag=document.getElementById("again"), armed=false;
   ag.addEventListener("click",function(){
     if(!armed){ armed=true; ag.textContent="Точно? Результат зітреться. Натисни ще раз"; return; }
-    S=fresh(); go("start");
+    S=fresh(); go("start","replace");
   });
 }
 
-function resetAll(){ timers.forEach(clearTimeout); timers=[]; try{ localStorage.removeItem(LS); }catch(e){} S=fresh(); go("start"); }
+function resetAll(){ timers.forEach(clearTimeout); timers=[]; try{ if(window.GIStorage) GIStorage.remove(STORE_ID); }catch(e){} S=fresh(); go("start","replace"); }
 
 var rb=document.getElementById("restart"), rbArmed=null;
 function disarm(){ clearTimeout(rbArmed); rbArmed=null; rb.classList.remove("armed"); rb.querySelector("span").textContent="Почати спочатку"; }
@@ -1449,6 +1486,8 @@ rb.addEventListener("click",function(){
   disarm(); resetAll();
 });
 
+syncSummary();
+if(!S.started && curHash()){ try{ history.replaceState(null,"",location.pathname+location.search); }catch(e){} }
 render();
 })();
 </script>

@@ -21,10 +21,13 @@
 ```
 index.html                         головна: картки активностей
 404.html                           сторінка помилки (усі посилання абсолютні від /geek-informatic/)
-sitemap.xml                        6 адрес сайту для пошукових систем
+catalog.json                       реєстр активностей (типи, теми, класи, тривалість)
+sitemap.xml                        8 адрес сайту для пошукових систем
 .nojekyll                          вимикає обробку Jekyll на GitHub Pages
 assets/
-  fonts/                           fonts.css, woff2 шрифтів, OFL.txt, README.md
+  css/                             tokens.css (палітра «зошита», світла й темна теми), base.css (скидання, тіло, шапка, підвал)
+  js/                              storage.js (GIStorage: прогрес у localStorage), catalog-filter.js (фільтри й прогрес на головній)
+  fonts/                           fonts.css (@font-face і змінні --f-display/--f-body/--f-hand/--f-mono), woff2 шрифтів, OFL.txt, README.md
   og/                              PNG 1200x630 для соцмереж (home, robot, mars, rebusy, ...)
 vendor/                            сторонні бібліотеки (Blockly), див. vendor/README.md
 web-quests/
@@ -32,8 +35,10 @@ web-quests/
   kod-galaktyky/                   index.html, app.js, galaxy-core.js, levels.js
 robot/                             index.html, app.js, robot-core.js, levels.js
 mars/                              index.html, app.js, mars-core.js
+privacy/index.html                 сторінка «Приватність» (кнопка очищення даних)
+teachers/index.html                сторінка «Для вчителів» (прямі посилання, поради)
 rebusy/                            index.html, app.js, rebus-core.js, rebuses.js
-tools/                             check-robot.js, check-galaxy.js, check-rebuses.js, check-mars.js
+tools/                             check-robot.js, check-galaxy.js, check-rebuses.js, check-mars.js, check-catalog.js
 ```
 
 ## Запуск локально
@@ -56,6 +61,7 @@ python3 -m http.server
 | `node tools/check-galaxy.js` | рівно 15 рівнів «Коду Галактики»: квадратна карта 6..9, `start.dir`, `allowed`/`limits`, розв'язок виграє, `par` і `maxBlocks`, мінімальна вартість програми |
 | `node tools/check-rebuses.js` | рівно 100 ребусів (по 25 у групах 1-4, 5-6, 7-9, 10-11): унікальні `id` і відповіді, відповідь збігається з обчисленою з `parts`, підказка не містить кореня відповіді й не довша за 120 символів, 2–4 частини, є картинка |
 | `node tools/check-mars.js` | генератор лабіринтів (500 зерен): симетрія стін і зовнішня рамка, досяжність усіх клітинок, детермінованість генератора, різноманітність лабіринтів, що алгоритм правої й лівої руки проходить усі 500 лабіринтів, а наївна програма ні, спрацювання удару й ліміту кроків |
+| `node tools/check-catalog.js` | `catalog.json` (тип, теми, класи, складність, тривалість), що на головній рівно одна картка на активність і її `data-*` та `href` збігаються з каталогом, що є `og`-картинка, `canonical` і посилання на головну, що кожна адреса з `sitemap.xml` веде на наявний `index.html` |
 
 Кожна команда завершується кодом 0 і рядком `OK`, або виводить список помилок і завершується з кодом 1.
 
@@ -78,15 +84,29 @@ python3 -m http.server
 1. Створи теку (для гри в корені, як `robot/`, для квесту в `web-quests/<назва-латиницею>/`) з `index.html`.
 2. Додай посилання «На головну» з відносним шляхом до кореня: `href="../"` для сторінки в `robot/`, `mars/`, `rebusy/`, і `href="../../"` для `web-quests/<назва>/`.
 3. Задай `<title>` у форматі «Назва — Geek Informatic» і `<meta name="description" content="...">`.
-4. На головній `index.html` скопіюй наявний блок `<a class="book bN" href="...">` у потрібну секцію (Вебквести, Ігри, Ребуси) і зміни клас, назву, опис та `href`.
-5. Не підключай зовнішні бібліотеки й сервери без потреби: шрифти беруться з `assets/fonts/fonts.css`, бібліотеки лежать у `vendor/`. У `<head>` додай `canonical`, Open Graph, JSON-LD (див. розділ «SEO»), створи `assets/og/<slug>.png` і додай адресу в `sitemap.xml`. Також додай активність у список на `404.html`.
-6. Якщо є рівні чи дані, винеси логіку в `*-core.js` без DOM і додай валідатор у `tools/`.
+4. Додай запис у `catalog.json` (`id` = назва теки латиницею, `type`, `path`, `title`, `description`, `grades`, `topics`, `difficulty`, `duration`, `og`). На головній `index.html` скопіюй наявний блок `<a class="book bN" href="...">` у потрібну секцію (Вебквести, Ігри, Ребуси) і зміни клас, назву, опис та `href`, а також атрибути `data-id`, `data-type`, `data-grades`, `data-topics`, `data-difficulty` (вони мають точно збігатися з `catalog.json`).
+5. Не підключай зовнішні бібліотеки й сервери без потреби: шрифти беруться з `assets/fonts/fonts.css` (він же дає змінні шрифтів, тож підключай його на кожній сторінці). Сторінка зі стилем «зошит» підключає ще `assets/css/tokens.css` (кольори й темна тема) та `assets/css/base.css` (спільні базові стилі й шапка) перед своїм `<style>`; космічні сторінки (`mars`, `kod-galaktyky`) тримають власну палітру в `<style>` і tokens/base не підключають. Бібліотеки лежать у `vendor/`. У `<head>` додай `canonical`, Open Graph, JSON-LD (див. розділ «SEO»), створи `assets/og/<slug>.png` і додай адресу в `sitemap.xml`. Також додай активність у список на `404.html`.
+6. Прогрес зберігай через `GIStorage` (`assets/js/storage.js`, підключи з `defer`): `GIStorage.load(id)` / `save(id, дані)` / `remove(id)`, де `id` дорівнює назві теки, і після кожної зміни виклич `GIStorage.setSummary(id, пройдено, усього)`, щоб на картці з'явився прогрес. Після змін запусти `node tools/check-catalog.js`.
+7. Якщо є рівні чи дані, винеси логіку в `*-core.js` без DOM і додай валідатор у `tools/`.
 
 ## Приватність
 
-- Прогрес зберігається лише в `localStorage` браузера учня; ключі: `kiberquest-v3` (КіберЩит), `geek-galaxy-v2`, `geek-robot-v1`, `geek-mars-v1`, `geek-rebus-solved-v1`. Сервера й облікових записів немає, кожен бачить лише свій прогрес.
+- Прогрес зберігається лише в `localStorage` браузера учня через `GIStorage`. Ключі мають вигляд `gi:<id>`, де `id` дорівнює назві теки активності (`agenty-kibershchytu`, `kod-galaktyky`, `robot`, `mars`, `rebusy`). Старі ключі (`kiberquest-v3`, `geek-galaxy-v2`, `geek-robot-v1`, `geek-mars-v1`, `geek-rebus-solved-v1`) під час першого читання переносяться в нові й видаляються. Ключ `gi:progress` містить короткий підсумок «пройдено / усього» для головної. Сервера й облікових записів немає.
+- На сторінці `privacy/` є кнопка «Очистити мої дані на цьому пристрої»: після `confirm()` вона викликає `GIStorage.clearAll()` (видаляє всі ключі `gi:*` і старі ключі) та показує, скільки записів видалено. Без JS кнопка прихована, а текст пояснює, як очистити дані сайту в налаштуваннях браузера.
 - «Агенти КіберЩиту» просять ім'я та клас для посвідчення, але вони живуть лише в пам'яті сторінки, у `localStorage` не записуються (під час збереження поля `name` і `cls` виключаються) і нікуди не надсилаються. Після перезавантаження їх треба ввести знову.
 - Аналітики й трекерів у коді немає. Сайт не робить запитів на сторонні сервери: Blockly лежить у `vendor/`, шрифти (Nunito, Unbounded, Caveat, JetBrains Mono, ліцензія SIL OFL) у `assets/fonts/`.
+
+## Каталог і фільтри
+
+`catalog.json` — реєстр активностей і словник типів, тем та складності. Картки на головній написані вручну, але мають атрибути `data-id`, `data-type`, `data-grades`, `data-topics`, `data-difficulty`; `assets/js/catalog-filter.js` будує за ними фільтри. `node tools/check-catalog.js` перевіряє, що картки й каталог збігаються. Стан фільтрів лежить в адресі: `?grade=7&type=game&topic=loops&level=2` (`level` — складність 1–3).
+
+## Прямі посилання
+
+- Робот і Код Галактики: `#level-N` відкриває рівень N, навіть якщо він ще закритий.
+- Ребуси: `#r017` (id ребуса).
+- Марсохід: `#maze-<число>` — лабіринт із цим зерном, тож клас бачить той самий лабіринт.
+- КіберЩит: прямих посилань на місії немає, місії відкриваються по черзі.
+- Для вчителів усе це описано на сторінці `teachers/`.
 
 ## SEO
 
@@ -99,7 +119,7 @@ python3 tools/og/make.py robot      # лише одна
 ```
 
   Перевір розмір (`sips -g pixelWidth -g pixelHeight`), PNG має бути до 200 КБ.
-- **Додаючи сторінку, оновлюй `sitemap.xml`** (абсолютна адреса з кінцевим `/`, `lastmod`).
+- **Додаючи сторінку, оновлюй `sitemap.xml`** (абсолютна адреса з кінцевим `/`, `lastmod`); `check-catalog.js` перевіряє, що кожна адреса веде на наявний `index.html`.
 - `robots.txt` не створюється: для project page (`/geek-informatic/`) пошукові системи читають його лише з кореня домену `otianoleksij.github.io`, тож тут він не діє. Sitemap треба подати в Google Search Console вручну (властивість `https://otianoleksij.github.io/geek-informatic/`, розділ «Sitemaps», адреса `sitemap.xml`).
 - `404.html` віддається GitHub Pages для будь-якого неіснуючого шляху будь-якої глибини, тому в ньому всі посилання й шлях до шрифтів абсолютні (`/geek-informatic/...`). Не міняй їх на відносні.
 

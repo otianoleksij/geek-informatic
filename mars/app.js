@@ -2,7 +2,7 @@
 (function () {
   "use strict";
   var Core = window.MarsCore;
-  var KEY = "geek-mars-v1";
+  var STORE_ID = "mars:v1", LEGACY_KEY = "geek-mars-v1", SLUG = "mars";
   var CELL = 60, MAX_STEPS = 1500;
   var NS = "http://www.w3.org/2000/svg";
   var $ = function (id) { return document.getElementById(id); };
@@ -17,14 +17,20 @@
   var statusEl = $("status");
 
   /* ---------- збереження ---------- */
-  var saved = { prog: null, speed: 1 };
+  /* solved — прапорець «програма пройшла 3 лабіринти поспіль» (назавжди, навіть якщо потім змінити програму) */
+  var saved = { prog: null, speed: 1, solved: false };
   function loadSaved() {
     try {
-      var s = JSON.parse(localStorage.getItem(KEY) || "null");
-      if (s && typeof s === "object") { saved.prog = s.prog || null; if (STEP_MS[s.speed]) saved.speed = s.speed; }
-    } catch (e) { /* без localStorage працюємо без збереження */ }
+      var s = window.GIStorage ? GIStorage.load(STORE_ID, LEGACY_KEY) : null;
+      if (s && typeof s === "object") { saved.prog = s.prog || null; if (STEP_MS[s.speed]) saved.speed = s.speed; saved.solved = s.solved === true; }
+    } catch (e) { /* пошкоджені дані: починаємо з нуля */ }
   }
-  function persist() { try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) { /* ок */ } }
+  function persist() {
+    if (!window.GIStorage) return;
+    GIStorage.save(STORE_ID, saved);
+    syncSummary();
+  }
+  function syncSummary() { if (window.GIStorage) GIStorage.setSummary(SLUG, saved.solved ? 1 : 0, 1); }
 
   /* ---------- фонові зірки ---------- */
   (function () {
@@ -371,6 +377,7 @@
     say(msg, "ok");
     if (prog.streak >= 3 && !prog.celebrated) {
       prog.celebrated = true;
+      if (!saved.solved) { saved.solved = true; persist(); }
       setTimeout(openModal, reduced() ? 100 : 1300);
     }
   }
@@ -497,7 +504,8 @@
   $("reset").addEventListener("click", function () { resetRover(); say("Марсохід на старті. Той самий лабіринт, програма не змінилась."); });
   $("newMaze").addEventListener("click", function () {
     cancelRun(); clearMarks(); if (ws) ws.highlightBlock(null);
-    setMaze(newSeed());
+    var ns = newSeed();
+    setMaze(ns); setHash(ns);
     say("Новий лабіринт. Програма та сама: спробуй її на ньому.");
   });
   $("hintBtn").addEventListener("click", function () { if (hintLevel < 3) { hintLevel++; renderHints(); } });
@@ -509,10 +517,28 @@
   modal.addEventListener("click", function (e) { if (e.target === modal) closeModal(); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape" && modal.classList.contains("show")) closeModal(); });
 
+  /* ---------- маршрутизація: #maze-<seed> (replaceState, без нових записів історії) ---------- */
+  function hashSeed() {
+    var m = /^#maze-(\d{1,10})$/.exec(location.hash || ""), n = m ? parseInt(m[1], 10) : 0;
+    return n >= 1 && n <= 4294967295 ? n : 0;
+  }
+  function setHash(sd) { try { history.replaceState(null, "", "#maze-" + sd); } catch (e) { /* ок */ } }
+  window.addEventListener("hashchange", function () {
+    var sd = hashSeed();
+    if (!sd) { if (location.hash && location.hash !== "#") setHash(seed); return; }
+    if (sd === seed) return;
+    cancelRun(); clearMarks(); if (ws) ws.highlightBlock(null);
+    setMaze(sd);
+    say("Відкрито лабіринт за посиланням. Програма та сама.");
+    try { var mn = $("mazeNo"); mn.setAttribute("tabindex", "-1"); mn.focus({ preventScroll: true }); } catch (e) { /* ок */ }
+  });
+
   /* ---------- старт ---------- */
   loadSaved();
+  syncSummary();
   setSpeed(saved.speed);
-  setMaze(newSeed());
+  var initSeed = hashSeed() || newSeed();
+  setMaze(initSeed); setHash(initSeed);
   renderHints(); renderCounter();
   if (initBlockly()) { loadProgram(); requestAnimationFrame(function () { Blockly.svgResize(ws); }); }
   window.__mars = { Core: Core, get maze() { return maze; }, get ws() { return ws; } };

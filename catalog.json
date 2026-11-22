@@ -1,0 +1,89 @@
+{
+  "format": 1,
+  "taxonomy": {
+    "types": {
+      "webquest": "Вебквести",
+      "game": "Навчальні ігри",
+      "puzzle": "Головоломки",
+      "trainer": "Тренажери",
+      "event": "Позакласні заходи",
+      "lab": "Дослідження"
+    },
+    "topics": {
+      "safety": "Кібербезпека",
+      "algorithms": "Алгоритми",
+      "loops": "Цикли",
+      "conditions": "Умови",
+      "blocks": "Блокове програмування",
+      "vocabulary": "Поняття інформатики"
+    },
+    "difficulty": { "1": "Легко", "2": "Середньо", "3": "Складно" }
+  },
+  "activities": [
+    {
+      "id": "agenty-kibershchytu",
+      "type": "webquest",
+      "path": "web-quests/agenty-kibershchytu/",
+      "title": { "uk": "Агенти КіберЩиту" },
+      "description": { "uk": "Вебквест з кібербезпеки для 6 класу: 8 інтерактивних місій про паролі, фішинг, фейки та приватність в інтернеті, наприкінці — посвідчення агента." },
+      "locales": ["uk"],
+      "grades": [6],
+      "topics": ["safety"],
+      "difficulty": 2,
+      "duration": 40,
+      "og": "assets/og/agenty-kibershchytu.png"
+    },
+    {
+      "id": "kod-galaktyky",
+      "type": "game",
+      "path": "web-quests/kod-galaktyky/",
+      "title": { "uk": "Код Галактики" },
+      "description": { "uk": "Гра з програмування блоками для 7 класу: 15 рівнів, повтори й вкладені цикли. Склади програму для дроїда Біпа та збери всі кристали на станції." },
+      "locales": ["uk"],
+      "grades": [7],
+      "topics": ["algorithms", "loops", "blocks"],
+      "difficulty": 3,
+      "duration": 35,
+      "og": "assets/og/kod-galaktyky.png"
+    },
+    {
+      "id": "robot",
+      "type": "game",
+      "path": "robot/",
+      "title": { "uk": "Я керую роботом!" },
+      "description": { "uk": "Гра для 3–4 класу: склади програму зі стрілок і блоків «Повтори», щоб робот зібрав усі кристали. 10 рівнів." },
+      "locales": ["uk"],
+      "grades": [3, 4],
+      "topics": ["algorithms", "loops"],
+      "difficulty": 1,
+      "duration": 20,
+      "og": "assets/og/robot.png"
+    },
+    {
+      "id": "mars",
+      "type": "game",
+      "path": "mars/",
+      "title": { "uk": "Марсохід у лабіринті" },
+      "description": { "uk": "Склади з блоків алгоритм правої руки, і марсохід вибереться з будь-якого лабіринту. Лабіринт щоразу новий." },
+      "locales": ["uk"],
+      "grades": [6, 7],
+      "topics": ["algorithms", "loops", "conditions"],
+      "difficulty": 2,
+      "duration": 15,
+      "og": "assets/og/mars.png"
+    },
+    {
+      "id": "rebusy",
+      "type": "puzzle",
+      "path": "rebusy/",
+      "title": { "uk": "100 ребусів з інформатики" },
+      "description": { "uk": "100 ребусів з інформатики для учнів 1–11 класів: розгадуй картинки, коми й заміни літер та знаходи комп’ютерні терміни." },
+      "locales": ["uk"],
+      "grades": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      "topics": ["vocabulary"],
+      "difficulty": 2,
+      "duration": 25,
+      "og": "assets/og/rebusy.png"
+    }
+  ]
+}
