@@ -1,0 +1,15 @@
+<svg viewBox="0 0 120 120" aria-hidden="true">
+    <rect x="12" y="18" width="96" height="84" rx="14" fill="#FFE45C" stroke="#14213A" stroke-width="4"/>
+    <g stroke="#14213A" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+      <rect x="26" y="40" width="40" height="8" rx="4" fill="#E7C98A"/>
+      <rect x="26" y="40" width="10" height="8" rx="4" fill="#E2483D"/>
+      <rect x="26" y="72" width="40" height="8" rx="4" fill="#E7C98A"/>
+      <rect x="26" y="72" width="10" height="8" rx="4" fill="#E2483D"/>
+      <rect x="80" y="30" width="8" height="40" rx="4" fill="#E7C98A"/>
+      <rect x="80" y="30" width="8" height="10" rx="4" fill="#E2483D"/>
+      <g transform="rotate(-28 90 84)">
+        <rect x="68" y="80" width="44" height="8" rx="4" fill="#E7C98A"/>
+        <rect x="68" y="80" width="10" height="8" rx="4" fill="#E2483D"/>
+      </g>
+    </g>
+</svg>

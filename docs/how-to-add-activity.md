@@ -68,7 +68,7 @@
 | `namespace` | ні | Назва словника, якщо відрізняється від `id` (файл `i18n/<lang>/<namespace>.json`). |
 | `favicon` | ні | SVG-файл у `activities/<id>/`. Без поля використовується загальна іконка сайту. |
 | `grades` | так | Класи 1–11, за зростанням, без повторів: `[3, 4]`. |
-| `topics` | так | Теми з `taxonomy.topics` (зараз `safety`, `algorithms`, `loops`, `conditions`, `blocks`, `vocabulary`). Нова тема потребує `home.filter.topic.<тема>` і `common.topic.<тема>` в обох мовах (їх бере JSON-LD). |
+| `topics` | так | Теми з `taxonomy.topics` (зараз `safety`, `algorithms`, `loops`, `conditions`, `blocks`, `vocabulary`, `logic`). Нова тема потребує `home.filter.topic.<тема>` і `common.topic.<тема>` в обох мовах (їх бере JSON-LD). |
 | `difficulty` | так | 1, 2 або 3 (складність у фільтрі). |
 | `duration` | так | Орієнтовна тривалість у хвилинах (таблиця на сторінці «Для вчителів»). |
 | `og` | так | `assets/og/<slug>.png` (українська картинка). Файл має існувати. Для англійської береться `assets/og/en/<slug>.png`, а якщо його немає, українська. |

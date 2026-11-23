@@ -29,6 +29,7 @@
   "filter.topic.conditions": "Conditions",
   "filter.topic.blocks": "Block coding",
   "filter.topic.vocabulary": "Computer science words",
+  "filter.topic.logic": "Logic",
   "filter.level.1": "Easy",
   "filter.level.2": "Medium",
   "filter.level.3": "Hard",
@@ -43,7 +44,7 @@
   "section.game.title": "Games",
   "section.game.hint": "code while you play",
   "section.puzzle.title": "Puzzles",
-  "section.puzzle.hint": "crack the word",
+  "section.puzzle.hint": "think and solve",
   "listName": "Geek Informatic activities",
   "card.agenty-kibershchytu.subject": "Online safety",
   "card.agenty-kibershchytu.blurb": "Hacker Phantom is breaking into the school network. Protect passwords, spot phishing and fakes, collect 8 keys.",
@@ -75,5 +76,12 @@
   "card.rebusy.f2": "hints",
   "card.rebusy.f3": "4 difficulty levels",
   "card.rebusy.cta": "Solve",
-  "card.rebusy.note": "random order"
+  "card.rebusy.note": "random order",
+  "card.sirnyky.subject": "Logic",
+  "card.sirnyky.blurb": "Move one match to make the equation correct, or to get the largest or smallest number.",
+  "card.sirnyky.f1": "{count.sirnyky} {count.sirnyky|puzzle|puzzles}",
+  "card.sirnyky.f2": "hints",
+  "card.sirnyky.f3": "several answers",
+  "card.sirnyky.cta": "Solve",
+  "card.sirnyky.note": "random order"
 }

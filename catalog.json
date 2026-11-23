@@ -17,7 +17,8 @@
       "loops",
       "conditions",
       "blocks",
-      "vocabulary"
+      "vocabulary",
+      "logic"
     ],
     "difficulty": [
       "1",
@@ -298,6 +299,44 @@
           "levels",
           "bulb",
           "list"
+        ],
+        "note": true
+      }
+    },
+    {
+      "id": "sirnyky",
+      "type": "puzzle",
+      "path": "puzzles/sirnyky/",
+      "title": {
+        "uk": "Задачі з сірниками",
+        "en": "Matchstick puzzles"
+      },
+      "description": {
+        "uk": "{count.sirnyky} {count.sirnyky|задача|задачі|задач|задачі} з сірниками для 3–11 класів: перемісти один сірник, щоб виправити рівність або отримати найбільше чи найменше число.",
+        "en": "{count.sirnyky} matchstick {count.sirnyky|puzzle|puzzles} for grades 3–11: move one match to fix the equation or to get the largest or the smallest number."
+      },
+      "locales": [
+        "uk",
+        "en"
+      ],
+      "grades": [3, 4, 5, 6, 7, 8, 9, 10, 11],
+      "topics": [
+        "logic"
+      ],
+      "difficulty": 2,
+      "duration": 20,
+      "count": {"file": "content/sirnyky/puzzles.json", "path": "puzzles"},
+      "og": "assets/og/sirnyky.png",
+      "scripts": [
+        "sirnyky-core.js",
+        "app.js"
+      ],
+      "card": {
+        "cover": 5,
+        "facts": [
+          "levels",
+          "bulb",
+          "star"
         ],
         "note": true
       }

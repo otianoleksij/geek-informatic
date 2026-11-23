@@ -29,6 +29,7 @@
   "filter.topic.conditions": "Умови",
   "filter.topic.blocks": "Блокове програмування",
   "filter.topic.vocabulary": "Поняття інформатики",
+  "filter.topic.logic": "Логіка",
   "filter.level.1": "Легко",
   "filter.level.2": "Середньо",
   "filter.level.3": "Складно",
@@ -44,8 +45,8 @@
   "section.webquest.hint": "обери свій зошит",
   "section.game.title": "Ігри",
   "section.game.hint": "програмуй граючи",
-  "section.puzzle.title": "Ребуси",
-  "section.puzzle.hint": "розгадай слово",
+  "section.puzzle.title": "Головоломки",
+  "section.puzzle.hint": "поміркуй і розв’яжи",
   "listName": "Активності Geek Informatic",
   "card.agenty-kibershchytu.subject": "Кібербезпека",
   "card.agenty-kibershchytu.blurb": "Хакер Фантом рветься в шкільну мережу. Захисти паролі, розпізнай фішинг і фейки, збери 8 ключів.",
@@ -77,5 +78,12 @@
   "card.rebusy.f2": "підказки",
   "card.rebusy.f3": "4 рівні складності",
   "card.rebusy.cta": "Розгадувати",
-  "card.rebusy.note": "випадковий порядок"
+  "card.rebusy.note": "випадковий порядок",
+  "card.sirnyky.subject": "Логіка",
+  "card.sirnyky.blurb": "Перемісти один сірник, щоб рівність стала правильною або щоб вийшло найбільше чи найменше число.",
+  "card.sirnyky.f1": "{count.sirnyky} {count.sirnyky|задача|задачі|задач|задачі}",
+  "card.sirnyky.f2": "підказки",
+  "card.sirnyky.f3": "кілька відповідей",
+  "card.sirnyky.cta": "Розв’язувати",
+  "card.sirnyky.note": "випадковий порядок"
 }

@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en" data-root="../../../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'none'">
+<title>Matchstick puzzles — Geek Informatic</title>
+<meta name="description" content="50 matchstick puzzles for grades 3–11: move one match to fix the equation or to get the largest or the smallest number.">
+<link rel="canonical" href="https://otianoleksij.github.io/geek-informatic/en/puzzles/sirnyky/">
+<link rel="alternate" hreflang="uk" href="https://otianoleksij.github.io/geek-informatic/puzzles/sirnyky/">
+<link rel="alternate" hreflang="en" href="https://otianoleksij.github.io/geek-informatic/en/puzzles/sirnyky/">
+<link rel="alternate" hreflang="x-default" href="https://otianoleksij.github.io/geek-informatic/puzzles/sirnyky/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Geek Informatic">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Matchstick puzzles">
+<meta property="og:description" content="50 matchstick puzzles for grades 3–11: move one match to fix the equation or to get the largest or the smallest number.">
+<meta property="og:url" content="https://otianoleksij.github.io/geek-informatic/en/puzzles/sirnyky/">
+<meta property="og:image" content="https://otianoleksij.github.io/geek-informatic/assets/og/en/sirnyky.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Matchstick puzzles — Geek Informatic">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Matchstick puzzles","description":"50 matchstick puzzles for grades 3–11: move one match to fix the equation or to get the largest or the smallest number.","url":"https://otianoleksij.github.io/geek-informatic/en/puzzles/sirnyky/","inLanguage":"en","isAccessibleForFree":true,"learningResourceType":"puzzle","educationalLevel":"Grades 3–11","teaches":["logic"],"provider":{"@type":"Organization","name":"Geek Informatic","url":"https://otianoleksij.github.io/geek-informatic/"},"publisher":{"@type":"Organization","name":"Geek Informatic","url":"https://otianoleksij.github.io/geek-informatic/"}}</script>
+<meta name="theme-color" content="#EEF3FA">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232D55E0'/%3E%3Cpath d='M12 10l-5 6 5 6M20 10l5 6-5 6' stroke='%23FFE45C' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preload" href="../../../assets/fonts/nunito-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../../assets/fonts/fonts.css">
+<link rel="stylesheet" href="../../../assets/css/tokens.css">
+<link rel="stylesheet" href="../../../assets/css/base.css">
+<link rel="stylesheet" href="../../../activities/sirnyky/sirnyky.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="../../../en/" aria-label="Geek Informatic — home">
+      <span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="#FFE45C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 7l-5 5 5 5M15 7l5 5-5 5"/></svg></span>
+      <span>Geek Informatic<small>computer science lessons</small></span>
+    </a>
+    <nav><a href="../../../en/">Home</a><a class="lang-switch" href="../../../puzzles/sirnyky/" hreflang="uk" lang="uk" title="Change language">Українська</a></nav>
+  </div>
+</header>
+
+<main class="wrap" id="main">
+  <div id="loadError" class="noscript load-error" role="alert" hidden>Couldn&#39;t load the task. Please refresh the page.</div>
+  <noscript><p class="noscript">This page needs JavaScript. Please turn it on in your browser.</p></noscript>
+
+  <section class="intro">
+    <p class="notebook-head">Smart break · logic</p>
+    <h1><span class="hl">Matchstick puzzles</span></h1>
+    <p class="lead">Move one match so the equation becomes correct, or so you get the largest or the smallest number. Some puzzles have several answers.</p>
+  </section>
+
+  <div class="filters" id="filters" role="group" aria-label="Puzzle type"></div>
+
+  <section class="stage" aria-label="Matchstick puzzle">
+    <article class="card" id="card">
+      <div class="confetti" id="confetti" aria-hidden="true"></div>
+      <div class="card-head">
+        <span class="counter" id="counter"></span>
+        <span class="badges">
+          <span class="badge done" id="seen" hidden>✓ already solved</span>
+          <span class="badge" id="level"></span>
+        </span>
+      </div>
+      <p class="task" id="task"></p>
+      <p class="answers-count" id="answersCount"></p>
+      <div class="board-wrap" id="boardWrap">
+        <div class="board" id="board" role="group"></div>
+      </div>
+      <div class="found" id="found" hidden>
+        <span class="found-title">Answers found:</span>
+        <span class="found-list" id="foundList"></span>
+      </div>
+      <div class="tools">
+        <button class="btn ghost" id="undo" type="button">Undo move</button>
+        <button class="btn" id="retry" type="button" hidden></button>
+        <button class="btn ghost" id="hint" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.7.6 1.1 1.3 1.1 2.2h5c0-.9.4-1.6 1.1-2.2A6 6 0 0 0 12 3z" fill="#FFE45C"/></svg>
+          <span id="hintTxt">Hint</span>
+        </button>
+        <button class="btn ghost" id="next" type="button">Next
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+      <div class="feedback" id="feedback" role="status" aria-live="polite"></div>
+      <p class="keys">Keyboard: Tab or the arrow keys pick a match or a spot, Enter or Space lifts and places a match, Esc cancels.</p>
+    </article>
+    <p class="counter" id="solved" style="margin-top:14px"></p>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Geek Informatic · matchstick puzzles · <a href="../../../teachers/">For teachers</a> · <a href="../../../privacy/">Privacy</a></span>
+    <span id="yr">2026</span>
+  </div>
+</footer>
+
+<script type="application/json" id="i18n-data">{"common":{"siteName":"Geek Informatic","tagline":"computer science lessons","logoLabel":"Geek Informatic — home","home":"Home","skip":"Skip to main content","teachers":"For teachers","privacy":"Privacy","noscript":"This page needs JavaScript. Please turn it on in your browser.","loadError":"Couldn't load the task. Please refresh the page.","lang.uk":"Українська","lang.en":"English","langSwitch":"Change language","topic.safety":"online safety","topic.algorithms":"algorithms","topic.loops":"loops","topic.conditions":"conditions","topic.blocks":"block coding","topic.vocabulary":"computer science words","topic.logic":"logic","grade.single":"Grade {range}","grade.range":"Grades {range}","navLabel":"Sections","footer":"computer science games, quests and puzzles","ukOnly":"Ukrainian only","ogAlt":"Geek Informatic — computer science you can play","kbdSummary":"Keyboard controls","kbdStepsHead":"How to add a block without a mouse:","kbdStep1":"Press [[Tab]] to move into the program area, then press [[Ctrl]]+[[Shift]]+[[K]].","kbdStep2":"[[D]] and [[S]]: move the cursor under the last block of the program (a line will appear there).","kbdStep3":"[[Enter]]: mark this spot.","kbdStep4":"[[T]]: go to the block panel, [[S]]: pick the block you need.","kbdStep5":"[[Enter]]: the block will snap into the marked spot.","kbdAllHead":"All keys:","kbdAll1":"[[Ctrl]]+[[Shift]]+[[K]]: turn keyboard mode on or off (the workspace must have focus).","kbdAll2":"[[W]] [[A]] [[S]] [[D]]: move between blocks: up, out, down, in.","kbdAll3":"[[T]]: go to the block panel; [[W]]/[[S]]: choose a category, [[D]]: open its blocks.","kbdAll4":"[[Enter]]: in the block panel, take a block into the program; in the program, mark the place to insert.","kbdAll5":"[[I]]: insert (attach) the block at the marked spot. [[Shift]]+[[W]]/[[A]]/[[S]]/[[D]]: move the cursor over empty workspace.","kbdAll6":"[[X]]: detach a block. [[Delete]] or [[Backspace]]: delete the selected block.","kbdAll7":"[[Esc]] or [[E]]: go back from the block panel to the program."},"sirnyky":{"eyebrow":"Smart break · logic","title":"Matchstick puzzles","lead":"Move one match so the equation becomes correct, or so you get the largest or the smallest number. Some puzzles have several answers.","footer":"matchstick puzzles","keys":"Keyboard: Tab or the arrow keys pick a match or a spot, Enter or Space lifts and places a match, Esc cancels.","goalGroup":"Puzzle type","filterAll":"All","goal.fix":"Fix the equation","goal.max":"Largest number","goal.min":"Smallest number","stageAria":"Matchstick puzzle","counter":"Puzzle {n} of {total}","level":"Level {n}","seen":"✓ already solved","task.fix":"Move one match to make the equation correct.","task.max":"Move one match to get the largest possible number.","task.min":"Move one match to get the smallest possible number.","answersCount":{"one":"Correct answer: {count}","other":"Correct answers: {count}"},"boardAria":"Matchsticks: {expr}","pos.a":"top","pos.b":"top right","pos.c":"bottom right","pos.d":"bottom","pos.e":"bottom left","pos.f":"top left","pos.g":"middle","pos.u":"upper bar","pos.m":"middle bar","pos.l":"lower bar","pos.v":"vertical bar","symDigit":"digit {ch}","symPlus":"plus","symMinus":"minus","symEq":"equals","symBad":"unfinished shape","stickHave":"match {pos}, symbol {cell} ({sym})","stickFree":"empty spot {pos}, symbol {cell} ({sym})","lifted":"Match lifted. Pick an empty spot to put it in, or press it again to cancel.","undo":"Undo move","retry":"Try again","again":"Find another","hint":"Hint","reveal":"Show the answer","next":"Next","progress":"Solved: {count} of {total}","ok":"Correct! You got **{result}**.","okMore":"Correct! You got **{result}**. Found {found} of {total}: try to find another answer.","okAll":"Correct! You got **{result}**. You found all the answers ({total}).","dup":"You already found this answer (**{result}**). Try to find another.","wrong.figure":"Not quite: that shape is not a digit or a sign.","wrong.equation":"Not quite: **{result}**. The equation is wrong.","wrong.zero":"Not quite: **{result}**. A number can’t start with zero.","wrong.notmax":"Not quite: **{result}**. That is not the largest possible number.","wrong.notmin":"Not quite: **{result}**. That is not the smallest possible number.","hintMsg":"💡 The match you need to move is highlighted. Where to put it is up to you.","revealed":"Answer: **{answer}**. Showing the answer does not count as solving the puzzle.","foundTitle":"Answers found:"}}</script>
+<script src="../../../assets/js/storage.js"></script>
+<script src="../../../assets/js/i18n.js"></script>
+<script src="../../../assets/js/data.js"></script>
+<script src="../../../activities/sirnyky/sirnyky-core.js"></script>
+<script src="../../../activities/sirnyky/app.js"></script>
+</body>
+</html>

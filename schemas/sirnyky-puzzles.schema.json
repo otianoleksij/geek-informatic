@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Задачі з сірниками (content/sirnyky/puzzles.json)",
+  "description": "Задачі однакові для всіх мов (вирази з цифр і знаків), тому окремого набору на мову немає.",
+  "type": "object",
+  "required": ["format", "puzzles"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "format": { "const": 1 },
+    "puzzles": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "goal", "level", "expr", "answers"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^m[0-9]{2,}$", "description": "Стабільний id: за ним зберігається прогрес і будується посилання #id" },
+          "goal": { "type": "string", "enum": ["fix", "max", "min"], "description": "fix: виправити рівність; max: найбільше число; min: найменше число" },
+          "level": { "type": "integer", "minimum": 1, "maximum": 3 },
+          "expr": { "type": "string", "pattern": "^[0-9+\\-=]+$", "description": "Початковий вираз: кожен символ це клітинка з сірників" },
+          "answers": {
+            "type": "array", "minItems": 1,
+            "items": { "type": "string", "pattern": "^[0-9+\\-=]+$" },
+            "description": "Усі правильні результати одного ходу, відсортовані як рядки"
+          }
+        }
+      }
+    }
+  }
+}

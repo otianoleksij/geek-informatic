@@ -17,6 +17,7 @@
   "topic.conditions": "conditions",
   "topic.blocks": "block coding",
   "topic.vocabulary": "computer science words",
+  "topic.logic": "logic",
   "grade.single": "Grade {range}",
   "grade.range": "Grades {range}",
   "navLabel": "Sections",

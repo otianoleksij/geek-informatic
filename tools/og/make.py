@@ -16,6 +16,7 @@ planet='<circle cx="60" cy="60" r="30" fill="#FFE45C" stroke="#14213A" stroke-wi
 robot='<rect x="30" y="34" width="60" height="50" rx="12" fill="#FFE45C" stroke="#14213A" stroke-width="4"/><circle cx="48" cy="56" r="7" fill="#14213A"/><circle cx="72" cy="56" r="7" fill="#14213A"/><path d="M48 72h24" stroke="#14213A" stroke-width="4" stroke-linecap="round"/><path d="M60 34V20" stroke="#14213A" stroke-width="4"/><circle cx="60" cy="16" r="6" fill="#FFE45C" stroke="#14213A" stroke-width="3"/>'
 mars='<circle cx="38" cy="82" r="16" fill="#FFE45C" stroke="#14213A" stroke-width="4"/><circle cx="82" cy="82" r="16" fill="#FFE45C" stroke="#14213A" stroke-width="4"/><rect x="26" y="46" width="68" height="26" rx="8" fill="#FFFFFF" stroke="#14213A" stroke-width="4"/><path d="M60 46V28l14-6" stroke="#14213A" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="48" cy="59" r="5" fill="#14213A"/>'
 reb='<g transform="rotate(-8 40 66)"><rect x="10" y="38" width="62" height="62" rx="12" fill="#FFE45C" stroke="#14213A" stroke-width="4"/><circle cx="41" cy="62" r="12" fill="#fff" stroke="#14213A" stroke-width="3.5"/></g><g transform="rotate(9 84 52)"><rect x="58" y="14" width="56" height="56" rx="12" fill="#C6F0D8" stroke="#14213A" stroke-width="4"/><path d="M76 36a9 9 0 1 1 13 8c-3 2-4 4-4 7" stroke="#14213A" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="85" cy="59" r="3.2" fill="#14213A"/></g>'
+sir='<rect x="14" y="14" width="92" height="92" rx="22" fill="#FFE45C" stroke="#14213A" stroke-width="4"/><g stroke="#14213A" stroke-width="3" stroke-linecap="round"><rect x="26" y="36" width="50" height="9" rx="4.5" fill="#E7C98A"/><rect x="26" y="36" width="12" height="9" rx="4.5" fill="#E2483D"/><rect x="26" y="75" width="50" height="9" rx="4.5" fill="#E7C98A"/><rect x="26" y="75" width="12" height="9" rx="4.5" fill="#E2483D"/><rect x="84" y="28" width="9" height="46" rx="4.5" fill="#E7C98A"/><rect x="84" y="28" width="9" height="12" rx="4.5" fill="#E2483D"/></g>'
 logo='<path d="M12 10l-5 6 5 6M20 10l5 6-5 6" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'
 code='<rect x="14" y="14" width="92" height="92" rx="24" fill="#FFE45C" stroke="#14213A" stroke-width="4"/><path d="M48 40L28 60l20 20M72 40l20 20-20 20" stroke="#14213A" stroke-width="9" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'
 # слаг: (колір 1, колір 2, іконка, {мова: (заголовок, підзаголовок, бейдж)})
@@ -35,6 +36,9 @@ PAGES={
  "mars":("#C4572B","#7A2E17",mars,{
    "uk":("Марсохід у лабіринті","Алгоритм правої руки","Гра"),
    "en":("Mars Rover Maze","The right-hand rule","Game")}),
+ "sirnyky":("#E0892B","#B0561B",sir,{
+   "uk":("Задачі з сірниками","3–11 клас · логіка й кмітливість","3–11 клас"),
+   "en":("Matchstick puzzles","Grades 3–11 · logic and ingenuity","Grades 3–11")}),
  "rebusy":("#E8505B","#B02A47",reb,{"uk":("100 ребусів з інформатики","1–11 клас · комп’ютерні слова","1–11 клас")}),
 }
 tpl=open(os.path.join(HERE,"tpl.html")).read()
