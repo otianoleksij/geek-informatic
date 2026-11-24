@@ -31,6 +31,7 @@
         "additionalProperties": false,
         "properties": {
           "id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "description": "Стабільний id (kebab-case): за ним зберігається прогрес і будується посилання #id" },
+          "stage": { "type": "integer", "minimum": 1, "maximum": 9, "description": "Номер етапу: рівні з однаковим stage йдуть підряд під спільним заголовком у списку. Тексти: i18n klaviatura.json, ключі stage.<n>.title і stage.<n>.goal" },
           "title": { "$ref": "#/definitions/text" },
           "tip": { "$ref": "#/definitions/text" },
           "asteroidHp": { "type": "integer", "minimum": 4 },
@@ -60,10 +61,10 @@
       "type": "object",
       "required": ["keys", "newKeys"],
       "additionalProperties": false,
-      "description": "keys: усе, що вивчено до цього рівня включно (нові клавіші цього й попередніх рівнів, після рівня Shift ще й великі літери; пробіл завжди); newKeys: символи, що вводяться вперше (разом із shift не більше 2 нових речей на рівень; перевіряє tools/check-klaviatura.js); shift: на цьому рівні вперше вводиться Shift (великі літери); рівно одне з gen і texts",
+      "description": "keys: усе, що вивчено до цього рівня включно (нові клавіші цього й попередніх рівнів, після рівня Shift ще й великі літери; пробіл завжди); newKeys: символи, що вводяться вперше (рівень 1: три клавіші; далі разом із shift не більше 1 нової речі на рівень; перевіряє tools/check-klaviatura.js); shift: на цьому рівні вперше вводиться Shift (великі літери); рівно одне з gen і texts",
       "properties": {
         "keys": { "type": "string", "minLength": 2 },
-        "newKeys": { "type": "string", "maxLength": 2 },
+        "newKeys": { "type": "string", "maxLength": 3 },
         "shift": { "const": true },
         "gen": {
           "type": "object",
@@ -77,11 +78,12 @@
             "focus": { "type": "string", "description": "groups: у кожній групі є хоча б один із цих символів" },
             "alphabet": { "type": "string", "description": "groups: символи груп (підмножина keys); без поля це всі keys, крім пробілу" },
             "bias": { "type": "number", "exclusiveMinimum": 0, "maximum": 1, "description": "groups: частка символів, що береться з newKeys (решта з інших символів алфавіту); орієнтир 0.4-0.5" },
+            "minLen": { "type": "integer", "minimum": 1, "description": "groups і words: дописувати групи (слова), доки текст коротший за minLen символів; валідатор вимагає не менше 50" },
             "count": { "type": "integer", "minimum": 1, "description": "words: кількість слів" },
             "words": { "type": "array", "minItems": 2, "items": { "type": "string", "minLength": 1 } }
           }
         },
-        "texts": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } }
+        "texts": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 50 } }
       }
     }
   }
