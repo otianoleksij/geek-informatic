@@ -90,5 +90,12 @@
   "card.klaviatura.f2": "finger hints",
   "card.klaviatura.f3": "combos and asteroids",
   "card.klaviatura.cta": "Practise",
-  "card.klaviatura.note": "keyboard needed"
+  "card.klaviatura.note": "keyboard needed",
+  "card.perehony.subject": "Keyboard",
+  "card.perehony.blurb": "Speed races with words: type a word in time and your car passes a rival. Finish first out of six!",
+  "card.perehony.f1": "3 difficulties",
+  "card.perehony.f2": "speed typing",
+  "card.perehony.f3": "cups for your place",
+  "card.perehony.cta": "Race!",
+  "card.perehony.note": "keyboard needed"
 }

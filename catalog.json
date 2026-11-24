@@ -305,6 +305,53 @@
       "favicon": "favicon.svg"
     },
     {
+      "id": "perehony",
+      "type": "game",
+      "path": "games/perehony/",
+      "title": {
+        "uk": "Перегони слів",
+        "en": "Word Race"
+      },
+      "description": {
+        "uk": "Швидкісні перегони зі словами: набрав слово вчасно, і твоя машина обганяє суперника, не встиг, і тебе обганяють. Три складності, 14 слів у заїзді, кубки за місце. Стартуєш шостим із шести.",
+        "en": "Speed races with words: type a word in time and your car passes a rival, miss it and one passes you. Three difficulties, 14 words per race, cups for your place. You start 6th out of 6."
+      },
+      "locales": [
+        "uk",
+        "en"
+      ],
+      "themeColor": "#FFF3B8",
+      "sharedScripts": [
+        "activities/klaviatura/klaviatura-core.js"
+      ],
+      "scripts": [
+        "perehony-core.js",
+        "app.js"
+      ],
+      "grades": [
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "topics": [
+        "vocabulary"
+      ],
+      "difficulty": 2,
+      "duration": 8,
+      "og": "assets/og/perehony.png",
+      "card": {
+        "cover": 1,
+        "facts": [
+          "levels",
+          "stopwatch",
+          "star"
+        ],
+        "note": true
+      }
+    },
+    {
       "id": "rebusy",
       "type": "puzzle",
       "path": "puzzles/rebusy/",

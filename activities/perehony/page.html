@@ -1,0 +1,76 @@
+<div class="pr">
+  <div class="notice" id="touchNotice" role="note" hidden>
+    <b>{{perehony.touchTitle}}</b> {{perehony.touchText}}
+  </div>
+
+  <!-- ===== вибір складності ===== -->
+  <section id="viewMenu" aria-labelledby="menuH" hidden>
+    <div class="intro">
+      <p class="tag">{{perehony.tag}}</p>
+      <h1 id="menuH">{{perehony.title}}</h1>
+      <p class="lead">{{perehony.lead}}</p>
+    </div>
+    <h2 class="pick-h">{{perehony.pickTitle}}</h2>
+    <div class="diff-list" id="diffList"></div>
+    <ul class="rules">
+      <li>{{perehony.rule1}}</li>
+      <li>{{perehony.rule2}}</li>
+      <li>{{perehony.rule3}}</li>
+    </ul>
+    <div class="menu-foot">
+      <span class="cups-total" id="cupsTotal"></span>
+      <button class="btn ghost" id="resetProgress" type="button">{{perehony.reset}}</button>
+    </div>
+  </section>
+
+  <!-- ===== перегони ===== -->
+  <section id="viewRace" aria-label="{{perehony.raceAria}}" hidden>
+    <div class="race-bar">
+      <button class="btn ghost" id="backBtn" type="button">{{perehony.back}}</button>
+      <h2 class="race-title" id="diffName"></h2>
+      <div class="place-badge" id="placeBadge"><span class="pl-lbl">{{perehony.placeLabel}}</span> <b id="placeNum"></b></div>
+      <button class="btn ghost" id="restartBtn" type="button">{{perehony.restart}}</button>
+    </div>
+
+    <div class="word-card">
+      <div class="word-row" id="wordRow" tabindex="-1" role="group" aria-label="{{perehony.wordAria}}">
+        <div class="word" id="word" aria-hidden="true"></div>
+      </div>
+      <div class="timebar" aria-hidden="true">
+        <div class="timefill" id="timeFill"></div>
+        <span class="fast-mark"></span>
+      </div>
+      <div class="word-meta">
+        <span id="wordCount"></span>
+        <span class="layout-warn" id="layoutWarn" hidden></span>
+        <span id="timeLeft"></span>
+      </div>
+    </div>
+
+    <div class="scene-wrap" id="sceneWrap">
+      <svg id="scene" viewBox="0 0 1200 400" role="img" aria-label="{{perehony.sceneAria}}" focusable="false"></svg>
+      <div class="countdown" id="countdown" aria-hidden="true"></div>
+      <div class="pops" id="pops" aria-hidden="true"></div>
+    </div>
+
+    <div class="mini" role="group" aria-label="{{perehony.miniAria}}">
+      <ol class="pips" id="pips" aria-hidden="true"></ol>
+      <div class="strip" id="strip" aria-hidden="true"></div>
+    </div>
+    <div class="sr-only" id="live" role="status" aria-live="polite"></div>
+  </section>
+</div>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mtitle">
+  <div class="modal-box">
+    <div class="m-cups" id="mCups" role="img"></div>
+    <h2 id="mtitle"></h2>
+    <p id="mText"></p>
+    <p class="m-record" id="mRecord" hidden>{{perehony.record}}</p>
+    <dl class="m-stats" id="mStats"></dl>
+    <div class="mbtns">
+      <button class="btn ghost" id="mMenu" type="button">{{perehony.otherDiff}}</button>
+      <button class="btn main" id="mRetry" type="button">{{perehony.again}}</button>
+    </div>
+  </div>
+</div>

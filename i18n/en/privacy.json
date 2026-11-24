@@ -35,5 +35,6 @@
   "confirm": "Delete all Geek Informatic progress on this device? This can’t be undone.",
   "cleared": "Records deleted: {count}",
   "nothing": "Nothing was saved",
-  "progress.8": "**Space Typing Trainer**: stars and best results (accuracy, speed, combo) for the finished levels, separately for the Ukrainian and English layouts."
+  "progress.8": "**Space Typing Trainer**: stars and best results (accuracy, speed, combo) for the finished levels, separately for the Ukrainian and English layouts.",
+  "progress.9": "**Word Race**: the best place, speed and cups for each difficulty, separately for the Ukrainian and English versions."
 }

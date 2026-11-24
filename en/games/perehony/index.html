@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en" data-root="../../../" data-v="178f579bb8">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'none'">
+<title>Word Race — Geek Informatic</title>
+<meta name="description" content="Speed races with words: type a word in time and your car passes a rival, miss it and one passes you. Three difficulties, 14 words per race, cups for your place. You start 6th out of 6.">
+<link rel="canonical" href="https://otianoleksij.github.io/geek-informatic/en/games/perehony/">
+<link rel="alternate" hreflang="uk" href="https://otianoleksij.github.io/geek-informatic/games/perehony/">
+<link rel="alternate" hreflang="en" href="https://otianoleksij.github.io/geek-informatic/en/games/perehony/">
+<link rel="alternate" hreflang="x-default" href="https://otianoleksij.github.io/geek-informatic/games/perehony/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Geek Informatic">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Word Race">
+<meta property="og:description" content="Speed races with words: type a word in time and your car passes a rival, miss it and one passes you. Three difficulties, 14 words per race, cups for your place. You start 6th out of 6.">
+<meta property="og:url" content="https://otianoleksij.github.io/geek-informatic/en/games/perehony/">
+<meta property="og:image" content="https://otianoleksij.github.io/geek-informatic/assets/og/en/perehony.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Word Race — Geek Informatic">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Word Race","description":"Speed races with words: type a word in time and your car passes a rival, miss it and one passes you. Three difficulties, 14 words per race, cups for your place. You start 6th out of 6.","url":"https://otianoleksij.github.io/geek-informatic/en/games/perehony/","inLanguage":"en","isAccessibleForFree":true,"learningResourceType":"game","educationalLevel":"Grades 3–7","teaches":["computer science words"],"provider":{"@type":"Organization","name":"Geek Informatic","url":"https://otianoleksij.github.io/geek-informatic/"},"publisher":{"@type":"Organization","name":"Geek Informatic","url":"https://otianoleksij.github.io/geek-informatic/"}}</script>
+<meta name="theme-color" content="#FFF3B8">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232D55E0'/%3E%3Cpath d='M12 10l-5 6 5 6M20 10l5 6-5 6' stroke='%23FFE45C' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preload" href="../../../assets/fonts/nunito-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../../assets/fonts/fonts.css?v=806695d68d">
+<link rel="stylesheet" href="../../../assets/css/tokens.css?v=9d978824c7">
+<link rel="stylesheet" href="../../../assets/css/base.css?v=e8ad1f2a9b">
+<link rel="stylesheet" href="../../../activities/perehony/perehony.css?v=9c34894769">
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="../../../en/" aria-label="Geek Informatic — home">
+      <span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="#FFE45C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 7l-5 5 5 5M15 7l5 5-5 5"/></svg></span>
+      <span>Geek Informatic<small>computer science lessons</small></span>
+    </a>
+    <nav><a href="../../../en/">Home</a><a class="lang-switch" href="../../../games/perehony/" hreflang="uk" lang="uk" title="Change language">Українська</a></nav>
+  </div>
+</header>
+
+<main class="wrap" id="main">
+  <div id="loadError" class="noscript load-error" role="alert" hidden>Couldn&#39;t load the task. Please refresh the page.</div>
+  <noscript><p class="noscript">This page needs JavaScript. Please turn it on in your browser.</p></noscript>
+
+<div class="pr">
+  <div class="notice" id="touchNotice" role="note" hidden>
+    <b>A keyboard is required.</b> This game needs a physical computer or laptop keyboard. You cannot type on a phone or tablet without one.
+  </div>
+
+  <!-- ===== вибір складності ===== -->
+  <section id="viewMenu" aria-labelledby="menuH" hidden>
+    <div class="intro">
+      <p class="tag">RACE</p>
+      <h1 id="menuH">Word Race</h1>
+      <p class="lead">Type words fast and overtake your rivals! Type a word in time and your car passes the one ahead. Run out of time and the car behind passes you. Be first across the finish line!</p>
+    </div>
+    <h2 class="pick-h">Choose a difficulty</h2>
+    <div class="diff-list" id="diffList"></div>
+    <ul class="rules">
+      <li>You start 6th out of 6: five rivals are ahead of you.</li>
+      <li>Word typed in time: you pass one car. Time runs out: one car passes you.</li>
+      <li>Finish first to win three cups. Second place gives two, third gives one.</li>
+    </ul>
+    <div class="menu-foot">
+      <span class="cups-total" id="cupsTotal"></span>
+      <button class="btn ghost" id="resetProgress" type="button">Reset progress</button>
+    </div>
+  </section>
+
+  <!-- ===== перегони ===== -->
+  <section id="viewRace" aria-label="Race" hidden>
+    <div class="race-bar">
+      <button class="btn ghost" id="backBtn" type="button">← Difficulty</button>
+      <h2 class="race-title" id="diffName"></h2>
+      <div class="place-badge" id="placeBadge"><span class="pl-lbl">Place</span> <b id="placeNum"></b></div>
+      <button class="btn ghost" id="restartBtn" type="button">↺ Restart</button>
+    </div>
+
+    <div class="word-card">
+      <div class="word-row" id="wordRow" tabindex="-1" role="group" aria-label="Word to type">
+        <div class="word" id="word" aria-hidden="true"></div>
+      </div>
+      <div class="timebar" aria-hidden="true">
+        <div class="timefill" id="timeFill"></div>
+        <span class="fast-mark"></span>
+      </div>
+      <div class="word-meta">
+        <span id="wordCount"></span>
+        <span class="layout-warn" id="layoutWarn" hidden></span>
+        <span id="timeLeft"></span>
+      </div>
+    </div>
+
+    <div class="scene-wrap" id="sceneWrap">
+      <svg id="scene" viewBox="0 0 1200 400" role="img" aria-label="A track with six cars, yours is the red one with a flag. The order of the cars is shown below." focusable="false"></svg>
+      <div class="countdown" id="countdown" aria-hidden="true"></div>
+      <div class="pops" id="pops" aria-hidden="true"></div>
+    </div>
+
+    <div class="mini" role="group" aria-label="Car order and word progress">
+      <ol class="pips" id="pips" aria-hidden="true"></ol>
+      <div class="strip" id="strip" aria-hidden="true"></div>
+    </div>
+    <div class="sr-only" id="live" role="status" aria-live="polite"></div>
+  </section>
+</div>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mtitle">
+  <div class="modal-box">
+    <div class="m-cups" id="mCups" role="img"></div>
+    <h2 id="mtitle"></h2>
+    <p id="mText"></p>
+    <p class="m-record" id="mRecord" hidden>New record!</p>
+    <dl class="m-stats" id="mStats"></dl>
+    <div class="mbtns">
+      <button class="btn ghost" id="mMenu" type="button">Other difficulty</button>
+      <button class="btn main" id="mRetry" type="button">Race again</button>
+    </div>
+  </div>
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Geek Informatic · Word Race · <a href="../../../teachers/">For teachers</a> · <a href="../../../privacy/">Privacy</a></span>
+    <span id="yr">2026</span>
+  </div>
+</footer>
+
+<script type="application/json" id="i18n-data">{"common":{"siteName":"Geek Informatic","tagline":"computer science lessons","logoLabel":"Geek Informatic — home","home":"Home","skip":"Skip to main content","teachers":"For teachers","privacy":"Privacy","noscript":"This page needs JavaScript. Please turn it on in your browser.","loadError":"Couldn't load the task. Please refresh the page.","lang.uk":"Українська","lang.en":"English","langSwitch":"Change language","topic.safety":"online safety","topic.algorithms":"algorithms","topic.loops":"loops","topic.conditions":"conditions","topic.blocks":"block coding","topic.vocabulary":"computer science words","topic.logic":"logic","grade.single":"Grade {range}","grade.range":"Grades {range}","navLabel":"Sections","footer":"computer science games, quests and puzzles","ukOnly":"Ukrainian only","ogAlt":"Geek Informatic — computer science you can play","kbdSummary":"Keyboard controls","kbdStepsHead":"How to add a block without a mouse:","kbdStep1":"Press [[Tab]] to move into the program area, then press [[Ctrl]]+[[Shift]]+[[K]].","kbdStep2":"[[D]] and [[S]]: move the cursor under the last block of the program (a line will appear there).","kbdStep3":"[[Enter]]: mark this spot.","kbdStep4":"[[T]]: go to the block panel, [[S]]: pick the block you need.","kbdStep5":"[[Enter]]: the block will snap into the marked spot.","kbdAllHead":"All keys:","kbdAll1":"[[Ctrl]]+[[Shift]]+[[K]]: turn keyboard mode on or off (the workspace must have focus).","kbdAll2":"[[W]] [[A]] [[S]] [[D]]: move between blocks: up, out, down, in.","kbdAll3":"[[T]]: go to the block panel; [[W]]/[[S]]: choose a category, [[D]]: open its blocks.","kbdAll4":"[[Enter]]: in the block panel, take a block into the program; in the program, mark the place to insert.","kbdAll5":"[[I]]: insert (attach) the block at the marked spot. [[Shift]]+[[W]]/[[A]]/[[S]]/[[D]]: move the cursor over empty workspace.","kbdAll6":"[[X]]: detach a block. [[Delete]] or [[Backspace]]: delete the selected block.","kbdAll7":"[[Esc]] or [[E]]: go back from the block panel to the program."},"perehony":{"footer":"Word Race","tag":"RACE","title":"Word Race","lead":"Type words fast and overtake your rivals! Type a word in time and your car passes the one ahead. Run out of time and the car behind passes you. Be first across the finish line!","touchTitle":"A keyboard is required.","touchText":"This game needs a physical computer or laptop keyboard. You cannot type on a phone or tablet without one.","pickTitle":"Choose a difficulty","rule1":"You start 6th out of 6: five rivals are ahead of you.","rule2":"Word typed in time: you pass one car. Time runs out: one car passes you.","rule3":"Finish first to win three cups. Second place gives two, third gives one.","diff.easy.name":"Easy","diff.easy.desc":"Short words and plenty of time.","diff.medium.name":"Medium","diff.medium.desc":"Words get longer, time gets shorter.","diff.hard.name":"Hard","diff.hard.desc":"Long words and little time.","card.len":"Words of {min} to {max} letters","card.time":"≈ {s} s per word","card.best":"Best: place {place}, {cpm} cpm","card.none":"No result yet","cupsAria":"Cups: {n} of 3","cupsTotal":"Cups: {n} of {max}","reset":"Reset progress","resetConfirm":"Reset all results of this game? This cannot be undone.","raceAria":"Race","back":"← Difficulty","restart":"↺ Restart","placeLabel":"Place","placeAria":"Place: {place} of {total}","wordAria":"Word to type","sceneAria":"A track with six cars, yours is the red one with a flag. The order of the cars is shown below.","miniAria":"Car order and word progress","wordCount":"Word {n} of {total}","timeLeft":"{s} s","getReady":"Get ready!","youFlag":"YOU","finishLabel":"FINISH","cd.go":"Go!","pop.up":"+1 place!","pop.fast":"Fast!","pop.lead":"You lead!","pop.miss":"Too slow!","pop.finish":"Place {place}!","status.ready":"Get ready! The race is about to start.","status.word":"Word {n} of {total}: {word}","status.up":"Overtake! You are now {place} of {total}.","status.upFast":"Fast! Overtake: you are now {place} of {total}.","status.lead":"You are in front, keep it up!","status.miss":"Time is up. You were overtaken: now {place} of {total}.","status.missLast":"Time is up. You are last.","status.finish":"Finish! Your place: {place} of {total}.","layoutHint":"Switch the keyboard layout to English","res.winTitle":"Victory!","res.placeTitle":"Finish: place {place}","res.t1":"You passed every rival. Try a harder track!","res.t2":"So close to winning. One more race?","res.t3":"You are on the podium! A little more and you are higher.","res.tLow":"No worries: you type faster with every race. Try again!","record":"New record!","stat.place":"Place","stat.words":"Words in time","stat.cpm":"Characters per minute","stat.acc":"Accuracy","placeOf":"{place} of {total}","wordsOf":"{n} of {total}","pct":"{n}%","again":"Race again","otherDiff":"Other difficulty"}}</script>
+<script src="../../../assets/js/storage.js?v=91f5799524"></script>
+<script src="../../../assets/js/i18n.js?v=8f094d6ead"></script>
+<script src="../../../assets/js/data.js?v=82a81510eb"></script>
+<script src="../../../activities/klaviatura/klaviatura-core.js?v=9996e6adeb"></script>
+<script src="../../../activities/perehony/perehony-core.js?v=937ac0fb96"></script>
+<script src="../../../activities/perehony/app.js?v=992672b5ff"></script>
+</body>
+</html>

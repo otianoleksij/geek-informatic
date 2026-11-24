@@ -20,6 +20,7 @@ reb='<g transform="rotate(-8 40 66)"><rect x="10" y="38" width="62" height="62" 
 sir='<rect x="14" y="14" width="92" height="92" rx="22" fill="#FFE45C" stroke="#14213A" stroke-width="4"/><g stroke="#14213A" stroke-width="3" stroke-linecap="round"><rect x="26" y="36" width="50" height="9" rx="4.5" fill="#E7C98A"/><rect x="26" y="36" width="12" height="9" rx="4.5" fill="#E2483D"/><rect x="26" y="75" width="50" height="9" rx="4.5" fill="#E7C98A"/><rect x="26" y="75" width="12" height="9" rx="4.5" fill="#E2483D"/><rect x="84" y="28" width="9" height="46" rx="4.5" fill="#E7C98A"/><rect x="84" y="28" width="9" height="12" rx="4.5" fill="#E2483D"/></g>'
 logo='<path d="M12 10l-5 6 5 6M20 10l5 6-5 6" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'
 code='<rect x="14" y="14" width="92" height="92" rx="24" fill="#FFE45C" stroke="#14213A" stroke-width="4"/><path d="M48 40L28 60l20 20M72 40l20 20-20 20" stroke="#14213A" stroke-width="9" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'
+car='<rect x="10" y="20" width="100" height="86" rx="22" fill="#FFE45C" stroke="#14213A" stroke-width="4"/><g stroke="#14213A" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"><path d="M26 66 C30 50 40 44 54 44 L72 44 C84 44 92 54 94 66 Z" fill="#EB4D4B"/><rect x="18" y="64" width="84" height="22" rx="9" fill="#EB4D4B"/><path d="M48 66 L48 55 Q48 50 54 50 L71 50 Q80 50 85 66 Z" fill="#D6F0FF"/><circle cx="58" cy="58" r="6" fill="#fff"/><circle cx="73" cy="58" r="6" fill="#fff"/><circle cx="60" cy="59" r="2.8" fill="#14213A" stroke="none"/><circle cx="75" cy="59" r="2.8" fill="#14213A" stroke="none"/><circle cx="35" cy="88" r="10" fill="#2A2F45"/><circle cx="84" cy="88" r="10" fill="#2A2F45"/><circle cx="35" cy="88" r="4.5" fill="#E8ECF4" stroke-width="2"/><circle cx="84" cy="88" r="4.5" fill="#E8ECF4" stroke-width="2"/><path d="M80 75 Q86 82 92 75" fill="none"/></g><g fill="#14213A"><rect x="76" y="26" width="9" height="9"/><rect x="94" y="26" width="9" height="9"/><rect x="85" y="35" width="9" height="9"/></g>'
 # слаг: (колір 1, колір 2, іконка, {мова: (заголовок, підзаголовок, бейдж)})
 PAGES={
  "home":("#2D55E0","#1B3AA8",code,{
@@ -40,6 +41,9 @@ PAGES={
  "klaviatura":("#1B6E78","#0F3F55",kbd,{
    "uk":("Космічний клавіатурний тренажер","2–7 клас · друк наосліп","2–7 клас"),
    "en":("Space Typing Trainer","Grades 2–7 · touch typing","Grades 2–7")}),
+ "perehony":("#2BA84A","#17702F",car,{
+   "uk":("Перегони слів","3–7 клас · швидкий друк слів","3–7 клас"),
+   "en":("Word Race","Grades 3–7 · speed typing","Grades 3–7")}),
  "sirnyky":("#E0892B","#B0561B",sir,{
    "uk":("Задачі з сірниками","3–11 клас · логіка й кмітливість","3–11 клас"),
    "en":("Matchstick puzzles","Grades 3–11 · logic and ingenuity","Grades 3–11")}),

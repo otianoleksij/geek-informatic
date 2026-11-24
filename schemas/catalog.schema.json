@@ -121,6 +121,15 @@
               "pattern": "^[A-Za-z0-9._-]+\\.js$"
             }
           },
+          "sharedScripts": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "pattern": "^activities/[a-z0-9-]+/[A-Za-z0-9._-]+\\.js$"
+            },
+            "description": "Скрипти ІНШИХ активностей (activities/<інша>/<файл>.js), напр. спільне ядро розкладок klaviatura-core.js. Підключаються після data.js і перед власними scripts"
+          },
           "vendorScripts": {
             "type": "array",
             "minItems": 1,

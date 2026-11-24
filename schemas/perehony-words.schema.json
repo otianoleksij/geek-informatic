@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Слова й ліміти часу гри «Перегони слів» (content/perehony/words.json)",
+  "type": "object",
+  "required": ["format", "raceLength", "opponents", "difficulties", "words"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "format": { "const": 1 },
+    "comment": { "type": "string", "description": "Пояснення формули ліміту часу й типових значень" },
+    "raceLength": { "type": "integer", "minimum": 4, "maximum": 40, "description": "Слів у перегонах" },
+    "opponents": { "type": "integer", "minimum": 2, "maximum": 5, "description": "Скільки суперників (разом з гравцем машин на одну більше). Гра малює рівно 5" },
+    "difficulties": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "required": ["id", "tiers", "reaction", "perLetter"], "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "description": "Стабільний id: за ним зберігається результат; підписи в i18n perehony.json: diff.<id>.name" },
+          "tiers": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "type": "integer", "minimum": 1, "maximum": 9 }, "description": "Рівні слів: [нижній для першої половини, верхній для другої]" },
+          "reaction": { "type": "number", "minimum": 0.5, "maximum": 10, "description": "Секунд на реакцію (знайти й почати друкувати)" },
+          "perLetter": { "type": "number", "minimum": 0.2, "maximum": 5, "description": "Секунд на одну літеру" }
+        }
+      }
+    },
+    "words": {
+      "type": "object", "required": ["uk", "en"], "additionalProperties": false,
+      "properties": {
+        "uk": { "$ref": "#/definitions/tiers" },
+        "en": { "$ref": "#/definitions/tiers" }
+      }
+    }
+  },
+  "definitions": {
+    "tiers": {
+      "type": "array", "minItems": 2,
+      "items": {
+        "type": "object", "required": ["tier", "minLen", "maxLen", "list"], "additionalProperties": false,
+        "properties": {
+          "tier": { "type": "integer", "minimum": 1, "maximum": 9 },
+          "minLen": { "type": "integer", "minimum": 1, "maximum": 30 },
+          "maxLen": { "type": "integer", "minimum": 1, "maximum": 30 },
+          "list": { "type": "array", "minItems": 20, "items": { "type": "string", "pattern": "^[^\\s]+$" } }
+        }
+      }
+    }
+  }
+}

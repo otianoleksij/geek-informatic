@@ -92,5 +92,12 @@
   "card.klaviatura.f2": "підказки для пальців",
   "card.klaviatura.f3": "комбо й астероїди",
   "card.klaviatura.cta": "Тренуватися",
-  "card.klaviatura.note": "потрібна клавіатура"
+  "card.klaviatura.note": "потрібна клавіатура",
+  "card.perehony.subject": "Клавіатура",
+  "card.perehony.blurb": "Швидкісні перегони зі словами: набрав слово вчасно, і твоя машина обганяє суперника. Приїдь першим із шести!",
+  "card.perehony.f1": "3 складності",
+  "card.perehony.f2": "слова на швидкість",
+  "card.perehony.f3": "кубки за місце",
+  "card.perehony.cta": "Перегони!",
+  "card.perehony.note": "потрібна клавіатура"
 }

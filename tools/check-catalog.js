@@ -88,6 +88,13 @@ acts.forEach(function (x, i) {
     if (!Array.isArray(x.scripts) || !x.scripts.length) err(id, "scripts має бути непорожнім масивом");
     else x.scripts.forEach(function (sc) { if (read("activities/" + id + "/" + sc) === null) err(id, "немає activities/" + id + "/" + sc + " (scripts)"); });
   }
+  if (has(x, "sharedScripts")) {
+    if (!Array.isArray(x.sharedScripts) || !x.sharedScripts.length) err(id, "sharedScripts має бути непорожнім масивом");
+    else x.sharedScripts.forEach(function (sc) {
+      if (typeof sc !== "string" || !/^activities\/[a-z0-9-]+\/[A-Za-z0-9._-]+\.js$/.test(sc) || sc.indexOf("activities/" + id + "/") === 0) err(id, "sharedScripts: «" + sc + "» має бути activities/<інша-активність>/<файл>.js");
+      else if (read(sc) === null) err(id, "немає " + sc + " (sharedScripts)");
+    });
+  }
   var templated = read("activities/" + id + "/page.html") !== null;
   if (templated && !has(x, "scripts")) err(id, "є activities/" + id + "/page.html, але в каталозі немає scripts");
 

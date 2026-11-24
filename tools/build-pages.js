@@ -269,7 +269,13 @@ function buildActivity(cat, act, lang, template, label) {
     if (!exists(p)) fail(label + ": немає " + p + " (vendorScripts у catalog.json)");
     return p;
   });
-  var scripts = vendor.concat(["assets/js/storage.js", "assets/js/i18n.js", "assets/js/data.js"]).concat(
+  /* sharedScripts: файли інших активностей (activities/<інша>/<файл>.js), напр. спільне ядро розкладок; йдуть перед власними scripts */
+  var shared = (act.sharedScripts || []).map(function (s) {
+    if (!/^activities\/[a-z0-9-]+\/[A-Za-z0-9._-]+\.js$/.test(s) || s.indexOf("activities/" + id + "/") === 0) fail(label + ": sharedScripts: «" + s + "» має бути activities/<інша-активність>/<файл>.js");
+    if (!exists(s)) fail(label + ": немає " + s + " (sharedScripts у catalog.json)");
+    return s;
+  });
+  var scripts = vendor.concat(["assets/js/storage.js", "assets/js/i18n.js", "assets/js/data.js"]).concat(shared).concat(
     (act.scripts || []).map(function (s) {
       if (!exists("activities/" + id + "/" + s)) fail(label + ": немає activities/" + id + "/" + s + " (поле scripts у catalog.json)");
       return "activities/" + id + "/" + s;
