@@ -821,13 +821,20 @@
 
   /* ---------- старт ---------- */
   GIData.loadJSON(ROOT + "content/klaviatura/levels.json").then(function (doc) {
-    cfg = doc; levels = doc.levels;
-    buildKeyboard(); buildHands();
-    loadSaved();
-    syncSummary();
-    if (touchOnly()) $("touchNotice").hidden = false;
-    var i = hashLevel();
-    if (i >= 0) startLevel(i); else showLevels(true);
+    try {
+      cfg = doc; levels = doc.levels;
+      buildKeyboard(); buildHands();
+      loadSaved();
+      syncSummary();
+      if (touchOnly()) $("touchNotice").hidden = false;
+      var i = hashLevel();
+      if (i >= 0) startLevel(i); else showLevels(true);
+    } catch (err) {
+      /* замість порожнього екрана — повідомлення «онови сторінку» */
+      $("viewGame").hidden = true; $("viewLevels").hidden = true;
+      $("loadError").hidden = false;
+      throw err;
+    }
     window.__klaviatura = { Core: Core, get game() { return game; }, get saved() { return saved; } };
   });
 })();

@@ -27,6 +27,9 @@
   /* fetch + JSON.parse. URL відносний, тож розв'язується від адреси сторінки. */
   function loadJSON(url) {
     var p;
+    /* data-v на <html> — хеш контенту від build-pages: новий контент не береться зі старого кешу */
+    var v = doc && doc.documentElement && doc.documentElement.getAttribute("data-v");
+    if (v && url.indexOf("?") < 0) url += "?v=" + v;
     if (!g.fetch) p = Promise.reject(new Error("fetch недоступний"));
     else {
       p = g.fetch(url).then(function (r) {

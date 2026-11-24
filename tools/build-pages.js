@@ -8,6 +8,7 @@
    Правила: docs/architecture.md. */
 "use strict";
 var fs = require("fs");
+var crypto = require("crypto");
 var path = require("path");
 
 var ROOT = path.join(__dirname, "..");
@@ -22,7 +23,7 @@ var RAW_VARS = ["csp", "hreflang", "jsonld", "i18nData", "scripts", "body", "sty
   "filterGrade", "filterType", "filterTopic", "filterLevel", "sections", "activityRows"];
 var PAGE_VARS = ["lang", "root", "prefix", "basePath", "id", "canonical", "title", "pageTitle", "description", "ogDescription",
   "ogLocale", "ogImage", "ogAlt", "fontFile", "homeHref", "altHref", "altLang", "altName", "activityCss", "themeColor",
-  "baseCss", "chrome", "ownPage", "favicon", "defaultFavicon"].concat(RAW_VARS);
+  "baseCss", "chrome", "ownPage", "favicon", "defaultFavicon", "hrefFonts", "hrefTokens", "hrefBase", "dataV"].concat(RAW_VARS);
 /* Content-Security-Policy для <meta http-equiv>: GitHub Pages не вміє віддавати заголовки. Пояснення кожного токена: docs/architecture.md.
    frame-ancestors у <meta> ігнорується, тому тут його немає. */
 function cspFor() {
@@ -47,6 +48,26 @@ function fail(msg) { throw new BuildError(msg); }
 
 function rel(p) { return path.relative(ROOT, p); }
 function exists(relPath) { return fs.existsSync(path.join(ROOT, relPath)); }
+/* Версія файлу в адресі (?v=<хеш вмісту>): після оновлення сайту браузер не візьме зі свого кешу
+   старий скрипт чи стиль до нової сторінки (GitHub Pages дозволяє кешувати файли 10 хвилин). */
+function hashOf(relPaths) {
+  var h = crypto.createHash("sha1");
+  relPaths.forEach(function (p) { h.update(p); h.update(fs.readFileSync(path.join(ROOT, p))); });
+  return h.digest("hex").slice(0, 10);
+}
+function ver(relPath) { return relPath + "?v=" + hashOf([relPath]); }
+/* Хеш усіх файлів теки (для JSON-контенту, який сторінка завантажує сама через GIData.loadJSON) */
+function dirHash(relDir) {
+  if (!exists(relDir)) return "";
+  var files = [];
+  (function walk(d) {
+    fs.readdirSync(path.join(ROOT, d)).sort().forEach(function (n) {
+      var r = d + "/" + n;
+      if (fs.statSync(path.join(ROOT, r)).isDirectory()) walk(r); else files.push(r);
+    });
+  })(relDir);
+  return files.length ? hashOf(files) : "";
+}
 function readText(relPath) {
   try { return fs.readFileSync(path.join(ROOT, relPath), "utf8"); } catch (e) { fail("немає файлу " + relPath); }
 }
@@ -274,11 +295,13 @@ function buildActivity(cat, act, lang, template, label) {
       ogImage: BASE + ogFor(act.og, lang), ogAlt: title + " — " + cs("siteName"),
       fontFile: lang === "uk" ? "nunito-cyrillic.woff2" : "nunito-latin.woff2",
       homeHref: homeHref, altHref: altHref, altLang: altLang, altName: cs("lang." + altLang),
-      activityCss: exists(cssRel) ? root + cssRel : "",
+      activityCss: exists(cssRel) ? root + ver(cssRel) : "",
+      hrefFonts: root + ver("assets/fonts/fonts.css"), hrefTokens: root + ver("assets/css/tokens.css"), hrefBase: root + ver("assets/css/base.css"),
+      dataV: dirHash("content/" + id),
       themeColor: act.themeColor || "#EEF3FA", baseCss: ownPage ? "" : "1", chrome: ownPage ? "" : "1", ownPage: ownPage ? "1" : "",
       favicon: favicon, defaultFavicon: favicon ? "" : "1",
       hreflang: hreflangLinks(act.locales, act.path), jsonld: safeJSON(ld), i18nData: safeJSON(i18nData),
-      scripts: scripts.map(function (s) { return "<script" + deferAttr + ' src="' + root + s + '"></script>'; }).join("\n")
+      scripts: scripts.map(function (s) { return "<script" + deferAttr + ' src="' + root + ver(s) + '"></script>'; }).join("\n")
     }
   };
   ctx.vars.body = render(readText("activities/" + id + "/page.html").replace(/\s+$/, ""), ctx, label + " (page.html)");
@@ -417,8 +440,9 @@ function buildSitePage(cat, page, lang, template, label) {
     fontFile: lang === "uk" ? "nunito-cyrillic.woff2" : "nunito-latin.woff2",
     homeHref: homeHref, altHref: altHref, altLang: altLang, altName: cs("lang." + altLang),
     themeColor: "#EEF3FA", hreflang: hreflangLinks(page.locales, page.path), i18nData: i18nData,
-    styles: css.map(function (c) { return '<link rel="stylesheet" href="' + root + c + '">\n'; }).join(""),
-    scripts: scripts.map(function (sc) { return '<script src="' + root + sc + '" defer></script>'; }).join("\n"),
+    styles: css.map(function (c) { return '<link rel="stylesheet" href="' + root + ver(c) + '">\n'; }).join(""),
+    scripts: scripts.map(function (sc) { return '<script src="' + root + ver(sc) + '" defer></script>'; }).join("\n"),
+    hrefFonts: root + ver("assets/fonts/fonts.css"), hrefTokens: root + ver("assets/css/tokens.css"), hrefBase: root + ver("assets/css/base.css"),
     nav: '<a href="' + homeHref + '">' + esc(cs("home")) + "</a>"
   };
   var ctx = { dicts: dicts, vars: vars };
