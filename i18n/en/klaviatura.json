@@ -22,7 +22,6 @@
   "textAria": "Text to type",
   "hudAria": "Game status",
   "stageAria": "Game screen: your ship is at the bottom left, an asteroid flies in from the top right. Mistakes bring the asteroid closer.",
-  "legendAria": "Finger colours",
   "hud.score": "Score: {n}",
   "hud.ast": "Asteroids: {n}",
   "hud.err": "Mistakes: {n} of {max}",

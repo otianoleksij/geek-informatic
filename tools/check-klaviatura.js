@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /* Перевірка гри «Космічний клавіатурний тренажер»: node tools/check-klaviatura.js
-   1) content/klaviatura/levels.json: кожен символ набору вводиться на розкладці мови й дозволений у рівні,
-      генератор детермінований, слова придатні, бюджет помилок розумний;
+   1) content/klaviatura/levels.json: прогресія клавіш (на рівні не більше 2 нових клавіш; keys рівня = усе вивчене досі;
+      кожен символ текстів і генератора вивчений; кожна нова клавіша вводиться на розкладці мови), генератор детермінований,
+      слова придатні, бюджет помилок розумний;
    2) модульні перевірки ядра: щаблі комбо, поразка рівно на бюджеті помилок, перемога в кінці тексту, класифікація клавіш. */
 "use strict";
 var fs = require("fs");
@@ -47,7 +48,11 @@ doc.combo.forEach(function (c, i) {
 if (!(doc.stars.two < doc.stars.three)) err("stars: two має бути меншим за three");
 if (doc.levels.length < 10) err("замало рівнів: " + doc.levels.length);
 
+
 var rows = [];
+var learnedBy = { uk: {}, en: {} }, shiftSeen = { uk: false, en: false };
+function upperOf(c) { return c !== c.toUpperCase() ? c.toUpperCase() : ""; }
+var NEWKEY_RATIO = { min: 0.35, max: 0.55 };
 doc.levels.forEach(function (lv, li) {
   var n = lv.id + " (" + (li + 1) + ")";
   if (ids[lv.id]) err("рівень " + n + ": id не унікальний");
@@ -57,27 +62,53 @@ doc.levels.forEach(function (lv, li) {
     var w = "рівень " + n + " [" + lang + "]: ";
     var s = lv.sets && lv.sets[lang];
     if (!s) { err(w + "немає набору"); return; }
-    var uniqKeys = {}, i;
+    var i, ch;
+
+    /* прогресія: learned(N) = learned(N-1) + newKeys(N) (+ великі літери після рівня Shift); пробіл завжди */
+    var learned = learnedBy[lang];
+    var nk = s.newKeys || "";
+    var newCount = nk.length + (s.shift ? 1 : 0);
+    if (newCount > 2) err(w + "нових клавіш " + newCount + " (Shift теж рахується): дозволено не більше 2");
+    if (s.shift && shiftSeen[lang]) err(w + "Shift уже вводився на попередньому рівні");
+    for (i = 0; i < nk.length; i++) {
+      ch = nk.charAt(i);
+      if (learned[ch]) err(w + "newKeys: «" + ch + "» уже вивчена раніше");
+      if (!Core.typeable(lang, ch)) err(w + "newKeys: «" + ch + "» немає на розкладці");
+      else if (Core.locate(lang, ch).shift && !(shiftSeen[lang] || s.shift)) err(w + "newKeys: «" + ch + "» вводиться з Shift, а Shift ще не вивчено");
+      learned[ch] = true;
+    }
+    if (s.shift) shiftSeen[lang] = true;
+    if (shiftSeen[lang]) Object.keys(learned).forEach(function (c) { var u = upperOf(c); if (u) learned[u] = true; });
+    learned[" "] = true;
+
+    var uniqKeys = {};
     for (i = 0; i < s.keys.length; i++) {
-      var ch = s.keys.charAt(i);
+      ch = s.keys.charAt(i);
       if (uniqKeys[ch]) err(w + "символ «" + ch + "» двічі в keys");
       uniqKeys[ch] = true;
       if (!Core.typeable(lang, ch)) err(w + "символу «" + ch + "» немає на розкладці");
+      if (!learned[ch]) err(w + "keys: «" + ch + "» ще не вивчено на цьому рівні");
     }
-    if (!uniqKeys[" "]) err(w + "у keys немає пробілу");
-    for (i = 0; i < s.newKeys.length; i++) if (!uniqKeys[s.newKeys.charAt(i)]) err(w + "newKeys: «" + s.newKeys.charAt(i) + "» немає в keys");
+    Object.keys(learned).forEach(function (c) { if (!uniqKeys[c]) err(w + "keys: бракує вивченого символу «" + c + "»"); });
     var hasGen = !!s.gen, hasTexts = !!s.texts;
     if (hasGen === hasTexts) { err(w + "потрібно рівно одне з gen і texts"); return; }
 
     /* усі можливі тексти: для texts — усі, для gen — вибірка із зерен */
-    var samples = [];
+    var samples = [], alphaSet = uniqKeys;
     if (hasTexts) { samples = s.texts.slice(); if (new Set(s.texts).size !== s.texts.length) err(w + "однакові тексти"); }
     else {
       var g = s.gen, k;
       if (g.kind === "groups") {
         if (!(g.groups >= 1 && g.min >= 1 && g.max >= g.min)) err(w + "gen: groups/min/max");
         (g.focus || "").split("").forEach(function (c) { if (!uniqKeys[c]) err(w + "gen.focus: «" + c + "» немає в keys"); });
-        if (s.keys.replace(/ /g, "").length < 2) err(w + "замало символів для генератора");
+        if (g.alphabet) {
+          alphaSet = {};
+          g.alphabet.split("").forEach(function (c) { alphaSet[c] = true; if (!uniqKeys[c]) err(w + "gen.alphabet: «" + c + "» немає в keys"); });
+        }
+        if (Object.keys(alphaSet).filter(function (c) { return c !== " "; }).length < 2) err(w + "замало символів для генератора");
+        if (g.bias !== undefined && !(g.bias > 0 && g.bias <= 1)) err(w + "gen.bias поза (0;1]");
+        if (g.bias && !nk) err(w + "gen.bias без newKeys");
+        if (nk && g.bias) for (i = 0; i < nk.length; i++) if (!alphaSet[nk.charAt(i)]) err(w + "newKeys: «" + nk.charAt(i) + "» немає в алфавіті генератора");
       } else if (g.kind === "words") {
         var wset = {};
         if (!(g.count >= 1) || !g.words || g.words.length < 8) err(w + "gen.words: потрібно count і щонайменше 8 слів");
@@ -101,17 +132,25 @@ doc.levels.forEach(function (lv, li) {
       if (Object.keys(distinct).length < SEEDS * 0.9) err(w + "генератор дає замало різних текстів: " + Object.keys(distinct).length + " з " + SEEDS);
     }
 
-    var minLen = 1e9, maxLen = 0, seenNew = {};
+    var minLen = 1e9, maxLen = 0, seenNew = {}, newChars = 0, allChars = 0, newHasOld = false;
+    for (i = 0; i < nk.length; i++) seenNew[nk.charAt(i)] = 0;
+    Object.keys(alphaSet).forEach(function (c) { if (c !== " " && nk.indexOf(c) < 0) newHasOld = true; });
     samples.forEach(function (t, ti) {
       var tw = w + (hasTexts ? "текст " + (ti + 1) : "зерно " + (ti + 1)) + ": ";
       if (/^ | $|  /.test(t)) err(tw + "зайві пробіли");
       if (t.length < 25) err(tw + "надто короткий (" + t.length + ")");
       if (t.length > 400) err(tw + "надто довгий (" + t.length + ")");
+      if (hasGen && (t.length < 36 || t.length > 80)) err(tw + "довжина " + t.length + " поза [36;80]");
+      var caps = 0, textNew = {};
       for (var j = 0; j < t.length; j++) {
         var c = t.charAt(j);
+        if (!learned[c]) { err(tw + "символ «" + c + "» ще не вивчено на цьому рівні"); break; }
         if (!uniqKeys[c]) { err(tw + "символ «" + c + "» поза набором keys"); break; }
         if (!Core.typeable(lang, c)) { err(tw + "символ «" + c + "» не вводиться на розкладці"); break; }
-        seenNew[c] = true;
+        if (!shiftSeen[lang] && Core.locate(lang, c).shift) { err(tw + "символ «" + c + "» вводиться з Shift до рівня Shift"); break; }
+        if (c !== c.toLowerCase()) caps++;
+        if (nk.indexOf(c) >= 0) { seenNew[c]++; newChars++; textNew[c] = true; }
+        if (c !== " ") allChars++;
       }
       if (hasGen && s.gen.kind === "groups") {
         t.split(" ").forEach(function (grp) {
@@ -122,22 +161,25 @@ doc.levels.forEach(function (lv, li) {
             if (!okf) err(tw + "у групі «" + grp + "» немає focus-символу");
           }
           if (/(.)\1\1/.test(grp)) err(tw + "три однакові поспіль у «" + grp + "»");
+          for (var z = 0; z < grp.length; z++) if (!alphaSet[grp.charAt(z)]) { err(tw + "група «" + grp + "»: символ «" + grp.charAt(z) + "» поза алфавітом генератора"); break; }
         });
       }
-      if (lv.id === "capitals") {
-        t.split(" ").forEach(function (word) {
-          if (word.charAt(0) !== word.charAt(0).toUpperCase() || word.charAt(0) === word.charAt(0).toLowerCase()) err(tw + "слово «" + word + "» без великої літери");
-        });
-      }
+      if (s.shift && caps < 3) err(tw + "на рівні Shift потрібно щонайменше 3 великі літери");
+      if (hasTexts) for (i = 0; i < nk.length; i++) if (!textNew[nk.charAt(i)]) err(tw + "немає нової клавіші «" + nk.charAt(i) + "»");
       var budget = Core.errorBudget(t.length, ratio);
       if (t.length < minLen) minLen = t.length;
       if (t.length > maxLen) maxLen = t.length;
       if (budget < 5 || budget > 60) err(tw + "бюджет помилок " + budget + " поза [5;60]");
       if (budget >= t.length) err(tw + "бюджет не менший за довжину");
     });
-    for (i = 0; i < s.newKeys.length; i++) if (!seenNew[s.newKeys.charAt(i)]) err(w + "нова клавіша «" + s.newKeys.charAt(i) + "» не трапляється у текстах");
-    if (lang === "uk") rows.push([lv.id, minLen + "–" + maxLen, Core.errorBudget(minLen, ratio) + "–" + Core.errorBudget(maxLen, ratio), s.newKeys || "-"]);
-    else rows[rows.length - 1].push(minLen + "–" + maxLen);
+    for (i = 0; i < nk.length; i++) if (!seenNew[nk.charAt(i)]) err(w + "нова клавіша «" + nk.charAt(i) + "» не трапляється у текстах");
+    var share = allChars ? newChars / allChars : 0;
+    if (hasGen && s.gen.kind === "groups" && s.gen.bias && newHasOld && (share < NEWKEY_RATIO.min || share > NEWKEY_RATIO.max)) err(w + "частка нових клавіш " + Math.round(share * 100) + "% поза [35;55]%");
+    var row = lang === "uk" ? [lv.id, "", "", ""] : rows[rows.length - 1];
+    if (lang === "uk") rows.push(row);
+    row[lang === "uk" ? 1 : 4] = minLen + "–" + maxLen;
+    if (lang === "uk") { row[2] = Core.errorBudget(minLen, ratio) + "–" + Core.errorBudget(maxLen, ratio); row[3] = (nk + (s.shift ? "Shift" : "")) || "-"; row[5] = ""; }
+    else row[5] = (nk + (s.shift ? "Shift" : "")) || "-";
   });
 });
 
@@ -272,7 +314,7 @@ doc.levels.forEach(function (lv, li) {
   if (/(.)\1\1/.test(t.replace(/ /g, "x").replace(/x/g, " "))) { if (/(a{3}|b{3})/.test(t)) err("ядро: три однакові символи поспіль у генераторі"); }
 })();
 
-console.log("Рівень".padEnd(16) + "Довжина uk".padEnd(14) + "Бюджет uk".padEnd(12) + "Нові клавіші uk".padEnd(24) + "Довжина en");
-rows.forEach(function (r) { console.log(String(r[0]).padEnd(16) + String(r[1]).padEnd(14) + String(r[2]).padEnd(12) + String(r[3]).padEnd(24) + (r[4] || "")); });
+console.log("Рівень".padEnd(8) + "Довжина uk".padEnd(12) + "Бюджет uk".padEnd(11) + "Нові uk".padEnd(10) + "Довжина en".padEnd(12) + "Нові en");
+rows.forEach(function (r) { console.log(String(r[0]).padEnd(8) + String(r[1]).padEnd(12) + String(r[2]).padEnd(11) + String(r[3]).padEnd(10) + String(r[4]).padEnd(12) + (r[5] || "")); });
 if (errors.length) { console.error("\nПОМИЛКИ:\n" + errors.join("\n")); process.exit(1); }
 console.log("\nOK: " + doc.levels.length + " рівнів × " + LANGS.length + " мови, генератор і ядро перевірено");

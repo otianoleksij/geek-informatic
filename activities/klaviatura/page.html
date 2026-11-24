@@ -85,7 +85,7 @@
     <!-- 2. Ігровий екран -->
     <div class="card stage-card">
       <div class="stage-wrap" id="stageWrap">
-        <canvas id="stage" width="800" height="200" role="img" aria-label="{{klaviatura.stageAria}}">{{klaviatura.stageAria}}</canvas>
+        <canvas id="stage" width="1500" height="340" role="img" aria-label="{{klaviatura.stageAria}}">{{klaviatura.stageAria}}</canvas>
         <ul class="hud" aria-label="{{klaviatura.hudAria}}">
           <li class="chip" id="hudScore"></li>
           <li class="chip" id="hudAst"></li>
@@ -100,10 +100,10 @@
     <div class="card kb-card">
       <p class="finger-hint" id="fingerHint"></p>
       <div class="kb-wrap">
+        <svg class="hand" id="handL" viewBox="20 24 215 168" aria-hidden="true" focusable="false"></svg>
         <div class="kb" id="keyboard" aria-hidden="true"></div>
-        <svg class="hands" id="hands" viewBox="0 0 560 190" aria-hidden="true" focusable="false"></svg>
+        <svg class="hand" id="handR" viewBox="20 24 215 168" aria-hidden="true" focusable="false"></svg>
       </div>
-      <ul class="legend" id="legend" aria-label="{{klaviatura.legendAria}}"></ul>
     </div>
   </section>
   </main>

@@ -102,8 +102,8 @@ noscript .card{display:block;max-width:640px;margin:16px auto}
 .tip strong{color:var(--sand)}
 
 /* ===== 1. рядок тексту ===== */
-.type-card{padding:12px 0 10px}
-.textrow{position:relative;overflow:hidden;font:600 clamp(22px,5.6vw,32px)/1.5 var(--f-mono);white-space:pre;outline:0}
+.type-card{padding:8px 0 6px}
+.textrow{position:relative;overflow:hidden;font:600 34px/1.5 var(--f-mono);white-space:pre;outline:0}
 .textrow::before,.textrow::after{content:"";position:absolute;top:0;bottom:0;width:36px;z-index:2;pointer-events:none}
 .textrow::before{left:0;background:linear-gradient(90deg,#16122A,transparent)}
 .textrow::after{right:0;background:linear-gradient(-90deg,#16122A,transparent)}
@@ -124,32 +124,33 @@ noscript .card{display:block;max-width:640px;margin:16px auto}
 
 /* ===== 2. ігровий екран ===== */
 .stage-card{padding:8px}
-/* лічильники й повідомлення лежать поверх екрана, щоб гра займала менше висоти */
-.hud{position:absolute;top:8px;left:8px;right:8px;list-style:none;margin:0;padding:0;display:flex;gap:6px;flex-wrap:wrap;pointer-events:none;line-height:1.4}
-.chip{flex:0 1 auto;font:700 13px var(--f-body);padding:3px 10px;border-radius:999px;background:rgba(15,12,32,.82);border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+/* лічильники лежать поверх екрана вгорі ліворуч, повідомлення внизу праворуч: корабель унизу ліворуч, астероїд угорі праворуч, тож вони їх не закривають */
+.hud{position:absolute;top:10px;left:10px;right:50%;list-style:none;margin:0;padding:0;display:flex;gap:8px;flex-wrap:wrap;pointer-events:none;line-height:1.4}
+.chip{flex:0 1 auto;font:700 14px var(--f-body);padding:4px 12px;border-radius:999px;background:rgba(15,12,32,.82);border:1px solid var(--line);color:var(--muted);white-space:nowrap}
 .chip b{color:var(--ink)}
 .chip.danger{border-color:#8a3030;background:#2a0f12;color:#ffb0a6}
 .chip.combo-on{border-color:var(--teal);color:var(--teal)}
 .stage-wrap{position:relative;width:100%;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#07050f;line-height:0}
 #stage{display:block;width:100%;height:auto}
-.status{position:absolute;left:8px;right:8px;bottom:8px;line-height:1.35;border-radius:10px;padding:6px 12px;font-weight:700;font-size:14px;background:rgba(16,12,32,.85);pointer-events:none;border:1px solid var(--line);color:var(--muted)}
+.status{position:absolute;right:10px;bottom:10px;max-width:55%;line-height:1.35;border-radius:10px;padding:6px 14px;font-weight:700;font-size:15px;background:rgba(16,12,32,.85);pointer-events:none;border:1px solid var(--line);color:var(--muted)}
 .status:empty{display:none}
 .status.ok{border-color:#1f7a50;background:rgba(11,42,28,.88);color:var(--ok)}
 .status.bad{border-color:#8a3030;background:rgba(42,15,18,.88);color:#ffb0a6}
 .status.warn{border-color:#7a6320;background:rgba(42,35,8,.88);color:var(--warn)}
 
 /* ===== 3. клавіатура ===== */
-.kb-card{padding:12px}
-.finger-hint{min-height:40px;font-weight:700;color:var(--ink);margin-bottom:8px;padding:6px 12px;border-radius:10px;background:#100c20;border:1px solid var(--line)}
+.kb-card{padding:10px 12px 12px}
+.finger-hint{min-height:36px;font-weight:700;font-size:17px;color:var(--ink);margin-bottom:8px;padding:5px 14px;border-radius:10px;background:#100c20;border:1px solid var(--line)}
 .finger-hint strong{color:var(--teal);font-family:var(--f-mono)}
-.kb{--g:3px;--kh:clamp(28px,7.4vw,42px);width:100%;max-width:820px;margin:0 auto;user-select:none;-webkit-user-select:none}
+.kb{--g:4px;--kh:58px;flex:1 1 0;min-width:0;max-width:1100px;user-select:none;-webkit-user-select:none}
 .kb-row{display:flex;gap:var(--g);margin-bottom:var(--g)}
-.key{flex:1 1 0;min-width:0;height:var(--kh);border-radius:6px;background:rgba(var(--c),.2);border:1px solid rgba(var(--c),.55);color:var(--ink);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;font:700 clamp(10px,2.9vw,16px)/1.05 var(--f-body);position:relative;overflow:hidden;transition:background .1s,box-shadow .1s}
+.kb-row:last-child{margin-bottom:0}
+.key{flex:1 1 0;min-width:0;height:var(--kh);border-radius:8px;background:rgba(var(--c),.2);border:1px solid rgba(var(--c),.55);color:var(--ink);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;font:700 21px/1.05 var(--f-body);position:relative;overflow:hidden;transition:background .1s,box-shadow .1s}
 .key .s{font-size:.66em;opacity:.8;line-height:1}
-.key.ghost{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1);color:#8173a0;font-size:clamp(8px,2vw,12px)}
+.key.ghost{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1);color:#8173a0;font-size:14px}
 .key.spc{background:rgba(var(--c-th),.16);border-color:rgba(var(--c-th),.5)}
-.key.bump::after{content:"";position:absolute;bottom:3px;left:50%;width:34%;height:3px;margin-left:-17%;border-radius:2px;background:var(--ink);opacity:.85}
+.key.bump::after{content:"";position:absolute;bottom:5px;left:50%;width:34%;height:4px;margin-left:-17%;border-radius:2px;background:var(--ink);opacity:.85}
 .key.next{background:rgba(var(--c),.95);color:#0b0916;border-color:#fff;box-shadow:0 0 0 2px rgba(var(--c),.55),0 0 18px rgba(var(--c),.9);animation:kpulse 1s ease-in-out infinite;z-index:1}
 .key.next .s{opacity:1}
 .key.bad{background:var(--red);border-color:#ffb0a6;color:#fff;animation:none}
@@ -158,27 +159,27 @@ noscript .card{display:block;max-width:640px;margin:16px auto}
 .f-lp{--c:var(--c-lp)}.f-lr{--c:var(--c-lr)}.f-lm{--c:var(--c-lm)}.f-li{--c:var(--c-li)}.f-th{--c:var(--c-th)}
 .f-ri{--c:var(--c-ri)}.f-rm{--c:var(--c-rm)}.f-rr{--c:var(--c-rr)}.f-rp{--c:var(--c-rp)}
 
-.hands{display:block;width:100%;max-width:520px;height:auto;margin:6px auto 0}
-.hands .palm{fill:rgba(255,255,255,.05);stroke:rgba(255,255,255,.18);stroke-width:2}
-.hands .fg{fill:rgba(var(--c),.2);stroke:rgba(var(--c),.7);stroke-width:2.4;transition:fill .12s}
-.hands .fg.on{fill:rgba(var(--c),1);stroke:#fff;stroke-width:3;filter:drop-shadow(0 0 8px rgba(var(--c),.95));animation:fpulse 1s ease-in-out infinite}
-.hands .fg.sh{fill:rgba(var(--c),.55);stroke:#fff;stroke-width:3;stroke-dasharray:5 3}
+/* дві руки по боках клавіатури, по центру за висотою */
+.kb-wrap{display:flex;align-items:center;justify-content:center;gap:16px}
+.hand{display:block;flex:0 1 230px;min-width:140px;height:auto}
+.hand .palm{fill:rgba(255,255,255,.05);stroke:rgba(255,255,255,.18);stroke-width:2}
+.hand .fg{fill:rgba(var(--c),.2);stroke:rgba(var(--c),.7);stroke-width:2.4;transition:fill .12s}
+.hand .fg.on{fill:rgba(var(--c),1);stroke:#fff;stroke-width:3;filter:drop-shadow(0 0 8px rgba(var(--c),.95));animation:fpulse 1s ease-in-out infinite}
+.hand .fg.sh{fill:rgba(var(--c),.55);stroke:#fff;stroke-width:3;stroke-dasharray:5 3}
 @keyframes fpulse{50%{filter:drop-shadow(0 0 16px rgba(var(--c),1))}}
-/* на широкому екрані руки стоять праворуч від клавіатури, щоб усе вмістилося на одному екрані */
-@media (min-width:1000px){
-  .kb-wrap{display:flex;align-items:center;gap:12px}
-  .kb-wrap .kb{flex:1 1 auto;min-width:0}
-  .kb-wrap .hands{flex:0 0 270px;margin:0}
-  .in-game .legend{display:none}
-}
+/* у грі сторінка ширша за решту сайту: усе (текст, екран, клавіатура з руками) має вміститися на одному екрані 1920x1080 */
 .in-game .hero{display:none}
-.in-game .page{padding-top:0}
-.in-game .tip{margin-bottom:8px}
+.in-game .page{max-width:1580px;padding-top:0;padding-bottom:8px}
+.in-game .top{padding:0}
+.in-game .logo,.in-game .top nav a,.in-game .game-bar .btn{min-height:36px}
+.in-game .top nav .lang-switch{min-height:30px}
+.in-game .logo .mk{width:30px;height:30px}
+.in-game .logo small{display:none}
+.in-game .kb-card{padding:8px 12px 10px;margin-bottom:0}
+.in-game .tip{margin-bottom:8px;max-width:none;font-size:15px;line-height:1.4}
 .in-game .card{margin-bottom:8px}
-.in-game .finger-hint{margin-bottom:6px}
-.legend{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px 12px;justify-content:center;font-size:13px;color:var(--muted)}
-.legend li{display:inline-flex;align-items:center;gap:6px}
-.legend i{width:14px;height:14px;border-radius:4px;background:rgba(var(--c),.9);border:1px solid rgba(255,255,255,.4);display:inline-block}
+.in-game .game-bar{margin-bottom:6px}
+.in-game .finger-hint{margin-bottom:8px}
 
 /* ===== модальне ===== */
 .modal{position:fixed;inset:0;background:#05030dcc;display:none;place-items:center;padding:16px;z-index:90;overflow-y:auto}
@@ -202,20 +203,8 @@ noscript .card{display:block;max-width:640px;margin:16px auto}
 .skip{position:absolute;left:12px;top:-100px;z-index:200;padding:12px 18px;border-radius:10px;background:var(--teal);color:var(--teal-ink);font:800 16px/1.2 system-ui,sans-serif;text-decoration:none;border:2px solid var(--warn)}
 .skip:focus{top:12px}
 
-@media (max-width:520px){
-  /* на вузькому екрані лічильники й повідомлення не накладаються на гру */
-  .stage-wrap{overflow:visible;border:0;background:none;display:flex;flex-direction:column;line-height:1.4}
-  #stage{border:1px solid var(--line);border-radius:12px}
-  .hud{position:static;margin:0 0 6px;order:-1}
-  .status{position:static;margin-top:6px}
-  .page{padding:6px 12px 36px}
-  .chip{font-size:12px;padding:4px 8px}
-  .card{padding:12px 10px}
-  .kb{--g:2px}
-  .lvl-name{order:-1;flex-basis:100%}
-}
 @media (prefers-reduced-motion:reduce){
-  .drift,.st,.ch.cur::after,.ch.cur.err,.key.next,.hands .fg.on{animation:none!important}
+  .drift,.st,.ch.cur::after,.ch.cur.err,.key.next,.hand .fg.on{animation:none!important}
   .st{opacity:.6}
   .track{transition:none}
   .modal-box{animation:none!important}

@@ -153,17 +153,30 @@
   }
   function randInt(rng, a, b) { return a + Math.floor(rng() * (b - a + 1)); }
 
-  /* Символ із алфавіту так, щоб один і той самий не повторювався 3 рази поспіль. */
-  function pickChar(rng, alpha, prev) {
-    var n = alpha.length, ch, tries = 0;
+  function isTriple(prev, ch) {
+    return prev.length >= 2 && prev.charAt(prev.length - 1) === ch && prev.charAt(prev.length - 2) === ch;
+  }
+  /* Символ так, щоб один і той самий не повторювався 3 рази поспіль.
+     Якщо задано nk (нові клавіші) і bias, то з імовірністю bias символ береться з nk, інакше з old (решта алфавіту). */
+  function pickChar(rng, alpha, prev, nk, old, bias) {
+    var n = alpha.length, ch = "", tries = 0, pool, i;
     do {
-      ch = alpha.charAt(Math.floor(rng() * n));
+      if (nk) {
+        pool = (!old || rng() < bias) ? nk : old;
+        ch = pool.charAt(Math.floor(rng() * pool.length));
+      } else ch = alpha.charAt(Math.floor(rng() * n));
       tries++;
-    } while (n > 1 && prev.length >= 2 && prev.charAt(prev.length - 1) === ch && prev.charAt(prev.length - 2) === ch && tries < 50);
+    } while (n > 1 && isTriple(prev, ch) && tries < 50);
+    if (n > 1 && isTriple(prev, ch)) {
+      var start = Math.floor(rng() * n);
+      for (i = 0; i < n; i++) { ch = alpha.charAt((start + i) % n); if (!isTriple(prev, ch)) break; }
+    }
     return ch;
   }
 
-  /* spec: {keys, gen:{kind:"groups", groups, min, max, focus?} | gen:{kind:"words", count, words} | texts:[...]}.
+  /* spec: {keys, newKeys?, gen:{kind:"groups", groups, min, max, alphabet?, bias?, focus?} | gen:{kind:"words", count, words} | texts:[...]}.
+     groups: alphabet (типово keys без пробілів) задає символи груп; bias (0..1) каже, яка частка символів
+     береться з spec.newKeys (нові клавіші рівня), решта з інших символів алфавіту.
      Той самий spec і те саме зерно завжди дають той самий текст. */
   function generate(spec, seed) {
     var rng = createRng(seed), i, j;
@@ -178,11 +191,17 @@
       }
       return out.join(" ");
     }
-    var alpha = spec.keys.replace(/ /g, ""), focus = g.focus || "", groups = [];
+    var alpha = (g.alphabet || spec.keys).replace(/ /g, ""), focus = g.focus || "", groups = [];
+    var nk = "", old = "";
+    if (g.bias && spec.newKeys) {
+      for (i = 0; i < alpha.length; i++) {
+        if (spec.newKeys.indexOf(alpha.charAt(i)) >= 0) nk += alpha.charAt(i); else old += alpha.charAt(i);
+      }
+    }
     for (i = 0; i < g.groups; i++) {
       var len = randInt(rng, g.min, g.max), s = "", fpos = focus ? Math.floor(rng() * len) : -1;
       for (j = 0; j < len; j++) {
-        s += pickChar(rng, j === fpos ? focus : alpha, s);
+        s += j === fpos ? pickChar(rng, focus, s) : pickChar(rng, alpha, s, nk, old, g.bias);
       }
       groups.push(s);
     }

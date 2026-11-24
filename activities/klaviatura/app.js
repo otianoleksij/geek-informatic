@@ -75,8 +75,7 @@
 
   /* ---------- екранна клавіатура ---------- */
   var keyByCode = {}, fingerEls = {};
-  var ALL_FINGERS = Core.FINGERS;
-
+  
   function buildKeyboard() {
     var kb = $("keyboard"), layout = Core.getLayout(LANG);
     kb.textContent = "";
@@ -127,36 +126,28 @@
     });
   }
 
-  /* Дві руки (SVG): пальці підсвічуються, шапка виду зверху, пальці вгору. Права рука дзеркальна до лівої. */
+  /* Дві руки (SVG, по одній ліворуч і праворуч від клавіатури): пальці підсвічуються, вигляд зверху, пальці вгору.
+     Права рука дзеркальна до лівої: великий палець завжди ближче до клавіатури. viewBox обох: 20 24 215 168. */
   var FINGER_SHAPES = [
     { n: 0, x: 36, y: 70, w: 28, h: 64 },
     { n: 1, x: 70, y: 44, w: 30, h: 90 },
     { n: 2, x: 106, y: 32, w: 32, h: 102 },
     { n: 3, x: 144, y: 44, w: 30, h: 90 }
   ];
+  var HAND_MIRROR_X = 20 * 2 + 215;
   function buildHands() {
-    var svg = $("hands");
-    svg.textContent = "";
     ["l", "r"].forEach(function (side) {
-      var g = svgEl("g", side === "r" ? { transform: "translate(560 0) scale(-1 1)" } : {}, svg);
+      var svg = $(side === "l" ? "handL" : "handR");
+      svg.textContent = "";
+      var g = svgEl("g", side === "r" ? { transform: "translate(" + HAND_MIRROR_X + " 0) scale(-1 1)" } : {}, svg);
       svgEl("rect", { "class": "palm", x: 30, y: 112, width: 176, height: 70, rx: 28 }, g);
       FINGER_SHAPES.forEach(function (f) {
         var code = side + ["p", "r", "m", "i"][f.n];
-        /* у дзеркальній правій руці локальний мізинець (n=0) лишається мізинцем, але з боку правого краю */
         var el = svgEl("rect", { "class": "fg f-" + code, x: f.x, y: f.y, width: f.w, height: f.h, rx: f.w / 2 }, g);
         (fingerEls[code] = fingerEls[code] || []).push(el);
       });
       var th = svgEl("rect", { "class": "fg f-th", x: 186, y: 100, width: 28, height: 70, rx: 14, transform: "rotate(-28 200 160)" }, g);
       (fingerEls.th = fingerEls.th || []).push(th);
-    });
-  }
-  function buildLegend() {
-    var ul = $("legend");
-    ul.textContent = "";
-    ALL_FINGERS.forEach(function (f) {
-      var li = div("f-" + f, ul, "li");
-      div("", li, "i");
-      li.appendChild(document.createTextNode(T("finger." + f)));
     });
   }
 
@@ -231,7 +222,7 @@
   var Stage = (function () {
     var cv = $("stage"), ctx = cv.getContext ? cv.getContext("2d") : null;
     var wrap = $("stageWrap");
-    var W = 800, H = 340, scale = 1;
+    var W = 1500, H = 340, scale = 1;   /* логічні розміри поля; на екрані 1920x1080 воно займає ~1530x350 css-пікселів */
     var game = null, ast = null, parts = [], beams = [], pops = [], starsBg = [];
     var tm = 0, lastTs = 0, raf = 0, active = false;
     var shake = 0, redFlash = 0, kick = 0, comboPulse = 0, shipAlive = true;
@@ -239,11 +230,12 @@
     var motion = true;
 
     function geom() {
-      var R = Math.max(30, Math.min(64, H * 0.17));
-      var S = { x: W * 0.15, y: H * 0.78 };
-      var F = { x: W - R - 26, y: R + 34 };
+      var R = Math.round(H * 0.19);
+      var S = { x: W * 0.1, y: H * 0.74 };
+      /* астероїд на старті (відстань 1) разом зі смужкою міцності лежить повністю в полі: зверху лишається ~36 px, праворуч ~40 px */
+      var F = { x: W - R - 44, y: R + 46 };
       var ang = Math.atan2(F.y - S.y, F.x - S.x), ux = Math.cos(ang), uy = Math.sin(ang);
-      var L = R * 1.2;
+      var L = R * 1.35;
       var C = { x: S.x + ux * (L * 0.6 + R + 4), y: S.y + uy * (L * 0.6 + R + 4) };
       return { R: R, S: S, F: F, C: C, ux: ux, uy: uy, ang: ang, L: L, nose: { x: S.x + ux * L * 0.62, y: S.y + uy * L * 0.62 } };
     }
@@ -269,14 +261,13 @@
       if (!ctx) return;
       var cssW = wrap.clientWidth;
       if (!cssW) return;
-      var narrow = cssW < 560, dpr = Math.min(2, window.devicePixelRatio || 1);
-      H = narrow ? 420 : 200;
+      var dpr = Math.min(2, window.devicePixelRatio || 1);
       cv.width = Math.round(cssW * dpr);
       cv.height = Math.round(cssW * (H / W) * dpr);
       scale = cv.width / W;
       var rng = Core.createRng(77);
       starsBg = [];
-      for (var i = 0; i < 70; i++) starsBg.push({ x: rng() * W, y: rng() * H, z: 0.3 + rng() * 0.9, p: rng() * 6.28 });
+      for (var i = 0; i < 120; i++) starsBg.push({ x: rng() * W, y: rng() * H, z: 0.3 + rng() * 0.9, p: rng() * 6.28 });
       draw();
     }
 
@@ -422,7 +413,7 @@
       var gr = ctx.createRadialGradient(-R * 0.3, -R * 0.35, R * 0.1, 0, 0, R * 1.1);
       gr.addColorStop(0, "#8f7f9c"); gr.addColorStop(1, "#3b3147");
       ctx.fillStyle = gr; ctx.fill();
-      ctx.lineWidth = 2.6; ctx.strokeStyle = "#1b1330"; ctx.lineJoin = "round"; ctx.stroke();
+      ctx.lineWidth = 3; ctx.strokeStyle = "#1b1330"; ctx.lineJoin = "round"; ctx.stroke();
       ctx.save(); ctx.clip();
       for (i = 0; i < ast.craters.length; i++) {
         var c = ast.craters[i], cx = Math.cos(c.a) * c.r * R, cy = Math.sin(c.a) * c.r * R;
@@ -442,7 +433,7 @@
       ctx.restore();
       ctx.restore();
       /* смужка міцності */
-      var bw = R * 1.9, bh = 9, bx = p.x - bw / 2, by = p.y - R - 22, f = Math.max(0, ast.hp / ast.hpMax);
+      var bw = R * 1.9, bh = 11, bx = p.x - bw / 2, by = p.y - R * 1.06 - 20, f = Math.max(0, ast.hp / ast.hpMax);
       ctx.fillStyle = "rgba(10,6,22,.85)"; ctx.fillRect(bx - 2, by - 2, bw + 4, bh + 4);
       ctx.fillStyle = f > 0.5 ? "#4be39a" : f > 0.25 ? "#ffc94a" : "#ff7b6b";
       ctx.fillRect(bx, by, bw * f, bh);
@@ -499,7 +490,7 @@
           ctx.globalAlpha = qa; ctx.strokeStyle = q.color; ctx.lineWidth = 4 * qa + 1;
           ctx.beginPath(); ctx.arc(q.x, q.y, q.r * (1 - qa) + 8, 0, 6.283); ctx.stroke();
         } else {
-          ctx.globalAlpha = Math.min(1, qa * 2); ctx.fillStyle = q.color; ctx.font = "800 22px Unbounded, Nunito, sans-serif"; ctx.textAlign = "center";
+          ctx.globalAlpha = Math.min(1, qa * 2); ctx.fillStyle = q.color; ctx.font = "800 30px Unbounded, Nunito, sans-serif"; ctx.textAlign = "center";
           ctx.fillText(q.text, q.x, q.y);
         }
         ctx.globalAlpha = 1;
@@ -508,11 +499,11 @@
       if (comboText && game && game.mult > 1) {
         var tier = game.mult >= 4 ? 3 : game.mult >= 3 ? 2 : 1, pulse = 1 + comboPulse * 0.25;
         ctx.save();
-        /* посередині екрана: угорі зліва лежать лічильники */
-        ctx.translate(W * 0.46, H * 0.5);
+        /* посередині екрана, трохи нижче центру: угорі зліва лежать лічильники, а повідомлення внизу праворуч */
+        ctx.translate(W * 0.5, H * 0.56);
         ctx.scale(pulse, pulse);
-        ctx.font = "800 " + (26 + tier * 4) + "px Unbounded, Nunito, sans-serif"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
-        ctx.lineWidth = 5; ctx.strokeStyle = "rgba(10,6,22,.9)"; ctx.lineJoin = "round";
+        ctx.font = "800 " + (36 + tier * 6) + "px Unbounded, Nunito, sans-serif"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+        ctx.lineWidth = 7; ctx.strokeStyle = "rgba(10,6,22,.9)"; ctx.lineJoin = "round";
         ctx.strokeText(comboText, 0, 0);
         ctx.fillStyle = TIER_COLORS[tier]; ctx.fillText(comboText, 0, 0);
         ctx.restore();
@@ -574,6 +565,14 @@
     Stage.setComboText(game.mult > 1 ? T("comboLabel", { mult: game.mult }) : "");
   }
 
+  /* Нові клавіші рівня для показу: символи newKeys (великі, якщо це літери) і Shift, якщо рівень його вводить. */
+  function newKeyLabels(set) {
+    var out = [], nk = set.newKeys || "";
+    if (set.shift) out.push("Shift");
+    for (var i = 0; i < nk.length; i++) out.push(nk.charAt(i).toUpperCase());
+    return out;
+  }
+
   /* ---------- рівні: список ---------- */
   function renderLevelList() {
     var ol = $("levelList");
@@ -587,10 +586,10 @@
       if (open) top.appendChild(starsNode(best ? best.stars : 0));
       else { var lk = div("stars lock", top, "span"); lk.setAttribute("aria-hidden", "true"); lk.textContent = "🔒"; var sr = div("sr-only", top, "span"); sr.textContent = T("locked"); }
       var nm = div("lv-name", b, "span"); nm.textContent = GIData.pick(lv.title);
-      var keys = div("lv-keys", b), nk = lv.sets[LANG].newKeys || "";
-      if (nk) {
+      var keys = div("lv-keys", b), nk = newKeyLabels(lv.sets[LANG]);
+      if (nk.length) {
         var lab = div("sr-only", keys, "span"); lab.textContent = T("newKeys") + " ";
-        for (var c = 0; c < nk.length; c++) { var kb = document.createElement("kbd"); kb.textContent = nk.charAt(c); keys.appendChild(kb); }
+        for (var c = 0; c < nk.length; c++) { var kb = document.createElement("kbd"); kb.textContent = nk[c]; keys.appendChild(kb); }
       } else {
         var rv = div("lv-meta", keys, "span"); rv.textContent = T("review");
       }
@@ -630,11 +629,11 @@
     var tip = $("lvlTip");
     tip.textContent = "";
     tip.appendChild(GII18n.md(GIData.pick(lv.tip)));
-    var nk = set.newKeys || "";
-    if (nk) {
+    var nk = newKeyLabels(set);
+    if (nk.length) {
       tip.appendChild(document.createTextNode(" " + T("newKeys") + " "));
       for (var c = 0; c < nk.length; c++) {
-        var kb = document.createElement("kbd"); kb.textContent = nk.charAt(c); tip.appendChild(kb);
+        var kb = document.createElement("kbd"); kb.textContent = nk[c]; tip.appendChild(kb);
         tip.appendChild(document.createTextNode(" "));
       }
     }
@@ -651,14 +650,14 @@
     fitGameView();
     scrollText(game);
   }
-  /* Рядок тексту, екран і клавіатура мають бути видні одночасно: якщо все не влазить,
-     прокручуємо так, щоб низ клавіатури став унизу вікна, але рядок тексту не зник угорі. */
+  /* Рядок тексту, екран і клавіатура з руками мають бути видні одночасно. На вікні ~1920x950 вони влазять без прокручування.
+     Якщо вікно менше, прокручуємо так, щоб низ клавіатури став унизу вікна, але рядок тексту не зник угорі. */
   function fitGameView() {
     window.scrollTo(0, 0);
     var top = document.querySelector(".type-card").getBoundingClientRect().top - 8;
-    var bottom = $("keyboard").getBoundingClientRect().bottom + 12;
+    var bottom = document.querySelector(".kb-wrap").getBoundingClientRect().bottom + 12;
     var need = bottom - window.innerHeight;
-    if (need > 0) window.scrollTo(0, Math.min(need, top));
+    if (need > 0) window.scrollTo(0, Math.max(0, Math.min(need, top)));
   }
 
   /* ---------- результат ---------- */
@@ -823,7 +822,7 @@
   /* ---------- старт ---------- */
   GIData.loadJSON(ROOT + "content/klaviatura/levels.json").then(function (doc) {
     cfg = doc; levels = doc.levels;
-    buildKeyboard(); buildHands(); buildLegend();
+    buildKeyboard(); buildHands();
     loadSaved();
     syncSummary();
     if (touchOnly()) $("touchNotice").hidden = false;

@@ -60,10 +60,11 @@
       "type": "object",
       "required": ["keys", "newKeys"],
       "additionalProperties": false,
-      "description": "keys: усі дозволені символи рівня (разом із пробілом); newKeys: символи, що вводяться вперше; рівно одне з gen і texts",
+      "description": "keys: усе, що вивчено до цього рівня включно (нові клавіші цього й попередніх рівнів, після рівня Shift ще й великі літери; пробіл завжди); newKeys: символи, що вводяться вперше (разом із shift не більше 2 нових речей на рівень; перевіряє tools/check-klaviatura.js); shift: на цьому рівні вперше вводиться Shift (великі літери); рівно одне з gen і texts",
       "properties": {
         "keys": { "type": "string", "minLength": 2 },
-        "newKeys": { "type": "string" },
+        "newKeys": { "type": "string", "maxLength": 2 },
+        "shift": { "const": true },
         "gen": {
           "type": "object",
           "required": ["kind"],
@@ -74,6 +75,8 @@
             "min": { "type": "integer", "minimum": 1, "description": "groups: мінімальна довжина групи" },
             "max": { "type": "integer", "minimum": 1, "description": "groups: максимальна довжина групи" },
             "focus": { "type": "string", "description": "groups: у кожній групі є хоча б один із цих символів" },
+            "alphabet": { "type": "string", "description": "groups: символи груп (підмножина keys); без поля це всі keys, крім пробілу" },
+            "bias": { "type": "number", "exclusiveMinimum": 0, "maximum": 1, "description": "groups: частка символів, що береться з newKeys (решта з інших символів алфавіту); орієнтир 0.4-0.5" },
             "count": { "type": "integer", "minimum": 1, "description": "words: кількість слів" },
             "words": { "type": "array", "minItems": 2, "items": { "type": "string", "minLength": 1 } }
           }

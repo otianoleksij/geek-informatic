@@ -265,8 +265,8 @@
         "en": "Space Typing Trainer"
       },
       "description": {
-        "uk": "Друкуй наосліп: кожна правильна клавіша стріляє по астероїду, а підказки покажуть, яким пальцем її натискати. {count.klaviatura} {count.klaviatura|рівень|рівні|рівнів|рівня} від домашнього ряду до довгого тексту.",
-        "en": "Learn touch typing: every correct key fires at an asteroid, and hints show which finger to use. {count.klaviatura} {count.klaviatura|level|levels} from the home row to a long text."
+        "uk": "Друкуй наосліп: кожна правильна клавіша стріляє по астероїду, а підказки покажуть, яким пальцем її натискати. {count.klaviatura} {count.klaviatura|рівень|рівні|рівнів|рівня}: щоразу не більше двох нових клавіш, від домашнього ряду до довгого тексту.",
+        "en": "Learn touch typing: every correct key fires at an asteroid, and hints show which finger to use. {count.klaviatura} {count.klaviatura|level|levels}: at most two new keys at a time, from the home row to a long text."
       },
       "locales": [
         "uk",
