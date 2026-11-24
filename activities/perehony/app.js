@@ -1,4 +1,4 @@
-/* «Перегони слів»: інтерфейс, SVG-траса з мультяшними машинами, анімації (requestAnimationFrame), прогрес.
+/* «Перегони слів»: інтерфейс, SVG-траса з мультяшними машинами й камерою, що їде за гравцем, анімації (requestAnimationFrame), прогрес.
    Логіка (слова, ліміти часу, позиції, обгони, кубки) лежить у perehony-core.js, розкладки й оцінка натискань
    (classify, у т. ч. «не та розкладка») у klaviatura-core.js (catalog.json: sharedScripts).
    Рядки беруться зі словника (t); слова й ліміти: content/perehony/words.json. */
@@ -7,7 +7,7 @@
   var Core = window.PerehonyCore, Klav = window.KlaviaturaCore;
   var ROOT = document.documentElement.getAttribute("data-root") || "";
   var LANG = (window.GII18n && GII18n.lang) || "uk";
-  var STORE_ID = "perehony:v1", SLUG = "perehony";
+  var STORE_ID = "perehony:v2", SLUG = "perehony";
   var NS = "http://www.w3.org/2000/svg";
   var $ = function (id) { return document.getElementById(id); };
   var T = function (k, params) { return t("perehony." + k, params); };
@@ -18,24 +18,46 @@
   var easeInOut = function (u) { return u < 0.5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2; };
   var easeOut = function (u) { return 1 - Math.pow(1 - u, 3); };
 
-  /* ---------- геометрія траси (координати viewBox 0 0 1200 400) ---------- */
+  /* ---------- геометрія траси ----------
+     Екран: viewBox 0 0 1200 400. Світ: машини стоять у слотах через SP (x лівий край машини), 1-ше місце найправіше.
+     Камера їде за гравцем: гравець завжди на екрані в PLAYER_SX, решту видно з боків (попереду 3-4 машини, позаду 2). */
   var VBW = 1200;
   var LANE_Y = [322, 278], LANE_S = [1.2, 1.13];     /* ближня смуга (звичайна) і дальня (для обгону) */
   var CAR_W = 122 * 1.2;
-  var FINISH_X = 1060;
+  var SP = 170;                                      /* відстань між машинами у світі */
+  var PLAYER_SX = 400;                               /* екранний x лівого краю машини гравця */
+  var START_WX = -60;                                /* лінія старту (світ) */
+  var FINISH_GAP = 380;                              /* фініш за лідером (світ) */
   var PASS_MS = 1150;
   var CD_STEP = 800;                                 /* мс на цифру зворотного відліку */
-  var ROAD_SPEED = 520;                              /* одиниць viewBox за секунду */
+  var ROAD_SPEED = 520;                              /* одиниць за секунду: дорога їде повз, поки машини «їдуть» */
   var LAYERS = { clouds: 0.05, hillsFar: 0.1, hillsNear: 0.18, trees: 0.35, road: 1, front: 1.3 };
 
-  var CARS = {
-    c1: { base: "#2F80ED", dark: "#1B4FA8", decal: "circle", light: true },
-    c2: { base: "#27AE60", dark: "#177A42", decal: "triangle", light: true },
-    c3: { base: "#F2C94C", dark: "#9A7410", decal: "diamond", light: false },
-    c4: { base: "#9B51E0", dark: "#6A2FB0", decal: "stripes", light: true },
-    c5: { base: "#F2994A", dark: "#A85A0E", decal: "bolt", light: false },
-    p: { base: "#EB4D4B", dark: "#A82220", decal: "star", light: true }
-  };
+  /* 14 розфарбувань суперників: колір + наклейка на дверях (якщо суперників більше, повторюються) */
+  var PAL = [
+    { base: "#2F80ED", dark: "#1B4FA8", light: true, decal: "circle" },
+    { base: "#27AE60", dark: "#177A42", light: true, decal: "triangle" },
+    { base: "#F2C94C", dark: "#9A7410", light: false, decal: "diamond" },
+    { base: "#9B51E0", dark: "#6A2FB0", light: true, decal: "stripes" },
+    { base: "#F2994A", dark: "#A85A0E", light: false, decal: "bolt" },
+    { base: "#14B8A6", dark: "#0B7C70", light: false, decal: "heart" },
+    { base: "#FF6FB1", dark: "#B83B7A", light: false, decal: "plus" },
+    { base: "#8BD21E", dark: "#4F7C0A", light: false, decal: "ring" },
+    { base: "#38BDF8", dark: "#0E7FB5", light: false, decal: "dots" },
+    { base: "#D946EF", dark: "#8E1FA3", light: false, decal: "wave" },
+    { base: "#4F46E5", dark: "#2E27A8", light: true, decal: "arrow" },
+    { base: "#D5DAE6", dark: "#7C86A0", light: false, decal: "moon" },
+    { base: "#A9693B", dark: "#6B3E1D", light: true, decal: "square" },
+    { base: "#3D4A6B", dark: "#232C47", light: true, decal: "drop" }
+  ];
+  var PLAYER_STYLE = { base: "#EB4D4B", dark: "#A82220", decal: "star", light: true };
+  function carStyle(id) {
+    if (id === Core.PLAYER) return PLAYER_STYLE;
+    var k = parseInt(id.slice(1), 10) - 1;
+    return PAL[(k < 0 ? 0 : k) % PAL.length];
+  }
+  var NC = 15;                                       /* машин у поточних перегонах */
+  var camX = 0;                                      /* лівий край камери у світі */
   var OUTLINE = "#1C2540";
 
   function svgEl(name, attrs, parent) {
@@ -65,7 +87,7 @@
           if (!s[l] || typeof s[l] !== "object") return;
           for (var id in s[l]) {
             var b = s[l][id];
-            if (s[l].hasOwnProperty(id) && b && typeof b.place === "number" && b.place >= 1 && b.place <= 6 && typeof b.cpm === "number") saved[l][id] = b;
+            if (s[l].hasOwnProperty(id) && b && typeof b.place === "number" && b.place >= 1 && b.place <= (cfg.raceLength + 1) && typeof b.cpm === "number") saved[l][id] = b;
           }
         });
       }
@@ -118,6 +140,11 @@
       } else line.textContent = T("card.none");
     });
     $("cupsTotal").textContent = T("cupsTotal", { n: total, max: max });
+    var ul = $("rules");
+    ul.textContent = "";
+    div("", ul, "li").textContent = T("rule1", { count: cfg.raceLength });
+    div("", ul, "li").textContent = T("rule2");
+    div("", ul, "li").textContent = T("rule3");
   }
   function showMenu(initial) {
     stopLoop(); closeModal();
@@ -183,8 +210,28 @@
     return '<g id="L_' + id + '"><g>' + tile + '</g><g transform="translate(' + VBW + ' 0)">' + tile + "</g></g>";
   }
 
+  /* наклейка на дверях (центр близько 50,-27) */
+  function decalMarkup(c, dc, O) {
+    var k = c.decal;
+    if (k === "circle") return '<circle cx="50" cy="-27" r="6.5" ' + dc + "/>";
+    if (k === "triangle") return '<path d="M43 -21 L50 -34 L57 -21 Z" ' + dc + "/>";
+    if (k === "diamond") return '<path d="M50 -35 L58 -27 L50 -19 L42 -27 Z" ' + dc + "/>";
+    if (k === "stripes") return '<path d="M40 -33 L46 -33 L52 -21 L46 -21 Z M50 -33 L56 -33 L62 -21 L56 -21 Z" ' + dc + "/>";
+    if (k === "bolt") return '<path d="M53 -35 L43 -26 L49 -26 L46 -18 L58 -28 L51 -28 Z" ' + dc + "/>";
+    if (k === "heart") return '<path d="M50 -19 C40 -26 42 -35 47.5 -35 C49 -35 50 -34 50 -33 C50 -34 51 -35 52.5 -35 C58 -35 60 -26 50 -19 Z" ' + dc + "/>";
+    if (k === "plus") return '<path d="M47 -35 H53 V-30 H58 V-24 H53 V-19 H47 V-24 H42 V-30 H47 Z" ' + dc + "/>";
+    if (k === "ring") return '<circle cx="50" cy="-27" r="7.5" ' + dc + '/><circle cx="50" cy="-27" r="3" fill="' + c.base + '" stroke="' + c.dark + '" stroke-width="1.4"/>';
+    if (k === "dots") return '<circle cx="42" cy="-27" r="3.6" ' + dc + '/><circle cx="50" cy="-27" r="3.6" ' + dc + '/><circle cx="58" cy="-27" r="3.6" ' + dc + "/>";
+    if (k === "wave") return '<path d="M41 -27 Q45.5 -35 50 -27 T59 -27" fill="none" stroke="' + c.dark + '" stroke-width="6.5" stroke-linecap="round"/><path d="M41 -27 Q45.5 -35 50 -27 T59 -27" fill="none" stroke="#FFFFFF" stroke-width="3.4" stroke-linecap="round"/>';
+    if (k === "arrow") return '<path d="M41 -30 H50 V-35 L59 -27 L50 -19 V-24 H41 Z" ' + dc + "/>";
+    if (k === "moon") return '<path d="M54 -35 A9 9 0 1 0 54 -19 A7 7 0 1 1 54 -35 Z" ' + dc + "/>";
+    if (k === "square") return '<rect x="43" y="-34" width="14" height="14" rx="2.5" ' + dc + "/>";
+    if (k === "drop") return '<path d="M50 -36 C56 -28 58 -25 58 -23 A8 8 0 0 1 42 -23 C42 -25 44 -28 50 -36 Z" ' + dc + "/>";
+    return '<path d="M50 -37 L53.5 -29.5 L61.5 -28.6 L55.6 -23.2 L57.2 -15.3 L50 -19.2 L42.8 -15.3 L44.4 -23.2 L38.5 -28.6 L46.5 -29.5 Z" fill="#FFD43B" stroke="' + O + '" stroke-width="2" stroke-linejoin="round"/>';
+  }
+
   function carMarkup(id) {
-    var c = CARS[id], d = "", O = OUTLINE;
+    var c = carStyle(id), d = "", O = OUTLINE;
     var decalFill = "#FFFFFF";
     d += '<ellipse cx="62" cy="1" rx="58" ry="5" fill="rgba(20,33,58,.22)"/>';
     d += '<path d="M22 -36 C26 -54 38 -62 56 -62 L86 -62 C100 -62 108 -50 110 -36 Z" fill="' + c.base + '" stroke="' + O + '" stroke-width="2.5" stroke-linejoin="round"/>';
@@ -204,12 +251,7 @@
     }
     /* door decal */
     var dc = 'fill="' + decalFill + '" stroke="' + c.dark + '" stroke-width="1.8" stroke-linejoin="round"';
-    if (c.decal === "circle") d += '<circle cx="50" cy="-27" r="6.5" ' + dc + "/>";
-    else if (c.decal === "triangle") d += '<path d="M43 -21 L50 -34 L57 -21 Z" ' + dc + "/>";
-    else if (c.decal === "diamond") d += '<path d="M50 -35 L58 -27 L50 -19 L42 -27 Z" ' + dc + "/>";
-    else if (c.decal === "stripes") d += '<path d="M40 -33 L46 -33 L52 -21 L46 -21 Z M50 -33 L56 -33 L62 -21 L56 -21 Z" ' + dc + "/>";
-    else if (c.decal === "bolt") d += '<path d="M53 -35 L43 -26 L49 -26 L46 -18 L58 -28 L51 -28 Z" ' + dc + "/>";
-    else d += '<path d="M50 -37 L53.5 -29.5 L61.5 -28.6 L55.6 -23.2 L57.2 -15.3 L50 -19.2 L42.8 -15.3 L44.4 -23.2 L38.5 -28.6 L46.5 -29.5 Z" fill="#FFD43B" stroke="' + O + '" stroke-width="2" stroke-linejoin="round"/>';
+    d += decalMarkup(c, dc, O);
     /* headlight, tail light, smile on the front bumper */
     d += '<circle cx="115" cy="-33" r="4.2" fill="#FFF3A0" stroke="' + O + '" stroke-width="1.6"/>';
     d += '<rect x="1" y="-31" width="5" height="9" rx="2" fill="#FF4D4D" stroke="' + O + '" stroke-width="1.4"/>';
@@ -252,7 +294,7 @@
     finishG = scene.querySelector("#finishG"); startG = scene.querySelector("#startG");
     scene.querySelector(".ftxt").textContent = T("finishLabel");
     /* машини */
-    var ids = Core.OPPONENTS.concat([Core.PLAYER]);
+    var ids = Core.opponentIds(NC - 1).concat([Core.PLAYER]);
     carObjs = {};
     ids.forEach(function (id) {
       var g = svgEl("g", {}, carsG);
@@ -264,7 +306,8 @@
   }
 
   /* ---------- машини: місця, анімація обгону ---------- */
-  function slotX(idx) { return 20 + (5 - idx) * 160; }
+  function slotX(idx) { return (NC - 1 - idx) * SP; }
+  function finishWX() { return slotX(0) + CAR_W + FINISH_GAP; }
   function laneY(l) { return lerp(LANE_Y[0], LANE_Y[1], l); }
   function laneS(l) { return lerp(LANE_S[0], LANE_S[1], l); }
 
@@ -294,7 +337,7 @@
   }
   var drawKey = "";
   function updateCars(dt, tms) {
-    var animate = !reduced(), ids = Core.OPPONENTS.concat([Core.PLAYER]), order = [];
+    var animate = !reduced(), ids = Core.opponentIds(NC - 1).concat([Core.PLAYER]), order = [];
     if (!animate) dt = 0;
     wheelAngle += dt * (phase === "countdown" || phase === "idle" ? 0.2 : (phase === "finishing" ? 1.1 : 0.7));
     ids.forEach(function (id) {
@@ -308,11 +351,20 @@
         c.lane = laneFor(c.tw, u);
         if (u >= 1) { c.x = c.tw.toX; c.lane = 0; c.tw = null; }
       }
+    });
+    /* камера їде за гравцем (плавно, бо x гравця сам анімується) */
+    camX = carObjs[Core.PLAYER].x - PLAYER_SX;
+    ids.forEach(function (id) {
+      var c = carObjs[id];
       var bob = animate && phase !== "idle" ? Math.sin(tms * 0.011 + c.phase) * 1.3 : 0;
-      var y = laneY(c.lane) + bob, sc = laneS(c.lane);
-      c.g.setAttribute("transform", "translate(" + c.x.toFixed(1) + " " + y.toFixed(1) + ") scale(" + sc.toFixed(3) + ")");
-      var w;
-      for (w = 0; w < c.wheels.length; w++) c.wheels[w].setAttribute("transform", "rotate(" + (wheelAngle % 360).toFixed(1) + ")");
+      var y = laneY(c.lane) + bob, sc = laneS(c.lane), sx = c.x - camX;
+      var vis = sx > -CAR_W - 30 && sx < VBW + 30;
+      if (vis !== c.vis) { c.vis = vis; c.g.setAttribute("visibility", vis ? "visible" : "hidden"); }
+      if (vis) {
+        c.g.setAttribute("transform", "translate(" + sx.toFixed(1) + " " + y.toFixed(1) + ") scale(" + sc.toFixed(3) + ")");
+        var w;
+        for (w = 0; w < c.wheels.length; w++) c.wheels[w].setAttribute("transform", "rotate(" + (wheelAngle % 360).toFixed(1) + ")");
+      }
       c.y = y;
       order.push(c);
     });
@@ -322,19 +374,21 @@
     if (key !== drawKey) { drawKey = key; order.forEach(function (c) { carsG.appendChild(c.g); }); }
   }
 
-  /* ---------- шари сцени ---------- */
+  /* ---------- шари сцени: паралакс від камери й від ходу дороги ---------- */
   function updateScenery(dt) {
     scroll.speed += (scroll.target - scroll.speed) * Math.min(1, dt / 350);
     if (reduced()) scroll.speed = 0;
     scroll.dist += scroll.speed * dt / 1000;
     var k;
     for (k in LAYERS) if (LAYERS.hasOwnProperty(k) && layerEls[k]) {
-      var off = (scroll.dist * LAYERS[k]) % VBW;
+      var off = (((scroll.dist + camX) * LAYERS[k]) % VBW + VBW) % VBW;
       layerEls[k].setAttribute("transform", "translate(" + (-off).toFixed(1) + " 0)");
     }
-    /* лінія старту зникає ліворуч разом із дорогою */
-    var sx = 150 - scroll.dist;
-    if (startG) { startG.setAttribute("transform", "translate(" + sx.toFixed(1) + " 0)"); startG.setAttribute("visibility", sx < -40 ? "hidden" : "visible"); }
+    /* лінія старту їде разом із дорогою, фініш стоїть у світі машин */
+    var sx = START_WX - camX - scroll.dist;
+    if (startG) { startG.setAttribute("transform", "translate(" + sx.toFixed(1) + " 0)"); startG.setAttribute("visibility", sx < -40 || sx > VBW + 40 ? "hidden" : "visible"); }
+    var fx = finishWX() - camX;
+    if (finishG) { finishG.setAttribute("transform", "translate(" + fx.toFixed(1) + " 0)"); finishG.setAttribute("visibility", fx < -40 || fx - 200 > VBW ? "hidden" : "visible"); }
   }
 
   /* ---------- ефекти: пил і конфеті ---------- */
@@ -344,7 +398,7 @@
     var i;
     for (i = 0; i < n; i++) {
       var el = svgEl("circle", { r: 4, fill: "#EFE3C2", opacity: 0.85, stroke: "#C9B98F", "stroke-width": 1 }, fxG);
-      parts.push({ el: el, kind: "dust", x: car.x + 10 + Math.random() * 14, y: laneY(car.lane) - 6 - Math.random() * 6, vx: -60 - Math.random() * 70, vy: -10 - Math.random() * 30, age: 0, life: 650 + Math.random() * 250 });
+      parts.push({ el: el, kind: "dust", x: car.x - camX + 10 + Math.random() * 14, y: laneY(car.lane) - 6 - Math.random() * 6, vx: -60 - Math.random() * 70, vy: -10 - Math.random() * 30, age: 0, life: 650 + Math.random() * 250 });
     }
   }
   function confetti() {
@@ -467,25 +521,25 @@
     var strip = $("strip");
     strip.textContent = "";
     chipEls = {};
-    Core.OPPONENTS.concat([Core.PLAYER]).forEach(function (id) {
-      var c = div("chip" + (id === Core.PLAYER ? " me" : "") + (CARS[id].light ? "" : " y"), strip);
-      c.style.background = CARS[id].base;
+    Core.opponentIds(NC - 1).concat([Core.PLAYER]).forEach(function (id) {
+      var st = carStyle(id), c = div("chip" + (id === Core.PLAYER ? " me" : "") + (st.light ? "" : " y"), strip);
+      c.style.background = st.base;
       chipEls[id] = c;
     });
     updateStrip();
   }
   function updateStrip() {
-    var strip = $("strip"), w = strip.clientWidth || 600, pad = 34;
+    var strip = $("strip"), w = strip.clientWidth || 600, pad = 26;
     race.order.forEach(function (id, idx) {
-      var c = chipEls[id], x = pad + (5 - idx) / 5 * (w - 2 * pad - 14);
+      var c = chipEls[id], x = pad + (NC - 1 - idx) / (NC - 1) * (w - 2 * pad - 14);
       c.style.left = x.toFixed(1) + "px";
       c.textContent = String(idx + 1);
     });
   }
   function updateBadge(dir) {
     var p = Core.place(race), b = $("placeBadge");
-    $("placeNum").textContent = p + " / " + Core.TOTAL_CARS;
-    b.setAttribute("aria-label", T("placeAria", { place: p, total: Core.TOTAL_CARS }));
+    $("placeNum").textContent = p + " / " + NC;
+    b.setAttribute("aria-label", T("placeAria", { place: p, total: NC }));
     delCls(b, "up"); delCls(b, "down");
     if (dir && !reduced()) { void b.offsetWidth; addCls(b, dir); }
   }
@@ -506,13 +560,14 @@
     var seed = (Math.floor(Math.random() * 4294967295) ^ new Date().getTime()) >>> 0;
     var words = Core.pickWords(cfg.words[LANG], d, cfg.raceLength, Klav.createRng(seed));
     race = Core.newRace(words, d);
+    NC = race.cars;
     try { if (("#" + d.id) !== location.hash) history.replaceState(null, "", location.pathname + location.search + "#" + d.id); } catch (e) { /* ок */ }
     buildScene();
     clearFx(); parts = []; drawKey = "";
     placeCars(true);
-    carObjs[Core.PLAYER].x = slotX(5);
     scroll.dist = 0; scroll.speed = 0; scroll.target = 0;
-    finishG.setAttribute("visibility", "hidden"); fin = null;
+    fin = null;
+    updateCars(0, 0); updateScenery(0);
     buildPips(); buildStrip(); updatePips(); updateBadge(); updateCount(); resetTimeBar();
     $("layoutWarn").hidden = true;
     $("pops").textContent = "";
@@ -533,7 +588,7 @@
   }
 
   function handleEvent(ev) {
-    var px = carObjs[Core.PLAYER].x + 60;
+    var px = PLAYER_SX + 60;
     paintWord();
     updatePips(); updateTime();
     if (ev.type === "overtake") {
@@ -542,21 +597,15 @@
         pop(T("pop.up"), "", px);
         if (ev.fast) pop(T("pop.fast"), "fast", px, 180, 34);   /* під «+1 позиція», щоб не накладалися */
         updateBadge("up");
-        say(T(ev.fast ? "status.upFast" : "status.up", { place: ev.place, total: Core.TOTAL_CARS }));
+        say(T(ev.fast ? "status.upFast" : "status.up", { place: ev.place, total: NC }));
       } else {
         pop(T("pop.lead"), ev.fast ? "fast" : "", px);
         say(T("status.lead"));
       }
     } else {
-      if (ev.moved) {
-        startSwap(ev.passer, Core.PLAYER);
-        pop(T("pop.miss"), "bad", px);
-        updateBadge("down");
-        say(T("status.miss", { place: ev.place, total: Core.TOTAL_CARS }));
-      } else {
-        pop(T("pop.miss"), "bad", px);
-        say(T("status.missLast"));
-      }
+      /* час вийшов: слово пропущено, місце те саме, машини стоять на місцях */
+      pop(T("pop.miss"), "bad", px);
+      say(T("status.miss", { place: ev.place, total: NC }));
       $("timeFill")._last = 0; updateTime();
     }
     updateStrip();
@@ -566,34 +615,32 @@
   /* ---------- фініш ---------- */
   function startFinish() {
     phase = "finishing";
-    fin = { t: 0, crossed: 0, playerAt: null, ranked: {} };
+    fin = { t: 0, playerAt: null, ranked: {} };
     idleWord(T("finishLabel"));
     $("wordCount").textContent = "";
     $("timeLeft").textContent = ""; lastTimeTxt = "";
     updatePips();
     var f = finishG.querySelector(".ftxt"); if (f) f.textContent = T("finishLabel");
+    /* машини стоять у фінальному порядку; камера лишається на гравцеві */
+    race.order.forEach(function (id, idx) { var c = carObjs[id]; c.x = slotX(idx); c.lane = 0; c.tw = null; c.finishing = false; c.vx = 0; });
+    scroll.target = 0; scroll.speed = 0;
     if (reduced()) {
-      /* без анімації: машини стоять у фінальному порядку, лінія на місці */
-      finishG.setAttribute("transform", "translate(" + FINISH_X + " 0)"); finishG.setAttribute("visibility", "visible");
-      race.order.forEach(function (id, idx) { carObjs[id].x = slotX(idx); carObjs[id].lane = 0; carObjs[id].tw = null; carObjs[id].finishing = false; });
       fin.reduced = true; fin.playerAt = 0;
       onPlayerFinished();
       return;
     }
-    scroll.target = 0;
-    race.order.forEach(function (id) { carObjs[id].finishing = true; carObjs[id].vx = 0; carObjs[id].tw = null; });
-    finishG.setAttribute("visibility", "visible");
-    finishG.setAttribute("transform", "translate(" + (VBW + 60) + " 0)");
+    var gap = finishWX() - (carObjs[Core.PLAYER].x + CAR_W);
+    fin.vmax = clamp(gap / 1.9, 800, 1700);
+    race.order.forEach(function (id) { carObjs[id].finishing = true; });
   }
   function updateFinish(dt) {
     if (fin.reduced) { if (now() - fin.t0 > 700) { phase = "done"; openResult(); } return; }
     fin.t += dt;
-    var lineX = FINISH_X + (VBW + 60 - FINISH_X) * (1 - easeOut(clamp(fin.t / 1000, 0, 1)));
-    finishG.setAttribute("transform", "translate(" + lineX.toFixed(1) + " 0)");
-    var ramp = clamp(fin.t / 500, 0, 1), allGone = true;
+    var lineX = finishWX();
+    var ramp = clamp(fin.t / 500, 0, 1);
     race.order.forEach(function (id, idx) {
       var c = carObjs[id];
-      c.vx = 120 + 560 * easeOut(ramp);
+      c.vx = 120 + (fin.vmax - 120) * easeOut(ramp);
       if (!fin.ranked[id] && c.x + CAR_W >= lineX + 6) {
         fin.ranked[id] = idx + 1;
         c.badge = svgEl("g", { transform: "translate(60 -92)" }, c.g);
@@ -602,13 +649,12 @@
         tx.textContent = String(idx + 1);
         if (id === Core.PLAYER) { fin.playerAt = fin.t; onPlayerFinished(); }
       }
-      if (c.x < VBW + 20) allGone = false;
     });
     if (fin.playerAt !== null && fin.t - fin.playerAt > 1300 && phase === "finishing") { phase = "done"; openResult(); }
   }
   function onPlayerFinished() {
     var p = Core.place(race);
-    say(T("status.finish", { place: p, total: Core.TOTAL_CARS }));
+    say(T("status.finish", { place: p, total: NC }));
     pop(T("pop.finish", { place: p }), p === 1 ? "fast final" : "final", 600);
     if (p === 1) confetti();
     if (fin.reduced) fin.t0 = now();
@@ -629,13 +675,13 @@
     } else if (prev && prev.cups < sum.cups) prev.cups = sum.cups;
     persist();
     $("mtitle").textContent = sum.win ? T("res.winTitle") : T("res.placeTitle", { place: sum.place });
-    $("mText").textContent = T(sum.place === 1 ? "res.t1" : sum.place === 2 ? "res.t2" : sum.place === 3 ? "res.t3" : "res.tLow");
+    $("mText").textContent = T({ win: "res.t1", podium: "res.tPodium", good: "res.tGood", keep: "res.tLow" }[sum.kind]);
     var cw = $("mCups");
     cw.setAttribute("aria-label", T("cupsAria", { n: sum.cups }));
     cupsSvg(sum.cups, cw);
     $("mRecord").hidden = !(record && prev);
     var st = $("mStats"); st.textContent = "";
-    st.appendChild(statItem(T("stat.place"), T("placeOf", { place: sum.place, total: Core.TOTAL_CARS })));
+    st.appendChild(statItem(T("stat.place"), T("placeOf", { place: sum.place, total: sum.cars })));
     st.appendChild(statItem(T("stat.words"), T("wordsOf", { n: sum.inTime, total: sum.total })));
     st.appendChild(statItem(T("stat.cpm"), String(sum.cpm)));
     st.appendChild(statItem(T("stat.acc"), T("pct", { n: Math.round(sum.accuracy) })));
@@ -669,7 +715,7 @@
     } else if (phase === "finishing" && fin) {
       updateFinish(dt);
     }
-    updateScenery(dt); updateCars(dt, ts); updateParts(dt);
+    updateCars(dt, ts); updateScenery(dt); updateParts(dt);
     if (view === "race" && race) rafId = requestAnimationFrame(frame);
   }
   function showCountdown(stage) {

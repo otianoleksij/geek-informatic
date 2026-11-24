@@ -5,7 +5,8 @@
       розкладці мови (klaviatura-core: locate), без Shift; складності посилаються на наявні рівні; ліміти часу правдоподібні
       (швидкість, якої вимагають, у межах 20..110 зн/хв), а за замовчуванням збігаються з документованими 2,5/1,8; 2,0/1,1; 1,5/0,7;
    2) модульні перевірки ядра: добір слів із зерна (детермінований, без повторів, легші перед складнішими), ліміт часу,
-      обгін у межах ліміту, втрата місця за таймаутом, межі 1..6, кубки за місцем, швидкість і точність. */
+      15 машин (14 суперників за кількістю слів), старт 15-м, слово вчасно піднімає рівно на одне місце, таймаут місце не змінює
+      (слово пропущено), усі 14 слів вчасно дають 1-ше місце, вище за 1-ше не піднятися, кубки за місцем, швидкість і точність. */
 "use strict";
 var fs = require("fs");
 var path = require("path");
@@ -24,7 +25,7 @@ var DIFF_ORDER = ["easy", "medium", "hard"];
 
 /* ---------- 1. Слова ---------- */
 if (doc.raceLength !== 14) err("raceLength має бути 14 (за специфікацією), є " + doc.raceLength);
-if (doc.opponents !== 5) err("opponents має бути 5, є " + doc.opponents);
+if (doc.opponents !== doc.raceLength) err("opponents має дорівнювати raceLength (кожне слово вчасно обганяє одну машину): " + doc.opponents + " != " + doc.raceLength);
 ["uk", "en"].forEach(function (lang) {
   var tiers = doc.words[lang], seen = {}, prevMax = 0, ids = {};
   tiers.forEach(function (t, i) {
@@ -116,11 +117,13 @@ eq(Core.limitMs(easy, "abcd"), 9700, "limitMs easy 4");
 
 function mk(words) { return Core.newRace(words, medium); }
 function typeWord(race, word) { var ev = null; for (var i = 0; i < word.length; i++) ev = Core.key(race, true); return ev; }
+function seq(n) { var out = [], i; for (i = 0; i < n; i++) out.push("aa"); return out; }
 
 (function () {
   var r = mk(["aaa", "bbb", "ccc"]);
-  eq(Core.place(r), 6, "старт: останнє місце");
-  eq(r.order.length, Core.TOTAL_CARS, "6 машин");
+  eq(r.cars, 4, "машин на одну більше за слова (3 слова: 4 машини)");
+  eq(Core.place(r), 4, "старт: останнє місце");
+  eq(r.order.length, r.cars, "усі машини в порядку");
   eq(Core.startWord(r), "aaa", "перше слово");
   eq(Core.currentChar(r), "a", "поточна літера");
   var ev = Core.key(r, false);
@@ -132,11 +135,11 @@ function typeWord(race, word) { var ev = null; for (var i = 0; i < word.length; 
   ev = typeWord(r, "aa");
   eq(ev.type, "overtake", "слово набране вчасно: обгін");
   eq(ev.moved, true, "обгін рухає");
-  eq(ev.from, 6, "з 6-го");
-  eq(ev.to, 5, "на 5-е");
-  eq(ev.passed, "c5", "обігнано машину безпосередньо попереду");
+  eq(ev.from, 4, "з 4-го");
+  eq(ev.to, 3, "на 3-є");
+  eq(ev.passed, "c3", "обігнано машину безпосередньо попереду");
   eq(ev.fast, true, "1 с з ліміту 5,3 с: швидко");
-  eq(Core.place(r), 5, "місце 5");
+  eq(Core.place(r), 3, "місце 3");
   eq(ev.last, false, "не останнє слово");
   eq(r.status, "between", "після слова пауза");
   eq(Core.key(r, true), null, "поза словом клавіші ігноруються");
@@ -149,74 +152,129 @@ function typeWord(race, word) { var ev = null; for (var i = 0; i < word.length; 
   ev = typeWord(r, "bbb");
   eq(ev.type, "overtake", "на половині ліміту ще вчасно");
   eq(ev.fast, false, "рівно половина: не «швидко»");
-  eq(ev.to, 4, "місце 4");
+  eq(ev.to, 2, "місце 2");
 
-  /* таймаут: втрата місця, машина ззаду стає попереду */
+  /* таймаут: слово пропущено, місце й порядок не змінюються */
+  var before = r.order.join(",");
   eq(Core.startWord(r), "ccc", "третє слово");
   Core.key(r, true);
   var lim = Core.limitMs(medium, "ccc");
   eq(Core.tick(r, lim - 1), null, "за мить до ліміту ще немає таймауту");
   ev = Core.tick(r, 5);
   eq(ev && ev.type, "timeout", "ліміт вичерпано: таймаут");
-  eq(ev.passed, Core.PLAYER, "обігнали гравця");
-  eq(ev.passer, "c4", "обігнала машина позаду");
-  eq(ev.to, 5, "гравець опустився на 5");
+  eq(ev.moved, false, "таймаут нікого не рухає");
+  eq(ev.passed, null, "таймаут: нікого не обігнано");
+  eq(ev.passer, undefined, "таймаут: гравця ніхто не обганяє");
+  eq(ev.to, 2, "місце після таймауту те саме");
+  eq(ev.place, 2, "подія несе поточне місце");
+  eq(r.order.join(","), before, "порядок машин після таймауту той самий");
   eq(ev.last, true, "останнє слово");
   eq(Core.startWord(r), null, "слів більше немає");
   eq(r.status, "finished", "фініш");
   var s = Core.summary(r);
-  eq(s.place, 5, "підсумкове місце");
+  eq(s.place, 2, "підсумкове місце");
+  eq(s.cars, 4, "у підсумку машин 4");
   eq(s.inTime, 2, "вчасно 2");
+  eq(r.missed, 1, "пропущено 1");
   eq(s.total, 3, "усього 3");
   eq(s.win, false, "не перемога");
-  eq(s.cups, 0, "5 місце: 0 кубків");
+  eq(s.cups, 2, "2 місце: 2 кубки");
   eq(r.errors, 1, "одна помилка");
   eq(s.accuracy, Math.round(r.correctKeys / r.keystrokes * 1000) / 10, "точність");
   if (!(s.cpm > 0)) err("ядро: швидкість має бути додатною");
 })();
 
+/* повний заїзд зі зразковою кількістю слів: 14 слів, 15 машин, старт 15-м */
 (function () {
-  /* не вище 1-го: п'ять слів вчасно на старті 6-го → 1-ше, шосте слово лишає 1-ше */
-  var words = ["aa", "bb", "cc", "dd", "ee", "ff", "gg"], r = mk(words), ev, i;
-  for (i = 0; i < 5; i++) { Core.startWord(r); ev = typeWord(r, words[i]); eq(ev.moved, true, "обгін " + (i + 1)); }
-  eq(Core.place(r), 1, "після п'яти обгонів 1-ше місце");
-  Core.startWord(r);
-  ev = typeWord(r, "ff");
+  var n = doc.raceLength, words = seq(n), r = mk(words), ev, i;
+  eq(r.cars, n + 1, "машин на одну більше за слова");
+  eq(r.cars, 15, "у перегонах 15 машин");
+  eq(r.order.length, 15, "у порядку 15 машин");
+  eq(Core.place(r), 15, "старт 15-м");
+  eq(r.order[14], Core.PLAYER, "гравець останній у порядку");
+  eq(r.order.slice(0, 14).join(","), Core.opponentIds(14).join(","), "суперники c1..c14 попереду");
+  var seen = {};
+  r.order.forEach(function (id) { seen[id] = true; });
+  eq(Object.keys(seen).length, 15, "15 різних машин без дублів");
+  for (i = 0; i < n; i++) {
+    Core.startWord(r);
+    ev = typeWord(r, words[i]);
+    eq(ev.moved, true, "слово " + (i + 1) + " вчасно: обгін");
+    eq(ev.from, 15 - i, "слово " + (i + 1) + ": було місце " + (15 - i));
+    eq(ev.to, 14 - i, "слово " + (i + 1) + ": рівно на одне місце вище");
+    eq(ev.passed, "c" + (14 - i), "слово " + (i + 1) + ": обігнано машину безпосередньо попереду");
+    eq(Core.place(r), 14 - i, "місце після слова " + (i + 1));
+    eq(ev.last, i === n - 1, "ознака останнього слова");
+  }
+  eq(Core.place(r), 1, "14 слів з 14 вчасно: 1-ше місце");
+  eq(r.order[0], Core.PLAYER, "гравець першим");
+  eq(r.order.slice(1).join(","), Core.opponentIds(14).join(","), "суперники в початковому порядку");
+  eq(Core.startWord(r), null, "слів більше немає");
+  var s = Core.summary(r);
+  eq(s.place, 1, "підсумок: 1 місце");
+  eq(s.win, true, "перемога");
+  eq(s.cups, 3, "3 кубки");
+  eq(s.inTime, 14, "усі 14 вчасно");
+  eq(s.kind, "win", "тон підсумку: перемога");
+
+  /* один пропущений: 2 місце, ніхто не обганяє гравця */
+  var r2 = mk(words);
+  for (i = 0; i < n; i++) {
+    Core.startWord(r2);
+    if (i === 5) { ev = Core.tick(r2, Core.currentLimit(r2)); eq(ev.type, "timeout", "таймаут"); eq(ev.moved, false, "таймаут не рухає"); eq(Core.place(r2), 15 - 5, "місце після таймауту те саме"); }
+    else typeWord(r2, words[i]);
+  }
+  eq(Core.place(r2), 2, "13 з 14 вчасно: 2-ге місце");
+  eq(Core.summary(r2).cups, 2, "2-ге місце: 2 кубки");
+
+  /* усі слова пропущено: лишаємося останніми, порядок не змінюється */
+  var r3 = mk(words);
+  for (i = 0; i < n; i++) {
+    Core.startWord(r3);
+    ev = Core.tick(r3, Core.currentLimit(r3));
+    eq(ev.type, "timeout", "таймаут " + (i + 1));
+    eq(ev.moved, false, "таймаут не рухає " + (i + 1));
+    eq(Core.place(r3), 15, "лишається 15-м");
+  }
+  eq(r3.order.join(","), Core.startOrder(14).join(","), "порядок не змінився");
+  eq(Core.summary(r3).cups, 0, "15-те місце: 0 кубків");
+  eq(Core.summary(r3).kind, "keep", "тон підсумку: підтримка");
+
+  /* вище за 1-ше не піднятися (слів більше, ніж суперників) */
+  var r4 = Core.newRace(seq(16), medium);
+  r4.order = Core.startOrder(14);       /* 15 машин, 16 слів */
+  for (i = 0; i < 14; i++) { Core.startWord(r4); typeWord(r4, "aa"); }
+  eq(Core.place(r4), 1, "після 14 обгонів 1-ше місце");
+  Core.startWord(r4);
+  ev = typeWord(r4, "aa");
   eq(ev.type, "overtake", "на 1-му ще набирається слово");
   eq(ev.moved, false, "вище за 1-ше не піднятися");
   eq(ev.passed, null, "нікого обганяти");
-  eq(Core.place(r), 1, "лишається 1-ше");
-  eq(r.order[0], Core.PLAYER, "гравець першим");
-  /* вниз до 6-го й не нижче */
-  var w2 = ["aa", "bb", "cc", "dd", "ee", "ff", "gg", "hh"], r2 = mk(w2);
-  for (i = 0; i < 7; i++) {
-    Core.startWord(r2);
-    ev = Core.tick(r2, Core.currentLimit(r2));
-    eq(ev.type, "timeout", "таймаут " + (i + 1));
-    eq(ev.moved, false, "на 6-му нікуди падати");
-    eq(Core.place(r2), 6, "лишається 6-ше");
-  }
-  /* порядок суперників збережено, коли гравець проходить крізь стрій і повертається */
-  var r3 = mk(["aa", "bb", "cc", "dd"]);
-  Core.startWord(r3); typeWord(r3, "aa");
-  Core.startWord(r3); typeWord(r3, "bb");
-  eq(r3.order.join(","), "c1,c2,c3,p,c4,c5", "гравець 4-й: суперники в тому ж порядку");
-  Core.startWord(r3); Core.tick(r3, 99999);
-  eq(r3.order.join(","), "c1,c2,c3,c4,p,c5", "програш: машина позаду стала попереду, решта на місці");
-  var seen = {};
-  r3.order.forEach(function (id) { seen[id] = true; });
-  eq(Object.keys(seen).length, 6, "усі шість машин на місці без дублів");
+  eq(Core.place(r4), 1, "лишається 1-ше");
+  eq(r4.order[0], Core.PLAYER, "гравець першим");
+
+  /* порядок суперників зберігається, коли гравець проходить крізь стрій */
+  var r5 = mk(["aa", "bb", "cc"]);       /* 4 машини */
+  Core.startWord(r5); typeWord(r5, "aa");
+  Core.startWord(r5); typeWord(r5, "bb");
+  eq(r5.order.join(","), "c1,p,c2,c3", "гравець 2-й: суперники в тому ж порядку");
+  eq(Core.resultKind(1, 15), "win", "тон: 1 — перемога");
+  eq(Core.resultKind(2, 15), "podium", "тон: 2 — подіум");
+  eq(Core.resultKind(3, 15), "podium", "тон: 3 — подіум");
+  eq(Core.resultKind(4, 15), "good", "тон: 4 — гарний заїзд");
+  eq(Core.resultKind(8, 15), "good", "тон: 8 — гарний заїзд");
+  eq(Core.resultKind(9, 15), "keep", "тон: 9 — підтримка");
 })();
 
 eq(Core.cupsFor(1), 3, "1 місце: 3 кубки");
 eq(Core.cupsFor(2), 2, "2 місце: 2 кубки");
 eq(Core.cupsFor(3), 1, "3 місце: 1 кубок");
 eq(Core.cupsFor(4), 0, "4 місце: 0 кубків");
-eq(Core.cupsFor(6), 0, "6 місце: 0 кубків");
+eq(Core.cupsFor(15), 0, "15 місце: 0 кубків");
 eq(Core.isBetter({ place: 2, cpm: 10 }, { place: 3, cpm: 99 }), true, "краще місце важливіше за швидкість");
 eq(Core.isBetter({ place: 3, cpm: 50 }, { place: 3, cpm: 40 }), true, "те саме місце: швидкість вирішує");
 eq(Core.isBetter({ place: 3, cpm: 40 }, { place: 3, cpm: 50 }), false, "гірша швидкість не рекорд");
-eq(Core.isBetter({ place: 6, cpm: 0 }, null), true, "перший результат завжди рекорд");
+eq(Core.isBetter({ place: 15, cpm: 0 }, null), true, "перший результат завжди рекорд");
 
 /* швидкість: 40 правильних знаків за 30 с активного часу = 80 зн/хв */
 (function () {
@@ -234,4 +292,4 @@ eq(Klav.classify("uk", "а", { key: "Shift", code: "ShiftLeft" }), "ignore", "м
 
 if (errors.length) { console.error(errors.join("\n")); process.exit(1); }
 var counts = ["uk", "en"].map(function (l) { return l + " " + doc.words[l].map(function (t) { return t.list.length; }).join("/"); }).join(", ");
-console.log("OK: перегони, слів по рівнях: " + counts + "; " + doc.difficulties.length + " складності, " + doc.raceLength + " слів у перегонах");
+console.log("OK: перегони, слів по рівнях: " + counts + "; " + doc.difficulties.length + " складності, " + doc.raceLength + " слів і " + doc.opponents + " суперників у перегонах");

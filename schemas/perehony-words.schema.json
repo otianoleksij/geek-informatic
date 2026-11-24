@@ -9,7 +9,7 @@
     "format": { "const": 1 },
     "comment": { "type": "string", "description": "Пояснення формули ліміту часу й типових значень" },
     "raceLength": { "type": "integer", "minimum": 4, "maximum": 40, "description": "Слів у перегонах" },
-    "opponents": { "type": "integer", "minimum": 2, "maximum": 5, "description": "Скільки суперників (разом з гравцем машин на одну більше). Гра малює рівно 5" },
+    "opponents": { "type": "integer", "minimum": 4, "maximum": 40, "description": "Скільки суперників (разом з гравцем машин на одну більше). Має дорівнювати raceLength: кожне слово вчасно обганяє одну машину, усі слова вчасно дають перше місце" },
     "difficulties": {
       "type": "array", "minItems": 1,
       "items": {

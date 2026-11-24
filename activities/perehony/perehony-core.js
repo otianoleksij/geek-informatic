@@ -10,9 +10,7 @@
 })(typeof self !== "undefined" ? self : this, function () {
   "use strict";
 
-  var TOTAL_CARS = 6;          /* гравець і п'ятеро суперників */
-  var PLAYER = "p";
-  var OPPONENTS = ["c1", "c2", "c3", "c4", "c5"];
+  var PLAYER = "p";            /* суперників стільки, скільки слів у перегонах: гравець + n машин */
   var BETWEEN_MS = 450;        /* пауза між словами (не входить у час слова) */
 
   /* ---------- складність і ліміти ---------- */
@@ -75,8 +73,14 @@
   }
 
   /* ---------- перегони ---------- */
+  /* id суперників: c1..cn. */
+  function opponentIds(n) {
+    var out = [], i;
+    for (i = 1; i <= n; i++) out.push("c" + i);
+    return out;
+  }
   /* Машини від першого місця до останнього: масив id. Спочатку суперники попереду, гравець останній. */
-  function startOrder() { return OPPONENTS.concat([PLAYER]); }
+  function startOrder(n) { return opponentIds(n).concat([PLAYER]); }
 
   function newRace(words, diff) {
     var limits = [], i;
@@ -86,9 +90,10 @@
       words: words,
       limits: limits,
       total: words.length,
+      cars: words.length + 1,    /* гравець і по одному суперникові на слово */
       index: -1,                 /* номер поточного слова (0-базований), -1 до першого */
       status: "ready",           /* ready | word | between | finished */
-      order: startOrder(),
+      order: startOrder(words.length),
       wordPos: 0,
       wordElapsed: 0,
       typingMs: 0,               /* сумарний час, коли слова були на екрані (без пауз між словами) */
@@ -118,33 +123,31 @@
     return race.words[race.index];
   }
 
-  /* Поміняти місцями гравця й сусідню машину. dir = -1: гравець обганяє машину попереду, +1: його обганяє машина позаду.
-     Повертає подію або null, якщо рухатися нікуди (перше / останнє місце). */
-  function swap(race, dir) {
-    var from = race.order.indexOf(PLAYER), to = from + dir;
-    if (to < 0 || to >= race.order.length) return null;
+  /* Гравець обганяє машину безпосередньо попереду (міняються місцями).
+     Повертає подію або null, якщо вже перше місце. Назад гравець не рухається ніколи. */
+  function overtake(race) {
+    var from = race.order.indexOf(PLAYER), to = from - 1;
+    if (to < 0) return null;
     var other = race.order[to];
     race.order[to] = PLAYER;
     race.order[from] = other;
     return { from: from + 1, to: to + 1, other: other };
   }
 
+  /* Слово набране вчасно: обгін на одну позицію. Час вийшов: слово пропущено, місце те саме. */
   function finishWord(race, ok, fast, ms) {
     var ev, sw;
     race.results.push({ word: race.words[race.index], ok: ok, fast: fast, ms: ms });
     if (ok) {
       race.inTime++;
       if (fast) race.fast++;
-      sw = swap(race, -1);
+      sw = overtake(race);
       ev = sw
-        ? { type: "overtake", passer: PLAYER, passed: sw.other, from: sw.from, to: sw.to, fast: fast, moved: true }
-        : { type: "overtake", passer: PLAYER, passed: null, from: 1, to: 1, fast: fast, moved: false };
+        ? { type: "overtake", passed: sw.other, from: sw.from, to: sw.to, fast: fast, moved: true }
+        : { type: "overtake", passed: null, from: 1, to: 1, fast: fast, moved: false };
     } else {
       race.missed++;
-      sw = swap(race, 1);
-      ev = sw
-        ? { type: "timeout", passer: sw.other, passed: PLAYER, from: sw.from, to: sw.to, fast: false, moved: true }
-        : { type: "timeout", passer: null, passed: null, from: race.order.length, to: race.order.length, fast: false, moved: false };
+      ev = { type: "timeout", passed: null, from: place(race), to: place(race), fast: false, moved: false };
     }
     ev.index = race.index;
     ev.last = race.index + 1 >= race.total;
@@ -189,10 +192,16 @@
   function cpm(race) {
     return race.typingMs > 0 ? race.correctKeys / (race.typingMs / 60000) : 0;
   }
+  /* Тон підсумкового тексту: win (1), podium (2-3), good (до половини машин), keep (решта). */
+  function resultKind(p, cars) {
+    return p === 1 ? "win" : p <= 3 ? "podium" : p <= Math.ceil(cars / 2) ? "good" : "keep";
+  }
   function summary(race) {
     var p = place(race);
     return {
       place: p,
+      cars: race.cars,
+      kind: resultKind(p, race.cars),
       win: p === 1,
       cups: cupsFor(p),
       inTime: race.inTime,
@@ -211,9 +220,7 @@
   }
 
   return {
-    TOTAL_CARS: TOTAL_CARS,
     PLAYER: PLAYER,
-    OPPONENTS: OPPONENTS,
     BETWEEN_MS: BETWEEN_MS,
     limitSeconds: limitSeconds,
     limitMs: limitMs,
@@ -222,6 +229,7 @@
     avgLimitSeconds: avgLimitSeconds,
     listOf: listOf,
     pickWords: pickWords,
+    opponentIds: opponentIds,
     startOrder: startOrder,
     newRace: newRace,
     place: place,
@@ -233,6 +241,7 @@
     tick: tick,
     key: key,
     cupsFor: cupsFor,
+    resultKind: resultKind,
     accuracy: accuracy,
     cpm: cpm,
     summary: summary,

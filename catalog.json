@@ -313,8 +313,8 @@
         "en": "Word Race"
       },
       "description": {
-        "uk": "Швидкісні перегони зі словами: набрав слово вчасно, і твоя машина обганяє суперника, не встиг, і тебе обганяють. Три складності, 14 слів у заїзді, кубки за місце. Стартуєш шостим із шести.",
-        "en": "Speed races with words: type a word in time and your car passes a rival, miss it and one passes you. Three difficulties, 14 words per race, cups for your place. You start 6th out of 6."
+        "uk": "Швидкісні перегони зі словами: слово набрано вчасно — і твоя машина обганяє суперника. Три складності, 14 слів і 14 суперників у заїзді, кубки за місце. Старт з останнього місця, усі слова вчасно — перше місце.",
+        "en": "Speed races with words: type a word in time and your car passes a rival. Three difficulties, 14 words and 14 rivals per race, cups for your place. You start last; every word in time means first place."
       },
       "locales": [
         "uk",
