@@ -24,714 +24,1326 @@
   "levels": [
     {
       "id": "l01",
+      "stage": 1,
       "title": {
-        "uk": "Клавіші А і О",
-        "en": "Keys F and J"
+        "uk": "Клавіші А, О, В",
+        "en": "Keys F, J, D"
       },
       "tip": {
-        "uk": "Домашня позиція: вказівні пальці лежать на клавішах з виступами, решта пальців поруч. **А** — лівим вказівним; **О** — правим вказівним.",
-        "en": "Home position: your index fingers rest on the keys with bumps, the other fingers lie next to them. **F** — left index finger; **J** — right index finger."
+        "uk": "Домашня позиція: пальці лежать на середньому ряду клавіатури, а вказівні пальці на клавішах з виступами. **А** — лівим вказівним, **О** — правим вказівним (на цих клавішах є виступи, тож їх легко знайти навпомацки). **В** — лівим середнім. Після кожної літери повертай пальці на місце й не дивись на клавіатуру.",
+        "en": "Home position: your fingers rest on the middle row of the keyboard, and the index fingers lie on the keys with bumps. **F** — left index finger, **J** — right index finger (both keys have bumps, so you can find them by touch). **D** — left middle finger. After every letter return your fingers to their place and do not look at the keyboard."
       },
       "asteroidHp": 10,
       "sets": {
         "uk": {
-          "keys": "ао ",
-          "newKeys": "ао",
+          "keys": "аов ",
+          "newKeys": "аов",
           "gen": {
             "kind": "groups",
-            "groups": 10,
-            "min": 3,
+            "groups": 12,
+            "min": 2,
             "max": 5,
-            "bias": 1
+            "minLen": 50
           }
         },
         "en": {
-          "keys": "fj ",
-          "newKeys": "fj",
+          "keys": "fjd ",
+          "newKeys": "fjd",
           "gen": {
             "kind": "groups",
-            "groups": 10,
-            "min": 3,
+            "groups": 12,
+            "min": 2,
             "max": 5,
-            "bias": 1
+            "minLen": 50
           }
         }
       }
     },
     {
       "id": "l02",
+      "stage": 1,
       "title": {
-        "uk": "Клавіші В і Л",
-        "en": "Keys D and K"
+        "uk": "Клавіша Л",
+        "en": "Key K"
       },
       "tip": {
-        "uk": "Середні пальці. Решта пальців лишається на домашніх клавішах. **В** — лівим середнім; **Л** — правим середнім.",
-        "en": "Middle fingers. The other fingers stay on the home keys. **D** — left middle finger; **K** — right middle finger."
+        "uk": "Домашній ряд. **Л** лежить праворуч від **О**: її тисне **правий середній** палець. Решта пальців лишається на місці.",
+        "en": "Home row. **K** sits to the right of **J**: press it with the **right middle finger**. The other fingers stay in place."
       },
       "asteroidHp": 10,
       "sets": {
         "uk": {
           "keys": "аовл ",
-          "newKeys": "вл",
+          "newKeys": "л",
           "gen": {
             "kind": "groups",
-            "groups": 10,
-            "min": 3,
+            "groups": 12,
+            "min": 2,
             "max": 5,
-            "bias": 0.45
+            "minLen": 50,
+            "bias": 0.4
           }
         },
         "en": {
           "keys": "fjdk ",
-          "newKeys": "dk",
+          "newKeys": "k",
           "gen": {
             "kind": "groups",
-            "groups": 10,
-            "min": 3,
+            "groups": 12,
+            "min": 2,
             "max": 5,
-            "bias": 0.45
+            "minLen": 50,
+            "bias": 0.4
           }
         }
       }
     },
     {
       "id": "l03",
+      "stage": 1,
       "title": {
-        "uk": "Клавіші І і Д",
-        "en": "Keys S and L"
+        "uk": "Клавіша І",
+        "en": "Key S"
       },
       "tip": {
-        "uk": "Безіменні пальці найлінивіші, тож потренуй їх. **І** — лівим безіменним; **Д** — правим безіменним.",
-        "en": "Ring fingers are the laziest ones, so give them some practice. **S** — left ring finger; **L** — right ring finger."
+        "uk": "Домашній ряд. **І** лежить ліворуч від **В**: її тисне **лівий безіменний** палець. Безіменні пальці найлінивіші, тож потренуй їх.",
+        "en": "Home row. **S** is to the left of **D**: press it with the **left ring finger**. Ring fingers are the laziest ones, so give them some practice."
       },
       "asteroidHp": 10,
       "sets": {
         "uk": {
-          "keys": "аовлід ",
-          "newKeys": "ід",
+          "keys": "аовлі ",
+          "newKeys": "і",
           "gen": {
             "kind": "groups",
-            "groups": 10,
-            "min": 3,
+            "groups": 12,
+            "min": 2,
             "max": 5,
-            "bias": 0.45
+            "minLen": 50,
+            "bias": 0.4
           }
         },
         "en": {
-          "keys": "fjdksl ",
-          "newKeys": "sl",
+          "keys": "fjdks ",
+          "newKeys": "s",
           "gen": {
             "kind": "groups",
-            "groups": 10,
-            "min": 3,
+            "groups": 12,
+            "min": 2,
             "max": 5,
-            "bias": 0.45
+            "minLen": 50,
+            "bias": 0.4
           }
         }
       }
     },
     {
       "id": "l04",
+      "stage": 1,
       "title": {
-        "uk": "Клавіші Ф і Ж",
-        "en": "Keys A and ;"
+        "uk": "Клавіша Д",
+        "en": "Key L"
       },
       "tip": {
-        "uk": "Мізинці стоять на краях домашнього ряду. **Ф** — лівим мізинцем; **Ж** — правим мізинцем.",
-        "en": "Little fingers guard the edges of the home row. **A** — left pinky; **;** — right pinky."
+        "uk": "Домашній ряд. **Д** лежить праворуч від **Л**: її тисне **правий безіменний** палець.",
+        "en": "Home row. **L** is to the right of **K**: press it with the **right ring finger**."
       },
       "asteroidHp": 10,
       "sets": {
         "uk": {
-          "keys": "аовлідфж ",
-          "newKeys": "фж",
+          "keys": "аовлід ",
+          "newKeys": "д",
           "gen": {
             "kind": "groups",
-            "groups": 10,
-            "min": 3,
+            "groups": 12,
+            "min": 2,
             "max": 5,
-            "bias": 0.45
+            "minLen": 50,
+            "bias": 0.4
           }
         },
         "en": {
-          "keys": "fjdksla; ",
-          "newKeys": "a;",
+          "keys": "fjdksl ",
+          "newKeys": "l",
           "gen": {
             "kind": "groups",
-            "groups": 10,
-            "min": 3,
+            "groups": 12,
+            "min": 2,
             "max": 5,
-            "bias": 0.45
+            "minLen": 50,
+            "bias": 0.4
           }
         }
       }
     },
     {
       "id": "l05",
+      "stage": 1,
       "title": {
-        "uk": "Клавіші П і Р",
-        "en": "Keys G and H"
+        "uk": "Клавіша Ф",
+        "en": "Key A"
       },
       "tip": {
-        "uk": "Вказівні пальці тягнуться вбік і одразу повертаються на виступи. **П** — лівим вказівним; **Р** — правим вказівним.",
-        "en": "Index fingers stretch sideways and quickly return to the bumps. **G** — left index finger; **H** — right index finger."
+        "uk": "Домашній ряд. **Ф** — крайня ліва клавіша домашнього ряду: її тисне **лівий мізинець**. Він найкоротший, тож не поспішай.",
+        "en": "Home row. **A** is the leftmost key of the home row: press it with the **left pinky**. It is the shortest finger, so take your time."
       },
       "asteroidHp": 10,
       "sets": {
         "uk": {
-          "keys": "аовлідфжпр ",
-          "newKeys": "пр",
+          "keys": "аовлідф ",
+          "newKeys": "ф",
           "gen": {
             "kind": "groups",
-            "groups": 10,
-            "min": 3,
+            "groups": 12,
+            "min": 2,
             "max": 5,
-            "bias": 0.45
+            "minLen": 50,
+            "bias": 0.4
           }
         },
         "en": {
-          "keys": "fjdksla;gh ",
-          "newKeys": "gh",
+          "keys": "fjdksla ",
+          "newKeys": "a",
           "gen": {
             "kind": "groups",
-            "groups": 10,
-            "min": 3,
+            "groups": 12,
+            "min": 2,
             "max": 5,
-            "bias": 0.45
+            "minLen": 50,
+            "bias": 0.4
           }
         }
       }
     },
     {
       "id": "l06",
+      "stage": 1,
       "title": {
-        "uk": "Клавіша Є",
-        "en": "Home row words"
+        "uk": "Клавіша Ж",
+        "en": "Key ;"
       },
       "tip": {
-        "uk": "Остання клавіша домашнього ряду. Тягнись мізинцем, решта пальців лишається на місці. **Є** — правим мізинцем.",
-        "en": "No new keys: words from the home row only. Keep your fingers on the bumps."
+        "uk": "Домашній ряд. **Ж** лежить праворуч від **Д**: її тисне **правий мізинець**.",
+        "en": "Home row. **;** is to the right of **L**: press it with the **right pinky**."
       },
-      "asteroidHp": 12,
+      "asteroidHp": 10,
       "sets": {
         "uk": {
-          "keys": "аовлідфжпрє ",
-          "newKeys": "є",
+          "keys": "аовлідфж ",
+          "newKeys": "ж",
           "gen": {
             "kind": "groups",
-            "groups": 10,
-            "min": 3,
+            "groups": 12,
+            "min": 2,
             "max": 5,
+            "minLen": 50,
             "bias": 0.4
           }
         },
         "en": {
-          "keys": "fjdksla;gh ",
-          "newKeys": "",
+          "keys": "fjdksla; ",
+          "newKeys": ";",
           "gen": {
-            "kind": "words",
-            "count": 9,
-            "words": [
-              "dad",
-              "sad",
-              "had",
-              "has",
-              "gas",
-              "ask",
-              "flag",
-              "flask",
-              "glad",
-              "slash",
-              "flash",
-              "shall",
-              "salad",
-              "hall",
-              "fall",
-              "dash",
-              "half",
-              "glass",
-              "lass"
-            ]
+            "kind": "groups",
+            "groups": 12,
+            "min": 2,
+            "max": 5,
+            "minLen": 50,
+            "bias": 0.4
           }
         }
       }
     },
     {
       "id": "l07",
+      "stage": 1,
       "title": {
-        "uk": "Клавіші К і Е",
-        "en": "Keys E and I"
+        "uk": "Клавіша Є",
+        "en": "Review: home row words"
       },
       "tip": {
-        "uk": "Піднімаємося на верхній ряд: палець тягнеться вгору й повертається на домашній ряд. **К** — лівим вказівним; **Е** — лівим вказівним.",
-        "en": "Up to the top row: the finger reaches up and comes back to the home row. **E** — left middle finger; **I** — right middle finger."
+        "uk": "Домашній ряд. **Є** — крайня права клавіша домашнього ряду, праворуч від **Ж**: її тисне **правий мізинець**. Тягнись мізинцем, а решта пальців лишається на місці.",
+        "en": "No new keys: words made of the home-row keys you know. Keep your fingers on the bumps and look at the screen."
       },
-      "asteroidHp": 12,
+      "asteroidHp": 10,
       "sets": {
         "uk": {
-          "keys": "аовлідфжпрєке ",
-          "newKeys": "ке",
+          "keys": "аовлідфжє ",
+          "newKeys": "є",
           "gen": {
             "kind": "groups",
-            "groups": 10,
-            "min": 3,
+            "groups": 12,
+            "min": 2,
             "max": 5,
-            "bias": 0.45
+            "minLen": 50,
+            "bias": 0.4
           }
         },
         "en": {
-          "keys": "fjdksla;ghei ",
-          "newKeys": "ei",
+          "keys": "fjdksla; ",
+          "newKeys": "",
           "gen": {
-            "kind": "groups",
-            "groups": 10,
-            "min": 3,
-            "max": 5,
-            "bias": 0.45
+            "kind": "words",
+            "count": 8,
+            "minLen": 50,
+            "words": [
+              "dad",
+              "dads",
+              "sad",
+              "lad",
+              "lads",
+              "add",
+              "adds",
+              "ask",
+              "asks",
+              "fad",
+              "fads",
+              "all",
+              "fall",
+              "falls",
+              "flask",
+              "flasks",
+              "salad",
+              "salads",
+              "lass",
+              "alfalfa"
+            ]
           }
         }
       }
     },
     {
       "id": "l08",
+      "stage": 1,
       "title": {
-        "uk": "Клавіші Н і Г",
-        "en": "Keys R and U"
+        "uk": "Клавіша П",
+        "en": "Key G"
       },
       "tip": {
-        "uk": "Верхній ряд, вказівні пальці. **Н** — правим вказівним; **Г** — правим вказівним.",
-        "en": "Top row, index fingers. **R** — left index finger; **U** — right index finger."
+        "uk": "Домашній ряд. **П** лежить праворуч від **А**: **лівий вказівний** тягнеться вбік і одразу повертається на виступ.",
+        "en": "Home row. **G** is to the right of **F**: the **left index finger** stretches sideways and quickly returns to the bump."
       },
-      "asteroidHp": 12,
+      "asteroidHp": 10,
       "sets": {
         "uk": {
-          "keys": "аовлідфжпрєкенг ",
-          "newKeys": "нг",
+          "keys": "аовлідфжєп ",
+          "newKeys": "п",
           "gen": {
             "kind": "groups",
-            "groups": 10,
-            "min": 3,
+            "groups": 12,
+            "min": 2,
             "max": 5,
-            "bias": 0.45
+            "minLen": 50,
+            "bias": 0.4
           }
         },
         "en": {
-          "keys": "fjdksla;gheiru ",
-          "newKeys": "ru",
+          "keys": "fjdksla;g ",
+          "newKeys": "g",
           "gen": {
             "kind": "groups",
-            "groups": 10,
-            "min": 3,
+            "groups": 12,
+            "min": 2,
             "max": 5,
-            "bias": 0.45
+            "minLen": 50,
+            "bias": 0.4
           }
         }
       }
     },
     {
       "id": "l09",
+      "stage": 1,
       "title": {
-        "uk": "Клавіші У і Ш",
-        "en": "Keys T and Y"
+        "uk": "Клавіша Р",
+        "en": "Key H"
       },
       "tip": {
-        "uk": "Верхній ряд: середні пальці й вказівний. **У** — лівим середнім; **Ш** — правим середнім.",
-        "en": "Top row: the index and middle fingers. **T** — left index finger; **Y** — right index finger."
+        "uk": "Домашній ряд. **Р** лежить ліворуч від **О**: **правий вказівний** тягнеться вбік і одразу повертається на виступ.",
+        "en": "Home row. **H** is to the left of **J**: the **right index finger** stretches sideways and quickly returns to the bump."
       },
-      "asteroidHp": 12,
+      "asteroidHp": 10,
       "sets": {
         "uk": {
-          "keys": "аовлідфжпрєкенгуш ",
-          "newKeys": "уш",
+          "keys": "аовлідфжєпр ",
+          "newKeys": "р",
           "gen": {
             "kind": "groups",
-            "groups": 10,
-            "min": 3,
+            "groups": 12,
+            "min": 2,
             "max": 5,
-            "bias": 0.45
+            "minLen": 50,
+            "bias": 0.4
           }
         },
         "en": {
-          "keys": "fjdksla;gheiruty ",
-          "newKeys": "ty",
+          "keys": "fjdksla;gh ",
+          "newKeys": "h",
           "gen": {
             "kind": "groups",
-            "groups": 10,
-            "min": 3,
+            "groups": 12,
+            "min": 2,
             "max": 5,
-            "bias": 0.45
+            "minLen": 50,
+            "bias": 0.4
           }
         }
       }
     },
     {
       "id": "l10",
+      "stage": 2,
       "title": {
-        "uk": "Клавіші Ц і Щ",
-        "en": "Keys W and O"
+        "uk": "Клавіша Е",
+        "en": "Key T"
       },
       "tip": {
-        "uk": "Верхній ряд, безіменні пальці. **Ц** — лівим безіменним; **Щ** — правим безіменним.",
-        "en": "Top row, ring fingers. **W** — left ring finger; **O** — right ring finger."
+        "uk": "Верхній ряд, над **А** і **П**: **лівий вказівний** тягнеться вгору й вправо та повертається на домашній ряд.",
+        "en": "Top row, above **F** and **G**: the **left index finger** reaches up and to the right and comes back to the home row."
       },
       "asteroidHp": 12,
       "sets": {
         "uk": {
-          "keys": "аовлідфжпрєкенгушцщ ",
-          "newKeys": "цщ",
+          "keys": "аовлідфжєпре ",
+          "newKeys": "е",
           "gen": {
             "kind": "groups",
-            "groups": 10,
-            "min": 3,
+            "groups": 12,
+            "min": 2,
             "max": 5,
-            "bias": 0.45
+            "minLen": 50,
+            "bias": 0.4
           }
         },
         "en": {
-          "keys": "fjdksla;gheirutywo ",
-          "newKeys": "wo",
+          "keys": "fjdksla;ght ",
+          "newKeys": "t",
           "gen": {
             "kind": "groups",
-            "groups": 10,
-            "min": 3,
+            "groups": 12,
+            "min": 2,
             "max": 5,
-            "bias": 0.45
+            "minLen": 50,
+            "bias": 0.4
           }
         }
       }
     },
     {
       "id": "l11",
+      "stage": 2,
       "title": {
-        "uk": "Клавіші Й і З",
-        "en": "Keys Q and P"
+        "uk": "Клавіша К",
+        "en": "Key R"
       },
       "tip": {
-        "uk": "Верхній ряд, мізинці. **Й** — лівим мізинцем; **З** — правим мізинцем.",
-        "en": "Top row, little fingers. **Q** — left pinky; **P** — right pinky."
+        "uk": "Верхній ряд, просто над **А**: **лівий вказівний** тягнеться вгору й повертається на домашній ряд.",
+        "en": "Top row, right above **F**: the **left index finger** reaches up and comes back to the home row."
       },
       "asteroidHp": 12,
       "sets": {
         "uk": {
-          "keys": "аовлідфжпрєкенгушцщйз ",
-          "newKeys": "йз",
+          "keys": "аовлідфжєпрек ",
+          "newKeys": "к",
           "gen": {
             "kind": "groups",
-            "groups": 10,
-            "min": 3,
+            "groups": 12,
+            "min": 2,
             "max": 5,
-            "bias": 0.45
+            "minLen": 50,
+            "bias": 0.4
           }
         },
         "en": {
-          "keys": "fjdksla;gheirutywoqp ",
-          "newKeys": "qp",
+          "keys": "fjdksla;ghtr ",
+          "newKeys": "r",
           "gen": {
             "kind": "groups",
-            "groups": 10,
-            "min": 3,
+            "groups": 12,
+            "min": 2,
             "max": 5,
-            "bias": 0.45
+            "minLen": 50,
+            "bias": 0.4
           }
         }
       }
     },
     {
       "id": "l12",
+      "stage": 2,
       "title": {
-        "uk": "Клавіші Х і Ї",
-        "en": "Review words"
+        "uk": "Клавіша Н",
+        "en": "Key Y"
       },
       "tip": {
-        "uk": "Ще два краї верхнього ряду: обидві клавіші тисне правий мізинець. **Х** — правим мізинцем; **Ї** — правим мізинцем.",
-        "en": "No new keys: words with the letters you already know."
+        "uk": "Верхній ряд, над **П** і **Р**: **правий вказівний** тягнеться вгору й вліво та повертається на домашній ряд.",
+        "en": "Top row, above **G** and **H**: the **right index finger** reaches up and to the left and comes back to the home row."
       },
       "asteroidHp": 12,
       "sets": {
         "uk": {
-          "keys": "аовлідфжпрєкенгушцщйзхї ",
-          "newKeys": "хї",
+          "keys": "аовлідфжєпрекн ",
+          "newKeys": "н",
           "gen": {
             "kind": "groups",
-            "groups": 10,
-            "min": 3,
+            "groups": 12,
+            "min": 2,
             "max": 5,
-            "bias": 0.45
+            "minLen": 50,
+            "bias": 0.4
           }
         },
         "en": {
-          "keys": "fjdksla;gheirutywoqp ",
-          "newKeys": "",
+          "keys": "fjdksla;ghtry ",
+          "newKeys": "y",
           "gen": {
-            "kind": "words",
-            "count": 9,
-            "words": [
-              "dad",
-              "ask",
-              "flag",
-              "glad",
-              "salad",
-              "three",
-              "write",
-              "quiet",
-              "story",
-              "today",
-              "water",
-              "pretty",
-              "yellow",
-              "please",
-              "square",
-              "guitar",
-              "history",
-              "sweet",
-              "tower",
-              "fruit",
-              "power",
-              "tiger",
-              "pilot",
-              "first",
-              "after",
-              "gold",
-              "just",
-              "play",
-              "wood",
-              "rest",
-              "rule",
-              "sky",
-              "key"
-            ]
+            "kind": "groups",
+            "groups": 12,
+            "min": 2,
+            "max": 5,
+            "minLen": 50,
+            "bias": 0.4
           }
         }
       }
     },
     {
       "id": "l13",
+      "stage": 2,
       "title": {
-        "uk": "Клавіші М і И",
-        "en": "Keys V and M"
+        "uk": "Клавіша Г",
+        "en": "Key U"
       },
       "tip": {
-        "uk": "Нижній ряд: пальці тягнуться вниз і повертаються на домашній ряд. **М** — лівим вказівним; **И** — лівим вказівним.",
-        "en": "Bottom row: the fingers reach down and come back to the home row. **V** — left index finger; **M** — right index finger."
+        "uk": "Верхній ряд, над **О**: **правий вказівний** тягнеться вгору й повертається на домашній ряд.",
+        "en": "Top row, above **J**: the **right index finger** reaches up and comes back to the home row."
       },
       "asteroidHp": 12,
       "sets": {
         "uk": {
-          "keys": "аовлідфжпрєкенгушцщйзхїми ",
-          "newKeys": "ми",
+          "keys": "аовлідфжєпрекнг ",
+          "newKeys": "г",
           "gen": {
             "kind": "groups",
-            "groups": 10,
-            "min": 3,
+            "groups": 12,
+            "min": 2,
             "max": 5,
-            "bias": 0.45
+            "minLen": 50,
+            "bias": 0.4
           }
         },
         "en": {
-          "keys": "fjdksla;gheirutywoqpvm ",
-          "newKeys": "vm",
+          "keys": "fjdksla;ghtryu ",
+          "newKeys": "u",
           "gen": {
             "kind": "groups",
-            "groups": 10,
-            "min": 3,
+            "groups": 12,
+            "min": 2,
             "max": 5,
-            "bias": 0.45
+            "minLen": 50,
+            "bias": 0.4
           }
         }
       }
     },
     {
       "id": "l14",
+      "stage": 2,
       "title": {
-        "uk": "Клавіші Т і Ь",
-        "en": "Keys B and N"
+        "uk": "Клавіша У",
+        "en": "Key E"
       },
       "tip": {
-        "uk": "Нижній ряд, вказівні пальці. **Т** — правим вказівним; **Ь** — правим вказівним.",
-        "en": "Bottom row, index fingers. **B** — left index finger; **N** — right index finger."
+        "uk": "Верхній ряд, над **В**: **лівий середній** тягнеться вгору й повертається на домашній ряд.",
+        "en": "Top row, above **D**: the **left middle finger** reaches up and comes back to the home row."
       },
       "asteroidHp": 12,
       "sets": {
         "uk": {
-          "keys": "аовлідфжпрєкенгушцщйзхїмить ",
-          "newKeys": "ть",
+          "keys": "аовлідфжєпрекнгу ",
+          "newKeys": "у",
           "gen": {
             "kind": "groups",
-            "groups": 10,
-            "min": 3,
+            "groups": 12,
+            "min": 2,
             "max": 5,
-            "bias": 0.45
+            "minLen": 50,
+            "bias": 0.4
           }
         },
         "en": {
-          "keys": "fjdksla;gheirutywoqpvmbn ",
-          "newKeys": "bn",
+          "keys": "fjdksla;ghtryue ",
+          "newKeys": "e",
           "gen": {
             "kind": "groups",
-            "groups": 10,
-            "min": 3,
+            "groups": 12,
+            "min": 2,
             "max": 5,
-            "bias": 0.45
+            "minLen": 50,
+            "bias": 0.4
           }
         }
       }
     },
     {
       "id": "l15",
+      "stage": 2,
       "title": {
-        "uk": "Клавіші С і Б",
-        "en": "Keys C and comma"
+        "uk": "Клавіша Ш",
+        "en": "Key I"
       },
       "tip": {
-        "uk": "Нижній ряд, середні пальці. **С** — лівим середнім; **Б** — правим середнім.",
-        "en": "Bottom row, middle fingers. **C** — left middle finger; **,** — right middle finger."
+        "uk": "Верхній ряд, над **Л**: **правий середній** тягнеться вгору й повертається на домашній ряд.",
+        "en": "Top row, above **K**: the **right middle finger** reaches up and comes back to the home row."
       },
       "asteroidHp": 12,
       "sets": {
         "uk": {
-          "keys": "аовлідфжпрєкенгушцщйзхїмитьсб ",
-          "newKeys": "сб",
+          "keys": "аовлідфжєпрекнгуш ",
+          "newKeys": "ш",
           "gen": {
             "kind": "groups",
-            "groups": 10,
-            "min": 3,
+            "groups": 12,
+            "min": 2,
             "max": 5,
-            "bias": 0.45
+            "minLen": 50,
+            "bias": 0.4
           }
         },
         "en": {
-          "keys": "fjdksla;gheirutywoqpvmbnc, ",
-          "newKeys": "c,",
+          "keys": "fjdksla;ghtryuei ",
+          "newKeys": "i",
           "gen": {
             "kind": "groups",
-            "groups": 10,
-            "min": 3,
+            "groups": 12,
+            "min": 2,
             "max": 5,
-            "bias": 0.45
+            "minLen": 50,
+            "bias": 0.4
           }
         }
       }
     },
     {
       "id": "l16",
+      "stage": 2,
       "title": {
-        "uk": "Клавіші Ч і Ю",
-        "en": "Keys X and period"
+        "uk": "Клавіша Ц",
+        "en": "Key W"
       },
       "tip": {
-        "uk": "Нижній ряд, безіменні пальці. **Ч** — лівим безіменним; **Ю** — правим безіменним.",
-        "en": "Bottom row, ring fingers. **X** — left ring finger; **.** — right ring finger."
+        "uk": "Верхній ряд, над **І**: **лівий безіменний** тягнеться вгору й повертається на домашній ряд.",
+        "en": "Top row, above **S**: the **left ring finger** reaches up and comes back to the home row."
       },
       "asteroidHp": 12,
       "sets": {
         "uk": {
-          "keys": "аовлідфжпрєкенгушцщйзхїмитьсбчю ",
-          "newKeys": "чю",
+          "keys": "аовлідфжєпрекнгушц ",
+          "newKeys": "ц",
           "gen": {
             "kind": "groups",
-            "groups": 10,
-            "min": 3,
+            "groups": 12,
+            "min": 2,
             "max": 5,
-            "bias": 0.45
+            "minLen": 50,
+            "bias": 0.4
           }
         },
         "en": {
-          "keys": "fjdksla;gheirutywoqpvmbnc,x. ",
-          "newKeys": "x.",
+          "keys": "fjdksla;ghtryueiw ",
+          "newKeys": "w",
           "gen": {
             "kind": "groups",
-            "groups": 10,
-            "min": 3,
+            "groups": 12,
+            "min": 2,
             "max": 5,
-            "bias": 0.45
+            "minLen": 50,
+            "bias": 0.4
           }
         }
       }
     },
     {
       "id": "l17",
+      "stage": 2,
       "title": {
-        "uk": "Клавіші Я і Ґ",
-        "en": "Keys Z and slash"
+        "uk": "Клавіша Щ",
+        "en": "Key O"
       },
       "tip": {
-        "uk": "Нижній ряд і край верхнього: мізинці. **Я** — лівим мізинцем; **Ґ** — правим мізинцем.",
-        "en": "Bottom row, little fingers. **Z** — left pinky; **/** — right pinky."
+        "uk": "Верхній ряд, над **Д**: **правий безіменний** тягнеться вгору й повертається на домашній ряд.",
+        "en": "Top row, above **L**: the **right ring finger** reaches up and comes back to the home row."
       },
       "asteroidHp": 12,
       "sets": {
         "uk": {
-          "keys": "аовлідфжпрєкенгушцщйзхїмитьсбчюяґ ",
-          "newKeys": "яґ",
+          "keys": "аовлідфжєпрекнгушцщ ",
+          "newKeys": "щ",
           "gen": {
             "kind": "groups",
-            "groups": 10,
-            "min": 3,
+            "groups": 12,
+            "min": 2,
             "max": 5,
-            "bias": 0.45
+            "minLen": 50,
+            "bias": 0.4
           }
         },
         "en": {
-          "keys": "fjdksla;gheirutywoqpvmbnc,x.z/ ",
-          "newKeys": "z/",
+          "keys": "fjdksla;ghtryueiwo ",
+          "newKeys": "o",
           "gen": {
             "kind": "groups",
-            "groups": 10,
-            "min": 3,
+            "groups": 12,
+            "min": 2,
             "max": 5,
-            "bias": 0.45
+            "minLen": 50,
+            "bias": 0.4
           }
         }
       }
     },
     {
       "id": "l18",
+      "stage": 2,
       "title": {
-        "uk": "Крапка",
-        "en": "Review: all letters"
+        "uk": "Клавіша Й",
+        "en": "Key Q"
       },
       "tip": {
-        "uk": "Крапку тисне правий мізинець, на клавіші праворуч від Ю. **.** — правим мізинцем.",
-        "en": "No new keys: words with all the letters you know. Eyes on the screen, not on the keys."
+        "uk": "Верхній ряд, над **Ф**: **лівий мізинець** тягнеться вгору й повертається на домашній ряд.",
+        "en": "Top row, above **A**: the **left pinky** reaches up and comes back to the home row."
       },
-      "asteroidHp": 14,
+      "asteroidHp": 12,
       "sets": {
         "uk": {
-          "keys": "аовлідфжпрєкенгушцщйзхїмитьсбчюяґ. ",
-          "newKeys": ".",
+          "keys": "аовлідфжєпрекнгушцщй ",
+          "newKeys": "й",
           "gen": {
-            "kind": "words",
-            "count": 9,
-            "words": [
-              "дім",
-              "кіт.",
-              "ліс",
-              "мама.",
-              "тато",
-              "гра.",
-              "клас",
-              "книга.",
-              "школа",
-              "зошит.",
-              "стіл",
-              "вікно.",
-              "дощ",
-              "сніг.",
-              "море",
-              "ранок.",
-              "літо",
-              "зима.",
-              "квітка",
-              "птах."
-            ]
+            "kind": "groups",
+            "groups": 12,
+            "min": 2,
+            "max": 5,
+            "minLen": 50,
+            "bias": 0.4
           }
         },
         "en": {
-          "keys": "fjdksla;gheirutywoqpvmbnc,x.z/ ",
+          "keys": "fjdksla;ghtryueiwoq ",
+          "newKeys": "q",
+          "gen": {
+            "kind": "groups",
+            "groups": 12,
+            "min": 2,
+            "max": 5,
+            "minLen": 50,
+            "bias": 0.4
+          }
+        }
+      }
+    },
+    {
+      "id": "l19",
+      "stage": 2,
+      "title": {
+        "uk": "Клавіша З",
+        "en": "Key P"
+      },
+      "tip": {
+        "uk": "Верхній ряд, над **Ж**: **правий мізинець** тягнеться вгору й повертається на домашній ряд.",
+        "en": "Top row, above **;**: the **right pinky** reaches up and comes back to the home row."
+      },
+      "asteroidHp": 12,
+      "sets": {
+        "uk": {
+          "keys": "аовлідфжєпрекнгушцщйз ",
+          "newKeys": "з",
+          "gen": {
+            "kind": "groups",
+            "groups": 12,
+            "min": 2,
+            "max": 5,
+            "minLen": 50,
+            "bias": 0.4
+          }
+        },
+        "en": {
+          "keys": "fjdksla;ghtryueiwoqp ",
+          "newKeys": "p",
+          "gen": {
+            "kind": "groups",
+            "groups": 12,
+            "min": 2,
+            "max": 5,
+            "minLen": 50,
+            "bias": 0.4
+          }
+        }
+      }
+    },
+    {
+      "id": "l20",
+      "stage": 2,
+      "title": {
+        "uk": "Клавіша Х",
+        "en": "Review: short words"
+      },
+      "tip": {
+        "uk": "Верхній ряд, праворуч від **З**: **правий мізинець** тягнеться ще далі вправо й повертається на домашній ряд.",
+        "en": "No new keys: short words with the letters you know. Keep your eyes on the screen."
+      },
+      "asteroidHp": 12,
+      "sets": {
+        "uk": {
+          "keys": "аовлідфжєпрекнгушцщйзх ",
+          "newKeys": "х",
+          "gen": {
+            "kind": "groups",
+            "groups": 12,
+            "min": 2,
+            "max": 5,
+            "minLen": 50,
+            "bias": 0.4
+          }
+        },
+        "en": {
+          "keys": "fjdksla;ghtryueiwoqp ",
           "newKeys": "",
           "gen": {
             "kind": "words",
-            "count": 9,
+            "count": 8,
+            "minLen": 50,
+            "words": [
+              "the",
+              "this",
+              "that",
+              "with",
+              "have",
+              "what",
+              "your",
+              "her",
+              "his",
+              "she",
+              "just",
+              "keep",
+              "play",
+              "right",
+              "light",
+              "water",
+              "story",
+              "house",
+              "ship",
+              "star",
+              "tree",
+              "sheep",
+              "paper",
+              "stop",
+              "show",
+              "gold",
+              "kite",
+              "like",
+              "lake",
+              "rose",
+              "ride",
+              "road",
+              "walk",
+              "talk",
+              "toy",
+              "dog",
+              "eight"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "l21",
+      "stage": 2,
+      "title": {
+        "uk": "Клавіша Ї",
+        "en": "Review: more words"
+      },
+      "tip": {
+        "uk": "Верхній ряд, праворуч від **Х**: **правий мізинець** тягнеться ще далі вправо й повертається на домашній ряд.",
+        "en": "No new keys: more words with the letters you know. Return your fingers to the home row after every letter."
+      },
+      "asteroidHp": 12,
+      "sets": {
+        "uk": {
+          "keys": "аовлідфжєпрекнгушцщйзхї ",
+          "newKeys": "ї",
+          "gen": {
+            "kind": "groups",
+            "groups": 12,
+            "min": 2,
+            "max": 5,
+            "minLen": 50,
+            "bias": 0.4
+          }
+        },
+        "en": {
+          "keys": "fjdksla;ghtryueiwoqp ",
+          "newKeys": "",
+          "gen": {
+            "kind": "words",
+            "count": 8,
+            "minLen": 50,
+            "words": [
+              "great",
+              "pretty",
+              "puppy",
+              "flies",
+              "yellow",
+              "yours",
+              "jelly",
+              "hello",
+              "please",
+              "before",
+              "school",
+              "took",
+              "wood",
+              "sweet",
+              "green",
+              "plus",
+              "speed",
+              "world",
+              "short",
+              "sharp",
+              "thirty",
+              "quiet",
+              "glass",
+              "guess",
+              "shake",
+              "kitty",
+              "piglet"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "l22",
+      "stage": 3,
+      "title": {
+        "uk": "Клавіша М",
+        "en": "Key V"
+      },
+      "tip": {
+        "uk": "Нижній ряд, під **А** і **П**: **лівий вказівний** опускається вниз, а кисть стоїть на місці.",
+        "en": "Bottom row, below **F** and **G**: the **left index finger** moves down while your hand stays in place."
+      },
+      "asteroidHp": 12,
+      "sets": {
+        "uk": {
+          "keys": "аовлідфжєпрекнгушцщйзхїм ",
+          "newKeys": "м",
+          "gen": {
+            "kind": "groups",
+            "groups": 12,
+            "min": 2,
+            "max": 5,
+            "minLen": 50,
+            "bias": 0.4
+          }
+        },
+        "en": {
+          "keys": "fjdksla;ghtryueiwoqpv ",
+          "newKeys": "v",
+          "gen": {
+            "kind": "groups",
+            "groups": 12,
+            "min": 2,
+            "max": 5,
+            "minLen": 50,
+            "bias": 0.4
+          }
+        }
+      }
+    },
+    {
+      "id": "l23",
+      "stage": 3,
+      "title": {
+        "uk": "Клавіша И",
+        "en": "Key B"
+      },
+      "tip": {
+        "uk": "Нижній ряд, під **П**: **лівий вказівний** опускається вниз і повертається на виступ.",
+        "en": "Bottom row, below **G**: the **left index finger** moves down and returns to the bump."
+      },
+      "asteroidHp": 12,
+      "sets": {
+        "uk": {
+          "keys": "аовлідфжєпрекнгушцщйзхїми ",
+          "newKeys": "и",
+          "gen": {
+            "kind": "groups",
+            "groups": 12,
+            "min": 2,
+            "max": 5,
+            "minLen": 50,
+            "bias": 0.4
+          }
+        },
+        "en": {
+          "keys": "fjdksla;ghtryueiwoqpvb ",
+          "newKeys": "b",
+          "gen": {
+            "kind": "groups",
+            "groups": 12,
+            "min": 2,
+            "max": 5,
+            "minLen": 50,
+            "bias": 0.4
+          }
+        }
+      }
+    },
+    {
+      "id": "l24",
+      "stage": 3,
+      "title": {
+        "uk": "Клавіша Т",
+        "en": "Key N"
+      },
+      "tip": {
+        "uk": "Нижній ряд, під **Р**: **правий вказівний** опускається вниз і повертається на домашній ряд.",
+        "en": "Bottom row, below **H**: the **right index finger** moves down and returns to the home row."
+      },
+      "asteroidHp": 12,
+      "sets": {
+        "uk": {
+          "keys": "аовлідфжєпрекнгушцщйзхїмит ",
+          "newKeys": "т",
+          "gen": {
+            "kind": "groups",
+            "groups": 12,
+            "min": 2,
+            "max": 5,
+            "minLen": 50,
+            "bias": 0.4
+          }
+        },
+        "en": {
+          "keys": "fjdksla;ghtryueiwoqpvbn ",
+          "newKeys": "n",
+          "gen": {
+            "kind": "groups",
+            "groups": 12,
+            "min": 2,
+            "max": 5,
+            "minLen": 50,
+            "bias": 0.4
+          }
+        }
+      }
+    },
+    {
+      "id": "l25",
+      "stage": 3,
+      "title": {
+        "uk": "Клавіша Ь",
+        "en": "Key M"
+      },
+      "tip": {
+        "uk": "Нижній ряд, під **О**: **правий вказівний** опускається вниз і повертається на виступ.",
+        "en": "Bottom row, below **J**: the **right index finger** moves down and returns to the bump."
+      },
+      "asteroidHp": 12,
+      "sets": {
+        "uk": {
+          "keys": "аовлідфжєпрекнгушцщйзхїмить ",
+          "newKeys": "ь",
+          "gen": {
+            "kind": "groups",
+            "groups": 12,
+            "min": 2,
+            "max": 5,
+            "minLen": 50,
+            "bias": 0.4
+          }
+        },
+        "en": {
+          "keys": "fjdksla;ghtryueiwoqpvbnm ",
+          "newKeys": "m",
+          "gen": {
+            "kind": "groups",
+            "groups": 12,
+            "min": 2,
+            "max": 5,
+            "minLen": 50,
+            "bias": 0.4
+          }
+        }
+      }
+    },
+    {
+      "id": "l26",
+      "stage": 3,
+      "title": {
+        "uk": "Клавіша С",
+        "en": "Key C"
+      },
+      "tip": {
+        "uk": "Нижній ряд, під **В**: **лівий середній** опускається вниз і повертається на домашній ряд.",
+        "en": "Bottom row, below **D**: the **left middle finger** moves down and returns to the home row."
+      },
+      "asteroidHp": 12,
+      "sets": {
+        "uk": {
+          "keys": "аовлідфжєпрекнгушцщйзхїмитьс ",
+          "newKeys": "с",
+          "gen": {
+            "kind": "groups",
+            "groups": 12,
+            "min": 2,
+            "max": 5,
+            "minLen": 50,
+            "bias": 0.4
+          }
+        },
+        "en": {
+          "keys": "fjdksla;ghtryueiwoqpvbnmc ",
+          "newKeys": "c",
+          "gen": {
+            "kind": "groups",
+            "groups": 12,
+            "min": 2,
+            "max": 5,
+            "minLen": 50,
+            "bias": 0.4
+          }
+        }
+      }
+    },
+    {
+      "id": "l27",
+      "stage": 3,
+      "title": {
+        "uk": "Клавіша Б",
+        "en": "Key ,"
+      },
+      "tip": {
+        "uk": "Нижній ряд, під **Л**: **правий середній** опускається вниз і повертається на домашній ряд.",
+        "en": "Bottom row, below **K**: the **right middle finger** moves down and returns to the home row."
+      },
+      "asteroidHp": 12,
+      "sets": {
+        "uk": {
+          "keys": "аовлідфжєпрекнгушцщйзхїмитьсб ",
+          "newKeys": "б",
+          "gen": {
+            "kind": "groups",
+            "groups": 12,
+            "min": 2,
+            "max": 5,
+            "minLen": 50,
+            "bias": 0.4
+          }
+        },
+        "en": {
+          "keys": "fjdksla;ghtryueiwoqpvbnmc, ",
+          "newKeys": ",",
+          "gen": {
+            "kind": "groups",
+            "groups": 12,
+            "min": 2,
+            "max": 5,
+            "minLen": 50,
+            "bias": 0.4
+          }
+        }
+      }
+    },
+    {
+      "id": "l28",
+      "stage": 3,
+      "title": {
+        "uk": "Клавіша Ч",
+        "en": "Key X"
+      },
+      "tip": {
+        "uk": "Нижній ряд, під **І**: **лівий безіменний** опускається вниз і повертається на домашній ряд.",
+        "en": "Bottom row, below **S**: the **left ring finger** moves down and returns to the home row."
+      },
+      "asteroidHp": 12,
+      "sets": {
+        "uk": {
+          "keys": "аовлідфжєпрекнгушцщйзхїмитьсбч ",
+          "newKeys": "ч",
+          "gen": {
+            "kind": "groups",
+            "groups": 12,
+            "min": 2,
+            "max": 5,
+            "minLen": 50,
+            "bias": 0.4
+          }
+        },
+        "en": {
+          "keys": "fjdksla;ghtryueiwoqpvbnmc,x ",
+          "newKeys": "x",
+          "gen": {
+            "kind": "groups",
+            "groups": 12,
+            "min": 2,
+            "max": 5,
+            "minLen": 50,
+            "bias": 0.4
+          }
+        }
+      }
+    },
+    {
+      "id": "l29",
+      "stage": 3,
+      "title": {
+        "uk": "Клавіша Ю",
+        "en": "Key ."
+      },
+      "tip": {
+        "uk": "Нижній ряд, під **Д**: **правий безіменний** опускається вниз і повертається на домашній ряд.",
+        "en": "Bottom row, below **L**: the **right ring finger** moves down and returns to the home row."
+      },
+      "asteroidHp": 12,
+      "sets": {
+        "uk": {
+          "keys": "аовлідфжєпрекнгушцщйзхїмитьсбчю ",
+          "newKeys": "ю",
+          "gen": {
+            "kind": "groups",
+            "groups": 12,
+            "min": 2,
+            "max": 5,
+            "minLen": 50,
+            "bias": 0.4
+          }
+        },
+        "en": {
+          "keys": "fjdksla;ghtryueiwoqpvbnmc,x. ",
+          "newKeys": ".",
+          "gen": {
+            "kind": "groups",
+            "groups": 12,
+            "min": 2,
+            "max": 5,
+            "minLen": 50,
+            "bias": 0.4
+          }
+        }
+      }
+    },
+    {
+      "id": "l30",
+      "stage": 3,
+      "title": {
+        "uk": "Клавіша Я",
+        "en": "Key Z"
+      },
+      "tip": {
+        "uk": "Нижній ряд, під **Ф**: **лівий мізинець** опускається вниз і повертається на домашній ряд.",
+        "en": "Bottom row, below **A**: the **left pinky** moves down and returns to the home row."
+      },
+      "asteroidHp": 12,
+      "sets": {
+        "uk": {
+          "keys": "аовлідфжєпрекнгушцщйзхїмитьсбчюя ",
+          "newKeys": "я",
+          "gen": {
+            "kind": "groups",
+            "groups": 12,
+            "min": 2,
+            "max": 5,
+            "minLen": 50,
+            "bias": 0.4
+          }
+        },
+        "en": {
+          "keys": "fjdksla;ghtryueiwoqpvbnmc,x.z ",
+          "newKeys": "z",
+          "gen": {
+            "kind": "groups",
+            "groups": 12,
+            "min": 2,
+            "max": 5,
+            "minLen": 50,
+            "bias": 0.4
+          }
+        }
+      }
+    },
+    {
+      "id": "l31",
+      "stage": 4,
+      "title": {
+        "uk": "Крапка",
+        "en": "Review: sentences with . and ,"
+      },
+      "tip": {
+        "uk": "Нижній ряд, праворуч від **Ю**: крапку тисне **правий мізинець**. Крапка стоїть одразу після слова, а після неї пробіл.",
+        "en": "No new keys: lowercase sentences with the full stop and the comma. Keep your eyes on the screen."
+      },
+      "asteroidHp": 12,
+      "sets": {
+        "uk": {
+          "keys": "аовлідфжєпрекнгушцщйзхїмитьсбчюя. ",
+          "newKeys": ".",
+          "gen": {
+            "kind": "groups",
+            "groups": 12,
+            "min": 2,
+            "max": 5,
+            "minLen": 50,
+            "bias": 0.4,
+            "alphabet": "аовлідфжєпрекнгушцщйзхїмитьсбчюя."
+          }
+        },
+        "en": {
+          "keys": "fjdksla;ghtryueiwoqpvbnmc,x.z ",
+          "newKeys": "",
+          "texts": [
+            "the quick fox jumps over the lazy dog, and then it runs back to the farm.",
+            "we like to type, and we get better each day. it is fun, and it is useful.",
+            "a fast ship flies up, down, and far away. the sky is dark, and the stars are bright.",
+            "my desk is neat, my pen is blue, and my book is new. i read it every night.",
+            "the cat sat on the mat, and the dog ran to the park. they play there all day.",
+            "a good typist looks at the screen, keeps a straight back, and never rushes."
+          ]
+        }
+      }
+    },
+    {
+      "id": "l32",
+      "stage": 4,
+      "title": {
+        "uk": "Кома (Shift і крапка)",
+        "en": "Review: words with all the letters"
+      },
+      "tip": {
+        "uk": "Кома лежить на тій самій клавіші, що й крапка, але друкується з Shift. **Shift** тримай **лівим мізинцем**, а клавішу тисни **правим мізинцем**: спершу натисни й тримай Shift, потім тисни клавішу, потім відпусти обидві.",
+        "en": "No new keys: words with all the letters you know. Eyes on the screen, not on the keys."
+      },
+      "asteroidHp": 12,
+      "sets": {
+        "uk": {
+          "keys": "аовлідфжєпрекнгушцщйзхїмитьсбчюя., ",
+          "newKeys": ",",
+          "gen": {
+            "kind": "groups",
+            "groups": 12,
+            "min": 2,
+            "max": 5,
+            "minLen": 50,
+            "bias": 0.4,
+            "alphabet": "аовлідфжєпрекнгушцщйзхїмитьсбчюя.,"
+          }
+        },
+        "en": {
+          "keys": "fjdksla;ghtryueiwoqpvbnmc,x.z ",
+          "newKeys": "",
+          "gen": {
+            "kind": "words",
+            "count": 8,
+            "minLen": 50,
             "words": [
               "cat",
               "dog",
@@ -775,439 +1387,177 @@
       }
     },
     {
-      "id": "l19",
+      "id": "l33",
+      "stage": 4,
       "title": {
-        "uk": "Короткі слова",
-        "en": "Short sentences"
+        "uk": "Великі літери (Shift)",
+        "en": "Capital letters (Shift)"
       },
       "tip": {
-        "uk": "Без нових клавіш: короткі речення з маленьких літер і крапок.",
-        "en": "No new keys: short sentences with the full stop and the comma."
+        "uk": "Shift тримай мізинцем протилежної руки: літеру лівої руки друкуй з правим Shift, а літеру правої руки з лівим Shift. Спершу натисни й тримай Shift, потім тисни літеру, потім відпусти.",
+        "en": "Hold Shift with the little finger of the opposite hand: a left-hand letter with the right Shift, a right-hand letter with the left Shift. Press and hold Shift first, then the letter, then let go."
       },
-      "asteroidHp": 14,
+      "asteroidHp": 12,
       "sets": {
         "uk": {
-          "keys": "аовлідфжпрєкенгушцщйзхїмитьсбчюяґ. ",
+          "keys": "аовлідфжєпрекнгушцщйзхїмитьсбчюя.,АОВЛІДФЖЄПРЕКНГУШЦЩЙЗХЇМИТЬСБЧЮЯ ",
           "newKeys": "",
-          "texts": [
-            "мама купила хліб. тато читає книгу. кіт спить на дивані.",
-            "сьогодні в нас урок. ми вчимося друкувати на клавіатурі.",
-            "вранці світить сонце. діти йдуть до школи. вони щасливі.",
-            "ми граємо у космос. корабель летить до зірок. астероїд близько."
-          ]
+          "shift": true,
+          "gen": {
+            "kind": "groups",
+            "groups": 12,
+            "min": 2,
+            "max": 5,
+            "minLen": 50,
+            "alphabet": "аовлідфжєпрекнгушцщйзхїмитьсбчюяАОВЛІДФЖЄПРЕКНГУШЦЩЙЗХЇМИТЬСБЧЮЯ",
+            "focus": "АОВЛІДФЖЄПРЕКНГУШЦЩЙЗХЇМИТЬСБЧЮЯ"
+          }
         },
         "en": {
-          "keys": "fjdksla;gheirutywoqpvmbnc,x.z/ ",
+          "keys": "fjdksla;ghtryueiwoqpvbnmc,x.zFJDKSLAGHTRYUEIWOQPVBNMCXZ ",
           "newKeys": "",
-          "texts": [
-            "the cat sat on the mat, and the dog ran to the park.",
-            "we like to type. it is fun, and we get better each day.",
-            "a fast ship flies up, down, and far away. the sky is dark.",
-            "my desk is neat, my pen is blue, and my book is new."
-          ]
+          "shift": true,
+          "gen": {
+            "kind": "groups",
+            "groups": 12,
+            "min": 2,
+            "max": 5,
+            "minLen": 50,
+            "alphabet": "fjdkslaghtryueiwoqpvbnmcxzFJDKSLAGHTRYUEIWOQPVBNMCXZ",
+            "focus": "FJDKSLAGHTRYUEIWOQPVBNMCXZ"
+          }
         }
       }
     },
     {
-      "id": "l20",
+      "id": "l34",
+      "stage": 4,
       "title": {
-        "uk": "Великі літери й кома",
-        "en": "Capital letters"
+        "uk": "Клавіша Ґ",
+        "en": "Review: capitals in sentences"
       },
       "tip": {
-        "uk": "Shift тримай мізинцем протилежної руки: літеру лівої руки друкуй з правим Shift, а правої з лівим. Кома теж тут: це Shift і крапка. **,** — правим мізинцем (Shift тримай лівим мізинцем).",
-        "en": "Hold Shift with the little finger of the opposite hand: a left-hand letter with the right Shift, a right-hand letter with the left Shift."
+        "uk": "Верхній ряд, на правому краї, за **Ї**: **правий мізинець** тягнеться вгору й далеко вправо. На нашій розкладці ця клавіша стоїть над Enter.",
+        "en": "No new keys: sentences with capital letters, the full stop and the comma."
       },
-      "asteroidHp": 14,
+      "asteroidHp": 12,
       "sets": {
         "uk": {
-          "keys": "аовлідфжпрєкенгушцщйзхїмитьсбчюяґ.,АОВЛІДФЖПРЄКЕНГУШЦЩЙЗХЇМИТЬСБЧЮЯҐ ",
-          "newKeys": ",",
-          "shift": true,
-          "texts": [
-            "Оля, Марко й Софія живуть у Києві. Тарас живе у Львові.",
-            "Київ, Львів, Одеса, Харків і Дніпро є великими містами.",
-            "Андрій, Іра і Євген грають у футбол. Петро, Катя й Олег читають.",
-            "Україна, Польща, Італія та Японія є різними країнами."
-          ]
+          "keys": "аовлідфжєпрекнгушцщйзхїмитьсбчюя.,ґАОВЛІДФЖЄПРЕКНГУШЦЩЙЗХЇМИТЬСБЧЮЯҐ ",
+          "newKeys": "ґ",
+          "gen": {
+            "kind": "groups",
+            "groups": 12,
+            "min": 2,
+            "max": 5,
+            "minLen": 50,
+            "bias": 0.4,
+            "alphabet": "аовлідфжєпрекнгушцщйзхїмитьсбчюяґАОВЛІДФЖЄПРЕКНГУШЦЩЙЗХЇМИТЬСБЧЮЯҐ"
+          }
         },
         "en": {
-          "keys": "fjdksla;gheirutywoqpvmbnc,x.z/FJDKSLAGHEIRUTYWOQPVMBNCXZ ",
+          "keys": "fjdksla;ghtryueiwoqpvbnmc,x.zFJDKSLAGHTRYUEIWOQPVBNMCXZ ",
           "newKeys": "",
-          "shift": true,
           "texts": [
             "Anna, Ben and Tom live in Kyiv. Mia lives in Lviv, and Max lives in Paris.",
-            "Paris, London, Rome and Kyiv are big cities in Europe.",
-            "Lucy, Sam, Zoe and Jack play chess. Emma and Oliver read books.",
-            "Ukraine, Poland, Italy and Japan are different countries."
+            "Paris, London, Rome and Kyiv are big cities in Europe. Many people visit them.",
+            "Lucy, Sam, Zoe and Jack play chess. Emma and Oliver read books after school.",
+            "Ukraine, Poland, Italy and Japan are different countries. Each one has its own flag.",
+            "On Monday, Kate and Dan went to the zoo. They saw a lion, a zebra and a big bear.",
+            "Our teacher, Mr Brown, likes music. Every Friday he plays the piano for the class."
           ]
         }
       }
     },
     {
-      "id": "l21",
+      "id": "l35",
+      "stage": 4,
       "title": {
-        "uk": "Апостроф і дефіс",
-        "en": "Apostrophe and hyphen"
+        "uk": "Апостроф",
+        "en": "Apostrophe"
       },
       "tip": {
-        "uk": "Обидві клавіші тисне мізинець: апостроф зліва над Tab, дефіс справа поруч із нулем. **'** — лівим мізинцем; **-** — правим мізинцем.",
-        "en": "Both keys are for little fingers: the apostrophe sits to the right of the semicolon, the hyphen next to zero. **'** — right pinky; **-** — right pinky."
+        "uk": "Апостроф лежить у лівому верхньому куті клавіатури, ліворуч від рядка з цифрами: його тисне **лівий мізинець**.",
+        "en": "The apostrophe sits to the right of **;**: press it with the **right pinky**."
       },
-      "asteroidHp": 14,
+      "asteroidHp": 12,
       "sets": {
         "uk": {
-          "keys": "аовлідфжпрєкенгушцщйзхїмитьсбчюяґ.,'-АОВЛІДФЖПРЄКЕНГУШЦЩЙЗХЇМИТЬСБЧЮЯҐ ",
-          "newKeys": "'-",
-          "texts": [
-            "Мій комп'ютер - не іграшка. Я граю в нього будь-коли, але не завжди.",
-            "Мамина пам'ять - як скарб. Кожного дня Оля п'є сік і їсть м'ясо.",
-            "З'явився м'який сніг, і ми пішли по-зимовому на гору.",
-            "Хтось-небудь допоможе нам, адже п'ять рук - це сила."
-          ]
-        },
-        "en": {
-          "keys": "fjdksla;gheirutywoqpvmbnc,x.z/'-FJDKSLAGHEIRUTYWOQPVMBNCXZ ",
-          "newKeys": "'-",
-          "texts": [
-            "It's a well-known fact that Tom's dog can't swim.",
-            "My brother's up-to-date phone isn't broken, it's brand-new.",
-            "Don't worry, it's a low-cost, easy-to-use game.",
-            "Anna's t-shirt is blue, and her mother-in-law's hat is red."
-          ]
-        }
-      }
-    },
-    {
-      "id": "l22",
-      "title": {
-        "uk": "Оклик і питання",
-        "en": "Exclamation and question marks"
-      },
-      "tip": {
-        "uk": "Обидва знаки друкуються з Shift. Не забувай тримати його протилежним мізинцем. **!** — лівим мізинцем (Shift тримай правим мізинцем); **?** — правим вказівним (Shift тримай лівим мізинцем).",
-        "en": "Both marks need Shift. Do not forget to hold it with the opposite little finger. **!** — left pinky (hold Shift with your right pinky); **?** — right pinky (hold Shift with your left pinky)."
-      },
-      "asteroidHp": 14,
-      "sets": {
-        "uk": {
-          "keys": "аовлідфжпрєкенгушцщйзхїмитьсбчюяґ.,'-!?АОВЛІДФЖПРЄКЕНГУШЦЩЙЗХЇМИТЬСБЧЮЯҐ ",
-          "newKeys": "!?",
-          "texts": [
-            "Привіт! Як твої справи? Чудово! А в тебе?",
-            "Хто там? Це я, Марко! Заходь швидше!",
-            "Ура! Ми знищили астероїд! Хочеш ще раз?",
-            "Що це? Невже комета? Ні, це наш корабель!"
-          ]
-        },
-        "en": {
-          "keys": "fjdksla;gheirutywoqpvmbnc,x.z/'-!?FJDKSLAGHEIRUTYWOQPVMBNCXZ ",
-          "newKeys": "!?",
-          "texts": [
-            "Hello! How are you today? I'm fine! And you?",
-            "Who is there? It's me, Max! Come in quickly!",
-            "Hooray! We hit the asteroid! Want to play again?",
-            "What is that? A comet? No, it's our ship!"
-          ]
-        }
-      }
-    },
-    {
-      "id": "l23",
-      "title": {
-        "uk": "Двокрапка й крапка з комою",
-        "en": "Colon and quotes"
-      },
-      "tip": {
-        "uk": "Обидва знаки друкуються з Shift. **:** — правим вказівним (Shift тримай лівим мізинцем); **;** — лівим вказівним (Shift тримай правим мізинцем).",
-        "en": "Both marks need Shift. **:** — right pinky (hold Shift with your left pinky); **\"** — right pinky (hold Shift with your left pinky)."
-      },
-      "asteroidHp": 14,
-      "sets": {
-        "uk": {
-          "keys": "аовлідфжпрєкенгушцщйзхїмитьсбчюяґ.,'-!?:;АОВЛІДФЖПРЄКЕНГУШЦЩЙЗХЇМИТЬСБЧЮЯҐ ",
-          "newKeys": ":;",
-          "texts": [
-            "Сьогодні в нас урок: пишемо швидко й без помилок; точність важливіша за швидкість.",
-            "Список справ: прокинутись; поїсти; піти до школи; зробити уроки.",
-            "Ось що треба: ручку, зошит і олівець; потім можна йти.",
-            "Увага: астероїд близько; не поспішай, помилка наближає його."
-          ]
-        },
-        "en": {
-          "keys": "fjdksla;gheirutywoqpvmbnc,x.z/'-!?:\"FJDKSLAGHEIRUTYWOQPVMBNCXZ ",
-          "newKeys": ":\"",
-          "texts": [
-            "Tom said: \"Hello!\" and smiled. Anna asked: \"Are you ready?\"",
-            "The rule is simple: \"Look at the screen, not at the keys.\"",
-            "She wrote one word: \"Yes\". Then she added: \"Of course!\"",
-            "The sign said: \"Be careful\". The teacher asked: \"Who knows why?\""
-          ]
-        }
-      }
-    },
-    {
-      "id": "l24",
-      "title": {
-        "uk": "Дужки",
-        "en": "Brackets"
-      },
-      "tip": {
-        "uk": "Дужки теж друкуються з Shift: відкрита на дев'ятці, закрита на нулі. **(** — правим безіменним (Shift тримай лівим мізинцем); **)** — правим мізинцем (Shift тримай лівим мізинцем).",
-        "en": "Brackets also need Shift: the opening one sits on nine, the closing one on zero. **(** — right ring finger (hold Shift with your left pinky); **)** — right pinky (hold Shift with your left pinky)."
-      },
-      "asteroidHp": 14,
-      "sets": {
-        "uk": {
-          "keys": "аовлідфжпрєкенгушцщйзхїмитьсбчюяґ.,'-!?:;()АОВЛІДФЖПРЄКЕНГУШЦЩЙЗХЇМИТЬСБЧЮЯҐ ",
-          "newKeys": "()",
-          "texts": [
-            "Ми вивчаємо клавіатуру (букви, знаки й цифри) вже п'ять днів.",
-            "Комп'ютер (або ноутбук) допомагає вчитися; мій (старий) ноутбук теж.",
-            "Сьогодні (у п'ятницю) в нас урок: пишемо (швидко!) й без помилок.",
-            "Тарас (мій друг) живе в Києві (це столиця України)."
-          ]
-        },
-        "en": {
-          "keys": "fjdksla;gheirutywoqpvmbnc,x.z/'-!?:\"()FJDKSLAGHEIRUTYWOQPVMBNCXZ ",
-          "newKeys": "()",
-          "texts": [
-            "We are learning the keyboard (letters, signs and more) this week.",
-            "A computer (or a laptop) helps us learn; my (old) laptop does too.",
-            "Today (on Friday) we have a lesson: type (quickly!) and without mistakes.",
-            "Taras (my friend) lives in Kyiv (the capital of Ukraine)."
-          ]
-        }
-      }
-    },
-    {
-      "id": "l25",
-      "title": {
-        "uk": "Цифри 4 і 7",
-        "en": "Digits 4 and 7"
-      },
-      "tip": {
-        "uk": "Верхній ряд із цифрами: тягнись угору від літер, що під ними. **4** — лівим вказівним; **7** — правим вказівним.",
-        "en": "The number row: reach up from the letters right below. **4** — left index finger; **7** — right index finger."
-      },
-      "asteroidHp": 14,
-      "sets": {
-        "uk": {
-          "keys": "аовлідфжпрєкенгушцщйзхїмитьсбчюяґ.,'-!?:;()47АОВЛІДФЖПРЄКЕНГУШЦЩЙЗХЇМИТЬСБЧЮЯҐ ",
-          "newKeys": "47",
+          "keys": "аовлідфжєпрекнгушцщйзхїмитьсбчюя.,ґ'АОВЛІДФЖЄПРЕКНГУШЦЩЙЗХЇМИТЬСБЧЮЯҐ ",
+          "newKeys": "'",
           "gen": {
             "kind": "groups",
-            "groups": 10,
-            "min": 3,
+            "groups": 12,
+            "min": 2,
             "max": 5,
-            "alphabet": "47",
-            "bias": 1
+            "minLen": 50,
+            "bias": 0.4,
+            "alphabet": "аовлідфжєпрекнгушцщйзхїмитьсбчюяґАОВЛІДФЖЄПРЕКНГУШЦЩЙЗХЇМИТЬСБЧЮЯҐ'"
           }
         },
         "en": {
-          "keys": "fjdksla;gheirutywoqpvmbnc,x.z/'-!?:\"()47FJDKSLAGHEIRUTYWOQPVMBNCXZ ",
-          "newKeys": "47",
+          "keys": "fjdksla;ghtryueiwoqpvbnmc,x.z'FJDKSLAGHTRYUEIWOQPVBNMCXZ ",
+          "newKeys": "'",
           "gen": {
             "kind": "groups",
-            "groups": 10,
-            "min": 3,
+            "groups": 12,
+            "min": 2,
             "max": 5,
-            "alphabet": "47",
-            "bias": 1
+            "minLen": 50,
+            "bias": 0.4
           }
         }
       }
     },
     {
-      "id": "l26",
-      "title": {
-        "uk": "Цифри 5 і 6",
-        "en": "Digits 5 and 6"
-      },
-      "tip": {
-        "uk": "Цифри 5 і 6 тисне той самий палець, що й сусідні літери. **5** — лівим вказівним; **6** — правим вказівним.",
-        "en": "Digits 5 and 6 use the same fingers as the neighbouring letters. **5** — left index finger; **6** — right index finger."
-      },
-      "asteroidHp": 14,
-      "sets": {
-        "uk": {
-          "keys": "аовлідфжпрєкенгушцщйзхїмитьсбчюяґ.,'-!?:;()4756АОВЛІДФЖПРЄКЕНГУШЦЩЙЗХЇМИТЬСБЧЮЯҐ ",
-          "newKeys": "56",
-          "gen": {
-            "kind": "groups",
-            "groups": 10,
-            "min": 3,
-            "max": 5,
-            "alphabet": "4756",
-            "bias": 0.5
-          }
-        },
-        "en": {
-          "keys": "fjdksla;gheirutywoqpvmbnc,x.z/'-!?:\"()4756FJDKSLAGHEIRUTYWOQPVMBNCXZ ",
-          "newKeys": "56",
-          "gen": {
-            "kind": "groups",
-            "groups": 10,
-            "min": 3,
-            "max": 5,
-            "alphabet": "4756",
-            "bias": 0.5
-          }
-        }
-      }
-    },
-    {
-      "id": "l27",
-      "title": {
-        "uk": "Цифри 3 і 8",
-        "en": "Digits 3 and 8"
-      },
-      "tip": {
-        "uk": "Середні пальці тягнуться до трійки й вісімки. **3** — лівим середнім; **8** — правим середнім.",
-        "en": "Middle fingers reach for three and eight. **3** — left middle finger; **8** — right middle finger."
-      },
-      "asteroidHp": 14,
-      "sets": {
-        "uk": {
-          "keys": "аовлідфжпрєкенгушцщйзхїмитьсбчюяґ.,'-!?:;()475638АОВЛІДФЖПРЄКЕНГУШЦЩЙЗХЇМИТЬСБЧЮЯҐ ",
-          "newKeys": "38",
-          "gen": {
-            "kind": "groups",
-            "groups": 10,
-            "min": 3,
-            "max": 5,
-            "alphabet": "475638",
-            "bias": 0.5
-          }
-        },
-        "en": {
-          "keys": "fjdksla;gheirutywoqpvmbnc,x.z/'-!?:\"()475638FJDKSLAGHEIRUTYWOQPVMBNCXZ ",
-          "newKeys": "38",
-          "gen": {
-            "kind": "groups",
-            "groups": 10,
-            "min": 3,
-            "max": 5,
-            "alphabet": "475638",
-            "bias": 0.5
-          }
-        }
-      }
-    },
-    {
-      "id": "l28",
-      "title": {
-        "uk": "Цифри 2 і 9",
-        "en": "Digits 2 and 9"
-      },
-      "tip": {
-        "uk": "Безіменні пальці тягнуться до двійки й дев'ятки. **2** — лівим безіменним; **9** — правим безіменним.",
-        "en": "Ring fingers reach for two and nine. **2** — left ring finger; **9** — right ring finger."
-      },
-      "asteroidHp": 14,
-      "sets": {
-        "uk": {
-          "keys": "аовлідфжпрєкенгушцщйзхїмитьсбчюяґ.,'-!?:;()47563829АОВЛІДФЖПРЄКЕНГУШЦЩЙЗХЇМИТЬСБЧЮЯҐ ",
-          "newKeys": "29",
-          "gen": {
-            "kind": "groups",
-            "groups": 10,
-            "min": 3,
-            "max": 5,
-            "alphabet": "47563829",
-            "bias": 0.5
-          }
-        },
-        "en": {
-          "keys": "fjdksla;gheirutywoqpvmbnc,x.z/'-!?:\"()47563829FJDKSLAGHEIRUTYWOQPVMBNCXZ ",
-          "newKeys": "29",
-          "gen": {
-            "kind": "groups",
-            "groups": 10,
-            "min": 3,
-            "max": 5,
-            "alphabet": "47563829",
-            "bias": 0.5
-          }
-        }
-      }
-    },
-    {
-      "id": "l29",
-      "title": {
-        "uk": "Цифри 1 і 0",
-        "en": "Digits 1 and 0"
-      },
-      "tip": {
-        "uk": "Мізинці тягнуться до одиниці й нуля, найдальших цифр. **1** — лівим мізинцем; **0** — правим мізинцем.",
-        "en": "Little fingers reach for one and zero, the farthest digits. **1** — left pinky; **0** — right pinky."
-      },
-      "asteroidHp": 14,
-      "sets": {
-        "uk": {
-          "keys": "аовлідфжпрєкенгушцщйзхїмитьсбчюяґ.,'-!?:;()4756382910АОВЛІДФЖПРЄКЕНГУШЦЩЙЗХЇМИТЬСБЧЮЯҐ ",
-          "newKeys": "10",
-          "gen": {
-            "kind": "groups",
-            "groups": 10,
-            "min": 3,
-            "max": 5,
-            "alphabet": "4756382910",
-            "bias": 0.5
-          }
-        },
-        "en": {
-          "keys": "fjdksla;gheirutywoqpvmbnc,x.z/'-!?:\"()4756382910FJDKSLAGHEIRUTYWOQPVMBNCXZ ",
-          "newKeys": "10",
-          "gen": {
-            "kind": "groups",
-            "groups": 10,
-            "min": 3,
-            "max": 5,
-            "alphabet": "4756382910",
-            "bias": 0.5
-          }
-        }
-      }
-    },
-    {
-      "id": "l30",
+      "id": "l36",
+      "stage": 5,
       "title": {
         "uk": "Речення",
         "en": "Sentences"
       },
       "tip": {
-        "uk": "Усе разом: літери, знаки, цифри й великі літери.",
-        "en": "Everything together: letters, signs, digits and capitals."
+        "uk": "Усе разом: малі й великі літери, крапка, кома й апостроф. Це справжні речення, тож читай їх уголос про себе.",
+        "en": "Everything together: lowercase and capital letters, the full stop, the comma and the apostrophe. These are real sentences, so read them in your head as you type."
       },
-      "asteroidHp": 18,
+      "asteroidHp": 12,
       "sets": {
         "uk": {
-          "keys": "аовлідфжпрєкенгушцщйзхїмитьсбчюяґ.,'-!?:;()4756382910АОВЛІДФЖПРЄКЕНГУШЦЩЙЗХЇМИТЬСБЧЮЯҐ ",
+          "keys": "аовлідфжєпрекнгушцщйзхїмитьсбчюя.,ґ'АОВЛІДФЖЄПРЕКНГУШЦЩЙЗХЇМИТЬСБЧЮЯҐ ",
           "newKeys": "",
           "texts": [
-            "Алгоритм - це послідовність кроків, яка веде до результату. Роби кроки по порядку, і все вийде!",
-            "Комп'ютер складається з процесора, пам'яті, клавіатури та екрана. Кожна частина має своє завдання.",
-            "Ніколи не повідомляй незнайомцям свій пароль. Надійний пароль має щонайменше 8 символів: літери, цифри й знаки.",
-            "Миша й клавіатура - це пристрої введення. Вони передають комп'ютеру команди від людини.",
-            "Сьогодні 25 учнів (і мій друг Тарас) писали тест: 9 з 10 завдань виконали!"
+            "Мама купила хліб і молоко. Тато читає книгу, а кіт спить на дивані.",
+            "Сьогодні в нас урок інформатики. Ми вчимося друкувати на клавіатурі.",
+            "Вранці світить сонце. Діти йдуть до школи, і вони дуже щасливі.",
+            "Ми граємо у космос. Корабель летить до зірок, а астероїд уже близько.",
+            "Оля, Марко й Софія живуть у Києві. Тарас живе у Львові, а Андрій в Одесі.",
+            "Мій комп'ютер стоїть на столі. Я вмикаю його щодня після уроків.",
+            "Кожна літера має своє місце. Пальці знають, де вона, і не бояться.",
+            "У класі п'ятнадцять учнів. Вони старанно вчаться й допомагають одне одному.",
+            "Влітку ми їздимо до бабусі в село. Там ми збираємо яблука й груші, а ввечері п'ємо чай.",
+            "Дощ іде вже третій день. Ми сидимо вдома, малюємо і слухаємо музику.",
+            "На ґанку лежить ґудзик. Бабуся шукає його вже давно, а онук їй допомагає."
           ]
         },
         "en": {
-          "keys": "fjdksla;gheirutywoqpvmbnc,x.z/'-!?:\"()4756382910FJDKSLAGHEIRUTYWOQPVMBNCXZ ",
+          "keys": "fjdksla;ghtryueiwoqpvbnmc,x.z'FJDKSLAGHTRYUEIWOQPVBNMCXZ ",
           "newKeys": "",
           "texts": [
-            "An algorithm is a sequence of steps that leads to a result. Follow the steps in order, and it will work!",
-            "A computer has a processor, memory, a keyboard and a screen. Every part has its own job.",
-            "Never tell a stranger your password. A strong password has at least 8 symbols: letters, digits and signs.",
-            "A mouse and a keyboard are input devices. They send commands from a person to the computer.",
-            "Today 25 pupils (and my friend Taras) took a test: 9 of 10 tasks were done!"
+            "My brother's computer is on the desk. I switch it on every day after school.",
+            "It's a sunny morning. Anna doesn't go to school today, so she plays with her dog.",
+            "Tom's cat is sleeping on the sofa. Don't wake it up, because it's very tired.",
+            "Every letter has its own place. My fingers know where it is, and they aren't afraid.",
+            "We're learning to type. Kate says that it isn't hard, and she's right.",
+            "Max's ship flies to the stars. It's fast, and the asteroid can't catch it.",
+            "The children are in the park. They run, they laugh, and they don't want to go home.",
+            "Mum bought bread and milk. Dad's reading a book, and the cat's asleep on the chair."
           ]
         }
       }
     },
     {
-      "id": "l31",
+      "id": "l37",
+      "stage": 5,
       "title": {
         "uk": "Довгий текст",
         "en": "Long text"
@@ -1216,24 +1566,26 @@
         "uk": "Фінальне випробування: довгий текст без поспіху. Спершу точність, потім швидкість.",
         "en": "The final challenge: a long text, no rush. Accuracy first, speed second."
       },
-      "asteroidHp": 20,
+      "asteroidHp": 12,
       "sets": {
         "uk": {
-          "keys": "аовлідфжпрєкенгушцщйзхїмитьсбчюяґ.,'-!?:;()4756382910АОВЛІДФЖПРЄКЕНГУШЦЩЙЗХЇМИТЬСБЧЮЯҐ ",
+          "keys": "аовлідфжєпрекнгушцщйзхїмитьсбчюя.,ґ'АОВЛІДФЖЄПРЕКНГУШЦЩЙЗХЇМИТЬСБЧЮЯҐ ",
           "newKeys": "",
           "texts": [
-            "Інформатика вивчає, як зберігати, передавати й обробляти інформацію. Щодня ми користуємося комп'ютером, телефоном і планшетом, а всередині кожного з них працюють програми. Програму пишуть люди, а виконує її машина: крок за кроком, точно за інструкцією.",
-            "Інтернет - це величезна мережа, у якій кожен може знайти цікаве. Але в мережі, як і на вулиці, треба бути обережним: не поспішай переходити за незнайомими посиланнями, не ділися паролями й завжди розповідай дорослим, якщо щось здалося дивним.",
-            "Швидко друкувати вчаться не за один день. Дивись на екран, а не на клавіатуру, тримай спину рівно й не поспішай. Спершу точність, потім швидкість: так працюють справжні майстри. Кожна вправа робить пальці кмітливішими, а думки швидшими."
+            "Інформатика вивчає, як зберігати, передавати й обробляти інформацію. Щодня ми користуємося комп'ютером, телефоном і планшетом, а всередині кожного з них працюють програми. Програму пишуть люди, а виконує її машина крок за кроком, точно за інструкцією.",
+            "Інтернет є величезною мережею, у якій кожен може знайти щось цікаве. Але в мережі, як і на вулиці, треба бути обережним. Не поспішай переходити за незнайомими посиланнями, не ділися паролями й завжди розповідай дорослим, якщо щось здалося дивним.",
+            "Швидко друкувати вчаться не за один день. Дивись на екран, а не на клавіатуру, тримай спину рівно й не поспішай. Спершу точність, а потім швидкість, бо так працюють справжні майстри. Кожна вправа робить пальці кмітливішими, а думки швидшими.",
+            "Колись давно в одному місті жив хлопчик Тарас. Він любив малювати зорі й мріяв полетіти до них на справжньому кораблі. Щовечора Тарас дивився на небо і шукав там свою зірку. Одного разу вона засвітила найяскравіше, і він зрозумів, що мрії збуваються."
           ]
         },
         "en": {
-          "keys": "fjdksla;gheirutywoqpvmbnc,x.z/'-!?:\"()4756382910FJDKSLAGHEIRUTYWOQPVMBNCXZ ",
+          "keys": "fjdksla;ghtryueiwoqpvbnmc,x.z'FJDKSLAGHTRYUEIWOQPVBNMCXZ ",
           "newKeys": "",
           "texts": [
-            "Computer science studies how to store, send and process information. Every day we use computers, phones and tablets, and inside each of them programs are running. People write the program, and the machine runs it: step by step, exactly as instructed.",
-            "The internet is a huge network where anyone can find something interesting. But online, just like on the street, you need to be careful: do not rush to click unknown links, never share your passwords and always tell an adult if something looks strange.",
-            "Nobody learns to type fast in a single day. Look at the screen, not at the keyboard, keep your back straight and take your time. Accuracy first, speed second: that is how real masters work. Every exercise makes your fingers smarter and your thoughts quicker."
+            "Computer science studies how to store, send and process information. Every day we use computers, phones and tablets, and inside each of them programs are running. People write the program, and the machine runs it step by step, exactly as instructed.",
+            "The internet is a huge network where anyone can find something interesting. But online, just like on the street, you need to be careful. Don't rush to click unknown links, never share your passwords and always tell an adult if something looks strange.",
+            "Nobody learns to type fast in a single day. Look at the screen, not at the keyboard, keep your back straight and take your time. Accuracy first, speed second, because that is how real masters work. Every exercise makes your fingers smarter and your thoughts quicker.",
+            "Long ago, in a small town, a boy named Tom lived with his grandmother. He loved to draw stars and dreamed of flying to them on a real ship. Every evening Tom looked at the sky and searched for his own star. One day it shone brighter than all the others, and he understood that dreams can come true."
           ]
         }
       }

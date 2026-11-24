@@ -175,7 +175,7 @@
   }
 
   /* spec: {keys, newKeys?, gen:{kind:"groups", groups, min, max, alphabet?, bias?, focus?} | gen:{kind:"words", count, words} | texts:[...]}.
-     groups: alphabet (типово keys без пробілів) задає символи груп; bias (0..1) каже, яка частка символів
+     groups: minLen (необов'язково) дописує групи, доки текст коротший за minLen; alphabet (типово keys без пробілів) задає символи груп; bias (0..1) каже, яка частка символів
      береться з spec.newKeys (нові клавіші рівня), решта з інших символів алфавіту.
      Той самий spec і те саме зерно завжди дають той самий текст. */
   function generate(spec, seed) {
@@ -185,9 +185,11 @@
     if (!g) throw new Error("\u0443 \u043d\u0430\u0431\u043e\u0440\u0456 \u043d\u0435\u043c\u0430\u0454 \u043d\u0456 gen, \u043d\u0456 texts");
     if (g.kind === "words") {
       var out = [], last = -1, w = g.words, k;
-      for (i = 0; i < g.count; i++) {
+      i = 0;
+      /* count слів, і ще, поки текст коротший за minLen (якщо задано) */
+      while (i < g.count || (g.minLen && out.join(" ").length < g.minLen)) {
         do { k = Math.floor(rng() * w.length); } while (w.length > 1 && k === last);
-        out.push(w[k]); last = k;
+        out.push(w[k]); last = k; i++;
       }
       return out.join(" ");
     }
@@ -198,12 +200,14 @@
         if (spec.newKeys.indexOf(alpha.charAt(i)) >= 0) nk += alpha.charAt(i); else old += alpha.charAt(i);
       }
     }
-    for (i = 0; i < g.groups; i++) {
+    i = 0;
+    /* groups груп, і ще, поки текст коротший за minLen (якщо задано) */
+    while (i < g.groups || (g.minLen && groups.join(" ").length < g.minLen)) {
       var len = randInt(rng, g.min, g.max), s = "", fpos = focus ? Math.floor(rng() * len) : -1;
       for (j = 0; j < len; j++) {
         s += j === fpos ? pickChar(rng, focus, s) : pickChar(rng, alpha, s, nk, old, g.bias);
       }
-      groups.push(s);
+      groups.push(s); i++;
     }
     return groups.join(" ");
   }

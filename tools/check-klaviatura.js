@@ -1,7 +1,11 @@
 #!/usr/bin/env node
 /* Перевірка гри «Космічний клавіатурний тренажер»: node tools/check-klaviatura.js
-   1) content/klaviatura/levels.json: прогресія клавіш (на рівні не більше 2 нових клавіш; keys рівня = усе вивчене досі;
-      кожен символ текстів і генератора вивчений; кожна нова клавіша вводиться на розкладці мови), генератор детермінований,
+   1) content/klaviatura/levels.json: прогресія клавіш (рівень 1: рівно три клавіші а о в / f j d; далі на рівні не більше
+      ОДНІЄЇ нової речі: символ або Shift; keys рівня = усе вивчене досі; кожен символ текстів і генератора вивчений;
+      кожна нова клавіша вводиться на розкладці мови; Shift потрібен лише з рівня, що його вводить, окрім нового розділового
+      знака, який сам вимагає Shift, як-от кома в українській), етапи (stage) та їхні тексти в i18n, жодних цифр і знаків
+      - ! ? : ; ( ) " (виняток: клавіша ; домашнього ряду в англійській), кожен текст не коротший за 50 символів
+      (генератори перевіряються на багатьох зернах), частка нової клавіші у вправах 30-50%, генератор детермінований,
       слова придатні, бюджет помилок розумний;
    2) модульні перевірки ядра: щаблі комбо, поразка рівно на бюджеті помилок, перемога в кінці тексту, класифікація клавіш. */
 "use strict";
@@ -16,6 +20,9 @@ function eq(a, b, msg) { if (a !== b) err("ядро: " + msg + " (очікува
 
 var LANGS = ["uk", "en"];
 var SEEDS = 300;
+var MIN_LEN = 50;
+var FIRST_KEYS = { uk: "\u0430\u043e\u0432", en: "fjd" };   /* а о в, f j d */
+var BANNED = /[0-9\-!?:;()"]/;
 var VOWELS = { uk: "аеєиіїоуюя", en: "aeiouy" };
 
 /* ---------- 1. Розкладки ---------- */
@@ -47,12 +54,34 @@ doc.combo.forEach(function (c, i) {
 });
 if (!(doc.stars.two < doc.stars.three)) err("stars: two має бути меншим за three");
 if (doc.levels.length < 10) err("замало рівнів: " + doc.levels.length);
+(function () {
+  /* етапи: від 1, не спадають, кожен має заголовок і мету в i18n обох мов */
+  var prev = 0, used = {};
+  doc.levels.forEach(function (lv, i) {
+    if (lv.stage === undefined) { err("рівень " + lv.id + ": немає stage"); return; }
+    if (lv.stage !== Math.floor(lv.stage) || lv.stage < 1) err("рівень " + lv.id + ": stage має бути цілим від 1");
+    if (i === 0 && lv.stage !== 1) err("перший рівень має мати stage 1");
+    if (lv.stage < prev) err("рівень " + lv.id + ": stage не може зменшуватися");
+    if (lv.stage > prev + 1) err("рівень " + lv.id + ": stage пропускає номер");
+    prev = lv.stage; used[lv.stage] = true;
+  });
+  LANGS.forEach(function (lang) {
+    var dict = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "i18n", lang, "klaviatura.json"), "utf8"));
+    Object.keys(used).forEach(function (st) {
+      ["title", "goal"].forEach(function (k) {
+        var key = "stage." + st + "." + k;
+        if (typeof dict[key] !== "string" || !dict[key]) err("i18n/" + lang + "/klaviatura.json: немає рядка " + key);
+      });
+    });
+  });
+})();
 
 
 var rows = [];
 var learnedBy = { uk: {}, en: {} }, shiftSeen = { uk: false, en: false };
 function upperOf(c) { return c !== c.toUpperCase() ? c.toUpperCase() : ""; }
-var NEWKEY_RATIO = { min: 0.35, max: 0.55 };
+var NEWKEY_RATIO = { min: 0.30, max: 0.50 };
+var shiftPunct = { uk: {}, en: {} };   /* розділові знаки, що вводяться з Shift і вивчені до рівня Shift */
 doc.levels.forEach(function (lv, li) {
   var n = lv.id + " (" + (li + 1) + ")";
   if (ids[lv.id]) err("рівень " + n + ": id не унікальний");
@@ -68,13 +97,20 @@ doc.levels.forEach(function (lv, li) {
     var learned = learnedBy[lang];
     var nk = s.newKeys || "";
     var newCount = nk.length + (s.shift ? 1 : 0);
-    if (newCount > 2) err(w + "нових клавіш " + newCount + " (Shift теж рахується): дозволено не більше 2");
+    if (li === 0) {
+      if (nk !== FIRST_KEYS[lang] || s.shift) err(w + "перший рівень має вводити рівно «" + FIRST_KEYS[lang] + "», є «" + nk + "»");
+    } else if (newCount > 1) err(w + "нових речей " + newCount + " (Shift теж рахується): дозволено не більше 1");
     if (s.shift && shiftSeen[lang]) err(w + "Shift уже вводився на попередньому рівні");
     for (i = 0; i < nk.length; i++) {
       ch = nk.charAt(i);
       if (learned[ch]) err(w + "newKeys: «" + ch + "» уже вивчена раніше");
       if (!Core.typeable(lang, ch)) err(w + "newKeys: «" + ch + "» немає на розкладці");
-      else if (Core.locate(lang, ch).shift && !(shiftSeen[lang] || s.shift)) err(w + "newKeys: «" + ch + "» вводиться з Shift, а Shift ще не вивчено");
+      else if (Core.locate(lang, ch).shift && !(shiftSeen[lang] || s.shift)) {
+        /* виняток: розділовий знак, що сам вимагає Shift, вводиться разом із ним (укр. кома); для літер Shift лишається рівнем 33 */
+        if (upperOf(ch) || ch !== ch.toLowerCase()) err(w + "newKeys: літера «" + ch + "» вводиться з Shift, а Shift ще не вивчено");
+        else shiftPunct[lang][ch] = true;
+      }
+      if (BANNED.test(ch) && !(lang === "en" && ch === ";")) err(w + "newKeys: «" + ch + "» заборонено в тренажері");
       learned[ch] = true;
     }
     if (s.shift) shiftSeen[lang] = true;
@@ -88,6 +124,7 @@ doc.levels.forEach(function (lv, li) {
       uniqKeys[ch] = true;
       if (!Core.typeable(lang, ch)) err(w + "символу «" + ch + "» немає на розкладці");
       if (!learned[ch]) err(w + "keys: «" + ch + "» ще не вивчено на цьому рівні");
+      if (BANNED.test(ch) && !(lang === "en" && ch === ";")) err(w + "keys: «" + ch + "» заборонено в тренажері");
     }
     Object.keys(learned).forEach(function (c) { if (!uniqKeys[c]) err(w + "keys: бракує вивченого символу «" + c + "»"); });
     var hasGen = !!s.gen, hasTexts = !!s.texts;
@@ -108,10 +145,12 @@ doc.levels.forEach(function (lv, li) {
         if (Object.keys(alphaSet).filter(function (c) { return c !== " "; }).length < 2) err(w + "замало символів для генератора");
         if (g.bias !== undefined && !(g.bias > 0 && g.bias <= 1)) err(w + "gen.bias поза (0;1]");
         if (g.bias && !nk) err(w + "gen.bias без newKeys");
+        if (!(g.minLen >= MIN_LEN)) err(w + "gen.minLen має бути не менше " + MIN_LEN);
         if (nk && g.bias) for (i = 0; i < nk.length; i++) if (!alphaSet[nk.charAt(i)]) err(w + "newKeys: «" + nk.charAt(i) + "» немає в алфавіті генератора");
       } else if (g.kind === "words") {
         var wset = {};
         if (!(g.count >= 1) || !g.words || g.words.length < 8) err(w + "gen.words: потрібно count і щонайменше 8 слів");
+        if (!(g.minLen >= MIN_LEN)) err(w + "gen.minLen має бути не менше " + MIN_LEN);
         (g.words || []).forEach(function (word) {
           if (wset[word]) err(w + "слово «" + word + "» двічі");
           wset[word] = true;
@@ -138,16 +177,17 @@ doc.levels.forEach(function (lv, li) {
     samples.forEach(function (t, ti) {
       var tw = w + (hasTexts ? "текст " + (ti + 1) : "зерно " + (ti + 1)) + ": ";
       if (/^ | $|  /.test(t)) err(tw + "зайві пробіли");
-      if (t.length < 25) err(tw + "надто короткий (" + t.length + ")");
+      if (t.length < MIN_LEN) err(tw + "надто короткий (" + t.length + "), потрібно щонайменше " + MIN_LEN);
       if (t.length > 400) err(tw + "надто довгий (" + t.length + ")");
-      if (hasGen && (t.length < 36 || t.length > 80)) err(tw + "довжина " + t.length + " поза [36;80]");
+      if (hasGen && t.length > 90) err(tw + "довжина " + t.length + " понад 90");
       var caps = 0, textNew = {};
       for (var j = 0; j < t.length; j++) {
         var c = t.charAt(j);
         if (!learned[c]) { err(tw + "символ «" + c + "» ще не вивчено на цьому рівні"); break; }
         if (!uniqKeys[c]) { err(tw + "символ «" + c + "» поза набором keys"); break; }
         if (!Core.typeable(lang, c)) { err(tw + "символ «" + c + "» не вводиться на розкладці"); break; }
-        if (!shiftSeen[lang] && Core.locate(lang, c).shift) { err(tw + "символ «" + c + "» вводиться з Shift до рівня Shift"); break; }
+        if (!shiftSeen[lang] && Core.locate(lang, c).shift && !shiftPunct[lang][c]) { err(tw + "символ «" + c + "» вводиться з Shift до рівня Shift"); break; }
+        if (BANNED.test(c) && !(lang === "en" && c === ";" && hasGen && s.gen.kind === "groups")) { err(tw + "символ «" + c + "» заборонено в тренажері"); break; }
         if (c !== c.toLowerCase()) caps++;
         if (nk.indexOf(c) >= 0) { seenNew[c]++; newChars++; textNew[c] = true; }
         if (c !== " ") allChars++;
