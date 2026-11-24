@@ -92,7 +92,8 @@
       k.style.flexGrow = String(units || 1);
       if (isLetter) { div("", k, "span").textContent = def.shift; }
       else {
-        div("s", k, "span").textContent = def.shift;
+        /* знаки з Shift (! ? : ; ( ) ") з тренажера прибрано: показуємо лише кому на клавіші крапки в українській розкладці */
+        if (LANG === "uk" && def.code === "Slash") div("s", k, "span").textContent = def.shift;
         div("", k, "span").textContent = def.base;
       }
       if (def.code === "KeyF" || def.code === "KeyJ") addCls2(k, "bump");
@@ -575,9 +576,21 @@
 
   /* ---------- рівні: список ---------- */
   function renderLevelList() {
-    var ol = $("levelList");
-    ol.textContent = "";
+    var box = $("levelList"), ol = null, stage = null, sec = null;
+    box.textContent = "";
     levels.forEach(function (lv, i) {
+      if (!ol || lv.stage !== stage) {
+        /* новий етап: заголовок з метою й окремий список рівнів */
+        stage = lv.stage;
+        sec = div("lv-stage", box, "section");
+        var hid = "stageH" + (stage === undefined ? "0" : stage);
+        sec.setAttribute("aria-labelledby", hid);
+        if (stage !== undefined) {
+          var h = div("lv-stage-h", sec, "h3"); h.id = hid; h.textContent = T("stage." + stage + ".title");
+          var goal = div("lv-stage-goal muted", sec, "p"); goal.textContent = T("stage." + stage + ".goal");
+        }
+        ol = div("levels", sec, "ol");
+      }
       var li = document.createElement("li"), b = document.createElement("button"), best = bestOf(lv), open = unlocked(i);
       b.type = "button"; b.className = "lv"; b.setAttribute("data-id", lv.id);
       b.disabled = !open;

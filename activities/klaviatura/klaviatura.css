@@ -78,6 +78,11 @@ noscript .card{display:block;max-width:640px;margin:16px auto}
 .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
 
 /* ===== вибір рівня ===== */
+.lv-stage{margin-top:22px}
+.lv-stage:first-child{margin-top:12px}
+.lv-stage-h{margin:0;font:800 17px/1.3 var(--f-display);text-transform:none;letter-spacing:0;color:var(--ink)}
+.lv-stage-goal{margin:4px 0 0;font-size:14px}
+.lv-stage .levels{margin-top:10px}
 .levels{list-style:none;margin:12px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
 .lv{width:100%;height:100%;text-align:left;display:flex;flex-direction:column;gap:6px;background:var(--panel-2);border:1px solid var(--line);border-radius:14px;padding:12px;cursor:pointer;min-height:44px;color:var(--ink)}
 .lv:hover:not(:disabled){border-color:var(--teal);transform:translateY(-1px)}
