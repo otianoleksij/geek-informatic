@@ -1,7 +1,7 @@
 {
   "$schema": "schemas/catalog.schema.json",
   "format": 1,
-  "lastmod": "2026-11-22",
+  "lastmod": "2026-11-24",
   "taxonomy": {
     "types": [
       "webquest",
@@ -257,6 +257,54 @@
       "favicon": "favicon.svg"
     },
     {
+      "id": "klaviatura",
+      "type": "game",
+      "path": "games/klaviatura/",
+      "title": {
+        "uk": "Космічний клавіатурний тренажер",
+        "en": "Space Typing Trainer"
+      },
+      "description": {
+        "uk": "Друкуй наосліп: кожна правильна клавіша стріляє по астероїду, а підказки покажуть, яким пальцем її натискати. {count.klaviatura} {count.klaviatura|рівень|рівні|рівнів|рівня} від домашнього ряду до довгого тексту.",
+        "en": "Learn touch typing: every correct key fires at an asteroid, and hints show which finger to use. {count.klaviatura} {count.klaviatura|level|levels} from the home row to a long text."
+      },
+      "locales": [
+        "uk",
+        "en"
+      ],
+      "skin": "space",
+      "themeColor": "#0B0916",
+      "scripts": [
+        "klaviatura-core.js",
+        "app.js"
+      ],
+      "grades": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "topics": [
+        "vocabulary"
+      ],
+      "difficulty": 1,
+      "duration": 15,
+      "og": "assets/og/klaviatura.png",
+      "count": {"file": "content/klaviatura/levels.json", "path": "levels"},
+      "card": {
+        "cover": 3,
+        "facts": [
+          "levels",
+          "bulb",
+          "star"
+        ],
+        "note": true
+      },
+      "favicon": "favicon.svg"
+    },
+    {
       "id": "rebusy",
       "type": "puzzle",
       "path": "puzzles/rebusy/",
@@ -319,7 +367,17 @@
         "uk",
         "en"
       ],
-      "grades": [3, 4, 5, 6, 7, 8, 9, 10, 11],
+      "grades": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
       "topics": [
         "logic"
       ],

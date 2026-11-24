@@ -1,0 +1,252 @@
+{
+  "$schema": "../../schemas/klaviatura-levels.schema.json",
+  "format": 1,
+  "errorBudgetRatio": 0.2,
+  "asteroidHp": 12,
+  "combo": [{"at":5,"mult":2},{"at":10,"mult":3},{"at":20,"mult":4}],
+  "stars": {"two":90,"three":95},
+  "levels": [
+    {
+      "id": "index-fingers",
+      "title": {"uk":"Вказівні пальці","en":"Index fingers"},
+      "tip": {"uk":"Лягай вказівними пальцями на клавіші з виступами: лівий на **А**, правий на **О**.","en":"Rest your index fingers on the keys with bumps: left on **F**, right on **J**."},
+      "asteroidHp": 10,
+      "sets": {
+        "uk": {
+          "keys": "ао ",
+          "newKeys": "ао",
+          "gen": {"kind":"groups","groups":9,"min":3,"max":4}
+        },
+        "en": {
+          "keys": "fj ",
+          "newKeys": "fj",
+          "gen": {"kind":"groups","groups":9,"min":3,"max":4}
+        }
+      }
+    },
+    {
+      "id": "home-row",
+      "title": {"uk":"Домашній ряд","en":"Home row"},
+      "tip": {"uk":"Усі вісім пальців лежать на середньому ряду. Звідси вони йдуть до інших клавіш і повертаються назад.","en":"All eight fingers rest on the middle row. They reach for other keys and always come back here."},
+      "asteroidHp": 10,
+      "sets": {
+        "uk": {
+          "keys": "фівапролджє ",
+          "newKeys": "фівпрлджє",
+          "gen": {"kind":"groups","groups":10,"min":3,"max":5,"focus":"фівпрлджє"}
+        },
+        "en": {
+          "keys": "asdfghjkl ",
+          "newKeys": "asdghkl",
+          "gen": {"kind":"groups","groups":10,"min":3,"max":5,"focus":"asdghkl"}
+        }
+      }
+    },
+    {
+      "id": "top-middle",
+      "title": {"uk":"Верхній ряд: середина","en":"Top row: the middle"},
+      "tip": {"uk":"Тягнемося вгору вказівними й середніми пальцями.","en":"Reach up with your index and middle fingers."},
+      "asteroidHp": 12,
+      "sets": {
+        "uk": {
+          "keys": "фівапролджєукенгш ",
+          "newKeys": "укенгш",
+          "gen": {"kind":"groups","groups":10,"min":3,"max":5,"focus":"укенгш"}
+        },
+        "en": {
+          "keys": "asdfghjklertyui ",
+          "newKeys": "ertyui",
+          "gen": {"kind":"groups","groups":10,"min":3,"max":5,"focus":"ertyui"}
+        }
+      }
+    },
+    {
+      "id": "top-row",
+      "title": {"uk":"Верхній ряд","en":"Top row"},
+      "tip": {"uk":"Додаємо краї верхнього ряду: безіменні пальці й мізинці.","en":"Now the edges of the top row: ring fingers and little fingers."},
+      "asteroidHp": 12,
+      "sets": {
+        "uk": {
+          "keys": "фівапролджєукенгшйцщзхї ",
+          "newKeys": "йцщзхї",
+          "gen": {"kind":"groups","groups":10,"min":3,"max":5,"focus":"йцщзхї"}
+        },
+        "en": {
+          "keys": "asdfghjklertyuiqwop ",
+          "newKeys": "qwop",
+          "gen": {"kind":"groups","groups":10,"min":3,"max":5,"focus":"qwop"}
+        }
+      }
+    },
+    {
+      "id": "bottom-row",
+      "title": {"uk":"Нижній ряд","en":"Bottom row"},
+      "tip": {"uk":"Тепер пальці тягнуться вниз, до нижнього ряду.","en":"Now your fingers reach down to the bottom row."},
+      "asteroidHp": 12,
+      "sets": {
+        "uk": {
+          "keys": "фівапролджєячсмитьбю ",
+          "newKeys": "ячсмитьбю",
+          "gen": {"kind":"groups","groups":10,"min":3,"max":5,"focus":"ячсмитьбю"}
+        },
+        "en": {
+          "keys": "asdfghjklzxcvbnm ",
+          "newKeys": "zxcvbnm",
+          "gen": {"kind":"groups","groups":10,"min":3,"max":5,"focus":"zxcvbnm"}
+        }
+      }
+    },
+    {
+      "id": "all-letters",
+      "title": {"uk":"Усі літери","en":"All the letters"},
+      "tip": {"uk":"Усі три ряди разом. Рідкісні літери зустрічаються частіше, щоб їх закріпити.","en":"All three rows together. Rare letters show up more often so you can practise them."},
+      "asteroidHp": 14,
+      "sets": {
+        "uk": {
+          "keys": "абвгґдеєжзиіїйклмнопрстуфхцчшщьюя ",
+          "newKeys": "ґ",
+          "gen": {"kind":"groups","groups":12,"min":3,"max":5,"focus":"ґїєщхжчьюб"}
+        },
+        "en": {
+          "keys": "abcdefghijklmnopqrstuvwxyz ",
+          "newKeys": "",
+          "gen": {"kind":"groups","groups":12,"min":3,"max":5,"focus":"qzxjpwvkbyg"}
+        }
+      }
+    },
+    {
+      "id": "short-words",
+      "title": {"uk":"Короткі слова","en":"Short words"},
+      "tip": {"uk":"Літери вже знайомі, час складати їх у слова.","en":"You know the letters, so let's put them together into words."},
+      "asteroidHp": 16,
+      "sets": {
+        "uk": {
+          "keys": "абвгґдеєжзиіїйклмнопрстуфхцчшщьюя ",
+          "newKeys": "",
+          "gen": {"kind": "words", "count": 8, "words": ["дім","кіт","ліс","мама","тато","гра","клас","книга","школа","зошит","олівець","пенал","стіл","вікно","дощ","сніг","море","ранок","друг","сонце","літо","зима","весна","осінь","мишка","екран","файл","папка","мова","код","сайт","пароль","дані","ручка","парта","урок","перерва","гурток","квітка","ракета"]}
+        },
+        "en": {
+          "keys": "abcdefghijklmnopqrstuvwxyz ",
+          "newKeys": "",
+          "gen": {"kind": "words", "count": 8, "words": ["cat","dog","sun","book","desk","class","mouse","screen","school","pencil","apple","green","water","music","robot","code","game","file","web","key","home","tree","bird","fish","star","moon","happy","table","chair","paper","folder","rocket","planet","friend","winter","summer","spring","autumn","lesson","puzzle"]}
+        }
+      }
+    },
+    {
+      "id": "capitals",
+      "title": {"uk":"Великі літери","en":"Capital letters"},
+      "tip": {"uk":"Тримай **Shift** мізинцем протилежної руки. Літеру лівої руки друкуй з правим Shift, а літеру правої руки з лівим.","en":"Hold **Shift** with the little finger of the opposite hand. Type a left-hand letter with the right Shift and a right-hand letter with the left Shift."},
+      "asteroidHp": 16,
+      "sets": {
+        "uk": {
+          "keys": "абвгґдеєжзиіїйклмнопрстуфхцчшщьюяАБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ ",
+          "newKeys": "КЛОХДМАСТІПЯЄБ",
+          "gen": {"kind": "words", "count": 7, "words": ["Київ","Львів","Одеса","Харків","Дніпро","Оля","Марко","Андрій","Софія","Тарас","Іра","Олег","Петро","Катя","Ярослав","Євген","Богдан","Ліза","Данило"]}
+        },
+        "en": {
+          "keys": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ",
+          "newKeys": "ABKLMTPSZOEJRND",
+          "gen": {"kind": "words", "count": 7, "words": ["Anna","Ben","Kyiv","London","Mia","Tom","Lviv","Paris","Max","Lucy","Sam","Zoe","Oliver","Emma","Jack","Rome","Nina","Peter","Julia","Daniel"]}
+        }
+      }
+    },
+    {
+      "id": "punctuation",
+      "title": {"uk":"Розділові знаки","en":"Punctuation"},
+      "tip": {"uk":"Крапка, кома, знаки питання й оклику, двокрапка, дужки, лапки, дефіс та апостроф.","en":"Full stop, comma, question and exclamation marks, colon, semicolon, brackets, quotes, hyphen and apostrophe."},
+      "asteroidHp": 16,
+      "sets": {
+        "uk": {
+          "keys": "абвгґдеєжзиіїйклмнопрстуфхцчшщьюяАБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ.,!?:;-'\"() ",
+          "newKeys": ".,!?:;-'\"()",
+          "texts": [
+            "Привіт, друже! Як твої справи? Сьогодні в нас урок: пишемо швидко й без помилок.",
+            "Мій комп'ютер - це не іграшка; він допомагає вчитися. А ти що скажеш: \"Так!\"?",
+            "Ми вивчаємо клавіатуру (букви, цифри й знаки) вже п'ять днів. Хто помітив, як це корисно?"
+          ]
+        },
+        "en": {
+          "keys": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.,!?:;-'\"() ",
+          "newKeys": ".,!?:;-'\"()",
+          "texts": [
+            "Hello, my friend! How are you today? Let's practice: type fast - but stay accurate.",
+            "My computer isn't a toy; it helps me learn. What do you say: \"Yes!\"?",
+            "We are learning the keyboard (letters, digits and signs) this week. Who noticed how useful it is?"
+          ]
+        }
+      }
+    },
+    {
+      "id": "digits",
+      "title": {"uk":"Цифри","en":"Digits"},
+      "tip": {"uk":"Верхній ряд з цифрами. Пальці ті самі, що й для літер під ними.","en":"The number row. Your fingers reach up from the letters right below."},
+      "asteroidHp": 14,
+      "sets": {
+        "uk": {
+          "keys": "0123456789 ",
+          "newKeys": "0123456789",
+          "gen": {"kind":"groups","groups":9,"min":3,"max":4}
+        },
+        "en": {
+          "keys": "0123456789 ",
+          "newKeys": "0123456789",
+          "gen": {"kind":"groups","groups":9,"min":3,"max":4}
+        }
+      }
+    },
+    {
+      "id": "sentences",
+      "title": {"uk":"Речення","en":"Sentences"},
+      "tip": {"uk":"Усе разом: літери, знаки, цифри й великі літери.","en":"Everything together: letters, signs, digits and capitals."},
+      "asteroidHp": 18,
+      "sets": {
+        "uk": {
+          "keys": "абвгґдеєжзиіїйклмнопрстуфхцчшщьюяАБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ.,!?:;-'\"()0123456789 ",
+          "newKeys": "",
+          "texts": [
+            "Алгоритм - це послідовність кроків, яка веде до результату. Роби кроки по порядку, і все вийде!",
+            "Комп'ютер складається з процесора, пам'яті, клавіатури та екрана. Кожна частина має своє завдання.",
+            "Ніколи не повідомляй незнайомцям свій пароль. Надійний пароль має щонайменше 8 символів: літери, цифри й знаки.",
+            "Миша й клавіатура - це пристрої введення. Вони передають комп'ютеру команди від людини."
+          ]
+        },
+        "en": {
+          "keys": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.,!?:;-'\"()0123456789 ",
+          "newKeys": "",
+          "texts": [
+            "An algorithm is a sequence of steps that leads to a result. Follow the steps in order, and it will work!",
+            "A computer has a processor, memory, a keyboard and a screen. Every part has its own job.",
+            "Never tell a stranger your password. A strong password has at least 8 symbols: letters, digits and signs.",
+            "A mouse and a keyboard are input devices. They send commands from a person to the computer."
+          ]
+        }
+      }
+    },
+    {
+      "id": "long-text",
+      "title": {"uk":"Довгий текст","en":"Long text"},
+      "tip": {"uk":"Фінальне випробування: довгий текст без поспіху. Спершу точність, потім швидкість.","en":"The final challenge: a long text, no rush. Accuracy first, speed second."},
+      "asteroidHp": 20,
+      "sets": {
+        "uk": {
+          "keys": "абвгґдеєжзиіїйклмнопрстуфхцчшщьюяАБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ.,!?:;-'\"()0123456789 ",
+          "newKeys": "",
+          "texts": [
+            "Інформатика вивчає, як зберігати, передавати й обробляти інформацію. Щодня ми користуємося комп'ютером, телефоном і планшетом, а всередині кожного з них працюють програми. Програму пишуть люди, а виконує її машина: крок за кроком, точно за інструкцією.",
+            "Інтернет - це величезна мережа, у якій кожен може знайти цікаве. Але в мережі, як і на вулиці, треба бути обережним: не поспішай переходити за незнайомими посиланнями, не ділися паролями й завжди розповідай дорослим, якщо щось здалося дивним.",
+            "Швидко друкувати вчаться не за один день. Дивись на екран, а не на клавіатуру, тримай спину рівно й не поспішай. Спершу точність, потім швидкість: так працюють справжні майстри. Кожна вправа робить пальці кмітливішими, а думки швидшими."
+          ]
+        },
+        "en": {
+          "keys": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.,!?:;-'\"()0123456789 ",
+          "newKeys": "",
+          "texts": [
+            "Computer science studies how to store, send and process information. Every day we use computers, phones and tablets, and inside each of them programs are running. People write the program, and the machine runs it: step by step, exactly as instructed.",
+            "The internet is a huge network where anyone can find something interesting. But online, just like on the street, you need to be careful: do not rush to click unknown links, never share your passwords and always tell an adult if something looks strange.",
+            "Nobody learns to type fast in a single day. Look at the screen, not at the keyboard, keep your back straight and take your time. Accuracy first, speed second: that is how real masters work. Every exercise makes your fingers smarter and your thoughts quicker."
+          ]
+        }
+      }
+    }
+  ]
+}

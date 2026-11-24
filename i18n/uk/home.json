@@ -85,5 +85,12 @@
   "card.sirnyky.f2": "підказки",
   "card.sirnyky.f3": "кілька відповідей",
   "card.sirnyky.cta": "Розв’язувати",
-  "card.sirnyky.note": "випадковий порядок"
+  "card.sirnyky.note": "випадковий порядок",
+  "card.klaviatura.subject": "Клавіатура",
+  "card.klaviatura.blurb": "Друкуй не дивлячись на клавіші: кожна правильна літера стріляє по астероїду, а серія без помилок підсилює постріли.",
+  "card.klaviatura.f1": "{count.klaviatura} {count.klaviatura|рівень|рівні|рівнів|рівня}",
+  "card.klaviatura.f2": "підказки для пальців",
+  "card.klaviatura.f3": "комбо й астероїди",
+  "card.klaviatura.cta": "Тренуватися",
+  "card.klaviatura.note": "потрібна клавіатура"
 }

@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Рівні гри «Космічний клавіатурний тренажер» (content/klaviatura/levels.json)",
+  "type": "object",
+  "required": ["format", "errorBudgetRatio", "asteroidHp", "combo", "stars", "levels"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "format": { "const": 1 },
+    "errorBudgetRatio": { "type": "number", "minimum": 0.05, "maximum": 0.5, "description": "Частка помилок від довжини тексту: бюджет помилок = ceil(довжина * частка). Можна перевизначити в рівні." },
+    "asteroidHp": { "type": "integer", "minimum": 4, "description": "Міцність астероїда за замовчуванням (одиниць шкоди)" },
+    "combo": {
+      "type": "array", "minItems": 1,
+      "description": "Щаблі комбо: від скількох правильних клавіш поспіль шкода множиться на mult",
+      "items": {
+        "type": "object", "required": ["at", "mult"], "additionalProperties": false,
+        "properties": { "at": { "type": "integer", "minimum": 2 }, "mult": { "type": "integer", "minimum": 2, "maximum": 9 } }
+      }
+    },
+    "stars": {
+      "type": "object", "required": ["two", "three"], "additionalProperties": false,
+      "description": "Пороги точності (%) для двох і трьох зірок; одна зірка за перемогу",
+      "properties": { "two": { "type": "number", "minimum": 1, "maximum": 100 }, "three": { "type": "number", "minimum": 1, "maximum": 100 } }
+    },
+    "levels": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "tip", "sets"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "description": "Стабільний id (kebab-case): за ним зберігається прогрес і будується посилання #id" },
+          "title": { "$ref": "#/definitions/text" },
+          "tip": { "$ref": "#/definitions/text" },
+          "asteroidHp": { "type": "integer", "minimum": 4 },
+          "errorBudgetRatio": { "type": "number", "minimum": 0.05, "maximum": 0.5 },
+          "sets": {
+            "type": "object",
+            "required": ["uk", "en"],
+            "additionalProperties": false,
+            "description": "Набір для кожної мови (розкладки): українська ЙЦУКЕН і англійська QWERTY",
+            "properties": {
+              "uk": { "$ref": "#/definitions/set" },
+              "en": { "$ref": "#/definitions/set" }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "text": {
+      "type": "object",
+      "required": ["uk", "en"],
+      "additionalProperties": false,
+      "properties": { "uk": { "type": "string", "minLength": 1 }, "en": { "type": "string", "minLength": 1 } }
+    },
+    "set": {
+      "type": "object",
+      "required": ["keys", "newKeys"],
+      "additionalProperties": false,
+      "description": "keys: усі дозволені символи рівня (разом із пробілом); newKeys: символи, що вводяться вперше; рівно одне з gen і texts",
+      "properties": {
+        "keys": { "type": "string", "minLength": 2 },
+        "newKeys": { "type": "string" },
+        "gen": {
+          "type": "object",
+          "required": ["kind"],
+          "additionalProperties": false,
+          "properties": {
+            "kind": { "enum": ["groups", "words"] },
+            "groups": { "type": "integer", "minimum": 1, "description": "groups: кількість груп" },
+            "min": { "type": "integer", "minimum": 1, "description": "groups: мінімальна довжина групи" },
+            "max": { "type": "integer", "minimum": 1, "description": "groups: максимальна довжина групи" },
+            "focus": { "type": "string", "description": "groups: у кожній групі є хоча б один із цих символів" },
+            "count": { "type": "integer", "minimum": 1, "description": "words: кількість слів" },
+            "words": { "type": "array", "minItems": 2, "items": { "type": "string", "minLength": 1 } }
+          }
+        },
+        "texts": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } }
+      }
+    }
+  }
+}

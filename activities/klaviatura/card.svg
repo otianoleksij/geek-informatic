@@ -1,0 +1,20 @@
+<svg viewBox="0 0 120 120" aria-hidden="true">
+    <ellipse cx="60" cy="108" rx="44" ry="5" fill="#000" opacity=".2"/>
+    <g stroke="#1B1330" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M78 40L52 66" fill="none" stroke="#7DF9FF" stroke-width="3.5" opacity=".9"/>
+      <path d="M72 58L58 72" fill="none" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round" opacity=".9"/>
+      <path d="M72 14 C90 10 106 20 104 36 C108 50 96 62 82 60 C66 66 56 52 60 38 C58 26 62 16 72 14 Z" fill="#8F7F9C"/>
+      <circle cx="80" cy="26" r="6" fill="#4B3F5A"/><circle cx="92" cy="46" r="5" fill="#4B3F5A"/><circle cx="72" cy="46" r="3.5" fill="#4B3F5A"/>
+      <path d="M84 34 L90 40 L86 46" fill="none" stroke="#FF7A3D" stroke-width="2.6"/>
+      <path d="M26 96 L14 108 L26 104Z" fill="#FF7A3D"/>
+      <path d="M16 64 L8 84 L22 78Z" fill="#3FE0D0"/>
+      <path d="M46 98 L58 108 L52 92Z" fill="#3FE0D0"/>
+      <path d="M52 66 L34 76 L16 98 L16 108 L38 98 L42 92 Z" fill="#EAE3D8"/>
+      <path d="M62 60 L52 66 L42 92 L50 94Z" fill="#EAE3D8"/>
+      <circle cx="44" cy="78" r="5" fill="#7DF9FF" stroke-width="2.4"/>
+    </g>
+    <g fill="#16122A" stroke="#3FE0D0" stroke-width="2.4" stroke-linejoin="round">
+      <rect x="62" y="84" width="14" height="14" rx="3"/><rect x="80" y="84" width="14" height="14" rx="3"/><rect x="98" y="84" width="14" height="14" rx="3"/>
+    </g>
+    <path d="M65 91h8M83 91h8M101 91h8" stroke="#FFD9A8" stroke-width="2.4" stroke-linecap="round"/>
+</svg>

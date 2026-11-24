@@ -38,5 +38,7 @@
   "tips.1": "**Shared computers.** At the end of the lesson, ask students to clear their data on the [“Privacy”](@privacy/) page so the next class starts from scratch.",
   "tips.2": "**CyberShield ID card.** The name and grade aren’t saved, so students enter them while the page is open. The ID card can be shown on screen, captured in a screenshot, or the result line can be copied and sent to the teacher.",
   "tips.3": "**Keyboard.** The block editors (Galaxy Code, Mars Rover) have a “Keyboard controls” help section for students who find the mouse awkward.",
-  "tips.4": "**Same conditions for everyone.** Share one class-wide link to a level or a maze so that solutions can be compared."
+  "tips.4": "**Same conditions for everyone.** Share one class-wide link to a level or a maze so that solutions can be compared.",
+  "do.klaviatura": "Practise touch typing across {count.klaviatura} {count.klaviatura|level|levels}, from the home row to a long text. Every correct key fires at an asteroid, and mistakes bring it closer. A physical keyboard is required.",
+  "links.klaviatura": "**Typing trainer:** `#level-name` opens that level even if the earlier ones are not finished. For example, `#home-row` opens the home row: `https://otianoleksij.github.io/geek-informatic/en/games/klaviatura/#home-row`. Level names: `index-fingers`, `home-row`, `top-middle`, `top-row`, `bottom-row`, `all-letters`, `short-words`, `capitals`, `punctuation`, `digits`, `sentences`, `long-text`. The Ukrainian page needs the Ukrainian keyboard layout, the English page (`/en/`) needs the English one."
 }

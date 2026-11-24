@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en" data-root="../../../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'none'">
+<title>Space Typing Trainer — Geek Informatic</title>
+<meta name="description" content="Learn touch typing: every correct key fires at an asteroid, and hints show which finger to use. 12 levels from the home row to a long text.">
+<link rel="canonical" href="https://otianoleksij.github.io/geek-informatic/en/games/klaviatura/">
+<link rel="alternate" hreflang="uk" href="https://otianoleksij.github.io/geek-informatic/games/klaviatura/">
+<link rel="alternate" hreflang="en" href="https://otianoleksij.github.io/geek-informatic/en/games/klaviatura/">
+<link rel="alternate" hreflang="x-default" href="https://otianoleksij.github.io/geek-informatic/games/klaviatura/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Geek Informatic">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Space Typing Trainer">
+<meta property="og:description" content="Learn touch typing: every correct key fires at an asteroid, and hints show which finger to use. 12 levels from the home row to a long text.">
+<meta property="og:url" content="https://otianoleksij.github.io/geek-informatic/en/games/klaviatura/">
+<meta property="og:image" content="https://otianoleksij.github.io/geek-informatic/assets/og/en/klaviatura.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Space Typing Trainer — Geek Informatic">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Space Typing Trainer","description":"Learn touch typing: every correct key fires at an asteroid, and hints show which finger to use. 12 levels from the home row to a long text.","url":"https://otianoleksij.github.io/geek-informatic/en/games/klaviatura/","inLanguage":"en","isAccessibleForFree":true,"learningResourceType":"game","educationalLevel":"Grades 2–7","teaches":["computer science words"],"provider":{"@type":"Organization","name":"Geek Informatic","url":"https://otianoleksij.github.io/geek-informatic/"},"publisher":{"@type":"Organization","name":"Geek Informatic","url":"https://otianoleksij.github.io/geek-informatic/"}}</script>
+<meta name="theme-color" content="#0B0916">
+<link rel="icon" type="image/svg+xml" href="../../../activities/klaviatura/favicon.svg">
+<link rel="preload" href="../../../assets/fonts/nunito-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../../assets/fonts/fonts.css">
+<link rel="stylesheet" href="../../../activities/klaviatura/klaviatura.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<!-- Космос лініями: тільки контури, без заливки -->
+<svg class="bg-lines" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+  <g class="drift d4">
+    <g transform="translate(1390 230)">
+      <circle class="c1" r="120"/>
+      <ellipse class="c2" rx="200" ry="52" transform="rotate(-18)"/>
+      <ellipse class="c3 dash" rx="240" ry="70" transform="rotate(-18)"/>
+      <circle class="c1" cx="-30" cy="-28" r="22"/><circle class="c1" cx="36" cy="30" r="30"/>
+    </g>
+  </g>
+  <g class="drift d2">
+    <g transform="translate(160 800) rotate(-20)">
+      <path class="c2" d="M-46 -4 Q-40 -34 -6 -38 Q30 -40 48 -14 Q56 14 22 34 Q-16 44 -42 24 Q-52 12 -46 -4 Z"/>
+      <circle class="c2" cx="-10" cy="-6" r="9"/><circle class="c2" cx="20" cy="12" r="6"/>
+    </g>
+  </g>
+  <g class="drift d3">
+    <g transform="translate(300 170) rotate(30)">
+      <path class="c3" d="M-22 -2 Q-20 -16 -4 -18 Q14 -18 22 -6 Q24 8 8 14 Q-10 18 -20 8 Z"/>
+    </g>
+  </g>
+  <g class="drift d1">
+    <g transform="translate(1180 840) rotate(-38)">
+      <path class="c1" d="M0 -70 C20 -48 22 0 14 40 L-14 40 C-22 0 -20 -48 0 -70 Z"/>
+      <circle class="c1" cy="-22" r="9"/>
+      <path class="c1" d="M14 18 L34 50 L14 40M-14 18 L-34 50 L-14 40"/>
+      <path class="c2" d="M-8 46 Q0 86 8 46"/>
+    </g>
+  </g>
+  <path class="c2 dash" d="M1050 120 L700 470"/><path class="c1 dash" d="M980 150 L640 520"/>
+  <circle class="dot" cx="1180" cy="520" r="5"/><circle class="dot" cx="420" cy="420" r="4"/><circle class="dot" cx="760" cy="860" r="5"/>
+  <g class="c4"><path d="M520 140v26M507 153h26"/><path d="M900 640v20M890 650h20"/><path d="M60 460v22M49 471h22"/></g>
+</svg>
+<div class="stars-layer" id="stars" aria-hidden="true"></div>
+
+<div class="page">
+  <header class="top">
+    <a class="logo" href="../../../en/" aria-label="Geek Informatic — home">
+      <span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="#FFE45C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 7l-5 5 5 5M15 7l5 5-5 5"/></svg></span>
+      <span>Geek Informatic<small>computer science lessons</small></span>
+    </a>
+    <nav><a href="../../../en/">Home</a><a class="lang-switch" href="../../../games/klaviatura/" hreflang="uk" lang="uk" title="Change language">Українська</a></nav>
+  </header>
+
+  <main id="main">
+  <div id="loadError" class="card load-error" role="alert" hidden>Couldn&#39;t load the task. Please refresh the page.</div>
+  <noscript><p class="card">This page needs JavaScript. Please turn it on in your browser.</p></noscript>
+
+  <section class="hero">
+    <span class="tag">KEYBOARD</span>
+    <h1>Space Typing Trainer</h1>
+    <p class="lead">Type the text: every correct key fires your ship&#39;s laser at the asteroid. The longer your streak without mistakes, the stronger the shots. No need to hurry, the asteroid will wait for you.</p>
+  </section>
+
+  <div class="card notice" id="touchNotice" role="note" hidden>
+    <b>A keyboard is needed.</b> This trainer works with the physical keyboard of a computer or laptop. You can&#39;t type on a phone or tablet without a keyboard.
+  </div>
+
+  <!-- ===== вибір рівня ===== -->
+  <section class="card" id="viewLevels" aria-labelledby="levelsH" hidden>
+    <h2 id="levelsH">Levels <span id="levelsProgress"></span></h2>
+    <p class="muted">Levels unlock one by one: finish a level to open the next.</p>
+    <ol class="levels" id="levelList"></ol>
+    <div class="row">
+      <button class="btn btn-ghost" id="resetProgress" type="button">Reset progress</button>
+    </div>
+  </section>
+
+  <!-- ===== гра ===== -->
+  <section id="viewGame" aria-label="Game" hidden>
+    <div class="game-bar">
+      <button class="btn btn-ghost" id="backBtn" type="button">← All levels</button>
+      <h2 class="lvl-name"><span id="lvlNo"></span> <span id="lvlName"></span></h2>
+      <button class="btn btn-ghost" id="restartBtn" type="button">↺ Restart</button>
+    </div>
+    <p class="tip" id="lvlTip"></p>
+
+    <!-- 1. Текст для набору -->
+    <div class="card type-card">
+      <p class="sr-only" id="textSr"></p>
+      <div class="textrow" id="textRow" tabindex="-1" role="group" aria-label="Text to type"><div class="track" id="track" aria-hidden="true"></div></div>
+      <p class="layout-warn" id="layoutWarn" hidden></p>
+    </div>
+
+    <!-- 2. Ігровий екран -->
+    <div class="card stage-card">
+      <div class="stage-wrap" id="stageWrap">
+        <canvas id="stage" width="800" height="200" role="img" aria-label="Game screen: your ship is at the bottom left, an asteroid flies in from the top right. Mistakes bring the asteroid closer.">Game screen: your ship is at the bottom left, an asteroid flies in from the top right. Mistakes bring the asteroid closer.</canvas>
+        <ul class="hud" aria-label="Game status">
+          <li class="chip" id="hudScore"></li>
+          <li class="chip" id="hudAst"></li>
+          <li class="chip" id="hudErr"></li>
+          <li class="chip" id="hudCombo"></li>
+        </ul>
+        <div class="status" id="status" role="status" aria-live="polite"></div>
+      </div>
+    </div>
+
+    <!-- 3. Екранна клавіатура -->
+    <div class="card kb-card">
+      <p class="finger-hint" id="fingerHint"></p>
+      <div class="kb-wrap">
+        <div class="kb" id="keyboard" aria-hidden="true"></div>
+        <svg class="hands" id="hands" viewBox="0 0 560 190" aria-hidden="true" focusable="false"></svg>
+      </div>
+      <ul class="legend" id="legend" aria-label="Finger colours"></ul>
+    </div>
+  </section>
+  </main>
+</div>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mtitle">
+  <div class="modal-box">
+    <div class="big" id="mIcon" aria-hidden="true"></div>
+    <h2 id="mtitle"></h2>
+    <p id="mText"></p>
+    <p class="m-stars" id="mStars"></p>
+    <dl class="m-stats" id="mStats"></dl>
+    <div class="mbtns">
+      <button class="btn btn-ghost" id="mLevels" type="button">All levels</button>
+      <button class="btn btn-ghost" id="mRetry" type="button">Try again</button>
+      <button class="btn btn-main" id="mNext" type="button">Next level</button>
+    </div>
+  </div>
+</div>
+
+<script type="application/json" id="i18n-data">{"common":{"siteName":"Geek Informatic","tagline":"computer science lessons","logoLabel":"Geek Informatic — home","home":"Home","skip":"Skip to main content","teachers":"For teachers","privacy":"Privacy","noscript":"This page needs JavaScript. Please turn it on in your browser.","loadError":"Couldn't load the task. Please refresh the page.","lang.uk":"Українська","lang.en":"English","langSwitch":"Change language","topic.safety":"online safety","topic.algorithms":"algorithms","topic.loops":"loops","topic.conditions":"conditions","topic.blocks":"block coding","topic.vocabulary":"computer science words","topic.logic":"logic","grade.single":"Grade {range}","grade.range":"Grades {range}","navLabel":"Sections","footer":"computer science games, quests and puzzles","ukOnly":"Ukrainian only","ogAlt":"Geek Informatic — computer science you can play","kbdSummary":"Keyboard controls","kbdStepsHead":"How to add a block without a mouse:","kbdStep1":"Press [[Tab]] to move into the program area, then press [[Ctrl]]+[[Shift]]+[[K]].","kbdStep2":"[[D]] and [[S]]: move the cursor under the last block of the program (a line will appear there).","kbdStep3":"[[Enter]]: mark this spot.","kbdStep4":"[[T]]: go to the block panel, [[S]]: pick the block you need.","kbdStep5":"[[Enter]]: the block will snap into the marked spot.","kbdAllHead":"All keys:","kbdAll1":"[[Ctrl]]+[[Shift]]+[[K]]: turn keyboard mode on or off (the workspace must have focus).","kbdAll2":"[[W]] [[A]] [[S]] [[D]]: move between blocks: up, out, down, in.","kbdAll3":"[[T]]: go to the block panel; [[W]]/[[S]]: choose a category, [[D]]: open its blocks.","kbdAll4":"[[Enter]]: in the block panel, take a block into the program; in the program, mark the place to insert.","kbdAll5":"[[I]]: insert (attach) the block at the marked spot. [[Shift]]+[[W]]/[[A]]/[[S]]/[[D]]: move the cursor over empty workspace.","kbdAll6":"[[X]]: detach a block. [[Delete]] or [[Backspace]]: delete the selected block.","kbdAll7":"[[Esc]] or [[E]]: go back from the block panel to the program."},"klaviatura":{"footer":"Space Typing Trainer","tag":"KEYBOARD","title":"Space Typing Trainer","lead":"Type the text: every correct key fires your ship's laser at the asteroid. The longer your streak without mistakes, the stronger the shots. No need to hurry, the asteroid will wait for you.","touchTitle":"A keyboard is needed.","touchText":"This trainer works with the physical keyboard of a computer or laptop. You can't type on a phone or tablet without a keyboard.","levelsTitle":"Levels","levelsProgress":"Completed: {done} of {total}","levelsHint":"Levels unlock one by one: finish a level to open the next.","levelNo":"Level {n}","locked":"Locked","newKeys":"New keys:","review":"Practice","best":"Best: {cpm} cpm, {acc}%","starsAria":"Stars: {n} of 3","reset":"Reset progress","resetConfirm":"Reset all trainer progress? This cannot be undone.","gameAria":"Game","back":"← All levels","restart":"↺ Restart","textAria":"Text to type","hudAria":"Game status","stageAria":"Game screen: your ship is at the bottom left, an asteroid flies in from the top right. Mistakes bring the asteroid closer.","legendAria":"Finger colours","hud.score":"Score: {n}","hud.ast":"Asteroids: {n}","hud.err":"Mistakes: {n} of {max}","hud.combo":"Combo: {n}","comboLabel":"COMBO ×{mult}","status.start":"Type the text. Every correct key fires a shot, and a mistake brings the asteroid closer.","status.tier":"COMBO ×{mult}! Your shots get stronger.","status.destroyed":"Asteroid destroyed! Total: {n}.","status.miss":"Mistake. The asteroid is closer: {errors} of {max}.","status.missCombo":"Mistake, combo lost. The asteroid is closer: {errors} of {max}.","status.won":"Level complete!","status.lost":"Your ship was destroyed.","layoutHint":"Switch keyboard layout to English","keySpace":"Space","hint.key":"Next: **{key}**. Finger: {finger}.","hint.shift":"Next: **{key}** (with Shift). Finger: {finger}; hold Shift with the {shiftFinger}.","finger.lp":"left pinky","finger.lr":"left ring finger","finger.lm":"left middle finger","finger.li":"left index finger","finger.th":"thumb","finger.ri":"right index finger","finger.rm":"right middle finger","finger.rr":"right ring finger","finger.rp":"right pinky","allLevels":"All levels","again":"Try again","next":"Next level","pct":"{n}%","result.wonTitle":"Level complete!","result.wonText":"The way is clear. See how you did.","result.lostTitle":"Ship destroyed","result.lostText":"The asteroid reached your ship. No worries: try again, and take your time.","stat.accuracy":"Accuracy","stat.cpm":"Characters per minute","stat.combo":"Longest combo","stat.destroyed":"Asteroids destroyed","stat.score":"Score","stat.errors":"Mistakes"}}</script>
+<script src="../../../assets/js/storage.js"></script>
+<script src="../../../assets/js/i18n.js"></script>
+<script src="../../../assets/js/data.js"></script>
+<script src="../../../activities/klaviatura/klaviatura-core.js"></script>
+<script src="../../../activities/klaviatura/app.js"></script>
+</body>
+</html>

@@ -34,5 +34,6 @@
   "q.p": "Have a question about privacy? Write in the [Issues section of the GitHub repository](https://github.com/otianoleksij/geek-informatic/issues).",
   "confirm": "Delete all Geek Informatic progress on this device? This can’t be undone.",
   "cleared": "Records deleted: {count}",
-  "nothing": "Nothing was saved"
+  "nothing": "Nothing was saved",
+  "progress.8": "**Space Typing Trainer**: stars and best results (accuracy, speed, combo) for the finished levels, separately for the Ukrainian and English layouts."
 }

@@ -83,5 +83,12 @@
   "card.sirnyky.f2": "hints",
   "card.sirnyky.f3": "several answers",
   "card.sirnyky.cta": "Solve",
-  "card.sirnyky.note": "random order"
+  "card.sirnyky.note": "random order",
+  "card.klaviatura.subject": "Keyboard",
+  "card.klaviatura.blurb": "Learn to touch-type: every correct key fires at an asteroid, and a streak without mistakes powers up your shots.",
+  "card.klaviatura.f1": "{count.klaviatura} {count.klaviatura|level|levels}",
+  "card.klaviatura.f2": "finger hints",
+  "card.klaviatura.f3": "combos and asteroids",
+  "card.klaviatura.cta": "Practise",
+  "card.klaviatura.note": "keyboard needed"
 }
