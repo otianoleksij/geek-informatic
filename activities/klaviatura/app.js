@@ -6,7 +6,7 @@
   var Core = window.KlaviaturaCore;
   var ROOT = document.documentElement.getAttribute("data-root") || "";
   var LANG = (window.GII18n && GII18n.lang) || "uk";
-  var STORE_ID = "klaviatura:v1", SLUG = "klaviatura";
+  var STORE_ID = "klaviatura:v2", SLUG = "klaviatura";
   var NS = "http://www.w3.org/2000/svg";
   var $ = function (id) { return document.getElementById(id); };
   var T = function (k, params) { return t("klaviatura." + k, params); };
